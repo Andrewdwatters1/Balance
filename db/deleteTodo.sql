@@ -1,0 +1,2 @@
+DELETE FROM todoz
+WHERE id = $1
