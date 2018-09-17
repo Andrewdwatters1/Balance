@@ -1,8 +1,8 @@
 Branch master as the primary production branch.  
-  -Branch <Calendar> Ryan Whitecar
-  -Branch <Notes> Taylor Montgomery
-  -Branch <Todos> Palmer Campbell
-  -Branch <Habits> Andrew Watters
+  -Branch "Calendar" Ryan Whitecar
+  -Branch "Notes" Taylor Montgomery
+  -Branch "Todos" Palmer Campbell
+  -Branch "Habits" Andrew Watters
 
 Trello Board: https://trello.com/b/ui61drnq/group-project-board
 
