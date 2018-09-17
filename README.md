@@ -1,3 +1,13 @@
+Branch master as the primary production branch.  
+  -Branch <Calendar> Ryan Whitecar
+  -Branch <Notes> Taylor Montgomery
+  -Branch <Todos> Palmer Campbell
+  -Branch <Habits> Andrew Watters
+
+Trello Board: https://trello.com/b/ui61drnq/group-project-board
+
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
 Below you will find some information on how to perform common tasks.<br>
