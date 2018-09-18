@@ -1,6 +1,7 @@
 //Imports
 import React, { Component } from 'react';
 import Weather from '../Weather/Weather.js'
+import Backdrop from '../Backdrop/Backdrop.js'
 
 //CSS
 
@@ -50,17 +51,29 @@ export default class Home extends Component {
 
     toggleNavMenu = () => {
         this.setState({
-           isNavMenuVisible: true
+           isNavMenuVisible: !this.state.isNavMenuVisible
         })
       }
 
     toggleHabitsMenu = () => {
         this.setState({
-            isHabitsMenuVisible: true
+            isHabitsMenuVisible: !this.state.isNavMenuVisible
         })
     }
 
+    backdropClickHandler = () => {
+        this.setState({
+            isHabitsMenuVisisble: false,
+            isNavMenuVisible: false
+            });
+      };
+
     render(){
+
+        let backdrop;
+        if(this.state.isNavMenuVisible || this.state.isHabitsMenuVisible){
+            backdrop = <Backdrop click={this.backdropClickHandler}/>
+        }
 
         let daysOfTheWeek = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday']
         let dayNumber = this.state.date.getDay();
@@ -78,52 +91,45 @@ export default class Home extends Component {
             else return "Evening"
         }
 
-
         let formattedTime = this.state.time.slice(0, -6)
+
+
 
         return(
 
             <div className="background">
-                <div className="background-cover">
-
-                <div className="top-menu">
-                </div>
-
-                <div className="top-menu-button">
+            <div className="background-cover">
+                <div className="top-menu"></div>
+                {backdrop}
+                    <div className="top-menu-button">
                     <img src={habits}/>
                 </div>
 
 
 
-                <div className="left-menu-button">
+                <div className="left-menu-button"
+                    onClick={this.toggleNavMenu}>
                     <img src={arrow}/>
                 </div>
 
-                <div className="left-menu">
-
+                {this.state.isNavMenuVisible && <div className="left-menu">
                     <div className="spacer"></div>
-                    
                     <div className="left-menu-item-wrapper">
                         <img src={notepad}/>
                     </div>
-
                     <div className="left-menu-item-wrapper">
                         <img src={todos}/>
                     </div>
-
                     <div className="left-menu-item-wrapper">
                         <img src={habits}/>
                     </div>
-
                     <div className="left-menu-item-wrapper">
                         <img src={calendar}/>
                     </div>
-
                     <div className="left-menu-item-wrapper">
                         <img src={settings}/>
                     </div>
-
-                </div>
+                </div>}
 
                 <Weather/>
 
@@ -141,8 +147,10 @@ export default class Home extends Component {
                         <p>Here are your upcoming events:</p>
                         
                     </div>
-                </div>
-            </div>
+                    </div>
+                    </div>
+                    
+
         )
     }
 }
