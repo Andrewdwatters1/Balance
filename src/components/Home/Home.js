@@ -2,6 +2,10 @@
 import React, { Component } from 'react';
 import Weather from '../Weather/Weather.js'
 import Backdrop from '../Backdrop/Backdrop.js'
+import Notes from '../Notes/Notes.js'
+import Todo from '../Todo/Todo.js'
+import Habits from '../Habits/Habits.js'
+import Calendar from '../Calendar/Calendar.js'
 
 //CSS
 
@@ -18,11 +22,20 @@ const settings = require('../../assets/settings.png')
 
 export default class Home extends Component {
     constructor(props){
-        super();
+        super(props);
         var time= this.getTimeString();
         this.state={
+
+            isHomeCardVisible: true,
+            isWeatherCardVisible: true,
             isNavMenuVisible: false,
             isHabitsMenuVisible: false,
+
+            isNotesVisible: false,
+            isTodoVisible: false,
+            isHabitsVisible: false,
+            isCalendarVisible: false,
+
             date: new Date(),
             time: time,
             events: [],   //
@@ -67,6 +80,58 @@ export default class Home extends Component {
             isNavMenuVisible: false
             });
       };
+
+    notesToggler = () => {
+        this.setState({
+            isHomeCardVisible: false,
+            isWeatherCardVisible: false,
+            isHabitsMenuVisible: false,
+            isNavMenuVisible: false,
+            isNotesVisible: true,
+            isTodoVisible: false,
+            isHabitsVisible: false,
+            isCalendarVisible: false,
+        })
+    }
+
+    todoToggler = () => {
+        this.setState({
+            isHomeCardVisible: false,
+            isWeatherCardVisible: false,
+            isHabitsMenuVisible: false,
+            isNavMenuVisible: false,
+            isNotesVisible: false,
+            isTodoVisible: true,
+            isHabitsVisible: false,
+            isCalendarVisible: false,
+        })
+    }
+
+    habitsToggler = () => {
+        this.setState({
+            isHomeCardVisible: false,
+            isWeatherCardVisible: false,
+            isHabitsMenuVisible: false,
+            isNavMenuVisible: false,
+            isNotesVisible: false,
+            isTodoVisible: false,
+            isHabitsVisible: true,
+            isCalendarVisible: false,
+        })
+    }
+
+    calendarToggler = () => {
+        this.setState({
+            isHomeCardVisible: false,
+            isWeatherCardVisible: false,
+            isHabitsMenuVisible: false,
+            isNavMenuVisible: false,
+            isNotesVisible: false,
+            isTodoVisible: false,
+            isHabitsVisible: false,
+            isCalendarVisible: true,
+        })
+    }
 
     render(){
 
@@ -115,24 +180,31 @@ export default class Home extends Component {
                 {this.state.isNavMenuVisible && <div className="left-menu">
                     <div className="spacer"></div>
                     <div className="left-menu-item-wrapper">
-                        <img src={notepad}/>
+                        <img src={notepad} onClick={this.notesToggler}/>
                     </div>
                     <div className="left-menu-item-wrapper">
-                        <img src={todos}/>
+                        <img src={todos} onClick={this.todoToggler}/>
                     </div>
                     <div className="left-menu-item-wrapper">
-                        <img src={habits}/>
+                        <img src={habits} onClick={this.habitsToggler}/>
                     </div>
                     <div className="left-menu-item-wrapper">
-                        <img src={calendar}/>
+                        <img src={calendar} onClick={this.calendarToggler}/>
                     </div>
                     <div className="left-menu-item-wrapper">
                         <img src={settings}/>
                     </div>
                 </div>}
 
-                <Weather/>
+                {this.state.isWeatherCardVisible && <Weather/>}
 
+                {this.state.isNotesVisible && <Notes/>}
+                {this.state.isTodoVisible && <Todo/>}
+                {this.state.isHabitsVisible && <Habits/>}
+                {this.state.isCalendarVisible && <Calendar/>}
+
+                    
+                    {this.state.isHomeCardVisible &&
                     <div className="home-center-card">
                         <h1>{formattedTime}</h1>
                         <h2>Good {getTimeOfDay()}, {this.state.user}.</h2>
@@ -146,7 +218,8 @@ export default class Home extends Component {
 
                         <p>Here are your upcoming events:</p>
                         
-                    </div>
+                    </div>}
+
                     </div>
                     </div>
                     
