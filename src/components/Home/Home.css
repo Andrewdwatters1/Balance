@@ -51,9 +51,10 @@
     background-color: rgba(0, 0, 0, 0.8);
     height: 100%;
     width: 6vw;
-    display: none;
+    display: flex;
     flex-direction: column;
     align-items: center;
+    z-index: 3
 }
 
 .left-menu .spacer{
@@ -71,7 +72,6 @@
 .left-menu-item-wrapper>img{
     height: auto;
     width: 3vw;
-
 }
 
 .left-menu-item-wrapper>img:hover{
