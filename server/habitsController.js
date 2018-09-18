@@ -28,8 +28,3 @@ module.exports = {
     })
   }
 }
-
-app.get('/api/habits', habitsController.getAllHabits);
-app.put('/api/habits', habitsController.markComplete);
-app.post('/api/habits', habitsController.addHabit);
-app.delete('/api/habits', habitsController.deleteHabit);
