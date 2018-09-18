@@ -5,7 +5,9 @@ require('dotenv').config();
 const session = require('express-session');
 // const path = require('path')
 
-// import controllers
+// require controllers
+const authController = require('./authController');
+const habitsController = require('./habitsController');
 
 const app = express();
 const serverPort = process.env.SERVER_PORT;
@@ -23,6 +25,14 @@ app.use(session({
 // app.use(express.static(`${__dirname}/../build`)) // production build only
 
 // DEFINE ENDPTS
+app.post('/auth/register', authController.register);
+app.get('/auth/login', authController.login);
+app.delete('/auth/logout', authController.logout);
+
+app.get('/api/habits', habitsController.getAllHabits);
+app.put('/api/habits', habitsController.markComplete);
+app.post('/api/habits', habitsController.addHabit);
+app.delete('/api/habits', habitsController.deleteHabit);
 
 // app.get('*', (req, res) => { // production build only 
 //   res.sendFile(path.join(__dirname, '../build/index.html'));
