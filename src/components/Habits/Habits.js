@@ -1,17 +1,18 @@
 import React, { Component } from 'react';
 import './Habits.css'
 
-export default class Habits extends Component{
-    constructor(){
+export default class Habits extends Component {
+    constructor() {
         super();
-        this.state={
+        this.state = {
             habits: ''
         }
     }
 
-    render(){
-        return(
+    render() {
+        return (
             <div className="content-container">
+                Habits
             </div>
         )
     }
