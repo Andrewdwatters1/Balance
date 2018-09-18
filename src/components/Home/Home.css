@@ -1,0 +1,125 @@
+*{
+    font-family: 'Lato';
+    color: white;
+    box-sizing: border-box;
+}
+
+.background{
+    width: 100vw;
+    height: 100vh;
+    background-image: url('./background.jpeg')
+    /* background weather photos */
+}
+
+.top-menu{
+    position: absolute;
+    width: 100%;
+    height: 20vh;
+    background-color: rgba(0, 0, 0, 0.516);
+    display: none;
+}
+
+/* dismount weather */
+
+.background-cover{
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.516);
+    width: 100vw;
+    height: 100vh;
+}
+
+.top-menu-button{
+    position: relative;
+    margin: 0 auto;
+    width: 60px;
+    height: 30px;
+    background-color: rgba(0, 0, 0, 0.70);
+    border-bottom-left-radius: 50px;
+    border-bottom-right-radius: 50px;
+}
+
+.top-menu-button img{
+    height:20px;
+    width: auto;
+    margin-top: 4px;
+    margin-left: 20px;
+}
+
+.left-menu{
+    position: absolute;
+    top: 0;
+    background-color: rgba(0, 0, 0, 0.8);
+    height: 100%;
+    width: 6vw;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+}
+
+.left-menu .spacer{
+    height: 15vh;
+}
+
+.left-menu-item-wrapper{
+    margin-top: 5vh;
+    display:flex;
+    flex-direction: row;
+    align-content: center;
+    align-items: center;
+}
+
+.left-menu-item-wrapper>img{
+    height: auto;
+    width: 3vw;
+
+}
+
+.left-menu-item-wrapper>img:hover{
+    background-color: blue;
+
+}
+
+.left-menu-button{
+    position: relative;
+    margin: auto 0;
+    top: 35%;
+    width: 30px;
+    height: 60px;
+    background-color: rgba(0, 0, 0, 0.7);
+    border-bottom-right-radius: 50px;
+    border-top-right-radius: 50px;
+}
+
+.left-menu-button img{
+    height:20px;
+    width: auto;
+    margin-top: 20px;
+    margin-left: 4px;
+}
+
+.home-center-card{
+    position: absolute;
+    text-align: center;
+    top:0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    margin-top: 16vh;
+    height: 40vh;
+    width: 60vw;
+}
+
+.home-center-card h1{
+    font-family: 'Lato';
+    font-size: 130px;
+    margin-bottom: 15px;
+}
+
+.home-center-card span{
+    font-size: 22px;
+}
+
+.home-spacer{
+    height: 50px;
+}
