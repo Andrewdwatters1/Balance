@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import './Notes.css'
+import './Calendar.css'
 
-export default class Notes extends Component{
+export default class Calendar extends Component{
     constructor(){
         super();
         this.state={
-            notes: ''
+            calendar: ''
         }
     }
 
