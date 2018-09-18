@@ -6,6 +6,7 @@ import Notes from '../Notes/Notes.js'
 import Todo from '../Todo/Todo.js'
 import Habits from '../Habits/Habits.js'
 import Calendar from '../Calendar/Calendar.js'
+import Login from '../Login/Login.js'
 
 //CSS
 
@@ -159,7 +160,7 @@ export default class Home extends Component {
         let formattedTime = this.state.time.slice(0, -6)
 
 
-
+// if(this.props.user){
         return(
 
             <div className="background">
@@ -219,13 +220,12 @@ export default class Home extends Component {
                         <p>Here are your upcoming events:</p>
                         
                     </div>}
-
                     </div>
                     </div>
-                    
-
+                    // )}
+    // else{
+    //     return <Login/>
+    //     }
         )
     }
 }
-
-
