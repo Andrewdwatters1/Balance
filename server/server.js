@@ -11,6 +11,7 @@ var hash = bcrypt.hashSync("B4c0/\/", salt);
 // require controllers
 const authController = require('./authController');
 const habitsController = require('./habitsController');
+const notesController = require('./notesController');
 
 const app = express();
 const serverPort = process.env.SERVER_PORT;
@@ -36,6 +37,11 @@ app.get('/api/habits', habitsController.getAllHabits);
 app.put('/api/habits', habitsController.markComplete);
 app.post('/api/habits', habitsController.addHabit);
 app.delete('/api/habits', habitsController.deleteHabit);
+
+//notepad
+app.get('/api/notepad', notesController.getNotes)
+app.post('/api/notepad', notesController.addNotes)
+app.get('/api/notepad', notesController.deleteNotes)
 
 
 
