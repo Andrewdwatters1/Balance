@@ -14,6 +14,7 @@ export default class Calendar extends Component{
         return(
             
             <div className="content-container">
+            Calendar
             </div>
         )
     }
