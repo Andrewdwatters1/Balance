@@ -2,7 +2,14 @@
   "name": "devmountain-group-project",
   "version": "0.1.0",
   "private": true,
+  "main": "server/server.js",
   "dependencies": {
+    "axios": "^0.18.0",
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.18.3",
+    "dotenv": "^6.0.0",
+    "express-session": "^1.15.6",
+    "massive": "^5.4.0",
     "react": "^16.5.1",
     "react-dom": "^16.5.1",
     "react-scripts": "1.1.5"
@@ -12,5 +19,21 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
+  },
+  "proxy": {
+    "/auth/callback": {
+      "target": "http://localhost:3111"
+    },
+    "/api": {
+      "target": "http://localhost:3111"
+    }
+  },
+  "nodemonCongig": {
+    "ext": "js.sql",
+    "watch": "server",
+    "ignore": [
+      "src/*",
+      "public/*"
+    ]
   }
 }
