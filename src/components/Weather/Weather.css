@@ -1,0 +1,23 @@
+.weather-box{
+    position: absolute;
+    top: 0;
+    right: 25px;
+    display: inline;
+}
+
+.weather-box div{
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+}
+
+.weather-box img{
+    height:20px;
+    width: 20px;
+}
+
+.weather-box p{
+    margin-top: -17px;
+    font-size: 10px;
+}
