@@ -1,7 +1,8 @@
 module.exports = {
   getAllHabits: (req, res) => {
     let db = req.app.get('db');
-    db.get_all_habits().then(result => {
+    let { id } = req.body;
+    db.get_all_habits(id).then(result => {
       console.log(result);
       res.status(200).send(result);
     })
