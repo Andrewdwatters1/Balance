@@ -2,7 +2,7 @@
     --primary-accent-color: rgba(233, 88, 88, 0.708);  
 }
 
-.content-container{
+.content-container {
     position: absolute;
     top: 0;
     left: 0;
@@ -16,16 +16,73 @@
     display: flex;
 }
 .habits-sidebar {
-    width: 25vw; /* change to percent for greater consistency */
+    width: 38.5%; /* change to percent for greater consistency */
     height: 100%;
-    background-color: var(--primary-accent-color);
+    box-sizing: border-box;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    align-items: stretch;
+    background-color: inherit;
+    border: 1px rgba(255, 255, 255, 0.283) solid;
 }
 .habits-content {
-    width: 54vw;
+    width: 61.5%;
     height: 100%;
-    background-color: white;
+    box-sizing: border-box;
+    background-color: inherit;
+    border: 1px rgba(255, 255, 255, 0.283) solid;
+}
+.habits-content>p {
+    width: 70%;
+    margin: 0 auto;
+    height: 100%;
+    margin-top: 15%;
+    text-align: center;
+}
+.add-habit-button {
+    height: 25px;
+    width: auto;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    opacity: 0.6;
+}
+.add-habit-button:hover {
+    opacity: 1;
+    cursor: pointer;
+}
+.add-habit-close-form {
+    height: 25px;
+    width: auto;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    opacity: 0.6;
+    transform: rotate(45deg);
+}
+.add-habit-close-form:hover {
+    opacity: 1;
+    cursor: pointer;
+}
+.add-habit {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: inherit;
+    height: 33%;
+    border: 1px rgba(255, 255, 255, 0.283) solid;
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 61.5%;
+}
+.add-habit-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+.add-habit-form>input,textarea {
+    color: black;
 }

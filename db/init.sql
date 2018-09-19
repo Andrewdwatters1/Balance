@@ -15,6 +15,7 @@ CREATE TABLE habits (
   FOREIGN KEY (userId) REFERENCES users(id),
   title VARCHAR(100),
   description VARCHAR,
+  startdateformatted VARCHAR,
   startDate TIMESTAMP
 );
 

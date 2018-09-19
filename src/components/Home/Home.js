@@ -135,7 +135,7 @@ class Home extends Component {
     }
 
     render() {
-        console.log('current user', this.props.user);
+        // console.log('current user', this.props.user);
         let backdrop;
         if (this.state.isNavMenuVisible || this.state.isHabitsMenuVisible) {
             backdrop = <Backdrop click={this.backdropClickHandler} />

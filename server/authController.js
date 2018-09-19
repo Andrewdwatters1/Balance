@@ -8,8 +8,8 @@ module.exports = {
     bcrypt.genSalt(10, (error, salt) => {
       bcrypt.hash(password, salt, (error, hash) => {
         db.auth.register_new_user([firstName, lastName, username, email, hash, avitar, zip]).then(result => {
-          let { firstname, lastname, username, email, zipcode, avitar } = result[0];
-          let currentUser = { firstname, lastname, username, email, zipcode, avitar }
+          let { id, firstname, lastname, username, email, zipcode, avitar } = result[0];
+          let currentUser = { id, firstname, lastname, username, email, zipcode, avitar }
           res.status(200).send(currentUser);
         }).catch((error) => console.log('Error from authController.register => register_new_user.sql', error));
       });
@@ -37,14 +37,17 @@ module.exports = {
     res.sendStatus(200);
   },
   getCurrentUser: (req, res) => {
-    let { firstname, lastname, username, email, avitar, zip } = req.session.user;
-    firstname ? firstname : null;
-    lastname ? lastname : null;
-    username ? username : null;
-    email ? email : null;
-    avitar ? avitar : null;
-    zip ? zip : null;
-    let currentUser = { firstname, lastname, username, email, avitar, zip };
+    if(req.session.user) {
+      let { id, firstname, lastname, username, email, avitar, zip } = req.session.user;
+      id ? id : null;
+      firstname ? firstname : null;
+      lastname ? lastname : null;
+      username ? username : null;
+      email ? email : null;
+      avitar ? avitar : null;
+      zip ? zip : null;
+      var currentUser = { id, firstname, lastname, username, email, avitar, zip };
+    }
     res.status(200).send(currentUser)
   }
 }
