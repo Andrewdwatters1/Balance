@@ -12,11 +12,17 @@
     "express-session": "^1.15.6",
     "massive": "^5.4.0",
     "react": "^16.5.1",
+    "react-addons-css-transition-group": "^15.6.2",
     "react-dom": "^16.5.1",
+<<<<<<< HEAD
+    "react-infinite-calendar": "^2.3.1",
+    "react-scripts": "1.1.5"
+=======
     "react-redux": "^5.0.7",
     "react-scripts": "1.1.5",
     "redux": "^4.0.0",
     "redux-promise-middleware": "^5.1.1"
+>>>>>>> master
   },
   "scripts": {
     "start": "react-scripts start",
