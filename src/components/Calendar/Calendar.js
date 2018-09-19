@@ -66,7 +66,6 @@ export default class Calendar extends Component{
         return(
 
             <div className="content-container">
-<<<<<<< HEAD
             
                 <div className="calendar-div">
                     <InfiniteCalendar
@@ -93,9 +92,6 @@ export default class Calendar extends Component{
 
                 
 
-=======
-            Calendar
->>>>>>> master
             </div>
         )
     }
