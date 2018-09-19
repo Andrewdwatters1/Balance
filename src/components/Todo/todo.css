@@ -1,4 +1,6 @@
 .content-container{
+    display: flex;
+    justify-content: center;
     position: absolute;
     top: 0;
     left: 0;
@@ -9,4 +11,15 @@
     height: 80vh;
     background-color: rgba(0, 0, 0, 0.708);
     z-index: 5;
+}
+
+.todoInput{
+    padding: 3px;
+    outline: none;
+    margin: 20px;
+    background-color: rgba(0,0,0,0);
+    width : 25vw;
+    height : 25px;
+    border: 1px solid white;
+    border-radius: 2px;
 }
