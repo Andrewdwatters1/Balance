@@ -2,7 +2,7 @@ module.exports = {
     getTodos : async(req,res) => {
         try {
             let db = req.app.get('db')
-            let todos = await db.todos.getTodo()
+            let todos = await db.todos.getTodos()
             res.status(200).send(todos)
         } catch (error) {
             console.log('Error getting todos Origin: server/todoController/ Error:', error);

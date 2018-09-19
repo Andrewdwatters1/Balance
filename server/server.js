@@ -5,7 +5,7 @@ require('dotenv').config();
 const session = require('express-session');
 var bcrypt = require('bcryptjs');
 var salt = bcrypt.genSaltSync(10);
-var hash = bcrypt.hashSync("B4c0/\/", salt);
+var hash = bcrypt.hashSync("B4c0/\/r*d-lsx?}", salt);
 // const path = require('path')
 
 // require controllers
@@ -30,7 +30,7 @@ app.use(session({
 
 // DEFINE ENDPTS
 app.post('/auth/register', authController.register);
-app.get('/auth/login', authController.login);
+app.post('/auth/login', authController.login);
 app.delete('/auth/logout', authController.logout);
 
 app.get('/api/habits', habitsController.getAllHabits);

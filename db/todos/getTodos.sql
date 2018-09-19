@@ -1,1 +1,1 @@
-SELECT * from todos
+SELECT * FROM todos

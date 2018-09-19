@@ -12,6 +12,7 @@ export default class Notes extends Component{
     render(){
         return(
             <div className="content-container">
+            Notes
             </div>
         )
     }
