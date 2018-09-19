@@ -71,7 +71,10 @@ class Login extends Component {
         let { firstName, lastName, username, password, email, zip } = this.state;
         let newUserInfo = { firstName, lastName, username, password, email, zip };
         axios.post('/auth/register', newUserInfo).then(result => {
-            this.props.getCurrentUser();
+            let loginInfo = { username: newUserInfo.username, password: newUserInfo.password };
+            axios.post('/auth/login', loginInfo).then(response => {
+                this.props.getCurrentUser();
+            })
         })
         this.setState({
             firstName: "",
@@ -96,7 +99,7 @@ class Login extends Component {
                             this.state.isLoginVisible
                                 ?
                                 <div className="login-form-container">
-                                    <h3>Welcome Back! Please Login</h3>
+                                    <h3>Welcome Back!    Please Login</h3>
                                     <div className="login-field-wrapper">
                                         <p>USERNAME</p>
                                         <input type="text" onChange={this.handleUsernameInput} value={this.state.username} placeholder="username" className="login-input"></input>
@@ -109,7 +112,7 @@ class Login extends Component {
                                 </div>
                                 :
                                 <div className="login-form-container">
-                                    <h3>Welcome! Please Register Below</h3>
+                                    <h3>Welcome!    Please Register Below</h3>
                                     <div className="login-field-wrapper">
                                         <p>FIRST NAME</p>
                                         <input type="text" onChange={this.handleFirstNameInput} value={this.state.firstName} placeholder="First Name" className="login-input"></input>

@@ -38,7 +38,7 @@ class Home extends Component {
             date: new Date(),
             time: time,
             events: [],   //
-            user: "Ryan"  // to be pulled from user table
+            user: "Ryan"  // may be unecessary b/c is on redux
         }
     }
 
@@ -150,10 +150,10 @@ class Home extends Component {
 
         let getTimeOfDay = () => {
             let hour = this.state.date.getHours();
-            if (hour >= 17) { return "Evening" }
-            else if (hour >= 12) { return "Afternoon" }
-            else if (hour >= 4) "Morning"
-            else return "Evening"
+            if (hour >= 17) { return "Good Evening" }
+            else if (hour >= 12) { return "Good Afternoon" }
+            else if (hour >= 4) { return "Good Morning" }
+            else return "Hello"
         }
 
         let formattedTime = this.state.time.slice(0, -6)
@@ -204,7 +204,7 @@ class Home extends Component {
                         {this.state.isHomeCardVisible &&
                             <div className="home-center-card">
                                 <h1>{formattedTime}</h1>
-                                <h2>Good {getTimeOfDay()}, {this.state.user}.</h2>
+                                <h2>{getTimeOfDay()}, {this.props.user.firstname}.</h2>
                                 <span>Today is </span>
                                 <span>{day}, </span>
                                 <span>{month} </span>
