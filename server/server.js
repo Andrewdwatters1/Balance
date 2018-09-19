@@ -11,6 +11,7 @@ var hash = bcrypt.hashSync("B4c0/\/r*d-lsx?}", salt);
 const authController = require('./authController');
 const habitsController = require('./habitsController');
 const notesController = require('./notesController');
+const todoController = require('./todoController')
 
 const app = express();
 const serverPort = process.env.SERVER_PORT;
@@ -39,7 +40,11 @@ app.put('/api/habits', habitsController.markComplete);
 app.post('/api/habits', habitsController.addHabit);
 app.delete('/api/habits', habitsController.deleteHabit);
 
-
+// TODO ENDPOINTS
+app.get('/api/todo', todoController.getTodos)
+app.delete('/api/todo/:id', todoController.deleteTodos)
+app.put('/api/todo/:id', todoController.editTodo)
+app.post('/api/todo', todoController.createTodo)
 // TODO ENDPTS
 
 // CALENDAR ENDPTS
