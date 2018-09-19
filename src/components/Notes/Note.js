@@ -19,7 +19,7 @@ class Note extends Component{
                 <button onClick={() => this.props.deleteNotes(note.id)}>Delete Note</button>        
             </div>
          </div> 
-        )
+        ) 
     }
 }
 

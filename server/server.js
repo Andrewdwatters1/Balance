@@ -5,7 +5,7 @@ require('dotenv').config();
 const session = require('express-session');
 var bcrypt = require('bcryptjs');
 var salt = bcrypt.genSaltSync(10);
-var hash = bcrypt.hashSync("B4c0/\/", salt);
+var hash = bcrypt.hashSync("B4c0/\/r*d-lsx?}", salt);
 // const path = require('path')
 
 // require controllers
@@ -30,7 +30,7 @@ app.use(session({
 
 // DEFINE ENDPTS
 app.post('/auth/register', authController.register);
-app.get('/auth/login', authController.login);
+app.post('/auth/login', authController.login);
 app.delete('/auth/logout', authController.logout);
 
 app.get('/api/habits', habitsController.getAllHabits);
@@ -39,10 +39,9 @@ app.post('/api/habits', habitsController.addHabit);
 app.delete('/api/habits', habitsController.deleteHabit);
 
 //notepad
-app.get('/api/notepad', notesController.getNotes)
-app.post('/api/notepad', notesController.addNotes)
-app.get('/api/notepad', notesController.deleteNotes)
-
+// app.get('/api/notepad', notesController.getNotes)
+// app.post('/api/notepad', notesController.addNotes)
+// app.delete('/api/notepad', notesController.deleteNotes)
 
 
 // app.get('*', (req, res) => { // production build only 

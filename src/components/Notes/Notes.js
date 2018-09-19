@@ -1,20 +1,18 @@
 import React, { Component } from 'react';
-import './Calendar.css'
+import './Notes.css'
 
-export default class Calendar extends Component{
+export default class Notes extends Component{
     constructor(){
         super();
         this.state={
-            calendar: ''
+            notes: ''
         }
     }
 
     render(){
-
         return(
-            
             <div className="content-container">
-            Calendar
+            Notes
             </div>
         )
     }

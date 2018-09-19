@@ -11,7 +11,8 @@ class NotePad extends Component{
         this.state={
             name: '',
             date:'',
-            content:''
+            content:'',
+            notePad: []
         }
     }
 
@@ -45,7 +46,7 @@ class NotePad extends Component{
     render(){
         let {note} = this.props
             console.log(this.props)
-        let notePad = this.props.notePad.map(notes => {
+        let notePad = this.state.notePad.map(notes => {
             return <Note key={notes.id}
                     updatedNotes={this.updatedNotes}/>
         })
@@ -61,8 +62,8 @@ class NotePad extends Component{
                 </div>
                     {notePad}    
                 <div>
-                    <textarea className="scratchpad"/>
-                </div>
+                    {/* <textarea className="scratchpad"/> */}
+                </div> 
             </div>
         )
     }
