@@ -13,7 +13,10 @@
     "massive": "^5.4.0",
     "react": "^16.5.1",
     "react-dom": "^16.5.1",
-    "react-scripts": "1.1.5"
+    "react-redux": "^5.0.7",
+    "react-scripts": "1.1.5",
+    "redux": "^4.0.0",
+    "redux-promise-middleware": "^5.1.1"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -22,7 +25,7 @@
     "eject": "react-scripts eject"
   },
   "proxy": {
-    "/auth/callback": {
+    "/auth": {
       "target": "http://localhost:3111"
     },
     "/api": {

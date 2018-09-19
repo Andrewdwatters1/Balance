@@ -1,9 +1,9 @@
 module.exports = {
   getAllHabits: (req, res) => {
     let db = req.app.get('db');
-    let { id } = req.body;
-    db.get_all_habits(id).then(result => {
-      console.log(result);
+    // let { id } = req.session.user;
+    let id = 7;
+    db.habits.get_all_habits(id).then(result => {
       res.status(200).send(result);
     })
   }, 

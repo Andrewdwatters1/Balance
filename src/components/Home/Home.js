@@ -1,5 +1,6 @@
-//Imports
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+
 import Weather from '../Weather/Weather.js'
 import Backdrop from '../Backdrop/Backdrop.js'
 import Notes from '../Notes/Notes.js'
@@ -7,12 +8,9 @@ import Todo from '../Todo/Todo.js'
 import Habits from '../Habits/Habits.js'
 import Calendar from '../Calendar/Calendar.js'
 import Login from '../Login/Login.js'
-
-//CSS
+import { getCurrentUser } from '../../redux/reducers/user'
 
 import './Home.css'
-
-//Images
 
 const arrow = require('../../assets/play-button.png')
 const notepad = require('../../assets/notepad.png')
@@ -21,11 +19,11 @@ const habits = require('../../assets/infinity.png')
 const calendar = require('../../assets/calendar.png')
 const settings = require('../../assets/settings.png')
 
-export default class Home extends Component {
-    constructor(props){
+class Home extends Component {
+    constructor(props) {
         super(props);
-        var time= this.getTimeString();
-        this.state={
+        var time = this.getTimeString();
+        this.state = {
 
             isHomeCardVisible: true,
             isWeatherCardVisible: true,
@@ -47,27 +45,28 @@ export default class Home extends Component {
     getTimeString() {
         const date = new Date(Date.now()).toLocaleTimeString();
         return date;
-      }
+    }
 
     componentDidMount() {
+        this.props.getCurrentUser();
         const _this = this;
-        this.timer = setInterval(function(){
+        this.timer = setInterval(function () {
             var date = _this.getTimeString();
             _this.setState({
                 time: date
-          })
-        },1000)
-      }
+            })
+        }, 1000)
+    }
 
     componentWillUnmount() {
-          clearInterval(this.timer);
-      }
+        clearInterval(this.timer);
+    }
 
     toggleNavMenu = () => {
         this.setState({
-           isNavMenuVisible: !this.state.isNavMenuVisible
+            isNavMenuVisible: !this.state.isNavMenuVisible
         })
-      }
+    }
 
     toggleHabitsMenu = () => {
         this.setState({
@@ -79,8 +78,8 @@ export default class Home extends Component {
         this.setState({
             isHabitsMenuVisisble: false,
             isNavMenuVisible: false
-            });
-      };
+        });
+    };
 
     notesToggler = () => {
         this.setState({
@@ -134,14 +133,14 @@ export default class Home extends Component {
         })
     }
 
-    render(){
-
+    render() {
+        console.log('current user', this.props.user);
         let backdrop;
-        if(this.state.isNavMenuVisible || this.state.isHabitsMenuVisible){
-            backdrop = <Backdrop click={this.backdropClickHandler}/>
+        if (this.state.isNavMenuVisible || this.state.isHabitsMenuVisible) {
+            backdrop = <Backdrop click={this.backdropClickHandler} />
         }
 
-        let daysOfTheWeek = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday']
+        let daysOfTheWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
         let dayNumber = this.state.date.getDay();
         let day = daysOfTheWeek[dayNumber];
 
@@ -153,79 +152,85 @@ export default class Home extends Component {
             let hour = this.state.date.getHours();
             if (hour >= 17) { return "Evening" }
             else if (hour >= 12) { return "Afternoon" }
-            else if  (hour >= 4) "Morning"
+            else if (hour >= 4) "Morning"
             else return "Evening"
         }
 
         let formattedTime = this.state.time.slice(0, -6)
 
 
-// if(this.props.user){
-        return(
+        if (this.props.user) {
+            return (
+                <div className="background">
+                    <div className="background-cover">
+                        <div className="top-menu"></div>
+                        {backdrop}
+                        <div className="top-menu-button">
+                            <img src={habits} />
+                        </div>
 
-            <div className="background">
-            <div className="background-cover">
-                <div className="top-menu"></div>
-                {backdrop}
-                    <div className="top-menu-button">
-                    <img src={habits}/>
+                        <div className="left-menu-button"
+                            onClick={this.toggleNavMenu}>
+                            <img src={arrow} />
+                        </div>
+
+                        {this.state.isNavMenuVisible && <div className="left-menu">
+                            <div className="spacer"></div>
+                            <div className="left-menu-item-wrapper">
+                                <img src={notepad} onClick={this.notesToggler} />
+                            </div>
+                            <div className="left-menu-item-wrapper">
+                                <img src={todos} onClick={this.todoToggler} />
+                            </div>
+                            <div className="left-menu-item-wrapper">
+                                <img src={habits} onClick={this.habitsToggler} />
+                            </div>
+                            <div className="left-menu-item-wrapper">
+                                <img src={calendar} onClick={this.calendarToggler} />
+                            </div>
+                            <div className="left-menu-item-wrapper">
+                                <img src={settings} />
+                            </div>
+                        </div>}
+
+                        {this.state.isWeatherCardVisible && <Weather />}
+
+                        {this.state.isNotesVisible && <Notes />}
+                        {this.state.isTodoVisible && <Todo />}
+                        {this.state.isHabitsVisible && <Habits />}
+                        {this.state.isCalendarVisible && <Calendar />}
+
+
+                        {this.state.isHomeCardVisible &&
+                            <div className="home-center-card">
+                                <h1>{formattedTime}</h1>
+                                <h2>Good {getTimeOfDay()}, {this.state.user}.</h2>
+                                <span>Today is </span>
+                                <span>{day}, </span>
+                                <span>{month} </span>
+                                <span>{this.state.date.getDate()} </span>
+                                <span>{this.state.date.getFullYear()}</span>
+
+                                <div className="home-spacer"></div>
+
+                                <p>Here are your upcoming events:</p>
+
+                            </div>
+                        }
+                    </div>
                 </div>
-
-
-
-                <div className="left-menu-button"
-                    onClick={this.toggleNavMenu}>
-                    <img src={arrow}/>
-                </div>
-
-                {this.state.isNavMenuVisible && <div className="left-menu">
-                    <div className="spacer"></div>
-                    <div className="left-menu-item-wrapper">
-                        <img src={notepad} onClick={this.notesToggler}/>
-                    </div>
-                    <div className="left-menu-item-wrapper">
-                        <img src={todos} onClick={this.todoToggler}/>
-                    </div>
-                    <div className="left-menu-item-wrapper">
-                        <img src={habits} onClick={this.habitsToggler}/>
-                    </div>
-                    <div className="left-menu-item-wrapper">
-                        <img src={calendar} onClick={this.calendarToggler}/>
-                    </div>
-                    <div className="left-menu-item-wrapper">
-                        <img src={settings}/>
-                    </div>
-                </div>}
-
-                {this.state.isWeatherCardVisible && <Weather/>}
-
-                {this.state.isNotesVisible && <Notes/>}
-                {this.state.isTodoVisible && <Todo/>}
-                {this.state.isHabitsVisible && <Habits/>}
-                {this.state.isCalendarVisible && <Calendar/>}
-
-                    
-                    {this.state.isHomeCardVisible &&
-                    <div className="home-center-card">
-                        <h1>{formattedTime}</h1>
-                        <h2>Good {getTimeOfDay()}, {this.state.user}.</h2>
-                        <span>Today is </span>
-                        <span>{day}, </span>
-                        <span>{month} </span>
-                        <span>{this.state.date.getDate()} </span>
-                        <span>{this.state.date.getFullYear()}</span>
-
-                        <div className="home-spacer"></div>
-
-                        <p>Here are your upcoming events:</p>
-                        
-                    </div>}
-                    </div>
-                    </div>
-                    // )}
-    // else{
-    //     return <Login/>
-    //     }
-        )
+            )
+        }
+        else {
+            return <Login />
+        }
     }
 }
+
+const mapStateToProps = state => {
+    return {
+        user: state.user.data
+    }
+}
+
+export default connect(mapStateToProps, { getCurrentUser })(Home);

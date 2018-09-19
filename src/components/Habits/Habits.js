@@ -1,12 +1,12 @@
-// external imports
 import React, { Component } from 'react';
 import axios from 'axios';
+import { connect } from 'react-redux';
 
-// local imports
 import './Habits.css'
+import { getCurrentUser } from '../../redux/reducers/user';
 
 
-export default class Habits extends Component {
+class Habits extends Component {
     constructor() {
         super();
         this.state = {
@@ -16,9 +16,8 @@ export default class Habits extends Component {
     }
 
     componentDidMount() {
-        // pull the userId off of session
-        console.log(this.session);
-        axios.get('/api/habits', {userId: 7}).then(result => {
+        this.props.getCurrentUser();
+        axios.get('/api/habits', { userId: 7 }).then(result => {
             this.setState({
                 habitsList: result.data
             })
@@ -27,8 +26,10 @@ export default class Habits extends Component {
 
 
     render() {
+        console.log(this.state.habitsList);
+        console.log('current user is: ', this.props.user);
         let habitsOverviewList = this.state.habitsList.map((e) => {
-            return 
+            return
             <div>
                 <p>{e.title}</p>
                 <p>{e.startdate}</p>
@@ -36,9 +37,14 @@ export default class Habits extends Component {
         })
         return (
             <div className="content-container">
-                <div className="habits-sidebar">
-                    {habitsOverviewList}
-                </div>
+                {
+                    this.state.habitsList.length ?
+                        <div className="habits-sidebar">
+                            {habitsOverviewList}
+                        </div>
+                        :
+                        null
+                }
                 <div className="habits-content">
                     Content
                 </div>
@@ -46,3 +52,11 @@ export default class Habits extends Component {
         )
     }
 }
+
+const mapStateToProps = state => {
+    return {
+        user: state.user.data
+    }
+}
+
+export default connect(mapStateToProps, { getCurrentUser })(Habits);
