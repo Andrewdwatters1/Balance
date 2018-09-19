@@ -46,8 +46,8 @@ app.delete('/api/habits', habitsController.deleteHabit);
 
 // NOTES ENDPTS
 // app.get('/api/notepad', notesController.getNotes)
-// app.post('/api/notepad', notesController.addNotes)
-// app.delete('/api/notepad', notesController.deleteNotes)
+app.post('/api/notepad', notesController.addNotes)
+app.delete('/api/notepad/:id', notesController.deleteNotes)
 
 // app.get('*', (req, res) => { // PRODUCTION BUILD ONLY
 //   res.sendFile(path.join(__dirname, '../build/index.html'));

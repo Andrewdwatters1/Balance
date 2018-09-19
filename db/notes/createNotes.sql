@@ -1,3 +1,4 @@
 insert into Notes(userid, title, content, date)
+values ($1, $2, $3 , current_timestamp);
 
-values ($1, $2, $3 ,now())
+SELECT * FROM Notes;

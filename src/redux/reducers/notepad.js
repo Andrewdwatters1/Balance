@@ -16,7 +16,7 @@ const PUT_SCRACHPAD = 'PUT_SCRACHPAD';
 
 
 export function getNotes(){
-    let notePad = axios.get('/api/notes').then(results => {
+    let notePad = axios.get('/api/notepad').then(results => {
         console.log(results)
         return results.data
     })
@@ -26,8 +26,8 @@ export function getNotes(){
     }
 }
 
-export function addNotes(){
-    let notePad = axios.post('/api/notes').then(results => {
+export function addNotes(note){
+    let notePad = axios.post('/api/notepad', note).then(results => {
         return results.data
     })
     return{
@@ -37,7 +37,7 @@ export function addNotes(){
 }
 
 export function deleteNotes(id){
-    let notePad = axios.delete(`/api/notes/${id}`).then(results =>{
+    let notePad = axios.delete(`/api/notepad/${id}`).then(results =>{
          return results.data
        })
        return {

@@ -15,8 +15,9 @@ module.exports = {
       })
     },
     deleteNotes: (req, res) => {
+      let{id} = req.params
       let db = req.app.get('db');
-      db.notes.deleteNotes(id).then(result => {
+      db.notes.deleteNotes([id]).then(result => {
         res.status(200).send(result);
       })
     }
