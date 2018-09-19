@@ -17,30 +17,23 @@ class Habits extends Component {
 
     componentDidMount() {
         this.props.getCurrentUser();
-        axios.get('/api/habits', { userId: 7 }).then(result => {
-            this.setState({
-                habitsList: result.data
-            })
-        })
+        // axios.get('/api/habits', { userId: 7 }).then(result => {
+        //     this.setState({
+        //         habitsList: result.data
+        //     })
+        // })
     }
 
 
     render() {
-        console.log(this.state.habitsList);
-        console.log('current user is: ', this.props.user);
-        let habitsOverviewList = this.state.habitsList.map((e) => {
-            return
-            <div>
-                <p>{e.title}</p>
-                <p>{e.startdate}</p>
-            </div>
-        })
+        console.log(this.props.user)
         return (
             <div className="content-container">
                 {
                     this.state.habitsList.length ?
                         <div className="habits-sidebar">
-                            {habitsOverviewList}
+                            {/* {habitsOverviewList} */}
+                            <p>s</p>
                         </div>
                         :
                         null

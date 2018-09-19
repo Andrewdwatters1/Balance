@@ -27,7 +27,7 @@ module.exports = {
             res.status(200).send({ username, firstname, lastname, zipcode, email, avitar });
           })
         } else {
-          res.status(403).send(req.session.user);
+          res.status(403).send({data: null});
         }
       });
     });
@@ -36,4 +36,15 @@ module.exports = {
     req.session.destroy();
     res.sendStatus(200);
   },
+  getCurrentUser: (req, res) => {
+    let { firstname, lastname, username, email, avitar, zip } = req.session.user;
+    firstname ? firstname : null;
+    lastname ? lastname : null;
+    username ? username : null;
+    email ? email : null;
+    avitar ? avitar : null;
+    zip ? zip : null;
+    let currentUser = { firstname, lastname, username, email, avitar, zip };
+    res.status(200).send(currentUser)
+  }
 }

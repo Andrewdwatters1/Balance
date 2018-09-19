@@ -29,7 +29,7 @@ app.use(session({
 // AUTH ENDPTS
 app.post('/auth/register', authController.register);
 app.post('/auth/login', authController.login);
-app.get('/auth/currentUser', (req, res) => res.send(req.session.user));
+app.get('/auth/currentUser', authController.getCurrentUser);
 app.delete('/auth/logout', authController.logout);
 
 // HABITS ENDPTS
