@@ -1,57 +1,57 @@
 
-.content-container>h1{
+.content-container>h1 {
     text-align: center;
-    padding-top: 10vh;
+    padding-top: 4vh;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
 }
-
-
-.content-container>h3{
-    text-align: center;
-    padding-top: 2vh;
-}
-
-.button-wrapper{
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    align-content: center;
-}
-.login-register-button{
-    border: none;
-    background-color: orange;
-    width: 70px;
-    height: 30px;
-}
-
-.button-spacer{
-    width: 20px;
-}
-
-.login-login-button{
-    border: none;
-    width: 70px;
-    height: 30px;
-    background-color: green;
-}
-
-.login-form-container{
+.login-form-container {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    align-content: center;
+    width: 100%;
 }
-
-.login-field-wrapper{
+.login-field-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    width: 60%;
+    max-height: 55%;
+}
+.login-field-wrapper>p {
+    margin-bottom: 0;
+}
+.button-wrapper {
     display: flex;
     flex-direction: row;
+    justify-content: center;
     align-items: center;
+    align-content: center;
 }
-
-.login-input{
+.login-button {
+    border: none;
+    background-color: green;
+    width: 70px;
+    height: 30px;
+    margin-top: 3vh;
+}
+.register {
+    background-color: orange;
+}
+.outside-form {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    margin: 10%;
+}
+.login-input {
     width: 10vw;
     height: 20px;
     border: none;
     background-color: black;
+    text-align: center;
 }

@@ -6,9 +6,8 @@ const session = require('express-session');
 var bcrypt = require('bcryptjs');
 var salt = bcrypt.genSaltSync(10);
 var hash = bcrypt.hashSync("B4c0/\/r*d-lsx?}", salt);
-// const path = require('path')
+// const path = require('path')  // PRODUCTION BUILD ONLY
 
-// require controllers
 const authController = require('./authController');
 const habitsController = require('./habitsController');
 const todoController = require('./todoController')
@@ -26,13 +25,15 @@ app.use(session({
   saveUninitialized: false,
   resave: false
 }))
-// app.use(express.static(`${__dirname}/../build`)) // production build only
+// app.use(express.static(`${__dirname}/../build`)) /// PRODUCTION BUILD ONLY
 
-// DEFINE ENDPTS
+// AUTH ENDPTS
 app.post('/auth/register', authController.register);
 app.post('/auth/login', authController.login);
+app.get('/auth/currentUser', (req, res) => res.send(req.session.user));
 app.delete('/auth/logout', authController.logout);
 
+// HABITS ENDPTS
 app.get('/api/habits', habitsController.getAllHabits);
 app.put('/api/habits', habitsController.markComplete);
 app.post('/api/habits', habitsController.addHabit);
@@ -43,8 +44,13 @@ app.get('/api/todo', todoController.getTodos)
 app.delete('/api/todo/:id', todoController.deleteTodos)
 app.put('/api/todo/:id', todoController.editTodo)
 app.post('/api/todo', todoController.createTodo)
+// TODO ENDPTS
 
-// app.get('*', (req, res) => { // production build only 
+// CALENDAR ENDPTS
+
+// NOTES ENDPTS
+
+// app.get('*', (req, res) => { // PRODUCTION BUILD ONLY
 //   res.sendFile(path.join(__dirname, '../build/index.html'));
 // });
 
