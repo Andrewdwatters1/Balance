@@ -22,7 +22,7 @@ module.exports = {
     createTodo : async(req,res)=>{
         try {
             let db = req.app.get('db')
-            let todo = await db.todos.createTodo(content)
+            let todo = await db.todos.createTodo(req.body.userid,req.body.content)
             res.status(200).send(todo)
         } catch (error) {
             console.log('Error creating todos Origin: server/todoController/ Error:', error);

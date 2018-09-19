@@ -20,6 +20,15 @@
     background-color: rgba(0,0,0,0);
     width : 25vw;
     height : 25px;
-    border: 1px solid white;
+    border: 2px solid white;
     border-radius: 2px;
+}
+
+.addTodoButton{
+    font-size: 32px;
+    border:none;
+    outline:none;
+    margin-top: 10px;
+    background-color: rgba(0,0,0,0);
+    height: 25px;
 }

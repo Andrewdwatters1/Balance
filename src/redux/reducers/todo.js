@@ -18,7 +18,7 @@ let initialState = {
     input: ''
 }
 
-export default function reducer(state = initialState, action){
+export default function todo(state = initialState, action){
     switch(action.type){
         case GET_TODO_FULFILLED:
             return{...state, todos:action.payload.data}
@@ -50,14 +50,14 @@ export function deleteTodos(id){
 export function editTodos(id,content){
     return{
         type: EDIT_TODO,
-        payload: axios.put(`/api/todo/${id}`, content)
+        payload: axios.put(`/api/todo/${id}`, {content})
     }
 }
 
-export function createTodos(content){
+export function createTodos(userid,content){
     return{
         type: CREATE_TODO,
-        payload: axios.post('/api/todo', content)
+        payload: axios.post('/api/todo', {userid,content})
     }
 }
 
