@@ -1,172 +1,147 @@
-//Imports
 import React, { Component } from 'react';
+import axios from 'axios';
+import { connect } from 'react-redux';
 
+import { getCurrentUser } from '../../redux/reducers/user';
 import './Login.css'
 
-export default class Login extends Component {
-    constructor(props){
+class Login extends Component {
+    constructor(props) {
         super(props);
-        this.state={
-
-            //toggle register/login
-
-            isLoginVisible: true,
-            isResgisterVisible: false,
-
-            //register fields
-
-            firstNameInput: "",
-            lastNameInput: "",
-            emailAddressInput: "",
-            passwordInput: "",
-            zipCodeInput: "",
-
-            //login fields
-
-            loginEmailAddressInput: "",
-            loginPasswordInput: ""
-
+        this.state = {
+            isLoginVisible: true, // else register button
+            firstName: "",
+            lastName: "",
+            username: "",
+            email: "",
+            password: "",
+            zip: "",
         }
     }
 
-    loginToggler = () => {
+    toggleRegister = () => {
         this.setState({
-            isLoginVisible: true,
-            isResgisterVisible: false,
+            isLoginVisible: !this.state.isLoginVisible
         })
     }
-
-    registerToggler = () => {
+    handleFirstNameInput = (e) => {
         this.setState({
-            isLoginVisible: false,
-            isResgisterVisible: true,
+            firstName: e.target.value
         })
     }
-
-    handleLoginEmailChange = (e) => {
-            this.setState({
-                loginEmailAddressInput: e.target.value
-            })
-    }
-
-    handleLoginPasswordChange = (e) => {
+    handleLastNameInput = (e) => {
         this.setState({
-            loginPasswordInput: e.target.value
+            lastName: e.target.value
         })
     }
-
-    handleFirstName= (e) => {
+    handleEmailInput = (e) => {
         this.setState({
-            firstNameInput: e.target.value
+            email: e.target.value
         })
     }
-    handleLastName= (e) => {
+    handleUsernameInput = (e) => {
         this.setState({
-            lastNameInput: e.target.value
+            username: e.target.value
         })
     }
-    handleEmailInput= (e) => {
+    handlePasswordInput = (e) => {
         this.setState({
-            emailAddressInput: e.target.value
+            password: e.target.value
         })
     }
-    handlePasswordInput= (e) => {
+    handleZipInput = (e) => {
         this.setState({
-            passwordInput: e.target.value
+            zip: e.target.value
         })
     }
-    handleZipcodeInput= (e) => {
-        this.setState({
-            zipCodeInput: e.target.value
-        })
-    }
-
-    handleRegisterSubmit = (e) => {
-        e.preventDefault();
-        // axios
-        this.setState({
-            firstNameInput: "",
-            lastNameInput: "",
-            emailAddressInput: "",
-            passwordInput: "",
-            zipCodeInput: "",
-        })
-    }
-
     handleLoginSubmit = (e) => {
         e.preventDefault();
-        // axios
+        let { username, password } = this.state;
+        let loginInfo = { username, password };
+        axios.post('/auth/login', loginInfo).then(result => {
+            this.props.getCurrentUser();
+        })
         this.setState({
-            loginEmailAddressInput: "",
-            loginPasswordInput: ""
+            username: "",
+            password: ""
+        })
+    }
+    handleRegisterSubmit = (e) => {
+        e.preventDefault();
+        let { firstName, lastName, username, password, email, zip } = this.state;
+        let newUserInfo = { firstName, lastName, username, password, email, zip };
+        axios.post('/auth/register', newUserInfo).then(result => {
+            let loginInfo = { username: newUserInfo.username, password: newUserInfo.password };
+            axios.post('/auth/login', loginInfo).then(response => {
+                this.props.getCurrentUser();
+            })
+        })
+        this.setState({
+            firstName: "",
+            lastName: "",
+            username: "",
+            email: "",
+            password: "",
+            zip: "",
         })
     }
 
-    render(){
-        return(
+    render() {
+        let { firstName, lastName, username, email, password, zip } = this.state;
+        let loginSubmitEnabled = username && password;
+        let registerSubmitEnabled = firstName && lastName && username && email && password && zip
+        return (
             <div className="background">
                 <div className="background-cover">
                     <div className="content-container">
-
                         <h1>Welcome to Planner</h1>
-                        <h3>Please Log In</h3>
-                        <div className="button-wrapper">
-                            <button onClick={this.registerToggler}className="login-register-button">REGISTER</button>
-                            <div className="button-spacer"></div>
-                            <button onClick={this.loginToggler} className="login-login-button">LOG IN</button>
-                        </div>
-
-                        {this.state.isLoginVisible && 
-                        <div className="login-form-container">
-                        <div style={{height: "20px"}}></div>
-                            <div className="login-field-wrapper">
-                                <p>USERNAME:</p>
-                                <div className="button-spacer"></div>
-                                <input type="text" onChange={this.handleLoginEmailChange} placeholder="username" className="login-input"></input>
-                            </div>
-                            <div className="login-field-wrapper">
-                                <p>PASSWORD:</p>
-                                <div className="button-spacer"></div>
-                                <input type="text" onChange={this.handleLoginPasswordChange} placeholder="password" className="login-input"></input>
-                            </div>
-                            <button onClick={this.handleLoginSubmit} className="login-login-button">Submit</button>
-                        </div>}
-
-                        {this.state.isResgisterVisible &&
-                        <div className="login-form-container">
-                        <div style={{height: "20px"}}></div>
-                            <div className="login-field-wrapper">
-                                <p>FIRST NAME:</p>
-                                <div className="button-spacer"></div>
-                                <input type="text" onChange={this.handleFirstName} placeholder="first name" className="login-input"></input>
-                            </div>
-                            <div className="login-field-wrapper">
-                                <p>LAST NAME:</p>
-                                <div className="button-spacer"></div>
-                                <input type="text" onChange={this.handleLastName} placeholder="last name" className="login-input"></input>
-                            </div>
-                            <div className="login-field-wrapper">
-                                <p>EMAIL:</p>
-                                <div className="button-spacer"></div>
-                                <input type="text" onChange={this.handleEmailInput}  placeholder="email" className="login-input"></input>
-                            </div>
-                            <div className="login-field-wrapper">
-                                <p>PASSWORD:</p>
-                                <div className="button-spacer"></div>
-                                <input type="text" onChange={this.handlePasswordInput}  placeholder="password" className="login-input"></input>
-                            </div>
-                            <div className="login-field-wrapper">
-                                <p>ZIP CODE:</p>
-                                <div className="button-spacer"></div>
-                                <input type="text" onChange={this.handleZipcodeInput}  placeholder="zip code" className="login-input"></input>
-                            </div>
-                            <button onClick={this.handleRegisterSubmit}className="login-login-button">Submit</button>
-                        </div>}
-                        
-
+                        {
+                            this.state.isLoginVisible
+                                ?
+                                <div className="login-form-container">
+                                    <h3>Welcome Back!    Please Login</h3>
+                                    <div className="login-field-wrapper">
+                                        <p>USERNAME</p>
+                                        <input type="text" onChange={this.handleUsernameInput} value={this.state.username} placeholder="username" className="login-input"></input>
+                                        <p>PASSWORD</p>
+                                        <input type="text" onChange={this.handlePasswordInput} value={this.state.password} placeholder="password" className="login-input"></input>
+                                        <button onClick={this.handleLoginSubmit} disabled={!loginSubmitEnabled} className="login-button">SUBMIT</button>
+                                        <div styles={{ height: '60%' }}> </div>
+                                    </div>
+                                    <button onClick={this.toggleRegister} className="login-button outside-form register">REGISTER</button>
+                                </div>
+                                :
+                                <div className="login-form-container">
+                                    <h3>Welcome!    Please Register Below</h3>
+                                    <div className="login-field-wrapper">
+                                        <p>FIRST NAME</p>
+                                        <input type="text" onChange={this.handleFirstNameInput} value={this.state.firstName} placeholder="First Name" className="login-input"></input>
+                                        <p>LAST NAME</p>
+                                        <input type="text" onChange={this.handleLastNameInput} value={this.state.lastName} placeholder="Last Name" className="login-input"></input>
+                                        <p>EMAIL</p>
+                                        <input type="text" onChange={this.handleEmailInput} value={this.state.email} placeholder="email@domain.com" className="login-input"></input>
+                                        <p>USERNAME</p>
+                                        <input type="text" onChange={this.handleUsernameInput} value={this.state.username} placeholder="username" className="login-input"></input>
+                                        <p>PASSWORD</p>
+                                        <input type="text" onChange={this.handlePasswordInput} value={this.state.password} placeholder="password" className="login-input"></input>
+                                        <p>ZIP CODE</p>
+                                        <input type="text" onChange={this.handleZipInput} value={this.state.zip} type="zipcode" pattern="(\d{5}([\-]\d{4})?)" placeholder="xxxxx-xxxx" className="login-input"></input>
+                                        <button onClick={this.handleRegisterSubmit} disabled={!registerSubmitEnabled} className="login-button">Submit</button>
+                                    </div>
+                                    <button onClick={this.toggleRegister} className="login-button outside-form">LOGIN</button>
+                                </div>
+                        }
                     </div>
                 </div>
             </div>
         )
     }
 }
+
+const mapStateToProps = state => {
+    return {
+        user: state.user.data
+    }
+}
+
+export default connect(mapStateToProps, { getCurrentUser })(Login);
