@@ -150,17 +150,10 @@ class Home extends Component {
 
         let getTimeOfDay = () => {
             let hour = this.state.date.getHours();
-<<<<<<< HEAD
-            if (hour >= 17) { return "Evening" }
-            else if (hour >= 12) { return "Afternoon" }
-            else if  (hour >= 4) { return "Morning" }
-            else return "Evening"
-=======
             if (hour >= 17) { return "Good Evening" }
             else if (hour >= 12) { return "Good Afternoon" }
             else if (hour >= 4) { return "Good Morning" }
             else return "Hello"
->>>>>>> master
         }
 
         let formattedTime = this.state.time.slice(0, -6)
