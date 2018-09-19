@@ -9,4 +9,25 @@
     height: 80vh;
     background-color: rgba(0, 0, 0, 0.708);
     z-index: 5;
+    display: flex;
+    flex-direction: column;
+    /* justify-content: flex-start; */
+}
+
+.scratchpad{
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    margin: auto;
+    position: absolute;
+    width: 55vw;
+    height: 80vh;
+    background-color: rgba(250, 244, 244, 0.708);    
+}
+
+.Notes{
+    width: 25vw;
+    height: 80vh;
+    background-color: rgba(233, 88, 88, 0.708);
 }

@@ -12,6 +12,7 @@
     "massive": "^5.4.0",
     "react": "^16.5.1",
     "react-dom": "^16.5.1",
+    "react-redux": "^5.0.7",
     "react-scripts": "1.1.5"
   },
   "scripts": {

@@ -1,7 +1,7 @@
 module.exports = {
     getAllNotes: (req, res) => {
       let db = req.app.get('db');
-      db.get_all_Notes().then(result => {
+      db.notes.getNotes().then(result => {
         console.log(result);
         res.status(200).send(result);
       })
@@ -9,14 +9,14 @@ module.exports = {
     addNotes: (req, res) => {
       let db = req.app.get('db');
       let { userId } = req.session.user // ???
-      let { title, description } = req.body;
-      db.add_notes([userId, title, description, startdate]).then(result => {
+      let { title, content, date } = req.body;
+      db.notes.createNotes([userId, title, content, date]).then(result => {
         res.status(200).send(result);
       })
     },
     deleteNotes: (req, res) => {
       let db = req.app.get('db');
-      db.delete_notes(id).then(result => {
+      db.notes.deleteNotes(id).then(result => {
         res.status(200).send(result);
       })
     }
