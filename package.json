@@ -6,6 +6,7 @@
   "dependencies": {
     "axios": "^0.18.0",
     "bcryptjs": "^2.4.3",
+    "bfg": "^0.3.0",
     "body-parser": "^1.18.3",
     "dotenv": "^6.0.0",
     "express-session": "^1.15.6",
@@ -13,8 +14,15 @@
     "react": "^16.5.1",
     "react-addons-css-transition-group": "^15.6.2",
     "react-dom": "^16.5.1",
+<<<<<<< HEAD
     "react-infinite-calendar": "^2.3.1",
     "react-scripts": "1.1.5"
+=======
+    "react-redux": "^5.0.7",
+    "react-scripts": "1.1.5",
+    "redux": "^4.0.0",
+    "redux-promise-middleware": "^5.1.1"
+>>>>>>> master
   },
   "scripts": {
     "start": "react-scripts start",
@@ -23,7 +31,7 @@
     "eject": "react-scripts eject"
   },
   "proxy": {
-    "/auth/callback": {
+    "/auth": {
       "target": "http://localhost:3111"
     },
     "/api": {
