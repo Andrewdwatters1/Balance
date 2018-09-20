@@ -10,6 +10,7 @@ var hash = bcrypt.hashSync("B4c0/\/r*d-lsx?}", salt);
 
 const authController = require('./authController');
 const habitsController = require('./habitsController');
+const notesController = require('./notesController');
 const todoController = require('./todoController')
 
 const app = express();
@@ -49,6 +50,9 @@ app.post('/api/todo', todoController.createTodo)
 // CALENDAR ENDPTS
 
 // NOTES ENDPTS
+// app.get('/api/notepad', notesController.getNotes)
+app.post('/api/notepad', notesController.addNotes)
+app.delete('/api/notepad/:id', notesController.deleteNotes)
 
 // app.get('*', (req, res) => { // PRODUCTION BUILD ONLY
 //   res.sendFile(path.join(__dirname, '../build/index.html'));

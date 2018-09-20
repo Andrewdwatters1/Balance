@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import Home from './components/Home/Home.js'
-import {connect, Provider} from 'react-redux'
 
 class App extends Component {
   render() {
@@ -10,4 +9,4 @@ class App extends Component {
   }
 }
 
-export default connect(null,{})(App);
+export default App;

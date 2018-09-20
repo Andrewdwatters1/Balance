@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import Weather from '../Weather/Weather.js'
 import Backdrop from '../Backdrop/Backdrop.js'
-import Notes from '../Notes/Notes.js'
+import Notes from '../Notes/NotePad.js'
 import Todo from '../Todo/Todo.js'
 import Habits from '../Habits/Habits.js'
 import Calendar from '../Calendar/Calendar.js'
