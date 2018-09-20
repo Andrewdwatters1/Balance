@@ -16,19 +16,23 @@
     display: flex;
 }
 .habits-sidebar {
-    width: 38.5%; /* change to percent for greater consistency */
+    width: 60%; /* change to percent for greater consistency */
     height: 100%;
-    box-sizing: border-box;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     background-color: inherit;
     border: 1px rgba(255, 255, 255, 0.283) solid;
+    overflow: scroll;
+}
+.habits-sidebar-habit {
+    width: 100%;
+    background-color: inherit;
+    
 }
 .habits-content {
-    width: 61.5%;
+    width: 100%;
     height: 100%;
-    box-sizing: border-box;
     background-color: inherit;
     border: 1px rgba(255, 255, 255, 0.283) solid;
 }
@@ -38,6 +42,25 @@
     height: 100%;
     margin-top: 15%;
     text-align: center;
+}
+.add-first-habit-button {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: inherit;
+}
+.add-first-habit-plus {
+    height: 100px;
+    width: auto;
+    display: flex;
+    opacity: 0.7;
+}
+.add-first-habit-plus:hover {
+    opacity: 1;
+    cursor: pointer;
 }
 .add-habit-button {
     height: 25px;
@@ -75,7 +98,7 @@
     position: absolute;
     top: 0;
     right: 0;
-    width: 61.5%;
+    width: 62.5%;
 }
 .add-habit-form {
     display: flex;

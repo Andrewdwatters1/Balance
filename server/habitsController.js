@@ -1,5 +1,5 @@
 module.exports = {
-  getAllHabits: (req, res) => {
+  getAllHabits: (req, res) => { // completed
     let db = req.app.get('db');
     let { id } = req.session.user;
     db.habits.get_habits_by_user(id).then(result => {
@@ -13,13 +13,13 @@ module.exports = {
       res.status(200).send(result);
     }).catch(error => console.log('Error from habitsController.markComplete', error));
   },
-  addHabit: (req, res) => {
+  addHabit: (req, res) => { // completed
     let db = req.app.get('db');
-    console.log(req.body);
-    let { userId, title, description, startdate } = req.body;
-    db.habits.add_habit([userId, title, description, startdate]).then(() => {
+    let { userId, title, description, dateFormatted, date, type } = req.body;
+    db.habits.add_habit([userId, title, description, dateFormatted, date, type]).then(() => {
       db.habits.get_habits_by_user(userId).then(result => {
         res.status(200).send(result);
+        console.log(result);
       })
     }).catch(error => console.log('Error from habitsController.addHabit', error));
   },
