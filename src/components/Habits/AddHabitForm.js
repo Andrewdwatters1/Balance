@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import * as moment from 'moment';
 
 import './Habits.css'
 
@@ -34,8 +35,8 @@ export default class AddHabitForm extends Component {
   addHabit = (e) => {
     e.preventDefault();
     let { title, description, type } = this.state;
-    let dateFormatted = `${new Date().getFullYear()}/${new Date().getMonth() + 1}/${new Date().getDate()}/${new Date().getDay()}`
-    let date = Date.now();
+    let dateFormatted = `${new Date().getFullYear()}/${new Date().getMonth()}/${new Date().getDate()}/${new Date().getDay()}`
+    let date = new moment(new Date()).format('DDD, Y')
     let habit = { userId: this.props.currentUser.id, title, description, dateFormatted, date, type };
     title ? description ?
       axios.post('/api/habits', habit).then(result => {

@@ -36,9 +36,12 @@ app.delete('/auth/logout', authController.logout);
 
 // HABITS ENDPTS
 app.get('/api/habits', habitsController.getAllHabits);
+app.post('/api/habit', habitsController.getHabitStartDate);
 app.put('/api/habits', habitsController.markComplete);
 app.post('/api/habits', habitsController.addHabit);
 app.delete('/api/habits', habitsController.deleteHabit);
+app.get('/api/habitEvents', habitsController.getAllHabitEventsByHabit);
+app.post('/api/habitEvents', habitsController.addHabitEvent);
 
 // TODO ENDPOINTS
 app.get('/api/todo', todoController.getTodos)

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
+import * as moment from 'moment';
 
 import './Habits.css'
 import AddHabitForm from './AddHabitForm';
@@ -15,7 +16,8 @@ class Habits extends Component {
             habitsList: [],
             addHabitVisible: false,
             habitDetailVisible: false,
-            habitDetailShown: 1
+            habitDetailShown: 1,
+            habitsPastWeek: [-7, -6, -5, -4, -3, -2, -1]
         }
     }
 
@@ -31,16 +33,35 @@ class Habits extends Component {
         })
     }
     showHabitDetail = (id) => {
+        axios.get(`api/habitEvents?id=${id}`).then(result => {
+            console.log('habit events for this habit', result)
+        })
         this.setState({
             habitDetailVisible: true,
             habitDetailShown: id,
             addHabitVisible: false,
         })
     }
+    addHabitEvent = (habitId) => {
+        axios.post('api/habit', { habitId }).then(result => {
+            let habitStartDate = new moment(+result.data[0].date)
+            let midnightToday = new Date().setHours(0, 0, 0, 0)
+            let daysFromStart = Math.floor(moment.duration(moment(habitStartDate).diff(midnightToday)).as('days'));
+            let habitEventObj = {
+                habitId,
+                daysFromStart
+            }
+            axios.post('api/habitEvents', habitEventObj).then(() => {
+                console.log(`habit event added as complete w/ daysFromStart=${habitEventObj.daysFromStart}, and habitId=${habitEventObj.habitId}`);
+                // call axios.get(`/api/habitEvents?id=${id}`) to get all habitEvents for this habit and update user view
+            }).catch(error => console.log('Error from Habits.js => addHabitEvent => axios.post("api/habitEvents")', error));
+        })
+    }
 
     componentDidMount() {
         this.props.getCurrentUser();
-        axios.get('api/habits', { id: this.props.user.id }).then(result => {
+        let { id } = this.props.user;
+        axios.get('api/habits', { id }).then(result => {
             this.setState({
                 habitsList: result.data
             })
@@ -48,6 +69,7 @@ class Habits extends Component {
     }
 
     render() {
+
         if (this.state.habitsList.length) {
             let daysOfTheWeek = [' ', 'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
             let monthsOfTheYear = [' ', 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
@@ -73,9 +95,16 @@ class Habits extends Component {
                         <h3>{e.title}</h3>
                         <p>{e.description}</p>
                         {e.type === "Personal" ? <i class="fas fa-book-reader"></i> : e.type === "Professional" ? <i class="fas fa-user-tie"></i> : <i class="fas fa-heartbeat"></i>}
-                        <p>You started tracking this habit on {`${day}, ${month} ${e.date[2]}, ${e.date[0]}`}</p>
+                        <p>You started tracking this habit on {`${day}, ${month} ${e.date[2]}, ${e.date[0]}, ${moment([+e.date[0], (+e.date[1]), +e.date[2]]).fromNow()}`}</p>
                         <p>Here's your progress for the past week: </p>
-                        <button style={{color: 'black'}}>done</button>
+
+
+
+                        {/* TODO MAKE ME WORK */}
+
+
+                        <p>Completed today? </p>
+                        <i onMouseDown={(habitId) => this.addHabitEvent(e.id)} class="far fa-check-circle"></i>
                     </div>
                 )
             })

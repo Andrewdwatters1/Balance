@@ -24,7 +24,7 @@ CREATE TABLE habitEvents (
   id SERIAL PRIMARY KEY, 
   habitId INTEGER,
   FOREIGN KEY (habitId) REFERENCES habits(id),
-  date TIMESTAMP,
+  daysFromStart VARCHAR,
   completed BOOLEAN
 );
 

@@ -25,8 +25,28 @@ module.exports = {
   },
   deleteHabit: (req, res) => {
     let db = req.app.get('db');
-    db.delete_habit(id).then(result => {
+    db.habits.delete_habit(id).then(result => {
       res.status(200).send(result);
     }).catch(error => console.log('Error from habitsController.deleteHabit', error));
+  },
+  getHabitStartDate: (req, res) => {
+    let db = req.app.get('db');
+    let { habitId } = req.body;
+    db.habits.get_habit_start_date(habitId).then(result => {
+      res.status(200).send(result);
+    }).catch(error => console.log('Error from habitsController.getHabitStartDate', error));
+  },
+  addHabitEvent: (req, res) => {
+    let db = req.app.get('db');
+    let { habitId, daysFromStart } = req.body;
+    db.habits.add_habit_event([habitId, daysFromStart]).then(result => {
+      res.status(200).send(result);
+    }).catch(error => console.log('Error from habitsController.addHabitEvent', error));
+  },
+  getAllHabitEventsByHabit: (req, res) => {
+    let db = req.app.get('db');
+    db.habits.get_all_habitEvents_by_habit(req.query.id).then(result => {
+      res.status(200).send(result);
+    }).catch(error => console.log('Error from habitsController.getallHabitEventsByUser', error));
   }
 }
