@@ -1,8 +1,9 @@
 module.exports = {
     getTodos : async(req,res) => {
         try {
+            console.log(req.params.userid)
             let db = req.app.get('db')
-            let todos = await db.todos.getTodos()
+            let todos = await db.todos.getTodos(req.params.userid)
             res.status(200).send(todos)
         } catch (error) {
             console.log('Error getting todos Origin: server/todoController/ Error:', error);
@@ -12,8 +13,9 @@ module.exports = {
     deleteTodos : async(req,res) => {
         try {
             let db = req.app.get('db')
-            let todos = await db.todos.deleteTodo(id)
+            let todos = await db.todos.deleteTodo(req.params.id, req.params.userid)
             res.status(200).send(todos)
+
         } catch (error) {
             console.log('Error deleting todos Origin: server/todoController/ Error:', error);
             res.status(500).send(error)
@@ -21,6 +23,7 @@ module.exports = {
     },
     createTodo : async(req,res)=>{
         try {
+            console.log(req.body.userid)
             let db = req.app.get('db')
             let todo = await db.todos.createTodo(req.body.userid,req.body.content)
             res.status(200).send(todo)

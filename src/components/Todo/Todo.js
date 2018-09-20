@@ -6,9 +6,9 @@ import{getCurrentUser} from '../../redux/reducers/user'
 
 class Todo extends Component{
 
-    componentDidMount = () => {
-        this.props.getTodos()
+    componentDidMount(){
         this.props.getCurrentUser()
+        this.props.getTodos(this.props.user.id)
     }
 
     handleInputChange = (e) => {
@@ -16,25 +16,41 @@ class Todo extends Component{
     }
 
     handleSubmit = () => {
-        this.props.createTodos(this.props.user.data.id, this.state.input)
+        this.props.createTodos(this.props.user.id, this.state.input)
     }
 
-    
+    deleteTodo = (id) => {
+        this.props.deleteTodos(id, this.props.user.id)
+        
+        // for (let i = 0; i < this.props.todos.length; i++) {
+        //     if(this.props.todos[i].id === 52){
+        //         this.props.deleteTodos(this.props.todos[i].id)
+        //     }
+        // }
+    }
+
     render(){
-        console.log(this.props);
+        
         return(
-            <div className="content-container">
+            <div className="todo-container">
+            <div className='todoInputAndButton'>
                 <input className='todoInput' placeholder='Wat do ????' onChange={this.handleInputChange}/>
                 <button className='addTodoButton' onClick={this.handleSubmit}>+</button>
+            </div>
+                <div className='baseTodoWrapper'>
                 {this.props.todos.map(todo => {
-                    if(todo.userId === this.props.user.data.id){
-                        return(
-                            <div>
-                                <p>{todo.content}</p>
-                            </div>
-                        )
-                    } else { null }
+                    return(
+                       <div className='todoIndivContainer' key={todo.id}>
+                        <div className='todoContainerInfo'>
+                           <button className='todoControlDone'><img /></button>
+                           <p>{todo.content}</p>
+                           <button className='todoControlEdit'></button>
+                           <button className='todoControlRemove' onClick={() => this.deleteTodo(todo.id)}></button>
+                        </div>
+                       </div> 
+                    )
                 })}
+                </div>
             </div>
         )
     }
@@ -42,9 +58,9 @@ class Todo extends Component{
 
 let mapStateToProps = state => {
     return{
-        todos : state.todos,
-        input : state.input,
-        user : state.user
+        todos : state.todo.todos,
+        input : state.todo.input,
+        user : state.user.data
     }
 }
 
