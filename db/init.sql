@@ -15,14 +15,16 @@ CREATE TABLE habits (
   FOREIGN KEY (userId) REFERENCES users(id),
   title VARCHAR(100),
   description VARCHAR,
-  startDate TIMESTAMP
+  dateformatted VARCHAR,
+  date VARCHAR,
+  type VARCHAR
 );
 
 CREATE TABLE habitEvents (
   id SERIAL PRIMARY KEY, 
   habitId INTEGER,
   FOREIGN KEY (habitId) REFERENCES habits(id),
-  date TIMESTAMP,
+  daysFromStart VARCHAR,
   completed BOOLEAN
 );
 

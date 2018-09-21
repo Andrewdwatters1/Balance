@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
+import { ToastContainer, ToastStore } from 'react-toasts';
 
 import { getCurrentUser } from '../../redux/reducers/user';
 import './Login.css'
@@ -60,6 +61,10 @@ class Login extends Component {
         let loginInfo = { username, password };
         axios.post('/auth/login', loginInfo).then(result => {
             this.props.getCurrentUser();
+            ToastStore.success("Welcome back!  Let's get started.", 4000, 'toast-success');
+        }).catch(error => {
+            console.log('Error from Login.js => handleLoginSubmit', error);
+            ToastStore.error("Email/Password incorrect.  Please try again.", 4000, 'toast-error')
         })
         this.setState({
             username: "",
@@ -74,7 +79,11 @@ class Login extends Component {
             let loginInfo = { username: newUserInfo.username, password: newUserInfo.password };
             axios.post('/auth/login', loginInfo).then(response => {
                 this.props.getCurrentUser();
+                ToastStore.success("Sign-up successful!", 4000, 'toast-success');
             })
+        }).catch(error => {
+            console.log("Error from Login.js => handleRegisterSubmit", error);
+            ToastStore.error("Registration failed... Our team is on it!", 4000, 'toast-error')
         })
         this.setState({
             firstName: "",
@@ -104,12 +113,13 @@ class Login extends Component {
                                 <div className="login-form-container">
                                     <h3>Welcome Back!    Please Login</h3>
                                     <div className="login-field-wrapper">
-                                        <p>USERNAME</p>
-                                        <input autofocus="autofocus" type="text" onChange={this.handleUsernameInput} value={this.state.username} placeholder="username" className="login-input"></input>
-                                        <p>PASSWORD</p>
-                                        <input type="password" name="password" onChange={this.handlePasswordInput} value={this.state.password} placeholder="password" className="login-input"></input>
-                                        <button onClick={this.handleLoginSubmit} disabled={!loginSubmitEnabled} className="login-button">SUBMIT</button>
-                                        <div styles={{ height: '60%' }}> </div>
+                                        <form onSubmit={this.handleLoginSubmit} styles={{ display: 'block' }}>
+                                            <p>USERNAME</p>
+                                            <input type="submit text" autofocus="autofocus" onChange={this.handleUsernameInput} value={this.state.username} placeholder="username" className="login-input"></input>
+                                            <p>PASSWORD</p>
+                                            <input type="password" onChange={this.handlePasswordInput} value={this.state.password} placeholder="password" className="login-input"></input>
+                                            <button type="submit" disabled={!loginSubmitEnabled} className="login-button">SUBMIT</button>
+                                        </form>
                                     </div>
                                     <button onClick={this.toggleRegister} className="login-button outside-form register">REGISTER</button>
                                 </div>
@@ -117,24 +127,27 @@ class Login extends Component {
                                 <div className="login-form-container">
                                     <h3>Welcome!    Please Register Below</h3>
                                     <div className="login-field-wrapper">
-                                        <p>FIRST NAME</p>
-                                        <input type="text" onChange={this.handleFirstNameInput} value={this.state.firstName} placeholder="First Name" className="login-input"></input>
-                                        <p>LAST NAME</p>
-                                        <input type="text" onChange={this.handleLastNameInput} value={this.state.lastName} placeholder="Last Name" className="login-input"></input>
-                                        <p>EMAIL</p>
-                                        <input type="text" onChange={this.handleEmailInput} value={this.state.email} placeholder="email@domain.com" className="login-input"></input>
-                                        <p>USERNAME</p>
-                                        <input type="text" onChange={this.handleUsernameInput} value={this.state.username} placeholder="username" className="login-input"></input>
-                                        <p>PASSWORD</p>
-                                        <input type="text" onChange={this.handlePasswordInput} value={this.state.password} placeholder="password" className="login-input"></input>
-                                        <p>ZIP CODE</p>
-                                        <input type="text" onChange={this.handleZipInput} value={this.state.zip} type="zipcode" pattern="(\d{5}([\-]\d{4})?)" placeholder="xxxxx-xxxx" className="login-input"></input>
-                                        <button onClick={this.handleRegisterSubmit} disabled={!registerSubmitEnabled} className="login-button">Submit</button>
+                                        <form onSubmit={this.handleRegisterSubmit} styles={{ display: 'block' }}>
+                                            <p>FIRST NAME</p>
+                                            <input type="text" onChange={this.handleFirstNameInput} value={this.state.firstName} placeholder="First Name" className="login-input"></input>
+                                            <p>LAST NAME</p>
+                                            <input type="text" onChange={this.handleLastNameInput} value={this.state.lastName} placeholder="Last Name" className="login-input"></input>
+                                            <p>EMAIL</p>
+                                            <input type="text" onChange={this.handleEmailInput} value={this.state.email} placeholder="email@domain.com" className="login-input"></input>
+                                            <p>USERNAME</p>
+                                            <input type="text" onChange={this.handleUsernameInput} value={this.state.username} placeholder="username" className="login-input"></input>
+                                            <p>PASSWORD</p>
+                                            <input type="text" onChange={this.handlePasswordInput} value={this.state.password} placeholder="password" className="login-input"></input>
+                                            <p>ZIP CODE</p>
+                                            <input type="text" onChange={this.handleZipInput} value={this.state.zip} pattern="(\d{5}([\-]\d{4})?)" placeholder="xxxxx-xxxx" className="login-input"></input>
+                                            <button type="submit" disabled={!registerSubmitEnabled} className="login-button">Submit</button>
+                                        </form>
                                     </div>
                                     <button onClick={this.toggleRegister} className="login-button outside-form">LOGIN</button>
                                 </div>
                         }
                     </div>
+                    <ToastContainer store={ToastStore} position={ToastContainer.POSITION.BOTTOM_RIGHT} />
                 </div>
             </div>
         )

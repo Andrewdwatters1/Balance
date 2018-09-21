@@ -1,3 +1,3 @@
-insert into todoz(content,startDate, completed)
+insert into todos(userId,content,date, completed)
 
-values ($1, now(), false)
+values ($1,$2, now(), false)

@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { ToastContainer, ToastStore } from 'react-toasts';
 
 import Weather from '../Weather/Weather.js'
 import Backdrop from '../Backdrop/Backdrop.js'
-import Notes from '../Notes/Notes.js'
+import Notes from '../Notes/NotePad.js'
 import Todo from '../Todo/Todo.js'
 import Habits from '../Habits/Habits.js'
 import Calendar from '../Calendar/Calendar.js'
@@ -217,6 +218,7 @@ class Home extends Component {
                             </div>
                         }
                     </div>
+                    <ToastContainer store={ToastStore} position={ToastContainer.POSITION.BOTTOM_RIGHT} />
                 </div>
             )
         }
