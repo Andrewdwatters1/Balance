@@ -96,6 +96,9 @@ class Login extends Component {
     }
 
     render() {
+
+
+
         let { firstName, lastName, username, email, password, zip } = this.state;
         let loginSubmitEnabled = username && password;
         let registerSubmitEnabled = firstName && lastName && username && email && password && zip
@@ -112,7 +115,7 @@ class Login extends Component {
                                     <div className="login-field-wrapper">
                                         <form onSubmit={this.handleLoginSubmit} styles={{ display: 'block' }}>
                                             <p>USERNAME</p>
-                                            <input type="submit text" onChange={this.handleUsernameInput} value={this.state.username} placeholder="username" className="login-input"></input>
+                                            <input type="submit text" autofocus="autofocus" onChange={this.handleUsernameInput} value={this.state.username} placeholder="username" className="login-input"></input>
                                             <p>PASSWORD</p>
                                             <input type="password" onChange={this.handlePasswordInput} value={this.state.password} placeholder="password" className="login-input"></input>
                                             <button type="submit" disabled={!loginSubmitEnabled} className="login-button">SUBMIT</button>

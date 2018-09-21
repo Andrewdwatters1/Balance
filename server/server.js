@@ -10,6 +10,7 @@ var hash = bcrypt.hashSync("B4c0/\/r*d-lsx?}", salt);
 
 const authController = require('./authController');
 const habitsController = require('./habitsController');
+const eventsController = require('./eventsController')
 const notesController = require('./notesController');
 const todoController = require('./todoController')
 
@@ -44,18 +45,24 @@ app.get('/api/habitEvents', habitsController.getAllHabitEventsByHabit);
 app.post('/api/habitEvents', habitsController.addHabitEvent);
 
 // TODO ENDPOINTS
-app.get('/api/todo', todoController.getTodos)
-app.delete('/api/todo/:id', todoController.deleteTodos)
+app.get('/api/todo/:userid', todoController.getTodos)
+app.delete('/api/todo/:id/:userid', todoController.deleteTodos)
 app.put('/api/todo/:id', todoController.editTodo)
 app.post('/api/todo', todoController.createTodo)
 // TODO ENDPTS
 
 // CALENDAR ENDPTS
+app.post('/api/events', eventsController.createEvent)
+app.get('/api/events', eventsController.getEventsByDate)
 
 // NOTES ENDPTS
-// app.get('/api/notepad', notesController.getNotes)
+app.get('/api/notepad', notesController.getAllNotes)
 app.post('/api/notepad', notesController.addNotes)
 app.delete('/api/notepad/:id', notesController.deleteNotes)
+    //SCRATCHPAD ENDPTS
+app.get('/api/scratchpad', notesController.getScratchPad)    
+app.post('/api/scratchpad', notesController.addScratchPad)    
+app.delete('/api/scratchpad/:id', notesController.deleteScratchPad)    
 
 // app.get('*', (req, res) => { // PRODUCTION BUILD ONLY
 //   res.sendFile(path.join(__dirname, '../build/index.html'));

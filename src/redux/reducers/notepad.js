@@ -2,17 +2,17 @@ import axios from 'axios'
 
 let initaialState = {
     notePad: [],
-    scrachPad: []
+    scratchPad: []
 }
 const FULFILLED = "_FULFILLED"
 const GET_NOTES = 'GET_NOTES';
 const ADD_NOTES = 'ADD_NOTES';
 const DELETE_NOTES = 'DELETE_NOTES';
 const PUT_NOTES = 'PUT_NOTES'
-const GET_SCRACHPAD = 'GET_SCRACHPAD';
-const ADD_SCRACHPAD = 'ADD_SCRACHPAD';
-const DELETE_SCRACHPAD = 'DELETE_SCRACHPAD';
-const PUT_SCRACHPAD = 'PUT_SCRACHPAD';
+const GET_SCRATCHPAD = 'GET_SCRATCHPAD';
+const ADD_SCRATCHPAD = 'ADD_SCRATCHPAD';
+const DELETE_SCRATCHPAD = 'DELETE_SCRATCHPAD';
+const PUT_SCRATCHPAD = 'PUT_SCRATCHPAD';
 
 
 export function getNotes(){
@@ -44,6 +44,37 @@ export function deleteNotes(id){
            type: DELETE_NOTES,
            payload: notePad
        }
+}
+
+export function getScratchPad(){
+    let scratchPad = axios.get('/api/scratchpad').then(results => {
+        console.log(results)
+        return results.data
+    })
+    return{
+        type: GET_SCRATCHPAD,
+        payload: scratchPad
+    }
+}
+
+export function addScratchPad(note){
+    let scratchPad = axios.post('/api/scratchpad', note).then(results => {
+        return results.data
+    })
+    return{
+        type: ADD_SCRATCHPAD,
+        payload: scratchPad
+    }
+}
+
+export function deleteScratchPad(id){
+    let scratchPad = axios.delete(`/api/scratchpad/${id}`).then(results =>{
+         return results.data
+       })
+       return {
+           type: DELETE_SCRATCHPAD,
+           payload: scratchPad
+       }
      }
 
 
@@ -57,8 +88,12 @@ export function deleteNotes(id){
             return Object.assign({}, state, {notePad: action.payload})
             case ADD_NOTES + FULFILLED:
             return Object.assign({}, state, {notePad: action.payload})
-            case GET_NOTES + FULFILLED:
-            return Object.assign({}, state, {notepPad: action.payload})
+            case GET_SCRATCHPAD + FULFILLED:
+            return Object.assign({}, state, {scratchPad: action.payload})
+            case DELETE_SCRATCHPAD + FULFILLED:
+            return Object.assign({}, state, {scratchPad: action.payload})
+            case ADD_SCRATCHPAD + FULFILLED:
+            return Object.assign({}, state, {scratchPad: action.payload})
         
             // case DELETE_ALL_FROM_SCRATCHPAD:
             // return Object.assign({}, state, {cart: []})
