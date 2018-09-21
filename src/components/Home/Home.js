@@ -38,8 +38,7 @@ class Home extends Component {
 
             date: new Date(),
             time: time,
-            events: [],   //
-            user: "Ryan"  // may be unecessary b/c is on redux
+            events: []
         }
     }
 

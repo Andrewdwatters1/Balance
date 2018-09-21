@@ -8,7 +8,7 @@
     width: 80vw;
     height: 80vh;
     background-color: rgba(0, 0, 0, 0.708);
-    z-index: 5;
+    z-index: 2;
     display: flex;
     flex-direction: row;
 }
@@ -32,15 +32,7 @@
 .calendar-morning{
     width: 100%;
     height: 33.333%;
-    background-color: inherit;
     border-bottom: 1px rgba(255, 255, 255, 0.283) solid;
-    text-align: center;
-}
-
-.morning-background-icon{
-    opacity: 0.07;
-    width: 15vw;
-    height: auto;
 }
 
 .add-button{
@@ -59,32 +51,212 @@
 .calendar-afternoon{
     width: 100%;
     height: 33.333%;
-    background-color: inherit;
     border-bottom: 1px rgba(255, 255, 255, 0.283) solid;
-    text-align: center;
-}
-
-.afternoon-background-icon{
-    opacity: 0.07;
-    width: 12vw;
-    height: auto;
-    margin-top: 2vh;
 }
 
 .calendar-evening{
     width: 100%;
     height: 33.333%;
-    background-color: inherit;
-    text-align: center;
 }
 
-.night-background-icon{
-    opacity: 0.07;
-    width: 12vw;
-    height: auto;
-    margin-top: 2vh;
+.add-event-menu{
+    position: absolute;
+    top: 50px;
+    right: -30px;
+    background-color: rgb(23, 24, 24);
+    height: 300px;
+    width: 50vw;
+    z-index: 3;
+    text-align: left;
 }
 
-.nothing{
-background-color: rgba(255, 205, 5, 0.769);
+.add-event-menu>span{
+    margin-left: 20px;
+}
+
+.add-event-menu>p{
+    margin-left: 20px;
+}
+
+.add-event-triangle{
+    position: absolute;
+    top: -8px;
+    right: 43px;
+    width: 0; 
+    height: 0;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-bottom: 8px solid rgb(23, 24, 24);
+    z-index: 3;
+  }
+.event-menu-container h3{
+    color: #969696;
+}
+
+.event-input-wrapper{
+    margin-left: 30px;
+    display: flex;
+    align-content: center;
+    align-items: center;
+}
+
+.event-name-wrapper{
+    margin-top: 20px;
+    margin-left: 20px;
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+}
+
+.event-left{
+    position: absolute;
+    top: 30%;
+    left: 0;
+    width: 20vw;
+}
+
+.event-calendar-icon{
+    height: 20px;
+    width: auto;
+    opacity: .5;
+    margin-right: 20px;
+}
+
+.MuiInputBase-input-436{
+    color: #FAFAFA !important;
+    font-family: 'Lato' !important;
+}
+
+.MuiInput-underline:after{
+    border-bottom: 2px solid rgba(233, 88, 88, 0.708) !important;
+}
+
+.MuiInput-underline:before{
+    border-bottom: none !important;
+}
+
+.Hi-Lo{
+    cursor: pointer;
+}
+
+.Hi-Lo:hover{
+    color: #FAFAFA !important;
+}
+
+.add-event-submit:hover{
+    color: #FAFAFA !important;
+}
+
+.add-event-submit{
+    cursor: pointer;
+    width: auto;
+    margin-left: 20%;
+    margin-top: 15%;
+}
+
+.event-menu-container{
+    display: flex;
+    flex-direction: row;
+    background-color: transparent;
+    height: 100%;
+    width: 100%;
+}
+
+.event-right{
+    width: 30vw;
+    position: absolute;
+    top: 20%;
+    right: 5%;
+}
+
+.event-name-input-field{
+    margin-left: 25px;
+    background-color: transparent;
+    outline: none;
+    border: none;
+    border-bottom: rgba(255, 255, 255, 0.406) 1px solid;
+    font-family: 'Lato';
+    font-size: 30px;
+}
+
+.event-name-input-field:focus{
+    border-bottom: 2px solid rgba(233, 88, 88, 0.53)
+}
+
+.event-description-input-field:focus{
+    outline: 2px solid rgba(233, 88, 88, 0.53)
+}
+
+.event-description-input-field{
+    width: 98%;
+    margin-right: 2%;
+    height: 22vh;
+    background-color: transparent;
+    outline: none;
+    border:rgba(255, 255, 255, 0.406) 1px solid;
+    resize: none;
+    font-size: 15px;
+}
+
+.sublimated-event-graphic{
+    opacity: .015;
+    height: 80%;
+    position: absolute;
+    right: 5vw;
+}
+
+.event-desciptor{
+    margin-left: 3%;
+}
+
+.question{
+    height: 20px;
+    position: absolute;
+    opacity: 0.2;
+    top: 10px;
+    right: 10px;
+}
+
+.calendar-afternoon>span{
+    font-size: 50px;
+}
+
+.eventInfoWrapper{
+    margin-top: 10px;
+    margin-left: 10px;
+}
+
+.event-info-modal{
+    background-color: rgb(23, 24, 24);
+    position: fixed;
+    width: 50vw;
+    height: 50vh;
+    top: 50%;
+    left: 50%;
+    margin-top: -25vh;
+    margin-left: -25vw;
+    z-index:10;
+}
+
+.event-info-time{
+    font-size: 10px;
+    margin-right: 10px;
+    color: rgba(255, 255, 255, 0.283)
+}
+
+::-webkit-scrollbar {
+    display: none;
+    }
+
+.add-event-delete{
+    position: absolute;
+    right: 5px;
+    bottom: -27%;
+    cursor: pointer;
+    width: auto;
+    color: rgba(255, 255, 255, 0.283)
+}
+
+.add-event-delete:hover{
+    color: rgba(233, 88, 88, 1)!important;
 }

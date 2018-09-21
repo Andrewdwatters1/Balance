@@ -10,6 +10,7 @@ var hash = bcrypt.hashSync("B4c0/\/r*d-lsx?}", salt);
 
 const authController = require('./authController');
 const habitsController = require('./habitsController');
+const eventsController = require('./eventsController')
 const notesController = require('./notesController');
 const todoController = require('./todoController')
 
@@ -51,6 +52,8 @@ app.post('/api/todo', todoController.createTodo)
 // TODO ENDPTS
 
 // CALENDAR ENDPTS
+app.post('/api/events', eventsController.createEvent)
+app.get('/api/events', eventsController.getEventsByDate)
 
 // NOTES ENDPTS
 // app.get('/api/notepad', notesController.getNotes)
