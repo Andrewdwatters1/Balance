@@ -45,8 +45,8 @@ app.get('/api/habitEvents', habitsController.getAllHabitEventsByHabit);
 app.post('/api/habitEvents', habitsController.addHabitEvent);
 
 // TODO ENDPOINTS
-app.get('/api/todo', todoController.getTodos)
-app.delete('/api/todo/:id', todoController.deleteTodos)
+app.get('/api/todo/:userid', todoController.getTodos)
+app.delete('/api/todo/:id/:userid', todoController.deleteTodos)
 app.put('/api/todo/:id', todoController.editTodo)
 app.post('/api/todo', todoController.createTodo)
 // TODO ENDPTS
