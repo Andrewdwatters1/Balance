@@ -41,6 +41,16 @@ module.exports = {
             console.log('Error editing todos Origin: server/todoController/ Error:', error);
             res.status(500).send(error)
         }
+    },
+    markComplete : async (req,res) => {
+        try {
+            let db = req.app.get('db')
+            let todo = await db.todo.markTodoAsComplete(req.params.id)
+            re.send(todo)
+        } catch (error) {
+            console.log('Error editing todos Origin: server/todoController/ Error:', error);
+            res.status(500).send(error)
+        }
     }
 
 }

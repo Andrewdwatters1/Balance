@@ -54,7 +54,7 @@
 }
 
 .todoControlEdit, .todoControlRemove{
-    justify-self: flex-end;
+    align-self: flex-end;
 }
 
 .todoControlEdit{
@@ -93,6 +93,12 @@
     float: left;
     border-right: 2px solid white;
     border-top: 2px solid white;
+    overflow: scroll;
+    overflow-x: hidden;
+}
+
+.baseTodoWrapper::-webkit-scrollbar{
+    display: none;
 }
 
 .todoContainerInfo{

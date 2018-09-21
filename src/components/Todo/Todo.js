@@ -17,24 +17,18 @@ class Todo extends Component{
 
     handleSubmit = () => {
         this.props.createTodos(this.props.user.id, this.state.input)
+        this.props.getTodos(this.props.user.id)
     }
 
     deleteTodo = (id) => {
         this.props.deleteTodos(id, this.props.user.id)
-        
-        // for (let i = 0; i < this.props.todos.length; i++) {
-        //     if(this.props.todos[i].id === 52){
-        //         this.props.deleteTodos(this.props.todos[i].id)
-        //     }
-        // }
     }
 
     render(){
-        
         return(
             <div className="todo-container">
             <div className='todoInputAndButton'>
-                <input className='todoInput' placeholder='Wat do ????' onChange={this.handleInputChange}/>
+                <input className='todoInput' placeholder='What do you need to do today?' onChange={this.handleInputChange}/>
                 <button className='addTodoButton' onClick={this.handleSubmit}>+</button>
             </div>
                 <div className='baseTodoWrapper'>
