@@ -15,10 +15,11 @@ const DELETE_TODO_FULFILLED = 'DELETE_TODO_FULFILLED'
 
 let initialState = {
     todos : [],
-    input: ''
+    input: '',
+    completed: []
 }
 
-export default function todo(state = initialState, action){
+export default function reducer(state = initialState, action){    
     switch(action.type){
         case GET_TODO_FULFILLED:
             return{...state, todos:action.payload.data}
@@ -33,17 +34,17 @@ export default function todo(state = initialState, action){
     }
 }
 
-export function getTodos(){
+export function getTodos(userid){
     return{
         type: GET_TODO,
-        payload: axios.get('/api/todo')
+        payload: axios.get(`/api/todo/${userid}`)
     }
 }
 
-export function deleteTodos(id){
+export function deleteTodos(id, userid){
     return{
         type: DELETE_TODO,
-        payload: axios.delete(`/api/todo/${id}`)
+        payload: axios.delete(`/api/todo/${id}/${userid}`)
     }
 }
 

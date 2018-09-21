@@ -1,1 +1,2 @@
-SELECT * FROM Notes;
+SELECT * FROM Notes
+where userid = $1;;
