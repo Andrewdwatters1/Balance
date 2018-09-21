@@ -4,6 +4,7 @@
   "private": true,
   "main": "server/server.js",
   "dependencies": {
+    "@material-ui/core": "^3.1.0",
     "axios": "^0.18.0",
     "bcryptjs": "^2.4.3",
     "bfg": "^0.3.0",
@@ -15,8 +16,8 @@
     "react-addons-css-transition-group": "^15.6.2",
     "react-dom": "^16.5.1",
     "react-infinite-calendar": "^2.3.1",
-    "react-scripts": "1.1.5",
     "react-redux": "^5.0.7",
+    "react-scripts": "1.1.5",
     "redux": "^4.0.0",
     "redux-promise-middleware": "^5.1.1"
   },

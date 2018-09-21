@@ -37,8 +37,7 @@ class Home extends Component {
 
             date: new Date(),
             time: time,
-            events: [],   //
-            user: "Ryan"  // may be unecessary b/c is on redux
+            events: []
         }
     }
 
@@ -134,7 +133,7 @@ class Home extends Component {
     }
 
     render() {
-        console.log('current user', this.props.user);
+        // console.log('current user', this.props.user);
         let backdrop;
         if (this.state.isNavMenuVisible || this.state.isHabitsMenuVisible) {
             backdrop = <Backdrop click={this.backdropClickHandler} />

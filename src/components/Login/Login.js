@@ -87,6 +87,9 @@ class Login extends Component {
     }
 
     render() {
+
+
+
         let { firstName, lastName, username, email, password, zip } = this.state;
         let loginSubmitEnabled = username && password;
         let registerSubmitEnabled = firstName && lastName && username && email && password && zip
@@ -102,9 +105,9 @@ class Login extends Component {
                                     <h3>Welcome Back!    Please Login</h3>
                                     <div className="login-field-wrapper">
                                         <p>USERNAME</p>
-                                        <input type="text" onChange={this.handleUsernameInput} value={this.state.username} placeholder="username" className="login-input"></input>
+                                        <input autofocus="autofocus" type="text" onChange={this.handleUsernameInput} value={this.state.username} placeholder="username" className="login-input"></input>
                                         <p>PASSWORD</p>
-                                        <input type="text" onChange={this.handlePasswordInput} value={this.state.password} placeholder="password" className="login-input"></input>
+                                        <input type="password" name="password" onChange={this.handlePasswordInput} value={this.state.password} placeholder="password" className="login-input"></input>
                                         <button onClick={this.handleLoginSubmit} disabled={!loginSubmitEnabled} className="login-button">SUBMIT</button>
                                         <div styles={{ height: '60%' }}> </div>
                                     </div>

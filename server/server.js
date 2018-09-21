@@ -10,6 +10,7 @@ var hash = bcrypt.hashSync("B4c0/\/r*d-lsx?}", salt);
 
 const authController = require('./authController');
 const habitsController = require('./habitsController');
+const eventsController = require('./eventsController')
 
 const app = express();
 const serverPort = process.env.SERVER_PORT;
@@ -41,6 +42,8 @@ app.delete('/api/habits', habitsController.deleteHabit);
 // TODO ENDPTS
 
 // CALENDAR ENDPTS
+app.post('/api/events', eventsController.createEvent)
+app.get('/api/events', eventsController.getEventsByDate)
 
 // NOTES ENDPTS
 
