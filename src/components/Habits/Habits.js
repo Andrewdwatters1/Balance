@@ -17,7 +17,8 @@ class Habits extends Component {
             addHabitVisible: false,
             habitDetailVisible: false,
             habitDetailShown: 1,
-            habitsPastWeek: [-7, -6, -5, -4, -3, -2, -1]
+            habitEvents: [],
+            habitEventsReturned: false
         }
     }
 
@@ -34,12 +35,17 @@ class Habits extends Component {
     }
     showHabitDetail = (id) => {
         axios.get(`api/habitEvents?id=${id}`).then(result => {
-            console.log('habit events for this habit', result)
-        })
-        this.setState({
-            habitDetailVisible: true,
-            habitDetailShown: id,
-            addHabitVisible: false,
+            // console.log('habit events for this habit', result)
+            this.setState({
+                habitDetailVisible: true,
+                habitDetailShown: id,
+                addHabitVisible: false,
+                habitEvents: result.data
+            }, () => {
+                this.setState({
+                    habitEventsReturned: true
+                })
+            })
         })
     }
     addHabitEvent = (habitId) => {
@@ -69,7 +75,7 @@ class Habits extends Component {
     }
 
     render() {
-
+        console.log(this.state.habitEvents);
         if (this.state.habitsList.length) {
             let daysOfTheWeek = [' ', 'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
             let monthsOfTheYear = [' ', 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
@@ -97,12 +103,87 @@ class Habits extends Component {
                         {e.type === "Personal" ? <i class="fas fa-book-reader"></i> : e.type === "Professional" ? <i class="fas fa-user-tie"></i> : <i class="fas fa-heartbeat"></i>}
                         <p>You started tracking this habit on {`${day}, ${month} ${e.date[2]}, ${e.date[0]}, ${moment([+e.date[0], (+e.date[1]), +e.date[2]]).fromNow()}`}</p>
                         <p>Here's your progress for the past week: </p>
+                        <div style={{ display: 'flex' }}>
 
+                            <div className="habits-detail-habit-progress">7 days ago
+                            {
+                                this.state.habitEventsReturned ? // checks that habitEvents array has been returned
+                                    this.state.habitEvents.filter((e) => e.daysfromstart === "7")[0] ? // checks that first item in habitEvents {x} days ago is true
+                                        <i class="far fa-check-circle"></i> // rendered if true
+                                        :
+                                        <i class="far fa-times-circle"></i> // rendered if false
+                                    :
+                                    null // checks that habitEvents array has been returned
+                            }
+                            </div>
+                            <div className="habits-detail-habit-progress">6 days ago
+                            {
+                                this.state.habitEventsReturned ? // checks that habitEvents array has been returned
+                                    this.state.habitEvents.filter((e) => e.daysfromstart === "6")[0] ? // checks that first item in habitEvents {x} days ago is true
+                                        <i class="far fa-check-circle"></i> // rendered if true
+                                        :
+                                        <i class="far fa-times-circle"></i> // rendered if false
+                                    :
+                                    null // checks that habitEvents array has been returned
+                            }
+                            </div>
+                            <div className="habits-detail-habit-progress">5 days ago
+                            {
+                                this.state.habitEventsReturned ? // checks that habitEvents array has been returned
+                                    this.state.habitEvents.filter((e) => e.daysfromstart === "5")[0] ? // checks that first item in habitEvents {x} days ago is true
+                                        <i class="far fa-check-circle"></i> // rendered if true
+                                        :
+                                        <i class="far fa-times-circle"></i> // rendered if false
+                                    :
+                                    null // checks that habitEvents array has been returned
+                            }
+                            </div>
+                            <div className="habits-detail-habit-progress">4 days ago
+                            {
+                                this.state.habitEventsReturned ? // checks that habitEvents array has been returned
+                                    this.state.habitEvents.filter((e) => e.daysfromstart === "4")[0] ? // checks that first item in habitEvents {x} days ago is true
+                                        <i class="far fa-check-circle"></i> // rendered if true
+                                        :
+                                        <i class="far fa-times-circle"></i> // rendered if false
+                                    :
+                                    null // checks that habitEvents array has been returned
+                            }
+                            </div>
+                            <div className="habits-detail-habit-progress">3 days ago
+                            {
+                                this.state.habitEventsReturned ? // checks that habitEvents array has been returned
+                                    this.state.habitEvents.filter((e) => e.daysfromstart === "3")[0] ? // checks that first item in habitEvents {x} days ago is true
+                                        <i class="far fa-check-circle"></i> // rendered if true
+                                        :
+                                        <i class="far fa-times-circle"></i> // rendered if false
+                                    :
+                                    null // checks that habitEvents array has been returned
+                            }
+                            </div>
+                            <div className="habits-detail-habit-progress">2 days ago
+                            {
+                                this.state.habitEventsReturned ? // checks that habitEvents array has been returned
+                                    this.state.habitEvents.filter((e) => e.daysfromstart === "2")[0] ? // checks that first item in habitEvents {x} days ago is true
+                                        <i class="far fa-check-circle"></i> // rendered if true
+                                        :
+                                        <i class="far fa-times-circle"></i> // rendered if false
+                                    :
+                                    null // checks that habitEvents array has been returned
+                            }
+                            </div>
+                            <div className="habits-detail-habit-progress">yesterday
+                            {
+                                this.state.habitEventsReturned ? // checks that habitEvents array has been returned
+                                    this.state.habitEvents.filter((e) => e.daysfromstart === "1")[0] ? // checks that first item in habitEvents {x} days ago is true
+                                        <i class="far fa-check-circle"></i> // rendered if true
+                                        :
+                                        <i class="far fa-times-circle"></i> // rendered if false
+                                    :
+                                    null // checks that habitEvents array has been returned
+                            }
+                            </div>
 
-
-                        {/* TODO MAKE ME WORK */}
-
-
+                        </div>
                         <p>Completed today? </p>
                         <i onMouseDown={(habitId) => this.addHabitEvent(e.id)} class="far fa-check-circle"></i>
                     </div>
@@ -123,7 +204,11 @@ class Habits extends Component {
                         <div className="habits-content">
                             {
                                 this.state.addHabitVisible ?
-                                    <AddHabitForm habitsList={this.state.habitsList} currentUser={this.props.user}/**/ toggleForm={this.toggleForm} addHabitToList={this.addHabitToList} />
+                                    <div>
+                                        <div onClick={this.toggleForm} className="add-habit-background">
+                                        </div>
+                                        <AddHabitForm habitsList={this.state.habitsList} currentUser={this.props.user}/**/ toggleForm={this.toggleForm} addHabitToList={this.addHabitToList} />
+                                    </div>
                                     :
                                     <div className="add-first-habit-button">
                                         <img src={add} onMouseDown={this.toggleForm} className="add-first-habit-plus" />
@@ -144,7 +229,11 @@ class Habits extends Component {
                                         </div>
                                         {
                                             this.state.addHabitVisible ?
-                                                <AddHabitForm habitsList={this.state.habitsList} currentUser={this.props.user} toggleForm={this.toggleForm} addHabitToList={this.addHabitToList} />
+                                                <div>
+                                                    <div onClick={this.toggleForm} className="add-habit-background">
+                                                    </div>
+                                                    <AddHabitForm habitsList={this.state.habitsList} currentUser={this.props.user} toggleForm={this.toggleForm} addHabitToList={this.addHabitToList} />
+                                                </div>
                                                 :
                                                 null
                                         }
@@ -159,7 +248,11 @@ class Habits extends Component {
                                         </div>
                                         {
                                             this.state.addHabitVisible ?
-                                                <AddHabitForm habitsList={this.state.habitsList} currentUser={this.props.user} toggleForm={this.toggleForm} addHabitToList={this.addHabitToList} />
+                                                <div>
+                                                    <div onClick={this.toggleForm} className="add-habit-background">
+                                                    </div>
+                                                    <AddHabitForm habitsList={this.state.habitsList} currentUser={this.props.user} toggleForm={this.toggleForm} addHabitToList={this.addHabitToList} />
+                                                </div>
                                                 :
                                                 null
                                         }

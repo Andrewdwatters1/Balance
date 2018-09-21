@@ -3,9 +3,11 @@ const bodyParser = require('body-parser');
 const massive = require('massive');
 require('dotenv').config();
 const session = require('express-session');
-var bcrypt = require('bcryptjs');
-var salt = bcrypt.genSaltSync(10);
-var hash = bcrypt.hashSync("B4c0/\/r*d-lsx?}", salt);
+const bcrypt = require('bcryptjs');
+const salt = bcrypt.genSaltSync(10);
+const hash = bcrypt.hashSync("B4c0/\/r*d-lsx?}", salt);
+const cron = require('node-cron');
+
 // const path = require('path')  // PRODUCTION BUILD ONLY
 
 const authController = require('./authController');
@@ -67,6 +69,13 @@ app.delete('/api/scratchpad/:id', notesController.deleteScratchPad)
 // app.get('*', (req, res) => { // PRODUCTION BUILD ONLY
 //   res.sendFile(path.join(__dirname, '../build/index.html'));
 // });
+
+cron.schedule('1 0 * * * *', () => { // should run at 00:01 EST every day
+  habitsController.updateHabitEvents(app)
+}, {
+  scheduled: true,
+  timezone: "America/New_York" // better solution?
+})
 
 app.listen(serverPort, () => {
   console.log('Server is running on port: ', serverPort);

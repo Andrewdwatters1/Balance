@@ -48,5 +48,11 @@ module.exports = {
     db.habits.get_all_habitEvents_by_habit(req.query.id).then(result => {
       res.status(200).send(result);
     }).catch(error => console.log('Error from habitsController.getallHabitEventsByUser', error));
-  }
+  },
+  updateHabitEvents: (app) => {
+    let db = app.get('db');
+      db.habits.update_habit_events().then(result => {
+        console.log('chron-script hit at: ', new Date());
+      }).catch(error => console.log('Error from habitsController.updateHabitEvents THIS IS TRIGGERED BY CRON SCRIPT', error))
+    }
 }

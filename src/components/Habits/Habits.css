@@ -1,7 +1,6 @@
 :root {
     --primary-accent-color: rgba(233, 88, 88, 0.708);  
 }
-
 .content-container {
     position: absolute;
     top: 0;
@@ -11,29 +10,29 @@
     margin: auto;
     width: 80vw;
     height: 80vh;
-    background-color: rgba(0, 0, 0, 0.708);
+    background-color: rgba(0, 0, 0, 0.9);
     z-index: 5;
     display: flex;
 }
 .habits-sidebar {
-    width: 60%; /* change to percent for greater consistency */
+    width: 60%;
     height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    background-color: inherit;
+    background-color: transparent;
     border: 1px rgba(255, 255, 255, 0.283) solid;
     overflow: scroll;
 }
 .habits-sidebar-habit {
     width: 100%;
-    background-color: inherit;
+    background-color: transparent;
     
 }
 .habits-content {
     width: 100%;
     height: 100%;
-    background-color: inherit;
+    background-color: transparent;
     border: 1px rgba(255, 255, 255, 0.283) solid;
 }
 .habits-content>p {
@@ -43,6 +42,16 @@
     margin-top: 15%;
     text-align: center;
 }
+.habits-detail-habit {
+
+}
+.habits-detail-habit-progress {
+    display: flex;
+    flex-direction: column;
+    height: 100; 
+    width: 50; 
+    background-color: lightcoral;
+}
 .add-first-habit-button {
     height: 100%;
     width: 100%;
@@ -50,7 +59,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: inherit;
+    background-color: transparent;
 }
 .add-first-habit-plus {
     height: 100px;
@@ -74,6 +83,39 @@
     opacity: 1;
     cursor: pointer;
 }
+.add-habit {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.979);
+    height: 33%;
+    border: 1px rgba(255, 255, 255, 0.283) solid;
+    position: absolute;
+    top: 50px;
+    right: -30px;
+    width: 62.5%;
+    z-index: 7;
+}
+.add-habit-background {
+    position: absolute;
+    height: 100vh;
+    width: 100vw;
+    top: -10vh;
+    right: 0;
+    bottom: 0;
+    left: -10vw;
+    background-color: rgba(0, 0, 0, 0.55);
+}
+.add-habit-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+.add-habit-form>input,textarea {
+    color: black;
+}
 .add-habit-close-form {
     height: 25px;
     width: auto;
@@ -86,26 +128,4 @@
 .add-habit-close-form:hover {
     opacity: 1;
     cursor: pointer;
-}
-.add-habit {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background-color: inherit;
-    height: 33%;
-    border: 1px rgba(255, 255, 255, 0.283) solid;
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 62.5%;
-}
-.add-habit-form {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    align-items: center;
-}
-.add-habit-form>input,textarea {
-    color: black;
 }
