@@ -14,7 +14,7 @@ import InfiniteCalendar from 'react-infinite-calendar';
 //Styles
 
 import './Calendar.css';
-import 'react-infinite-calendar/styles.css';
+import './side-calendar.css';
 
 //Images
 
@@ -29,31 +29,34 @@ class Calendar extends Component{
     constructor(){
         super();
         this.state={
-            //event information by date
+
+            //   EVENT ARRAYS
             morningEvents: [],
             afternoonEvents: [],
             eveningEvents: [],
 
-            //   ADD    event form fields and selections
+            //   EVENT FORM FIELDS
             selectedDate: new Date(),
             selectedTime: "12:00 PM",
             importance: "lo",
             eventName: "",
             eventDescription: "",
 
-            //   UPDATE    updated form fields
-            updatedDate: this.selectedDate,
-            updatedTime: this.selectedTime,
-            updatedImportance: this.importance,
-            updatedEventName: this.eventName,
-            updatedDescription: this.eventDescription,
+            //   UPDATE
+            updatedDate: "",
+            updatedTime: "",
+            updatedImportance: "",
+            updatedEventName: "",
+            updatedDescription: "",
 
-            //other
+            //   OTHER
             isEventModalVisible: false,
             isInfoModalVisible: false,
             modalId: null
         }
     }
+
+    //   LIFECYCLE METHODS
     
     componentDidMount(){
         let thisYear = this.state.selectedDate.getFullYear();
@@ -70,50 +73,14 @@ class Calendar extends Component{
                 })});
     }
 
-    refreshCalendar(){
-        this.setState({
-            morningEvents: [],
-            afternoonEvents: [],
-            eveningEvents: [],
-            }, ()=>{
-                let thisYear = this.state.selectedDate.getFullYear()
-                let thisMonth = this.state.selectedDate.getMonth() + 1
-                let todaysDate = this.state.selectedDate.getDate()
-                let formattedDate = `${thisYear}-${thisMonth}-${todaysDate}`
-                axios.get(`/api/events?event_date=${formattedDate}`).then(response => {
-                    response.data.map(event => {
-                        if(event.event_tod === "morning"){
-                                this.setState({morningEvents: [...this.state.morningEvents, event]})}
-                            else if(event.event_tod === "afternoon"){
-                                this.setState({afternoonEvents: [...this.state.afternoonEvents, event]})}
-                            else {this.setState({eveningEvents: [...this.state.eveningEvents, event]})}
-                        })});})
-    }
+    //   ADD EVENT FUNCTIONS
     
-
     updateSelectedDate = (e) => {
         this.setState({
             selectedDate: e
         }, ()=>{
             this.refreshCalendar()
     })}
-
-    toggleEventModal = () => {
-        this.setState({
-            isEventModalVisible: true,
-        })
-    }
-
-    backdropClickHandler = () => {
-        this.setState({
-            isInfoModalVisible: false,
-            isEventModalVisible: false,
-            importance: 'lo',
-            eventName: "",
-            eventDescription: "",
-            selectedTime: "12:00 PM"
-            });
-      };
 
     toggleTime = (e) => {
         this.setState({
@@ -144,58 +111,6 @@ class Calendar extends Component{
             eventDescription: e.target.value
         })
     }
-
-    eventFormReset = () => {
-        this.setState({
-            selectedTime: "12:00 PM",
-            importance: "lo",
-            eventName: "",
-            eventDescription: "",
-        })
-    }
-
-    openEventInfo = (id) => {
-        this.setState({
-            isInfoModalVisible: true,
-            modalId: id
-        })
-    }
-
-
-    
-    
-    //EVENT UPDATER FUNCTIONS
-
-
-    eventNameUpdater = (e) =>{
-        this.setState({
-            updatedEventName : e.target.value
-        })
-    }
-    eventTimeUpdater = (e) =>{
-        this.setState({
-            updatedTime : e.target.value
-        })
-    }
-    eventImportanceUpdater = (e) =>{
-        this.setState({
-            updatedImportance : e.target.value
-        })
-    }
-    eventDescriptionUpdater = (e) =>{
-        this.setState({
-            updatedDescription : e.target.value
-        })
-    }
-    eventUpdaterSubmit = (e) => {
-        this.setState({}
-)
-    }
-
-
-
-
-
 
     submitEventClick = (e) => {
 
@@ -235,6 +150,140 @@ class Calendar extends Component{
         })
     }
 
+    eventFormReset = () => {
+        this.setState({
+            selectedTime: "12:00 PM",
+            importance: "lo",
+            eventName: "",
+            eventDescription: "",
+        })
+    }
+
+    refreshCalendar(){
+        this.setState({
+            morningEvents: [],
+            afternoonEvents: [],
+            eveningEvents: [],
+            }, ()=>{
+                let thisYear = this.state.selectedDate.getFullYear()
+                let thisMonth = this.state.selectedDate.getMonth() + 1
+                let todaysDate = this.state.selectedDate.getDate()
+                let formattedDate = `${thisYear}-${thisMonth}-${todaysDate}`
+                axios.get(`/api/events?event_date=${formattedDate}`).then(response => {
+                    response.data.map(event => {
+                        if(event.event_tod === "morning"){
+                                this.setState({morningEvents: [...this.state.morningEvents, event]})}
+                            else if(event.event_tod === "afternoon"){
+                                this.setState({afternoonEvents: [...this.state.afternoonEvents, event]})}
+                            else {this.setState({eveningEvents: [...this.state.eveningEvents, event]})}
+                        })});})
+    }
+
+    //   RENDERING TOGGLES
+
+    toggleEventModal = () => {
+        this.setState({
+            isEventModalVisible: true,
+        })
+    }
+
+    backdropClickHandler = () => {
+        this.setState({
+            isInfoModalVisible: false,
+            isEventModalVisible: false,
+            importance: 'lo',
+            eventName: "",
+            eventDescription: "",
+            selectedTime: "12:00 PM"
+            });
+      };
+
+    openEventInfo = (event) => {
+        if(!this.state.isInfoModalVisible) {
+            this.setState({
+                isInfoModalVisible: true,
+                modalId: event.event_id,
+                updatedEventName: event.event_name,
+                updatedDate: event.event_date,
+                updatedTime: event.event_time,
+                updatedImportance: event.event_importance,
+                updatedDescription: event.event_details
+            })
+        }
+    }
+    
+    //   EVENT UPDATER FUNCTIONS
+
+    eventNameUpdater = (e) =>{
+        this.setState({
+            updatedEventName : e.target.value
+        })
+    }
+    eventTimeUpdater = (e) =>{
+        this.setState({
+            updatedTime : e.target.value
+        })
+    }
+
+    eventImportanceUpdaterHi = (e) =>{
+        this.setState({
+            updatedImportance: "hi"
+        })
+    }
+
+    eventImportanceUpdaterLo = (e) => {
+        this.setState({
+            updatedImportance: "lo"
+        })
+    }
+
+    eventDescriptionUpdater = (e) =>{
+        this.setState({
+            updatedDescription : e.target.value
+        })
+    }
+
+    eventUpdaterSubmit = (id) => {
+
+        var getTravelDateFormatted = function() {
+            return function(str) {
+                var daysNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+                  monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'],
+                  d = new Date(str),
+                  day = d.getDate(),
+                  month = monthNames[d.getMonth()],
+                  dayName = daysNames[d.getDay()];
+        
+                  return `${dayName}, ${month} ${day}`
+                  };
+                }();
+    
+            let obj = {
+                event_date: this.state.updatedDate,
+                event_formatted_date: getTravelDateFormatted(this.state.updatedDate),
+                event_time: this.state.updatedTime,
+                event_importance: this.state.updatedImportance,
+                event_name: this.state.updatedEventName,
+                event_details: this.state.updatedDescription,
+            }
+    
+            axios.put(`/api/events/${id}`, obj).then(res =>{
+                this.backdropClickHandler();
+                this.refreshCalendar();
+            })
+        }
+
+    eventDeleter = (id) => {
+        axios.delete(`/api/events/${id}`).then(results => {
+            this.refreshCalendar()
+            this.setState({
+                isInfoModalVisible: false
+            })
+        })
+    }
+
+    //   RENDER
+
     render(){
 
         function timeConverter(time){
@@ -247,11 +296,9 @@ class Calendar extends Component{
           }
 
         let morningEventsRender = this.state.morningEvents.map( event => {
-
             let hiColor;
             let loColor;
-
-            if(event.event_importance === "lo"){
+            if(this.state.updatedImportance === "lo"){
                 hiColor =  "rgba(125, 124, 124, 0.708)"
                 loColor =  "#FAFAFA"
             }
@@ -259,33 +306,31 @@ class Calendar extends Component{
                 hiColor =  "#FAFAFA"
                 loColor =  "rgba(125, 124, 124, 0.708)"
             }
-
             return(
-                <div className="eventInfoWrapper" onClick={() => {this.openEventInfo(event.event_id)}}>
+                <div className="eventInfoWrapper" onClick={() => {this.openEventInfo(event)}}>
                     <span className="event-info-time">{timeConverter(event.event_time)}</span>
                     <span>{event.event_name}</span>
-
                    {this.state.isInfoModalVisible && this.state.modalId === event.event_id && 
                     <div className="event-info-modal">
                                 <div className="event-menu-container">
                                 <img alt="help" className="question" src={question}/>
                                 <div className="event-name-wrapper">
                                          <h3 className="event-desciptor">Event</h3>
-                                         <input value={event.event_id} onChange={this.eventNameUpdater} className="event-name-input-field" value={event.event_name}></input>
+                                         <input value={this.state.updatedEventName} onChange={this.eventNameUpdater} className="event-name-input-field"></input>
                                          <img alt="" src={eventdate} className="sublimated-event-graphic"/>
                                      </div>
                                 <div className="event-left">
                                     <div className="event-input-wrapper">
                                         <img className="event-calendar-icon" src={eventdate}></img>
-                                        <p>{event.event_formatted_date}</p>
+                                        <p>{this.state.updatedDate}</p>
                                     </div>
                                     <div className="event-input-wrapper">
                                         <img alt="time" className="event-calendar-icon" src={time} style={{height: "22px"}}/>
                                             <TextField
                                                 id="time"
                                                 type="time"
-                                                defaultValue={event.event_time}
-                                                onChange={this.updatedTime}
+                                                defaultValue={this.state.updatedTime}
+                                                onChange={this.eventTimeUpdater}
                                                 InputLabelProps={{
                                                     shrink: true,
                                                 }}
@@ -296,51 +341,154 @@ class Calendar extends Component{
                                     </div>
                                     <div className="event-input-wrapper" style={{marginTop: "12px"}}>
                                         <img alt="importance" className="event-calendar-icon" style={{height: "22px"}} src={importance}/>
-                                        <span /*onClick={this.toggleHiImportance}*/ className="Hi-Lo" style={{color : `${hiColor}`}}>HI</span>
+                                        <span onClick={this.eventImportanceUpdaterHi} className="Hi-Lo" style={{color : `${hiColor}`}}>HI</span>
                                         <div style={{width: "20px"}}></div>
-                                        <span /*onClick={this.toggleLoImportance}*/ className="Hi-Lo" style={{color : `${loColor}`}}>LO</span>
+                                        <span onClick={this.eventImportanceUpdaterLo} className="Hi-Lo" style={{color : `${loColor}`}}>LO</span>
                                     </div>
-                                    <h3 className="add-event-submit" /*onClick={}*/>Update Event</h3>
+                                    <h3 className="add-event-submit" onClick={()=>this.eventUpdaterSubmit(event.event_id)}>Update Event</h3>
+                                    <button className="delete-button" onClick={()=>this.eventDeleter(event.event_id)}>DELETE</button>
                                 </div>
                                 <div className="event-right">
                                      <div style={{textAlign : "center", marginTop: "30px"}}>
                                          <h3 style={{textAlign: "left", marginBottom: "10px"}}>Description</h3>
-                                         <textarea value={event.event_details} onChange={this.updateEventDescription} className="event-description-input-field"></textarea>
+                                         <textarea value={this.state.updatedDescription} onChange={this.eventDescriptionUpdater} className="event-description-input-field"></textarea>
                                      </div>
                                 </div>
                             </div>
                     </div> 
                     }
-
                 </div>
             ) 
         });
 
         let afternoonEventRender = this.state.afternoonEvents.map( event => {
+            let hiColor;
+            let loColor;
+            if(this.state.updatedImportance === "lo"){
+                hiColor =  "rgba(125, 124, 124, 0.708)"
+                loColor =  "#FAFAFA"
+            }
+            else{
+                hiColor =  "#FAFAFA"
+                loColor =  "rgba(125, 124, 124, 0.708)"
+            }
             return(
-                <div className="eventInfoWrapper" onClick={() => {this.openEventInfo(event.event_id)}}>
+                <div className="eventInfoWrapper" onClick={() => {this.openEventInfo(event)}}>
                     <span className="event-info-time">{timeConverter(event.event_time)}</span>
                     <span>{event.event_name}</span>
                    {this.state.isInfoModalVisible && this.state.modalId === event.event_id && 
                     <div className="event-info-modal">
+                                <div className="event-menu-container">
+                                <img alt="help" className="question" src={question}/>
+                                <div className="event-name-wrapper">
+                                         <h3 className="event-desciptor">Event</h3>
+                                         <input value={this.state.updatedEventName} onChange={this.eventNameUpdater} className="event-name-input-field"></input>
+                                         <img alt="" src={eventdate} className="sublimated-event-graphic"/>
+                                     </div>
+                                <div className="event-left">
+                                    <div className="event-input-wrapper">
+                                        <img className="event-calendar-icon" src={eventdate}></img>
+                                        <p>{this.state.updatedDate}</p>
+                                    </div>
+                                    <div className="event-input-wrapper">
+                                        <img alt="time" className="event-calendar-icon" src={time} style={{height: "22px"}}/>
+                                            <TextField
+                                                id="time"
+                                                type="time"
+                                                defaultValue={this.state.updatedTime}
+                                                onChange={this.eventTimeUpdater}
+                                                InputLabelProps={{
+                                                    shrink: true,
+                                                }}
+                                                inputProps={{
+                                                   step: 300,
+                                                }}
+                                                />
+                                    </div>
+                                    <div className="event-input-wrapper" style={{marginTop: "12px"}}>
+                                        <img alt="importance" className="event-calendar-icon" style={{height: "22px"}} src={importance}/>
+                                        <span onClick={this.eventImportanceUpdaterHi} className="Hi-Lo" style={{color : `${hiColor}`}}>HI</span>
+                                        <div style={{width: "20px"}}></div>
+                                        <span onClick={this.eventImportanceUpdaterLo} className="Hi-Lo" style={{color : `${loColor}`}}>LO</span>
+                                    </div>
+                                    <h3 className="add-event-submit" onClick={()=>this.eventUpdaterSubmit(event.event_id)}>Update Event</h3>
+                                    <button className="delete-button" onClick={()=>this.eventDeleter(event.event_id)}>DELETE</button>
+                                </div>
+                                <div className="event-right">
+                                     <div style={{textAlign : "center", marginTop: "30px"}}>
+                                         <h3 style={{textAlign: "left", marginBottom: "10px"}}>Description</h3>
+                                         <textarea value={this.state.updatedDescription} onChange={this.eventDescriptionUpdater} className="event-description-input-field"></textarea>
+                                     </div>
+                                </div>
+                            </div>
                     </div> 
                     }
-
                 </div>
             ) 
         });
 
         let eveningEventRender = this.state.eveningEvents.map( event => {
+            let hiColor;
+            let loColor;
+            if(this.state.updatedImportance === "lo"){
+                hiColor =  "rgba(125, 124, 124, 0.708)"
+                loColor =  "#FAFAFA"
+            }
+            else{
+                hiColor =  "#FAFAFA"
+                loColor =  "rgba(125, 124, 124, 0.708)"
+            }
             return(
-                <div className="eventInfoWrapper" onClick={() => {this.openEventInfo(event.event_id)}}>
+                <div className="eventInfoWrapper" onClick={() => {this.openEventInfo(event)}}>
                     <span className="event-info-time">{timeConverter(event.event_time)}</span>
                     <span>{event.event_name}</span>
                    {this.state.isInfoModalVisible && this.state.modalId === event.event_id && 
                     <div className="event-info-modal">
-                    
+                                <div className="event-menu-container">
+                                <img alt="help" className="question" src={question}/>
+                                <div className="event-name-wrapper">
+                                         <h3 className="event-desciptor">Event</h3>
+                                         <input value={this.state.updatedEventName} onChange={this.eventNameUpdater} className="event-name-input-field"></input>
+                                         <img alt="" src={eventdate} className="sublimated-event-graphic"/>
+                                     </div>
+                                <div className="event-left">
+                                    <div className="event-input-wrapper">
+                                        <img className="event-calendar-icon" src={eventdate}></img>
+                                        <p>{this.state.updatedDate}</p>
+                                    </div>
+                                    <div className="event-input-wrapper">
+                                        <img alt="time" className="event-calendar-icon" src={time} style={{height: "22px"}}/>
+                                            <TextField
+                                                id="time"
+                                                type="time"
+                                                defaultValue={this.state.updatedTime}
+                                                onChange={this.eventTimeUpdater}
+                                                InputLabelProps={{
+                                                    shrink: true,
+                                                }}
+                                                inputProps={{
+                                                   step: 300,
+                                                }}
+                                                />
+                                    </div>
+                                    <div className="event-input-wrapper" style={{marginTop: "12px"}}>
+                                        <img alt="importance" className="event-calendar-icon" style={{height: "22px"}} src={importance}/>
+                                        <span onClick={this.eventImportanceUpdaterHi} className="Hi-Lo" style={{color : `${hiColor}`}}>HI</span>
+                                        <div style={{width: "20px"}}></div>
+                                        <span onClick={this.eventImportanceUpdaterLo} className="Hi-Lo" style={{color : `${loColor}`}}>LO</span>
+                                    </div>
+                                    <h3 className="add-event-submit" onClick={()=>this.eventUpdaterSubmit(event.event_id)}>Update Event</h3>
+                                    <button className="delete-button" onClick={()=>this.eventDeleter(event.event_id)}>DELETE</button>
+                                </div>
+                                <div className="event-right">
+                                     <div style={{textAlign : "center", marginTop: "30px"}}>
+                                         <h3 style={{textAlign: "left", marginBottom: "10px"}}>Description</h3>
+                                         <textarea value={this.state.updatedDescription} onChange={this.eventDescriptionUpdater} className="event-description-input-field"></textarea>
+                                     </div>
+                                </div>
+                            </div>
                     </div> 
                     }
-
                 </div>
             ) 
         });
@@ -362,7 +510,6 @@ class Calendar extends Component{
             weekdayColor: 'rgba(41, 40, 40, 0.700)',
         }
 
-
         let calendarBackdrop;
         if(this.state.isNavMenuVisible || this.state.isHabitsMenuVisible || this.state.isEventModalVisible || this.state.isInfoModalVisible){
             calendarBackdrop = <Backdrop click={this.backdropClickHandler}/>
@@ -370,21 +517,15 @@ class Calendar extends Component{
 
         let dayNumber = this.state.selectedDate.getDay()
         let daysOfTheWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
-        
-
         let monthsOfTheYear = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec']
         let monthNumber = this.state.selectedDate.getMonth()
-
-        
         let day = daysOfTheWeek[dayNumber];
         let month = monthsOfTheYear[monthNumber];
         let date = this.state.selectedDate.getDate()
-
         let formattedDate = `${day}, ${month} ${date}`
 
         let hiColor;
         let loColor;
-
         if(this.state.importance === "lo"){
             hiColor =  "rgba(125, 124, 124, 0.708)"
             loColor =  "#FAFAFA"
@@ -393,6 +534,8 @@ class Calendar extends Component{
             hiColor =  "#FAFAFA"
             loColor =  "rgba(125, 124, 124, 0.708)"
         }
+
+        //  RETURN
 
         return(
 
@@ -477,6 +620,8 @@ class Calendar extends Component{
         )
     }
 }
+
+//REDUX
 
 const mapStateToProps = state => {
     return {
