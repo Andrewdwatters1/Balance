@@ -1,6 +1,8 @@
-.content-container{
+.todo-container{
     display: flex;
+    flex-direction: column;
     justify-content: center;
+    align-items: flex-start;
     position: absolute;
     top: 0;
     left: 0;
@@ -14,21 +16,93 @@
 }
 
 .todoInput{
+    font-family: 'Lato';
+    font-size: 16px;
     padding: 3px;
     outline: none;
-    margin: 20px;
+    margin: 10px;
+    margin-top: 0px;
     background-color: rgba(0,0,0,0);
     width : 25vw;
-    height : 25px;
+    height : 35px;
     border: 2px solid white;
     border-radius: 2px;
 }
 
+.todoInputAndButton{
+    justify-self: flex-start;
+}
+
 .addTodoButton{
-    font-size: 32px;
+    -webkit-transition-duration: 0.8s;
+    transition-duration: 0.8s;
+    color:white;
+    font-size: 42px;
     border:none;
     outline:none;
-    margin-top: 10px;
-    background-color: rgba(0,0,0,0);
+    background-color: rgb(0,0,0,0);
     height: 25px;
+}
+
+.addTodoButton:hover{
+    color: lightgreen;
+}
+.todoControlDone, .todoControlEdit, .todoControlRemove{
+    background-color: rgb(0,0,0,0);
+    border: none;
+    outline: none;
+}
+
+.todoControlEdit, .todoControlRemove{
+    align-self: flex-end;
+}
+
+.todoControlEdit{
+    background: url(../../assets/pencil-icon.png) no-repeat;
+    cursor: pointer;
+    width: 25px;
+    height: 25px;
+    margin: 15px;
+}
+
+.todoControlRemove{
+    background: url(../../assets/trash-icon.png) no-repeat;
+    cursor: pointer;
+    width: 25px;
+    height: 25px;
+    margin: 15px;
+}
+
+.todoControlDone{
+    background: url(../../assets/circle.png) no-repeat;
+    cursor: pointer;
+    width: 25px;
+    height: 25px;
+    margin: 15px;
+}
+
+.todoControlDone :hover{
+    background: url(../../assets/completed.png) no-repeat;
+}
+
+.baseTodoWrapper{
+    width: 50%;
+    height:100%;
+    flex-direction: column;
+    display: flex;
+    float: left;
+    border-right: 2px solid white;
+    border-top: 2px solid white;
+    overflow: scroll;
+    overflow-x: hidden;
+}
+
+.baseTodoWrapper::-webkit-scrollbar{
+    display: none;
+}
+
+.todoContainerInfo{
+    border-bottom: 1px solid white ;
+    display: flex;
+    flex-direction: row;
 }

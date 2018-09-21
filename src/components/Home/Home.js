@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { ToastContainer, ToastStore } from 'react-toasts';
 
 import Weather from '../Weather/Weather.js'
 import Backdrop from '../Backdrop/Backdrop.js'
@@ -37,8 +38,7 @@ class Home extends Component {
 
             date: new Date(),
             time: time,
-            events: [],   //
-            user: "Ryan"  // may be unecessary b/c is on redux
+            events: []
         }
     }
 
@@ -218,6 +218,7 @@ class Home extends Component {
                             </div>
                         }
                     </div>
+                    <ToastContainer store={ToastStore} position={ToastContainer.POSITION.BOTTOM_RIGHT} />
                 </div>
             )
         }

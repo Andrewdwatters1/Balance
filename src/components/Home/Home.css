@@ -76,7 +76,7 @@
 
 .left-menu-item-wrapper>img:hover{
     background-color: blue;
-
+    cursor: pointer;
 }
 
 .left-menu-button{
