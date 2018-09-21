@@ -105,82 +105,103 @@ class Habits extends Component {
                         <p>Here's your progress for the past week: </p>
                         <div style={{ display: 'flex' }}>
 
+                            {/* check that user started this habit 7 days or more ago */}
+                            {console.log(e)}
+                            {   
+                                // let startDate = new moment(+e.date);
+                                // let midnightToday = new moment(new Date().setHours(0, 0, 0, 0))
+
+                                // Math.floor(moment.duration(moment(habitStartDate).diff(midnightToday)).as('days'))
+                                console.log('above')
+                            }
+
                             <div className="habits-detail-habit-progress">7 days ago
                             {
-                                this.state.habitEventsReturned ? // checks that habitEvents array has been returned
-                                    this.state.habitEvents.filter((e) => e.daysfromstart === "7")[0] ? // checks that first item in habitEvents {x} days ago is true
-                                        <i class="far fa-check-circle"></i> // rendered if true
+                                    this.state.habitEventsReturned ? // checks that habitEvents array has been returned
+                                        this.state.habitEvents.filter((e) => e.daysfromstart === "7")[0] ? // checks that first item in habitEvents {x} days ago is true
+                                            <i class="far fa-check-circle"></i> // rendered if true
+                                            :
+                                            <i class="far fa-times-circle"></i> // rendered if false
                                         :
-                                        <i class="far fa-times-circle"></i> // rendered if false
-                                    :
-                                    null // checks that habitEvents array has been returned
-                            }
+                                        null // checks that habitEvents array has been returned
+                                }
                             </div>
                             <div className="habits-detail-habit-progress">6 days ago
                             {
-                                this.state.habitEventsReturned ? // checks that habitEvents array has been returned
-                                    this.state.habitEvents.filter((e) => e.daysfromstart === "6")[0] ? // checks that first item in habitEvents {x} days ago is true
-                                        <i class="far fa-check-circle"></i> // rendered if true
+                                    this.state.habitEventsReturned ? // checks that habitEvents array has been returned
+                                        this.state.habitEvents.filter((e) => e.daysfromstart === "6")[0] ? // checks that first item in habitEvents {x} days ago is true
+                                            <i class="far fa-check-circle"></i> // rendered if true
+                                            :
+                                            <i class="far fa-times-circle"></i> // rendered if false
                                         :
-                                        <i class="far fa-times-circle"></i> // rendered if false
-                                    :
-                                    null // checks that habitEvents array has been returned
-                            }
+                                        null // checks that habitEvents array has been returned
+                                }
                             </div>
                             <div className="habits-detail-habit-progress">5 days ago
                             {
-                                this.state.habitEventsReturned ? // checks that habitEvents array has been returned
-                                    this.state.habitEvents.filter((e) => e.daysfromstart === "5")[0] ? // checks that first item in habitEvents {x} days ago is true
-                                        <i class="far fa-check-circle"></i> // rendered if true
+                                    this.state.habitEventsReturned ? // checks that habitEvents array has been returned
+                                        this.state.habitEvents.filter((e) => e.daysfromstart === "5")[0] ? // checks that first item in habitEvents {x} days ago is true
+                                            <i class="far fa-check-circle"></i> // rendered if true
+                                            :
+                                            <i class="far fa-times-circle"></i> // rendered if false
                                         :
-                                        <i class="far fa-times-circle"></i> // rendered if false
-                                    :
-                                    null // checks that habitEvents array has been returned
-                            }
+                                        null // checks that habitEvents array has been returned
+                                }
                             </div>
                             <div className="habits-detail-habit-progress">4 days ago
                             {
-                                this.state.habitEventsReturned ? // checks that habitEvents array has been returned
-                                    this.state.habitEvents.filter((e) => e.daysfromstart === "4")[0] ? // checks that first item in habitEvents {x} days ago is true
-                                        <i class="far fa-check-circle"></i> // rendered if true
+                                    this.state.habitEventsReturned ? // checks that habitEvents array has been returned
+                                        this.state.habitEvents.filter((e) => e.daysfromstart === "4")[0] ? // checks that first item in habitEvents {x} days ago is true
+                                            <i class="far fa-check-circle"></i> // rendered if true
+                                            :
+                                            <i class="far fa-times-circle"></i> // rendered if false
                                         :
-                                        <i class="far fa-times-circle"></i> // rendered if false
-                                    :
-                                    null // checks that habitEvents array has been returned
-                            }
+                                        null // checks that habitEvents array has been returned
+                                }
                             </div>
                             <div className="habits-detail-habit-progress">3 days ago
                             {
-                                this.state.habitEventsReturned ? // checks that habitEvents array has been returned
-                                    this.state.habitEvents.filter((e) => e.daysfromstart === "3")[0] ? // checks that first item in habitEvents {x} days ago is true
-                                        <i class="far fa-check-circle"></i> // rendered if true
+                                    this.state.habitEventsReturned ? // checks that habitEvents array has been returned
+                                        this.state.habitEvents.filter((e) => e.daysfromstart === "3")[0] ? // checks that first item in habitEvents {x} days ago is true
+                                            <i class="far fa-check-circle"></i> // rendered if true
+                                            :
+                                            <i class="far fa-times-circle"></i> // rendered if false
                                         :
-                                        <i class="far fa-times-circle"></i> // rendered if false
-                                    :
-                                    null // checks that habitEvents array has been returned
-                            }
+                                        null // checks that habitEvents array has been returned
+                                }
                             </div>
                             <div className="habits-detail-habit-progress">2 days ago
                             {
-                                this.state.habitEventsReturned ? // checks that habitEvents array has been returned
-                                    this.state.habitEvents.filter((e) => e.daysfromstart === "2")[0] ? // checks that first item in habitEvents {x} days ago is true
-                                        <i class="far fa-check-circle"></i> // rendered if true
+                                    this.state.habitEventsReturned ? // checks that habitEvents array has been returned
+                                        this.state.habitEvents.filter((e) => e.daysfromstart === "2")[0] ? // checks that first item in habitEvents {x} days ago is true
+                                            <i class="far fa-check-circle"></i> // rendered if true
+                                            :
+                                            <i class="far fa-times-circle"></i> // rendered if false
                                         :
-                                        <i class="far fa-times-circle"></i> // rendered if false
-                                    :
-                                    null // checks that habitEvents array has been returned
-                            }
+                                        null // checks that habitEvents array has been returned
+                                }
                             </div>
                             <div className="habits-detail-habit-progress">yesterday
                             {
-                                this.state.habitEventsReturned ? // checks that habitEvents array has been returned
-                                    this.state.habitEvents.filter((e) => e.daysfromstart === "1")[0] ? // checks that first item in habitEvents {x} days ago is true
-                                        <i class="far fa-check-circle"></i> // rendered if true
+                                    this.state.habitEventsReturned ? // checks that habitEvents array has been returned
+                                        this.state.habitEvents.filter((e) => e.daysfromstart === "1")[0] ? // checks that first item in habitEvents {x} days ago is true
+                                            <i class="far fa-check-circle"></i> // rendered if true
+                                            :
+                                            <i class="far fa-times-circle"></i> // rendered if false
                                         :
-                                        <i class="far fa-times-circle"></i> // rendered if false
-                                    :
-                                    null // checks that habitEvents array has been returned
-                            }
+                                        null // checks that habitEvents array has been returned
+                                }
+                            </div>
+                            <div className="habits-detail-habit-progress">today
+                            {
+                                    this.state.habitEventsReturned ? // checks that habitEvents array has been returned
+                                        this.state.habitEvents.filter((e) => e.daysfromstart === "0")[0] ? // checks that first item in habitEvents {x} days ago is true
+                                            <i class="far fa-check-circle"></i> // rendered if true
+                                            :
+                                            <i class="far fa-times-circle"></i> // rendered if false
+                                        :
+                                        null // checks that habitEvents array has been returned
+                                }
                             </div>
 
                         </div>
