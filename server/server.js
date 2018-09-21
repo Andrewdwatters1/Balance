@@ -56,9 +56,13 @@ app.post('/api/events', eventsController.createEvent)
 app.get('/api/events', eventsController.getEventsByDate)
 
 // NOTES ENDPTS
-// app.get('/api/notepad', notesController.getNotes)
+app.get('/api/notepad', notesController.getAllNotes)
 app.post('/api/notepad', notesController.addNotes)
 app.delete('/api/notepad/:id', notesController.deleteNotes)
+    //SCRATCHPAD ENDPTS
+app.get('/api/scratchpad', notesController.getScratchPad)    
+app.post('/api/scratchpad', notesController.addScratchPad)    
+app.delete('/api/scratchpad/:id', notesController.deleteScratchPad)    
 
 // app.get('*', (req, res) => { // PRODUCTION BUILD ONLY
 //   res.sendFile(path.join(__dirname, '../build/index.html'));
