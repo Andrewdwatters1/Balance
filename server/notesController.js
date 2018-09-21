@@ -17,7 +17,7 @@ module.exports = {
     deleteNotes: (req, res) => {
       let{id} = req.params
       let db = req.app.get('db');
-      db.notes.deleteNotes([id, req.sesson.user.id]).then(result => {
+      db.notes.deleteNotes([id, req.session.user.id]).then(result => {
         res.status(200).send(result);
       })
     },
@@ -44,5 +44,11 @@ module.exports = {
         db.notes.deletescratchpad([id, req.session.user.id]).then(result => {
           res.status(200).send(result);
         })
-      }
+      },
+    editScratchPad: (req, res) => {
+      let db = req.app.get('db');
+      db.notes.updatescratchpad([id, req.session.user.id]).then(result =>{
+        res.status(200).send(result);
+      })
+    }
   }

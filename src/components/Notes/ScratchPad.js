@@ -1,6 +1,6 @@
 import React,{Component} from 'react'
 import {connect} from 'react-redux'
-import {deleteScratchPad} from '../../redux/reducers/notepad'
+import {deleteScratchPad, editScratchPad} from '../../redux/reducers/notepad'
 import './Notes.css'
 
 
@@ -18,8 +18,8 @@ class ScratchPad extends Component{
                  <h5>{scratch.date}</h5>
                  <h3>{scratch.title}</h3>
                  <h4>{scratch.content}</h4>
-                 {/* <button className= "buttons" onClick={ this.toggleEdit}>Edit Note</button> */}
-                 <button onClick={() => this.props.deleteScratchPad(scratch.id)}>Delete</button>   
+                 <button className="note-buttons" onClick={() => this.props.editScratchPad(scratch.id)}>Edit Note</button>
+                 <button className="note-buttons" onClick={() => this.props.deleteScratchPad(scratch.id)}>Delete</button>   
      
              </div>
          </div> 
@@ -27,4 +27,10 @@ class ScratchPad extends Component{
     }
 }
 
-export default connect(null, {deleteScratchPad})(ScratchPad)
+let mapStateToProps = state => {
+    return{
+        scratchPad: state.notepad.scratchPad
+    }
+}
+
+export default connect(mapStateToProps, {deleteScratchPad, editScratchPad})(ScratchPad)

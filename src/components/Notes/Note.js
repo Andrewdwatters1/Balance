@@ -17,10 +17,10 @@ class Note extends Component{
          <div className="textContainer-pup">  
                 
              <div key={note.id}> 
-                 <button onClick={this.singleNoteToggler}>{note.title}</button>
+                 <button className="note-buttons" onClick={this.singleNoteToggler}>{note.title}</button>
                  <h3>{note.date}</h3>
-                 <button className= "buttons" onClick={ this.toggleEdit}>Edit Note</button>
-                 <button onClick={() => this.props.deleteNotes(note.id)}>Delete Note</button>   
+                 <button className= "note-buttons" onClick={ this.toggleEdit}>Edit Note</button>
+                 <button className="note-buttons" onClick={() => this.props.deleteNotes(note.id)}>Delete Note</button>   
      
              </div>
          </div> 
