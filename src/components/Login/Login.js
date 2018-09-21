@@ -112,9 +112,9 @@ class Login extends Component {
                                     <div className="login-field-wrapper">
                                         <form onSubmit={this.handleLoginSubmit} styles={{ display: 'block' }}>
                                             <p>USERNAME</p>
-                                            <input type="text" onChange={this.handleUsernameInput} value={this.state.username} placeholder="username" className="login-input"></input>
+                                            <input type="submit text" onChange={this.handleUsernameInput} value={this.state.username} placeholder="username" className="login-input"></input>
                                             <p>PASSWORD</p>
-                                            <input type="text" onChange={this.handlePasswordInput} value={this.state.password} placeholder="password" className="login-input"></input>
+                                            <input type="password" onChange={this.handlePasswordInput} value={this.state.password} placeholder="password" className="login-input"></input>
                                             <button type="submit" disabled={!loginSubmitEnabled} className="login-button">SUBMIT</button>
                                         </form>
                                     </div>
@@ -126,17 +126,17 @@ class Login extends Component {
                                     <div className="login-field-wrapper">
                                         <form onSubmit={this.handleRegisterSubmit} styles={{ display: 'block' }}>
                                             <p>FIRST NAME</p>
-                                            <input type="text" onChange={this.handleFirstNameInput} value={this.state.firstName} placeholder="First Name" className="login-input"></input>
+                                            <input type="submit text" onChange={this.handleFirstNameInput} value={this.state.firstName} placeholder="First Name" className="login-input"></input>
                                             <p>LAST NAME</p>
-                                            <input type="text" onChange={this.handleLastNameInput} value={this.state.lastName} placeholder="Last Name" className="login-input"></input>
+                                            <input type="submit text" onChange={this.handleLastNameInput} value={this.state.lastName} placeholder="Last Name" className="login-input"></input>
                                             <p>EMAIL</p>
-                                            <input type="text" onChange={this.handleEmailInput} value={this.state.email} placeholder="email@domain.com" className="login-input"></input>
+                                            <input type="submit text" onChange={this.handleEmailInput} value={this.state.email} placeholder="email@domain.com" className="login-input"></input>
                                             <p>USERNAME</p>
-                                            <input type="text" onChange={this.handleUsernameInput} value={this.state.username} placeholder="username" className="login-input"></input>
+                                            <input type="submit text" onChange={this.handleUsernameInput} value={this.state.username} placeholder="username" className="login-input"></input>
                                             <p>PASSWORD</p>
-                                            <input type="text" onChange={this.handlePasswordInput} value={this.state.password} placeholder="password" className="login-input"></input>
+                                            <input type="password" onChange={this.handlePasswordInput} value={this.state.password} placeholder="password" className="login-input"></input>
                                             <p>ZIP CODE</p>
-                                            <input type="text" onChange={this.handleZipInput} value={this.state.zip} pattern="(\d{5}([\-]\d{4})?)" placeholder="xxxxx-xxxx" className="login-input"></input>
+                                            <input type="submit text" onChange={this.handleZipInput} value={this.state.zip} pattern="(\d{5}([\-]\d{4})?)" placeholder="xxxxx-xxxx" className="login-input"></input>
                                             <button type="submit" disabled={!registerSubmitEnabled} className="login-button">Submit</button>
                                         </form>
                                     </div>
