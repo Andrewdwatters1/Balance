@@ -190,16 +190,12 @@ class Home extends Component {
                             <img src={arrow} />
                         </div>
 
-<<<<<<< HEAD
-                        {this.state.isNavMenuVisible && <div className="left-menu" onMouseLeave={this.toggleNavMenu}>
-=======
                         <div>
                         {!this.state.isTimerVisible && <div id="timer-homepage-icon" onClick={this.toggleTimer}/>}
                         {this.state.isTimerVisible && <Timer minimize={this.minimizeTimer}/>}
                         </div>
 
                         {this.state.isNavMenuVisible && <div className="left-menu">
->>>>>>> master
                             <div className="spacer"></div>
                             <div className="left-menu-item-wrapper">
                                 <img src={notepad} onClick={this.notesToggler} />
