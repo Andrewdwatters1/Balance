@@ -1,6 +1,7 @@
 UPDATE scratchpad
 SET title = $3,
-date = $4,
-content = $5,
-WHERE user_id = $2 AND id = $1
-RETURNING *;
+content = $5
+WHERE userId = $2 AND id = $1;
+SELECT * FROM scratchpad
+WHERE userId = $2
+Order by id;

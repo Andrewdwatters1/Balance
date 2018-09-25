@@ -64,6 +64,14 @@ class NotePad extends Component{
         this.setState({RenderedNote: {...this.state.RenderedNote, content: e.target.value}})
     }
 
+    handleNewTitle = (e) => {
+        this.setState({title: e.target.value})
+    }
+
+    handleNewContent = (e) => {
+        this.setState({content: e.target.value})
+    }
+
     componentDidMount(){
         this.props.getNotes()
         this.props.getScratchPad()
@@ -77,6 +85,13 @@ class NotePad extends Component{
         return scratchpad
     }
 
+    // saveUpdatedScrachPad = () => {
+    //     let obj = {
+    //         date: formattedDateString,
+    //         title: formattedDate,
+    //         content: this.state.updatedTime,
+    //     }
+    // }
     
 
     render(){
@@ -133,8 +148,8 @@ class NotePad extends Component{
                             <span>{this.state.date.getDate()} </span>
                             <span>{this.state.date.getFullYear()}</span>
                         </h5>
-                        <input placeholder='title' value={this.state.title} onChange={this.handleTitle}></input>
-                        <textarea placeholder='content' value={this.state.content} onChange={this.handleContent}/>
+                        <input placeholder='title' value={this.state.title} onChange={this.handleNewTitle}></input>
+                        <textarea placeholder='content' value={this.state.content} onChange={this.handleNewContent}/>
                         <button className="note-buttons" onClick={() => this.props.addScratchPad(NewScratch)}>Save to Scratch Pad</button>
                         {scratchPad}
                     </div>
@@ -147,8 +162,8 @@ class NotePad extends Component{
                             <span>{this.state.date.getDate()} </span>
                             <span>{this.state.date.getFullYear()}</span>
                         </h5>
-                        <input placeholder='title' value={this.state.title} onChange={this.handleTitle}></input>
-                        <textarea placeholder='content' value={this.state.content} onChange={this.handleContent}/>
+                        <input placeholder='title' value={this.state.title} onChange={this.handleNewTitle}></input>
+                        <textarea placeholder='content' value={this.state.content} onChange={this.handleNewContent}/>
                         <button className="note-buttons" onClick={() => this.props.addNotes(newNote)}>Save Note</button>
                     </div>
                     }
@@ -166,3 +181,5 @@ function mapStateToProps(state) {
   }
   
 export default connect(mapStateToProps,{getNotes, addNotes, addScratchPad, getScratchPad})(NotePad)
+
+{/* <h3 className="add-event-submit" onClick={()=>this.eventUpdaterSubmit(event.event_id)}>Update Event</h3> */}

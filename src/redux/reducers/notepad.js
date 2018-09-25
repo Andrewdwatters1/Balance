@@ -77,16 +77,12 @@ export function deleteScratchPad(id){
            payload: scratchPad
        }
      }
-// export function editScratchPad(id){
-    
-//     let scratchPad = axios.put(`/api/scratchpad/${id}`).then(results => {
-//         return results.data
-//     })
-//     return {
-//         type: PUT_SCRATCHPAD,
-//         payload: scratchPad
-//     }
-// }     
+export function editScratchPad(scratchpad){
+    return {
+        type: PUT_SCRATCHPAD,
+        payload: scratchpad
+    }
+}     
 
 
 
@@ -105,7 +101,7 @@ export function deleteScratchPad(id){
             return Object.assign({}, state, {scratchPad: action.payload})
             case ADD_SCRATCHPAD + FULFILLED:
             return Object.assign({}, state, {scratchPad: action.payload})
-            case PUT_SCRATCHPAD + FULFILLED:
+            case PUT_SCRATCHPAD:
             return Object.assign({}, state, {scratchPad: action.payload})
             // case DELETE_ALL_FROM_SCRATCHPAD:
             // return Object.assign({}, state, {cart: []})

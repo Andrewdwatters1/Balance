@@ -50,10 +50,11 @@ module.exports = {
         try {
           let db = req.app.get('db');
           let id = req.params.id;
+          console.log('req', req.session)
           let user_id = req.session.user.id;
           let {title, date, content} = req.body;
           let responseInfo = await db.notes.updatescratchpad([id, user_id, title, date, content])
-          res.send(responseInfo[0])
+          res.send(responseInfo)
         } catch (error) {
           console.log('Scratch Pad Update Error', error)
           res.status(500).send(error)
