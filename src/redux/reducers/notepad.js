@@ -77,15 +77,16 @@ export function deleteScratchPad(id){
            payload: scratchPad
        }
      }
-export function editScratchPad(id){
-    let scratchPad = axios.put(`/api/scratchpad/${id}`).then(results => {
-        return results.data
-    })
-    return {
-        type: PUT_SCRATCHPAD,
-        payload: scratchPad
-    }
-}     
+// export function editScratchPad(id){
+    
+//     let scratchPad = axios.put(`/api/scratchpad/${id}`).then(results => {
+//         return results.data
+//     })
+//     return {
+//         type: PUT_SCRATCHPAD,
+//         payload: scratchPad
+//     }
+// }     
 
 
 

@@ -62,11 +62,11 @@ app.get('/api/notepad', notesController.getAllNotes)
 app.post('/api/notepad', notesController.addNotes)
 app.delete('/api/notepad/:id', notesController.deleteNotes)
 // app.put('/api/notePad/:id', notesController.editNotes)
-    //SCRATCHPAD ENDPTS
+//SCRATCHPAD ENDPTS
 app.get('/api/scratchpad', notesController.getScratchPad)    
 app.post('/api/scratchpad', notesController.addScratchPad)    
 app.delete('/api/scratchpad/:id', notesController.deleteScratchPad)
-app.put('/api/scratchpad/:id', notesController.editScratchPad)   
+app.put('/api/scratchpad/:id', notesController.updateScratchPad)   
 
 // app.get('*', (req, res) => { // PRODUCTION BUILD ONLY
 //   res.sendFile(path.join(__dirname, '../build/index.html'));

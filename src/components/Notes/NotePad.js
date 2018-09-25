@@ -2,25 +2,30 @@ import React, { Component } from 'react';
 import Note from './Note';
 import {connect} from 'react-redux';
 import {getNotes, addNotes, addScratchPad, getScratchPad} from '../../redux/reducers/notepad';
+import axios from 'axios'
 import './Notes.css';
+
 import ScratchPad from './ScratchPad';
 
 class NotePad extends Component{
     constructor(props){
         super(props);
-        var time = this.getTimeString();
         this.state={
-            name: '',
+            title: 'note.content',
             date:'',
             content:'',
-            RenderedNote: [],
+            RenderedNote: {
+                title:'',
+                date:'',
+                content:''
+            },
+            edit: true,
 
             isSingleNoteVisible: false,
             isScratchPadVisible: true,
             isAddNoteVisible: false,
 
             date: new Date(),
-            time: time,
         }
     }
 
@@ -36,8 +41,9 @@ class NotePad extends Component{
             isAddNoteVisible: false,
         })
     }
-    singleNoteToggler = () => {
+    singleNoteToggler = (note) => {
         this.setState({
+            RenderedNote: note, 
             isScratchPadVisible: false,
             isSingleNoteVisible: true,
             isAddNoteVisible: false,
@@ -51,11 +57,11 @@ class NotePad extends Component{
         })
     }
     handleTitle = (e) => {
-        this.setState({title: e.target.value})
+        this.setState({RenderedNote: {...this.state.RenderedNote, title: e.target.value}})
     }
       
     handleContent = (e) => {
-        this.setState({content: e.target.value})
+        this.setState({RenderedNote: {...this.state.RenderedNote, content: e.target.value}})
     }
 
     componentDidMount(){
@@ -71,7 +77,10 @@ class NotePad extends Component{
         return scratchpad
     }
 
+    
+
     render(){
+
         const  {title, date, content} = this.state
         const newNote = { title, date, content } 
             console.log(this.props)    
@@ -79,7 +88,9 @@ class NotePad extends Component{
             return <Note key={notes.id}
                     note={notes}
                     updatedNotes={this.updatedNotes}
-                    singleNoteToggler={this.singleNoteToggler}/>
+                    singleNoteToggler={this.singleNoteToggler}
+                    handleContent={this.handleContent}
+                    handleTitle={this.handleTitle}/>
         })
         const NewScratch = { title, date, content }
 
@@ -103,15 +114,17 @@ class NotePad extends Component{
             <div className="content-container">
                 <div className="notes-container">
                     <h2>Note Pad</h2>
-                    <ul>
-                        <li> <button className="note-buttons" onClick={this.scratchPadToggler}>Scratch Pad</button></li>
-                        <li><button className="note-buttons" onClick={this.addNoteToggler}>Add A New Note(note pad)</button></li>
-                        <li><button className="note-buttons" onClick={this.singleNoteToggler}>(note pad)</button></li>
-                    </ul>
+                        <button className="note-buttons" onClick={this.scratchPadToggler}>Scratch Pad</button>
+                        <button className="note-buttons" onClick={this.addNoteToggler}>Add A New Note(note pad)</button>
                     {notePad}    
                 </div>
                 <div className="scratchpad">
-                    {this.state.isSingleNoteVisible && notePad}
+                    {this.state.isSingleNoteVisible && 
+                    <div>
+                        {this.state.RenderedNote.date}
+                       <input className="note-buttons" value={this.state.RenderedNote.title} onChange={this.handleTitle}/>
+                        <textarea className="note-buttons" value={this.state.RenderedNote.content} onChange={this.handleContent}/>
+                    </div> }
                     {this.state.isScratchPadVisible && 
                     <div>
                         <h5> 
