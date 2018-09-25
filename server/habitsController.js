@@ -54,5 +54,21 @@ module.exports = {
       db.habits.update_habit_events().then(result => {
         console.log('chron-script hit at: ', new Date());
       }).catch(error => console.log('Error from habitsController.updateHabitEvents THIS IS TRIGGERED BY CRON SCRIPT', error))
+    },
+    addHabitToday: (req, res) => {
+      let db = req.app.get('db');
+      let { habitId, id } = req.body;
+      db.habits.habit_completed_today(habitId, id).then(() => {
+        db.habits.get_todays_habits(req.session.user.id).then(result => {
+          res.status(200).send(result);
+        })
+      }).catch(error => console.log('Error from habitsController.habitCompletedToday', error));
+    },
+    getTodaysHabits: (req, res) => {
+      let db = req.app.get('db');
+      let { id } = req.body;
+      db.habits.get_todays_habits(id).then(result => {
+        res.status(200).send(result);
+      }).catch(error => console.log('Error from habitsController.getTodaysHabits', error));
     }
 }

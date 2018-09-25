@@ -72,4 +72,3 @@ export default class AddHabitForm extends Component {
     )
   }
 }
-

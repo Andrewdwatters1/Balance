@@ -5,7 +5,7 @@ require('dotenv').config();
 const session = require('express-session');
 const bcrypt = require('bcryptjs');
 const salt = bcrypt.genSaltSync(10);
-const hash = bcrypt.hashSync("B4c0/\/r*d-lsx?}", salt);
+const hash = bcrypt.hashSync(process.env.BCRYPT_HASH, salt);
 const cron = require('node-cron');
 
 // const path = require('path')  // PRODUCTION BUILD ONLY
@@ -45,6 +45,8 @@ app.post('/api/habits', habitsController.addHabit);
 app.delete('/api/habits', habitsController.deleteHabit);
 app.get('/api/habitEvents', habitsController.getAllHabitEventsByHabit);
 app.post('/api/habitEvents', habitsController.addHabitEvent);
+app.post('/api/addHabitToday', habitsController.addHabitToday);
+app.post('/api/getTodaysHabits', habitsController.getTodaysHabits);
 
 // TODO ENDPOINTS
 app.get('/api/todo/:userid', todoController.getTodos)
@@ -72,7 +74,7 @@ app.delete('/api/scratchpad/:id', notesController.deleteScratchPad)
 //   res.sendFile(path.join(__dirname, '../build/index.html'));
 // });
 
-cron.schedule('1 0 * * * *', () => { // should run at 00:01 EST every day
+cron.schedule('1 0 0 * * *', () => { // should run at 00:01 EST every day
   habitsController.updateHabitEvents(app)
 }, {
   scheduled: true,

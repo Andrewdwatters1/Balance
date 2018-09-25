@@ -27,7 +27,23 @@
 .habits-sidebar-habit {
     width: 100%;
     background-color: transparent;
-    
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.habit-sidebar-text {
+    width: 90%;
+}
+.habit-quick-check {
+    font-size: 3em;
+    opacity: .85;
+}
+.habit-quick-check:hover {
+    opacity: 1;
+    cursor: pointer;
+}
+.completed {
+    color: rgb(0, 192, 0);
 }
 .habits-content {
     width: 100%;
@@ -42,15 +58,26 @@
     margin-top: 15%;
     text-align: center;
 }
-.habits-detail-habit {
-
-}
 .habits-detail-habit-progress {
     display: flex;
     flex-direction: column;
     height: 100; 
     width: 50; 
     background-color: lightcoral;
+}
+.habit-green-button {
+    color: rgb(0, 192, 0);
+    font-size: 2em;
+}
+.habit-red-button {
+    color: rgb(233, 88, 88);
+    font-size: 2em;
+}
+.habit-type-icon {
+    font-size: 2em;
+}
+.habit-type-icon {
+    cursor: pointer;
 }
 .add-first-habit-button {
     height: 100%;
