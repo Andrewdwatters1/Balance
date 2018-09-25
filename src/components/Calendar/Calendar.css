@@ -100,6 +100,25 @@
     align-items: center;
 }
 
+.event-input-wrapper-clock, .event-input-wrapper-date{
+    margin-left: 30px;
+    display: flex;
+    align-content: center;
+    align-items: center;
+    }
+
+.event-input-wrapper-clock input, .event-input-wrapper-date input{
+color: #FAFAFA;
+}
+
+.event-input-wrapper-clock div::before, .event-input-wrapper-date::before{
+    border-bottom-color: transparent;
+}
+
+.event-input-wrapper-clock div::after, .event-input-wrapper-date::after{
+    border-bottom-color: rgba(233, 88, 88, 0.53);
+}
+
 .event-name-wrapper{
     margin-top: 20px;
     margin-left: 20px;
@@ -118,21 +137,12 @@
 .event-calendar-icon{
     height: 20px;
     width: auto;
-    opacity: .5;
+    opacity: .15;
     margin-right: 20px;
 }
 
-.MuiInputBase-input-436{
-    color: #FAFAFA !important;
-    font-family: 'Lato' !important;
-}
-
-.MuiInput-underline:after{
-    border-bottom: 2px solid rgba(233, 88, 88, 0.708) !important;
-}
-
-.MuiInput-underline:before{
-    border-bottom: none !important;
+.MuiFormControl-root->div{
+    color: white;
 }
 
 .Hi-Lo{
@@ -196,6 +206,7 @@
     border:rgba(255, 255, 255, 0.406) 1px solid;
     resize: none;
     font-size: 15px;
+    color: white;
 }
 
 .sublimated-event-graphic{
@@ -260,3 +271,4 @@
 .add-event-delete:hover{
     color: rgba(233, 88, 88, 1)!important;
 }
+

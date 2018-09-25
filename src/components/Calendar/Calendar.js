@@ -59,10 +59,12 @@ class Calendar extends Component{
     //   LIFECYCLE METHODS
     
     componentDidMount(){
+
         let thisYear = this.state.selectedDate.getFullYear();
         let thisMonth = this.state.selectedDate.getMonth() + 1;
         let todaysDate = this.state.selectedDate.getDate();
         let formattedDate = `${thisYear}-${thisMonth}-${todaysDate}`;
+
         axios.get(`/api/events?event_date=${formattedDate}`).then(response => {
             response.data.map(event => {
                 if(event.event_tod === "morning"){
@@ -81,6 +83,12 @@ class Calendar extends Component{
         }, ()=>{
             this.refreshCalendar()
     })}
+
+    changeEventDate = (e) =>{
+        this.setState({
+            selectedDate: e
+        })
+    }
 
     toggleTime = (e) => {
         this.setState({
@@ -219,6 +227,15 @@ class Calendar extends Component{
             updatedEventName : e.target.value
         })
     }
+
+    eventDateUpdater = (e) => {
+            let array = e.target.value.split('-')
+            var date = new Date(array[0], array[1]-1, array[2])
+        this.setState({
+            updatedDate: date
+        })
+    }
+    
     eventTimeUpdater = (e) =>{
         this.setState({
             updatedTime : e.target.value
@@ -245,22 +262,46 @@ class Calendar extends Component{
 
     eventUpdaterSubmit = (id) => {
 
-        var getTravelDateFormatted = function() {
-            return function(str) {
-                var daysNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
-                  monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'],
-                  d = new Date(str),
-                  day = d.getDate(),
-                  month = monthNames[d.getMonth()],
-                  dayName = daysNames[d.getDay()];
+        function formattedDateChecker(string){
+            if(typeof string === "object"){
+            let dayNumber = string.getDay()
+            let daysOfTheWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
+            let monthsOfTheYear = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec']
+            let monthNumber = string.getMonth()
+            let day = daysOfTheWeek[dayNumber];
+            let month = monthsOfTheYear[monthNumber];
+            let date = string.getDate()
+            let formattedDate = `${day}, ${month} ${date}`
+            return formattedDate}
+            else{
+            var array = string.split('-');
+            var date = new Date(array[0], array[1]-1, array[2]);
+            let dayNumber = date.getDay();
+            let daysOfTheWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
+            let monthsOfTheYear = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec']
+            let monthNumber = date.getMonth()
+            let day = daysOfTheWeek[dayNumber];
+            let month = monthsOfTheYear[monthNumber];
+            let date = date.getDate()
+            let formattedDate = `${day}, ${month} ${date}`
+            return formattedDate}}
         
-                  return `${dayName}, ${month} ${day}`
-                  };
-                }();
-    
+        function formattedDateStringChecker(string){
+            if(typeof string === "object"){
+                let thisYear = string.getFullYear()
+                let thisMonth = string.getMonth() + 1
+                let todaysDate = string.getDate()
+                let formattedDateString = `${thisYear}-${thisMonth}-${todaysDate}`
+                return formattedDateString}
+                else{return string}
+            }
+
+            let formattedDateString = formattedDateStringChecker(this.state.updatedDate)
+            let formattedDate = formattedDateChecker(this.state.updatedDate)
+
             let obj = {
-                event_date: this.state.updatedDate,
-                event_formatted_date: getTravelDateFormatted(this.state.updatedDate),
+                event_date: formattedDateString,
+                event_formatted_date: formattedDate,
                 event_time: this.state.updatedTime,
                 event_importance: this.state.updatedImportance,
                 event_name: this.state.updatedEventName,
@@ -282,9 +323,29 @@ class Calendar extends Component{
         })
     }
 
+    datePrinter = (e) => {
+            let array = e.target.value.split('-')
+            var date = new Date(array[0], array[1]-1, array[2])
+        this.setState({
+            selectedDate: date
+        })
+    }
+
     //   RENDER
 
     render(){
+
+        function dateFormatter(date){
+            let monthString = (date.getMonth()+1).toString().length;
+            let thisMonth;
+            if(monthString ===1){thisMonth=(`0${date.getMonth() + 1}`)}else{thisMonth=(date.getMonth() + 1)}
+            let dateString = date.getDate().toString().length;
+            let thisDate;
+            if(dateString ===1){thisDate=(`0${date.getDate()}`)}else{thisDate=(date.getDate())}
+            let thisYear = date.getFullYear()
+            let formattedDateString = `${thisYear}-${thisMonth}-${thisDate}`
+            return formattedDateString
+        }
 
         function timeConverter(time){
             let hours = time.slice(0,2);
@@ -306,25 +367,38 @@ class Calendar extends Component{
                 hiColor =  "#FAFAFA"
                 loColor =  "rgba(125, 124, 124, 0.708)"
             }
+
+            let hiCalendarColor;
+            
+            if(event.event_importance === "hi"){
+                hiCalendarColor = "rgb(255, 205, 5)"}
+                else{
+                hiCalendarColor = "#FAFAFA"
+                }
+
             return(
                 <div className="eventInfoWrapper" onClick={() => {this.openEventInfo(event)}}>
                     <span className="event-info-time">{timeConverter(event.event_time)}</span>
-                    <span>{event.event_name}</span>
+                    <span style={{color: `${hiCalendarColor}`}}>{event.event_name}</span>
                    {this.state.isInfoModalVisible && this.state.modalId === event.event_id && 
                     <div className="event-info-modal">
                                 <div className="event-menu-container">
                                 <img alt="help" className="question" src={question}/>
                                 <div className="event-name-wrapper">
                                          <h3 className="event-desciptor">Event</h3>
-                                         <input value={this.state.updatedEventName} onChange={this.eventNameUpdater} className="event-name-input-field"></input>
+                                         <input maxLength="120" autoFocus value={this.state.updatedEventName} onChange={this.eventNameUpdater} className="event-name-input-field"></input>
                                          <img alt="" src={eventdate} className="sublimated-event-graphic"/>
                                      </div>
                                 <div className="event-left">
-                                    <div className="event-input-wrapper">
+                                <div className="event-input-wrapper-date">
                                         <img className="event-calendar-icon" src={eventdate}></img>
-                                        <p>{this.state.updatedDate}</p>
+                                        <TextField
+                                        type="date"
+                                        defaultValue={dateFormatter(this.state.selectedDate)}
+                                        onChange={this.eventDateUpdater}
+                                        />
                                     </div>
-                                    <div className="event-input-wrapper">
+                                    <div className="event-input-wrapper-clock">
                                         <img alt="time" className="event-calendar-icon" src={time} style={{height: "22px"}}/>
                                             <TextField
                                                 id="time"
@@ -351,7 +425,7 @@ class Calendar extends Component{
                                 <div className="event-right">
                                      <div style={{textAlign : "center", marginTop: "30px"}}>
                                          <h3 style={{textAlign: "left", marginBottom: "10px"}}>Description</h3>
-                                         <textarea value={this.state.updatedDescription} onChange={this.eventDescriptionUpdater} className="event-description-input-field"></textarea>
+                                         <textarea maxLength="1000" value={this.state.updatedDescription} onChange={this.eventDescriptionUpdater} className="event-description-input-field"></textarea>
                                      </div>
                                 </div>
                             </div>
@@ -372,25 +446,38 @@ class Calendar extends Component{
                 hiColor =  "#FAFAFA"
                 loColor =  "rgba(125, 124, 124, 0.708)"
             }
+
+            let hiCalendarColor;
+            
+            if(event.event_importance === "hi"){
+                hiCalendarColor = "rgb(255, 205, 5)"}
+                else{
+                hiCalendarColor = "#FAFAFA"
+                }
+
             return(
                 <div className="eventInfoWrapper" onClick={() => {this.openEventInfo(event)}}>
                     <span className="event-info-time">{timeConverter(event.event_time)}</span>
-                    <span>{event.event_name}</span>
+                    <span style={{color: `${hiCalendarColor}`}}>{event.event_name}</span>
                    {this.state.isInfoModalVisible && this.state.modalId === event.event_id && 
                     <div className="event-info-modal">
                                 <div className="event-menu-container">
                                 <img alt="help" className="question" src={question}/>
                                 <div className="event-name-wrapper">
                                          <h3 className="event-desciptor">Event</h3>
-                                         <input value={this.state.updatedEventName} onChange={this.eventNameUpdater} className="event-name-input-field"></input>
+                                         <input maxLength="120" value={this.state.updatedEventName} onChange={this.eventNameUpdater} className="event-name-input-field"></input>
                                          <img alt="" src={eventdate} className="sublimated-event-graphic"/>
                                      </div>
                                 <div className="event-left">
-                                    <div className="event-input-wrapper">
+                                <div className="event-input-wrapper-date">
                                         <img className="event-calendar-icon" src={eventdate}></img>
-                                        <p>{this.state.updatedDate}</p>
+                                        <TextField
+                                        type="date"
+                                        defaultValue={dateFormatter(this.state.selectedDate)}
+                                        onChange={this.eventDateUpdater}
+                                        />
                                     </div>
-                                    <div className="event-input-wrapper">
+                                    <div className="event-input-wrapper-clock">
                                         <img alt="time" className="event-calendar-icon" src={time} style={{height: "22px"}}/>
                                             <TextField
                                                 id="time"
@@ -417,7 +504,7 @@ class Calendar extends Component{
                                 <div className="event-right">
                                      <div style={{textAlign : "center", marginTop: "30px"}}>
                                          <h3 style={{textAlign: "left", marginBottom: "10px"}}>Description</h3>
-                                         <textarea value={this.state.updatedDescription} onChange={this.eventDescriptionUpdater} className="event-description-input-field"></textarea>
+                                         <textarea maxLength="1000" value={this.state.updatedDescription} onChange={this.eventDescriptionUpdater} className="event-description-input-field"></textarea>
                                      </div>
                                 </div>
                             </div>
@@ -438,25 +525,38 @@ class Calendar extends Component{
                 hiColor =  "#FAFAFA"
                 loColor =  "rgba(125, 124, 124, 0.708)"
             }
+
+            let hiCalendarColor;
+            
+            if(event.event_importance === "hi"){
+                hiCalendarColor = "rgb(255, 205, 5)"}
+                else{
+                hiCalendarColor = "#FAFAFA"
+                }
+
             return(
                 <div className="eventInfoWrapper" onClick={() => {this.openEventInfo(event)}}>
                     <span className="event-info-time">{timeConverter(event.event_time)}</span>
-                    <span>{event.event_name}</span>
+                    <span style={{color: `${hiCalendarColor}`}}>{event.event_name}</span>
                    {this.state.isInfoModalVisible && this.state.modalId === event.event_id && 
                     <div className="event-info-modal">
                                 <div className="event-menu-container">
                                 <img alt="help" className="question" src={question}/>
                                 <div className="event-name-wrapper">
                                          <h3 className="event-desciptor">Event</h3>
-                                         <input value={this.state.updatedEventName} onChange={this.eventNameUpdater} className="event-name-input-field"></input>
+                                         <input maxLength="120" value={this.state.updatedEventName} onChange={this.eventNameUpdater} className="event-name-input-field"></input>
                                          <img alt="" src={eventdate} className="sublimated-event-graphic"/>
                                      </div>
                                 <div className="event-left">
-                                    <div className="event-input-wrapper">
+                                <div className="event-input-wrapper-date">
                                         <img className="event-calendar-icon" src={eventdate}></img>
-                                        <p>{this.state.updatedDate}</p>
+                                        <TextField
+                                        type="date"
+                                        defaultValue={dateFormatter(this.state.selectedDate)}
+                                        onChange={this.eventDateUpdater}
+                                        />
                                     </div>
-                                    <div className="event-input-wrapper">
+                                    <div className="event-input-wrapper-clock">
                                         <img alt="time" className="event-calendar-icon" src={time} style={{height: "22px"}}/>
                                             <TextField
                                                 id="time"
@@ -483,7 +583,7 @@ class Calendar extends Component{
                                 <div className="event-right">
                                      <div style={{textAlign : "center", marginTop: "30px"}}>
                                          <h3 style={{textAlign: "left", marginBottom: "10px"}}>Description</h3>
-                                         <textarea value={this.state.updatedDescription} onChange={this.eventDescriptionUpdater} className="event-description-input-field"></textarea>
+                                         <textarea maxLength="1000" value={this.state.updatedDescription} onChange={this.eventDescriptionUpdater} className="event-description-input-field"></textarea>
                                      </div>
                                 </div>
                             </div>
@@ -514,15 +614,6 @@ class Calendar extends Component{
         if(this.state.isNavMenuVisible || this.state.isHabitsMenuVisible || this.state.isEventModalVisible || this.state.isInfoModalVisible){
             calendarBackdrop = <Backdrop click={this.backdropClickHandler}/>
         }
-
-        let dayNumber = this.state.selectedDate.getDay()
-        let daysOfTheWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
-        let monthsOfTheYear = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec']
-        let monthNumber = this.state.selectedDate.getMonth()
-        let day = daysOfTheWeek[dayNumber];
-        let month = monthsOfTheYear[monthNumber];
-        let date = this.state.selectedDate.getDate()
-        let formattedDate = `${day}, ${month} ${date}`
 
         let hiColor;
         let loColor;
@@ -560,15 +651,19 @@ class Calendar extends Component{
                                 <img alt="help" className="question" src={question}/>
                                 <div className="event-name-wrapper">
                                          <h3 className="event-desciptor">Event</h3>
-                                         <input className="event-name-input-field" onChange={this.updateEventName}></input>
+                                         <input maxLength="120"className="event-name-input-field" onChange={this.updateEventName}></input>
                                          <img alt="" src={eventdate} className="sublimated-event-graphic"/>
                                      </div>
                                 <div className="event-left">
-                                    <div className="event-input-wrapper">
+                                    <div className="event-input-wrapper-date">
                                         <img className="event-calendar-icon" src={eventdate}></img>
-                                        <p>{formattedDate}</p>
+                                        <TextField
+                                        type="date"
+                                        defaultValue={dateFormatter(this.state.selectedDate)}
+                                        onChange={this.datePrinter}
+                                        />
                                     </div>
-                                    <div className="event-input-wrapper">
+                                    <div className="event-input-wrapper-clock">
                                         <img alt="time" className="event-calendar-icon" src={time} style={{height: "22px"}}/>
                                             <TextField
                                                 id="time"
@@ -594,7 +689,7 @@ class Calendar extends Component{
                                 <div className="event-right">
                                      <div style={{textAlign : "center", marginTop: "30px"}}>
                                          <h3 style={{textAlign: "left", marginBottom: "10px"}}>Description</h3>
-                                         <textarea onChange={this.updateEventDescription} className="event-description-input-field"></textarea>
+                                         <textarea maxLength="1000" onChange={this.updateEventDescription} className="event-description-input-field"></textarea>
                                      </div>
                                 </div>
                                 </div>
