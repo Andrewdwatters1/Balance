@@ -127,3 +127,16 @@
 .home-spacer{
     height: 50px;
 }
+
+#timer-homepage-icon{
+    height: 35px;
+    background: url("../../assets/timer.png") bottom;
+    width: 35px;
+    position: absolute;
+    bottom: 25px;
+    right: 25px;
+}
+
+#timer-homepage-icon:hover {
+    background-position: 0 0;
+}

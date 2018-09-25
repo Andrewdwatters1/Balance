@@ -7,7 +7,6 @@ const bcrypt = require('bcryptjs');
 const salt = bcrypt.genSaltSync(10);
 const hash = bcrypt.hashSync(process.env.BCRYPT_HASH, salt);
 const cron = require('node-cron');
-
 // const path = require('path')  // PRODUCTION BUILD ONLY
 
 const authController = require('./authController');
@@ -29,7 +28,8 @@ app.use(session({
   saveUninitialized: false,
   resave: false
 }))
-// app.use(express.static(`${__dirname}/../build`)) /// PRODUCTION BUILD ONLY
+
+app.use( express.static( `${__dirname}/../build` ) );
 
 // AUTH ENDPTS
 app.post('/auth/register', authController.register);
@@ -70,9 +70,9 @@ app.get('/api/scratchpad', notesController.getScratchPad)
 app.post('/api/scratchpad', notesController.addScratchPad)    
 app.delete('/api/scratchpad/:id', notesController.deleteScratchPad)    
 
-// app.get('*', (req, res) => { // PRODUCTION BUILD ONLY
-//   res.sendFile(path.join(__dirname, '../build/index.html'));
-// });
+app.get('*', (req, res) => { // PRODUCTION BUILD ONLY
+  res.sendFile(path.join(__dirname, '../build/index.html'));
+});
 
 cron.schedule('1 0 0 * * *', () => { // should run at 00:01 EST every day
   habitsController.updateHabitEvents(app)
