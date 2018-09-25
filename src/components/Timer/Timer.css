@@ -1,0 +1,75 @@
+.timer-container{
+    height: 200px;
+    width: 200px;
+    background-color: rgba(0, 0, 0, 0.708);
+    position: absolute;
+    bottom: 25px;
+    right: 25px;
+    z-index: 500
+}
+
+.timer-help-button{
+    height: 20px;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: auto;
+    opacity: 0.4;
+    cursor: pointer;
+}
+
+.timer-minimize-button{
+    height: 20px;
+    position: absolute;
+    top: 10px;
+    right: 35px;
+    width: auto;
+    opacity: 0.4;
+    cursor: pointer;
+}
+
+.timer-details-wrapper{
+    margin-top: 50px;
+    text-align: center;
+}
+
+.timer-details-box{
+    width: 100%;
+    text-align: center;
+}
+
+.timer-title{
+    color: rgb(255, 205, 5);
+    margin-right: 10px;
+    font-size: 14px;
+}
+
+.timer-select-time{
+    font-size: 25px;
+}
+
+.timer-buttons-div{
+    margin-top: 30px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.timer-buttons{
+    height: 40px;
+    width: auto;
+    cursor: pointer;
+}
+
+.plus-minus{
+    height: 13px;
+    width: auto;
+    margin: 0 15px;
+    opacity: 0.3;
+    cursor: pointer;
+}
+
+.plus-minus:hover{
+    opacity: 1;
+}
