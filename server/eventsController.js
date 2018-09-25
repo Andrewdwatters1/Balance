@@ -34,6 +34,7 @@ module.exports = {
             let db = req.app.get('db');
             let { id } = req.session.user
             let { event_date } = req.query
+            console.log(req.query)
             let eventInfo = await db.calendar.getEventsByDate([id, event_date]);
             res.send(eventInfo)
         } catch (error) {
@@ -49,6 +50,7 @@ module.exports = {
           let event_id = req.params.id;
           let user_id = req.session.user.id;
           let { event_date, event_formatted_date, event_time, event_importance, event_name, event_details } = req.body;
+          console.log(req.body)
           let responseInfo = await db.calendar.updateEventById([event_id, user_id, event_date, event_formatted_date, event_time, event_importance, event_name, event_details])
         res.send(responseInfo[0])
         } catch (error) {
