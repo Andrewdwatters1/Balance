@@ -28,7 +28,7 @@ app.use(session({
   resave: false
 }))
 
-app.use(express.static(`${__dirname}/../build`)) /// PRODUCTION BUILD ONLY
+app.use( express.static( `${__dirname}/../build` ) );
 
 // AUTH ENDPTS
 app.post('/auth/register', authController.register);
