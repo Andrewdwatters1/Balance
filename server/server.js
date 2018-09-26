@@ -51,8 +51,10 @@ app.post('/api/getTodaysHabits', habitsController.getTodaysHabits);
 // TODO ENDPOINTS
 app.get('/api/todo/:userid', todoController.getTodos)
 app.delete('/api/todo/:id/:userid', todoController.deleteTodos)
-app.put('/api/todo/:id', todoController.editTodo)
+app.put('/api/todo/:id/:userid', todoController.editTodo)
 app.post('/api/todo', todoController.createTodo)
+app.put('/api/todo/complete/:id/:userid', todoController.markComplete)
+app.put('/api/todo/incomplete/:id/:userid', todoController.markIncomplete)
 // TODO ENDPTS
 
 // CALENDAR ENDPTS
