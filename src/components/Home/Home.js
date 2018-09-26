@@ -10,6 +10,7 @@ import Habits from '../Habits/Habits.js'
 import Calendar from '../Calendar/Calendar.js'
 import Login from '../Login/Login.js'
 import Timer from '../Timer/Timer.js'
+import News from '../News/News.js'
 import { getCurrentUser } from '../../redux/reducers/user'
 
 import './Home.css'
@@ -38,6 +39,7 @@ class Home extends Component {
             isTodoVisible: false,
             isHabitsVisible: false,
             isCalendarVisible: false,
+            isNewsVisible: false,
 
             date: new Date(),
             time: time,
@@ -95,6 +97,7 @@ class Home extends Component {
             isTodoVisible: false,
             isHabitsVisible: false,
             isCalendarVisible: false,
+            isNewsVisible: false,
         })
     }
 
@@ -108,6 +111,7 @@ class Home extends Component {
             isTodoVisible: true,
             isHabitsVisible: false,
             isCalendarVisible: false,
+            isNewsVisible: false,
         })
     }
 
@@ -121,6 +125,7 @@ class Home extends Component {
             isTodoVisible: false,
             isHabitsVisible: true,
             isCalendarVisible: false,
+            isNewsVisible: false,
         })
     }
 
@@ -134,6 +139,21 @@ class Home extends Component {
             isTodoVisible: false,
             isHabitsVisible: false,
             isCalendarVisible: true,
+            isNewsVisible: false,
+        })
+    }
+
+    newsToggler = () => {
+        this.setState({
+            isHomeCardVisible: false,
+            isWeatherCardVisible: false,
+            isHabitsMenuVisible: false,
+            isNavMenuVisible: false,
+            isNotesVisible: false,
+            isTodoVisible: false,
+            isHabitsVisible: false,
+            isCalendarVisible: false,
+            isNewsVisible: true,
         })
     }
 
@@ -210,6 +230,9 @@ class Home extends Component {
                                 <img src={calendar} onClick={this.calendarToggler} />
                             </div>
                             <div className="left-menu-item-wrapper">
+                                <i class="far fa-newspaper" onClick={this.newsToggler} />
+                            </div>
+                            <div className="left-menu-item-wrapper">
                                 <img src={settings} />
                             </div>
                         </div>}
@@ -220,6 +243,7 @@ class Home extends Component {
                         {this.state.isTodoVisible && <Todo />}
                         {this.state.isHabitsVisible && <Habits />}
                         {this.state.isCalendarVisible && <Calendar />}
+                        {this.state.isNewsVisible && <News />}
 
 
                         {this.state.isHomeCardVisible &&
