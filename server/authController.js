@@ -3,11 +3,11 @@ var bcrypt = require('bcryptjs');
 module.exports = {
   register: (req, res) => {
     let db = req.app.get('db');
-    let { firstName, lastName, username, email, password, avitar, zip } = req.body;
+    let { firstName, lastName, username, email, password, avitar, zipcode } = req.body;
     avitar = avitar ? avitar : null;
     bcrypt.genSalt(10, (error, salt) => {
       bcrypt.hash(password, salt, (error, hash) => {
-        db.auth.register_new_user([firstName, lastName, username, email, hash, avitar, zip]).then(result => {
+        db.auth.register_new_user([firstName, lastName, username, email, hash, avitar, zipcode]).then(result => {
           let { id, firstname, lastname, username, email, zipcode, avitar } = result[0];
           let currentUser = { id, firstname, lastname, username, email, zipcode, avitar }
           res.status(200).send(currentUser);
@@ -38,15 +38,15 @@ module.exports = {
   },
   getCurrentUser: (req, res) => {
     if(req.session.user) {
-      let { id, firstname, lastname, username, email, avitar, zip } = req.session.user;
+      let { id, firstname, lastname, username, email, avitar, zipcode } = req.session.user;
       id ? id : null;
       firstname ? firstname : null;
       lastname ? lastname : null;
       username ? username : null;
       email ? email : null;
       avitar ? avitar : null;
-      zip ? zip : null;
-      var currentUser = { id, firstname, lastname, username, email, avitar, zip };
+      zipcode ? zipcode : null;
+      var currentUser = { id, firstname, lastname, username, email, avitar, zipcode };
     }
     res.status(200).send(currentUser)
   }
