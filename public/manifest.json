@@ -1,15 +1,19 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
-  "icons": [
-    {
-      "src": "favicon.ico",
-      "sizes": "64x64 32x32 24x24 16x16",
-      "type": "image/x-icon"
-    }
-  ],
+  "short_name": "Balance",
+  "name": "Balance | Time Management, Habit Tracking & Scheduling Assistant",
+  "manifest_version": 2,
+  "version": "0.0.1",
+  "icons": {
+      "16": "logo-small.png",
+      "46": "logo-small.png",
+      "128": "logo-small.png"
+    },
   "start_url": "./index.html",
   "display": "standalone",
   "theme_color": "#000000",
-  "background_color": "#ffffff"
+  "background_color": "#ffffff",
+  "permissions" : ["management"],
+  "chrome_url_overrides" : {
+      "newtab": "index.html"
+  }
 }

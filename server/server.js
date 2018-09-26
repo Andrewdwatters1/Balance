@@ -6,7 +6,7 @@ const session = require('express-session');
 var bcrypt = require('bcryptjs');
 var salt = bcrypt.genSaltSync(10);
 var hash = bcrypt.hashSync("B4c0/\/r*d-lsx?}", salt);
-// const path = require('path')  // PRODUCTION BUILD ONLY
+const path = require('path')  // PRODUCTION BUILD ONLY
 
 const authController = require('./authController');
 const habitsController = require('./habitsController');
@@ -27,7 +27,8 @@ app.use(session({
   saveUninitialized: false,
   resave: false
 }))
-// app.use(express.static(`${__dirname}/../build`)) /// PRODUCTION BUILD ONLY
+
+app.use( express.static( `${__dirname}/../build` ) );
 
 // AUTH ENDPTS
 app.post('/auth/register', authController.register);
@@ -68,9 +69,9 @@ app.post('/api/scratchpad', notesController.addScratchPad)
 app.delete('/api/scratchpad/:id', notesController.deleteScratchPad)
 app.put('/api/scratchpad/:id', notesController.updateScratchPad)   
 
-// app.get('*', (req, res) => { // PRODUCTION BUILD ONLY
-//   res.sendFile(path.join(__dirname, '../build/index.html'));
-// });
+app.get('*', (req, res) => { // PRODUCTION BUILD ONLY
+  res.sendFile(path.join(__dirname, '../build/index.html'));
+});
 
 app.listen(serverPort, () => {
   console.log('Server is running on port: ', serverPort);
