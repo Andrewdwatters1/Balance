@@ -61,7 +61,7 @@ app.delete('/api/events/:id', eventsController.updateEventById)
 app.get('/api/notepad', notesController.getAllNotes)
 app.post('/api/notepad', notesController.addNotes)
 app.delete('/api/notepad/:id', notesController.deleteNotes)
-// app.put('/api/notePad/:id', notesController.editNotes)
+app.put('/api/notepad/:id', notesController.updateNotes)
 //SCRATCHPAD ENDPTS
 app.get('/api/scratchpad', notesController.getScratchPad)    
 app.post('/api/scratchpad', notesController.addScratchPad)    

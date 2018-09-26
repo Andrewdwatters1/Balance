@@ -47,6 +47,14 @@ export function deleteNotes(id){
        }
 }
 
+export function editNotes(notePad){
+    return {
+        type: PUT_NOTES,
+        payload: notePad
+    }
+}     
+
+
 export function getScratchPad(){
     let scratchPad = axios.get('/api/scratchpad').then(results => {
         console.log(results)
@@ -103,6 +111,8 @@ export function editScratchPad(scratchpad){
             return Object.assign({}, state, {scratchPad: action.payload})
             case PUT_SCRATCHPAD:
             return Object.assign({}, state, {scratchPad: action.payload})
+            case PUT_NOTES:
+            return Object.assign({}, state, {notePad: action.payload})
             // case DELETE_ALL_FROM_SCRATCHPAD:
             // return Object.assign({}, state, {cart: []})
             default: 

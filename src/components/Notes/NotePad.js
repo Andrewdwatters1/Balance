@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Note from './Note';
 import {connect} from 'react-redux';
-import {getNotes, addNotes, addScratchPad, getScratchPad} from '../../redux/reducers/notepad';
+import {getNotes, addNotes, addScratchPad, getScratchPad, editNotes} from '../../redux/reducers/notepad';
 import axios from 'axios'
 import './Notes.css';
 
@@ -85,13 +85,17 @@ class NotePad extends Component{
         return scratchpad
     }
 
-    // saveUpdatedScrachPad = () => {
-    //     let obj = {
-    //         date: formattedDateString,
-    //         title: formattedDate,
-    //         content: this.state.updatedTime,
-    //     }
-    // }
+    saveUpdatedNote = (id) => {
+        let obj = {
+            date: '',
+            title: this.state.RenderedNote.title,
+            content: this.state.RenderedNote.content,
+        }
+            axios.put(`/api/notepad/${this.state.RenderedNote.id}`, obj).then(results=> {
+                // console.log('results', results.data)
+                this.props.editNotes(results.data)
+            })
+        }
     
 
     render(){
@@ -139,6 +143,8 @@ class NotePad extends Component{
                         {this.state.RenderedNote.date}
                        <input className="note-buttons" value={this.state.RenderedNote.title} onChange={this.handleTitle}/>
                         <textarea className="note-buttons" value={this.state.RenderedNote.content} onChange={this.handleContent}/>
+                 <button className= "note-buttons" onClick={()=> this.saveUpdatedNote(this.state.RenderedNote.id)}>Save</button>
+
                     </div> }
                     {this.state.isScratchPadVisible && 
                     <div>
@@ -180,6 +186,6 @@ function mapStateToProps(state) {
     }
   }
   
-export default connect(mapStateToProps,{getNotes, addNotes, addScratchPad, getScratchPad})(NotePad)
+export default connect(mapStateToProps,{getNotes, addNotes, addScratchPad, getScratchPad, editNotes})(NotePad)
 
 {/* <h3 className="add-event-submit" onClick={()=>this.eventUpdaterSubmit(event.event_id)}>Update Event</h3> */}

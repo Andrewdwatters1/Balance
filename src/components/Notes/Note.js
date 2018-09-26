@@ -24,8 +24,6 @@ class Note extends Component{
              <div key={note.id}> 
                  <h5 className="note-buttons" onClick={()=>this.props.singleNoteToggler(note)}>{note.title}</h5>
                  <h6>{note.date}</h6>
-                 {/* <h3>{note.content}</h3> */}
-                 <button className= "note-buttons" onClick={ this.toggleEdit}>Edit Note</button>
                  <button className="note-buttons" onClick={() => this.props.deleteNotes(note.id)}>Delete Note</button>   
      
              </div>
