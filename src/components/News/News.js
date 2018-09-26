@@ -22,7 +22,6 @@ class News extends Component{
             },
             () => {
                 this.nextPage()
-                console.log('hit')
             })
         })
     }
