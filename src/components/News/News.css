@@ -1,0 +1,52 @@
+:root {
+    --primary-accent-color: rgba(233, 88, 88, 0.708);  
+}
+
+.content-container{
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    margin: auto;
+    width: 80vw;
+    height: 80vh;
+    background-color: rgba(0, 0, 0, 0.708);
+    z-index: 5;
+    display: flex;
+}
+
+.content-container-news-sub{
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    align-items: center;
+}
+
+.article-title-and-content{
+    float: right;
+}
+
+/* .article-title>a, .article-title>h1{
+    font-size: 12px;
+    float: right;
+    margin-left: 20px;
+} */
+
+.article-box{
+    width: 100%;
+    display: inline-block;
+}
+
+.articles-image{
+    width: 200px;
+    height: auto;
+}
+
+.next-button{
+    height: 50px;
+    width: 50px;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}

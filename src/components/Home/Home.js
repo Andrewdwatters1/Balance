@@ -60,7 +60,8 @@ class Home extends Component {
             _this.setState({
                 time: date
             })
-        }, 1000)
+        }, 1000),
+        this.newsToggler()
     }
 
     componentWillUnmount() {
