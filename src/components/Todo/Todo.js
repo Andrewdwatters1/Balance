@@ -47,7 +47,14 @@ class Todo extends Component{
     }
 
     handleEditSubmit = (todo) => {
-        this.props.editTodos(this.props.user.id, todo.id, this.props.editInput)
+        console.log(1111111111111111111111111, 'edit input', this.state.editInput);
+        
+        this.props.editTodos(
+            this.state.editInput,
+            todo.id,
+            this.props.user.id
+        )
+        this.props.toggleEdit(!this.props.editFlag)
     }
 
     render(){
@@ -58,6 +65,7 @@ class Todo extends Component{
             <div className='todoInputAndButton'>
                 <input className='todoInput' placeholder='What do you need to do today?' onChange={this.handleInputChange}/>
                 <button className='addTodoButton' onClick={this.handleSubmit}>+</button>
+                <button id='edit' className='todoControlEdit' onClick={this.handleEdit}></button>
             </div>
                 <div className='baseTodoWrapper'>
                 {todos.map(todo => {
@@ -85,14 +93,13 @@ class Todo extends Component{
                            {/*  TERNARY HERE please be careful he's very fragile*/}
                            {this.props.editFlag ?  
                         <div>
-                            <input placeholder={todo.content} onChange={() => this.handleEditInput} className='editTodoInput'/>
+                            <input placeholder={todo.content} onChange={this.handleEditInput} className='editTodoInput'/>
                             <button onClick={() => this.handleEditSubmit(todo)}>E</button>
                         </div>    
                         :
                         <p id ='content' className='todoContent' style={finishedStyle}>{todo.content}</p>}
                             {/*  TERNARY HERE please be careful he's very fragile*/}
 
-                           <button id='edit' className='todoControlEdit' style={noDisp} onClick={this.handleEdit}></button>
                            <button id ='trash' className='todoControlRemove' onClick={() => this.deleteTodo(todo.id)}></button>
                         </div>
                        </div> 

@@ -68,7 +68,8 @@
     cursor: pointer;
     width: 25px;
     height: 25px;
-    margin: 15px;
+    margin-left: 5vw;
+    margin-top: 8px;
 }
 
 .todoControlRemove{

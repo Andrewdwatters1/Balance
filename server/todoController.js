@@ -32,6 +32,7 @@ module.exports = {
         }
     },
     editTodo : async (req,res) => {
+        console.log(req.body)
         try {
             let db = req.app.get('db')
             let todo = await db.todos.updateTodo(req.body.content, req.params.id, req.params.userid)

@@ -40,6 +40,7 @@ export default function reducer(state = initialState, action){
         case CREATE_TODO_FULFILLED:
             return{...state, todos:action.payload.data}
         case EDIT_TODO_FULFILLED:
+        console.log(1111111111111, action.payload)
             return{...state, todos:action.payload.data}
         case DELETE_TODO_FULFILLED:
             return{...state, todos:action.payload.data}
@@ -68,7 +69,7 @@ export function deleteTodos(id, userid){
     }
 }
 
-export function editTodos(userid,id,content){
+export function editTodos(content,id,userid){
     return{
         type: EDIT_TODO,
         payload: axios.put(`/api/todo/${id}/${userid}`, {content})
