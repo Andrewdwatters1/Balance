@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getCurrentUser } from '../../redux/reducers/user'
 import axios from 'axios';
+import Geolocation from "react-geolocation";
+
 
 import './Weather.css'
 
@@ -10,6 +12,9 @@ import './Weather.css'
 const sunny = require('../../assets/sunny.png')
 
 
+//IMPORTANT!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+// Note: You are required to display the link “Powered by Dark Sky” somewhere prominent in your app or service.
+// ^^^^^^^^^^BE SURE TO DO THIS IF WE PUT INTO PRODUCTION^^^^^^^^^^^^^^^^^^^^^
 
 class Weather extends Component {
     constructor(props){
@@ -19,7 +24,7 @@ class Weather extends Component {
             //Current Info on State
             userZipCode: this.props.user.zipcode,
             userLat: "",
-            userLong: "",
+            userLng: "",
             userCityName: "",
             currentTemperature: "",
             cityName: "",
@@ -69,24 +74,54 @@ class Weather extends Component {
             dailyLow6: "",
             dailyMoonPhase6: "",
             dailyWeather6: "",
-            dailyWeatherIcon6: ""
+            dailyWeatherIcon6: "",
 
+            isWeatherModalVisible: false
         }
     }
 
+
+    handleCurrentWeatherIcon = (results) => {
+        if(results.data.currently.icon === 'rain'){
+            <i className=''/>
+        }
+    }
+
+
+    weatherModalToggler = () =>{
+        this.setState({
+            isWeatherModalVisible: !this.state.isWeatherModalVisible
+        })
+    }
+
       componentDidMount() {
-          axios.get(`https://www.zipcodeapi.com/rest/${process.env.REACT_APP_ZIPCODEAPI_KEY}/info.json/${this.state.userZipCode}/degrees`).then(results => {
+          this.props.getCurrentUser()
+          axios.get(`http://api.zippopotam.us/us/${this.state.userZipCode}`).then(results => {
+               console.log(results);
+               
               this.setState({
-                userLat: results.body.lat,
-                userLong: results.body.lng,
-                userCityName: results.body.city,
+                userLat: results.data.places[0].latitude,
+                userLng: results.data.places[0].longitude,
+                userCityName: results.data.places[0]['place name'],
               })
+          axios.get(`https://api.darksky.net/forecast/${process.env.REACT_APP_DARK_SKY_KEY}/${this.state.userLat},${this.state.userLng}`).then(results => {
+              this.setState({
+                  currentTemperature: results.data.currently.temperature
+              })
+          })
+        
       }
     )}
 
+
     render(){
+        console.log(this.state.userCityName);
+        
         return(
-            <div className="weather-box">
+            <div className="weather-box" onClick={this.weatherModalToggler}>
+
+             
+             
                 {/* <div>
                 <img src={this.state.icon}/>
                 <div style={{width: "5px"}}></div>
@@ -94,11 +129,12 @@ class Weather extends Component {
                 </div>
                 <p>SALT LAKE CITY</p> */}
 
-                <p>{this.state.userZipCode}</p>
-                <p>{this.state.userLat}</p>
-                <p>{this.state.userLong}</p>
+                <p>{this.state.currentTemperature}</p>
                 <p>{this.state.userCityName}</p>
-
+                {this.state.isWeatherModalVisible &&
+                <div className="weatherModalContainer">
+                    <h1>weeklyforcast</h1>
+                </div>}
             </div>
         )
         

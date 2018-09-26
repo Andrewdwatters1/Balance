@@ -1,10 +1,21 @@
 import React, { Component } from 'react';
 import './todo.css'
 import{ connect } from 'react-redux'
-import{getTodos,deleteTodos,editTodos,createTodos} from '../../redux/reducers/todo'
+import{getTodos,deleteTodos,editTodos,createTodos, markComplete, markIncomplete, toggleEdit} from '../../redux/reducers/todo'
 import{getCurrentUser} from '../../redux/reducers/user'
 
 class Todo extends Component{
+
+    constructor(){
+        super()
+        this.state={
+            nested : []
+
+            //Nesting:
+            //Get nested on click of wrapping div
+            //Functionality is (mostly) the same as far as buttons(adding, editing, etc.) are concerned.
+        }
+    }
 
     componentDidMount(){
         this.props.getCurrentUser()
@@ -24,22 +35,80 @@ class Todo extends Component{
         this.props.deleteTodos(id, this.props.user.id)
     }
 
+    markComplete = (id) => {
+        this.props.markComplete(id, this.props.user.id)
+        this.props.markIncomplete(id, this.props.user.id)
+
+    }
+
+    handleCompletion = (todo) => {
+            if(todo.completed === true){
+                this.props.markIncomplete(todo.id, this.props.user.id)
+            } else if (todo.completed === false){
+                this.props.markComplete(todo.id, this.props.user.id)
+            }
+    }
+
+    handleEditInput = (e) => {
+        this.setState({editInput : e.target.value})
+    }
+
+    handleEdit = () => {
+        this.props.toggleEdit(!this.props.editFlag)
+    }
+
+    handleEditSubmit = (todo) => {
+        this.props.editTodos(
+            this.state.editInput,
+            todo.id,
+            this.props.user.id
+        )
+        this.props.toggleEdit(!this.props.editFlag)
+    }
+
     render(){
+        console.log(this.props.user);
+        let todos = [...this.props.todos]
         return(
             <div className="todo-container">
             <div className='todoInputAndButton'>
                 <input className='todoInput' placeholder='What do you need to do today?' onChange={this.handleInputChange}/>
-                <button className='addTodoButton' onClick={this.handleSubmit}>+</button>
+                <button className='fas fa-plus' onClick={this.handleSubmit}></button>
+                <button id='edit' className='fas fa-pen-nib' onClick={this.handleEdit}></button>
             </div>
                 <div className='baseTodoWrapper'>
-                {this.props.todos.map(todo => {
+                {todos.map(todo => {
+                    let finishedStyle = {}
+                    let noDisp = {}
+                    let check = {}
+                    if(todo.completed) {
+                        finishedStyle = {
+                            color: 'gray',
+                            textDecoration: 'line-through'
+                        }
+                        noDisp = {
+                            display: 'none',
+                        }
+                        check = {
+                            color: 'green',
+                        }
+                    }
                     return(
                        <div className='todoIndivContainer' key={todo.id}>
                         <div className='todoContainerInfo'>
-                           <button className='todoControlDone'><img /></button>
-                           <p>{todo.content}</p>
-                           <button className='todoControlEdit'></button>
-                           <button className='todoControlRemove' onClick={() => this.deleteTodo(todo.id)}></button>
+                           <button className='far fa-circle' onClick={() => this.handleCompletion(todo)} style={check}></button>
+
+                           {/*  TERNARY HERE please be careful he's very fragile*/}
+                           {this.props.editFlag ?  
+                        <div>
+                            <input placeholder={todo.content} onChange={this.handleEditInput} className='editTodoInput'/>
+                            <button onClick={() => this.handleEditSubmit(todo)} className='fas fa-check'></button>
+                        </div>    
+                        :
+                        <p id ='content' className='todoContent' style={finishedStyle}>{todo.content}</p>}
+                            {/*  TERNARY HERE please be careful he's very fragile*/}
+
+                           <button id ='trash' className='fas fa-cut' onClick={() => this.deleteTodo(todo.id)}></button>
                         </div>
                        </div> 
                     )
@@ -54,7 +123,9 @@ let mapStateToProps = state => {
     return{
         todos : state.todo.todos,
         input : state.todo.input,
-        user : state.user.data
+        user : state.user.data,
+        editFlag : state.todo.editFlag,
+        editInput: state.todo.editInput
     }
 }
 
@@ -63,5 +134,8 @@ export default connect(mapStateToProps, {
     deleteTodos,
     editTodos,
     createTodos,
-    getCurrentUser
+    getCurrentUser,
+    markComplete,
+    markIncomplete,
+    toggleEdit
 })(Todo)
