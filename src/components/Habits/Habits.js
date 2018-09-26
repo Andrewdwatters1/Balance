@@ -19,7 +19,8 @@ class Habits extends Component {
             habitDetailShown: 1,
             habitEvents: [],
             habitEventsReturned: false,
-            habitsToday: []
+            habitsToday: [],
+            habitsCompletedToday: []
         }
     }
 
@@ -69,23 +70,44 @@ class Habits extends Component {
         axios.post('api/getTodaysHabits', { id }).then(result => {
             this.setState({
                 habitsToday: result.data
+            }, () => {
+                this.updateTodaysHabits()
             })
         }).catch(error => console.log('Error from getTodaysHabits', error));
     }
 
+    updateTodaysHabits = () => {
+        var habitsCompletedToday = [];
+        if (this.state.habitsList.length) {
+            for (let i = 0; i < this.state.habitsList.length; i++) {
+                let flag = false;
+                for (let j = 0; j < this.state.habitsToday.length; j++) {
+                    if (this.state.habitsList[i].id === this.state.habitsToday[j].habitid) flag = true
+                }
+                if (flag) {
+                    habitsCompletedToday[i] = { completed: true, id: this.state.habitsList[i].id }
+                } else {
+                    habitsCompletedToday[i] = { completed: false, id: this.state.habitsList[i].id }
+                }
+            }
+        }
+        this.setState({
+            habitsCompletedToday
+        })
+    }
     componentDidMount() {
         this.props.getCurrentUser();
         let { id } = this.props.user;
-        this.getTodaysHabits(id);
         axios.get('api/habits', { id }).then(result => {
             this.setState({
                 habitsList: result.data
+            }, () => {
+                this.getTodaysHabits(id);
             })
         });
     }
 
     render() {
-        console.log(' the habit list on state is', this.state.habitsToday);
         if (this.state.habitsList.length) {
             let daysOfTheWeek = [' ', 'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
             let monthsOfTheYear = [' ', 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
@@ -153,8 +175,23 @@ class Habits extends Component {
             // -----------------------------------------------------------------------------
         }
 
+        var todaysHabits;
+        if (this.state.habitsCompletedToday.length) {
+            todaysHabits = this.state.habitsCompletedToday.map((e) => {
+                console.log(e);
+                if (e.completed) {
+                    return <i className="far fa-check-circle habit-green-button"></i>
+                } else {
+                    return <i className="far fa-check-circle habit-quick-check" onMouseDown={(habitId) => this.addHabitEvent(e.id)}></i>
+                }
+            })
+        }
+
         return (
             <div className="content-container" >
+                <div>
+                    {todaysHabits}
+                </div>
                 <div className="habits-sidebar">
                     {allHabitsOverview}
                 </div>

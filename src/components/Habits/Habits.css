@@ -73,6 +73,10 @@
     color: rgb(233, 88, 88);
     font-size: 2em;
 }
+.habit-quick0check {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 2em;
+}
 .habit-type-icon {
     font-size: 2em;
 }
