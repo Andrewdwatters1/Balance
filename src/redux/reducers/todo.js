@@ -40,7 +40,6 @@ export default function reducer(state = initialState, action){
         case CREATE_TODO_FULFILLED:
             return{...state, todos:action.payload.data}
         case EDIT_TODO_FULFILLED:
-        console.log(1111111111111, action.payload)
             return{...state, todos:action.payload.data}
         case DELETE_TODO_FULFILLED:
             return{...state, todos:action.payload.data}

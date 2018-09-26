@@ -6,6 +6,17 @@ import{getCurrentUser} from '../../redux/reducers/user'
 
 class Todo extends Component{
 
+    constructor(){
+        super()
+        this.state={
+            nested : []
+
+            //Nesting:
+            //Get nested on click of wrapping div
+            //Functionality is (mostly) the same as far as buttons(adding, editing, etc.) are concerned.
+        }
+    }
+
     componentDidMount(){
         this.props.getCurrentUser()
         this.props.getTodos(this.props.user.id)
@@ -47,8 +58,6 @@ class Todo extends Component{
     }
 
     handleEditSubmit = (todo) => {
-        console.log(1111111111111111111111111, 'edit input', this.state.editInput);
-        
         this.props.editTodos(
             this.state.editInput,
             todo.id,
@@ -58,14 +67,14 @@ class Todo extends Component{
     }
 
     render(){
-        console.log(this.props.editInput);
+        console.log(this.props.user);
         let todos = [...this.props.todos]
         return(
             <div className="todo-container">
             <div className='todoInputAndButton'>
                 <input className='todoInput' placeholder='What do you need to do today?' onChange={this.handleInputChange}/>
-                <button className='addTodoButton' onClick={this.handleSubmit}>+</button>
-                <button id='edit' className='todoControlEdit' onClick={this.handleEdit}></button>
+                <button className='fas fa-plus' onClick={this.handleSubmit}></button>
+                <button id='edit' className='fas fa-pen-nib' onClick={this.handleEdit}></button>
             </div>
                 <div className='baseTodoWrapper'>
                 {todos.map(todo => {
@@ -81,26 +90,25 @@ class Todo extends Component{
                             display: 'none',
                         }
                         check = {
-                            background: `url(${require('../../assets/checkMark.png')}) no-repeat`
+                            color: 'green',
                         }
                     }
-                    console.log(todo)
                     return(
                        <div className='todoIndivContainer' key={todo.id}>
                         <div className='todoContainerInfo'>
-                           <button className='todoControlDone' onClick={() => this.handleCompletion(todo)} style={check}></button>
+                           <button className='far fa-circle' onClick={() => this.handleCompletion(todo)} style={check}></button>
 
                            {/*  TERNARY HERE please be careful he's very fragile*/}
                            {this.props.editFlag ?  
                         <div>
                             <input placeholder={todo.content} onChange={this.handleEditInput} className='editTodoInput'/>
-                            <button onClick={() => this.handleEditSubmit(todo)}>E</button>
+                            <button onClick={() => this.handleEditSubmit(todo)} className='fas fa-check'></button>
                         </div>    
                         :
                         <p id ='content' className='todoContent' style={finishedStyle}>{todo.content}</p>}
                             {/*  TERNARY HERE please be careful he's very fragile*/}
 
-                           <button id ='trash' className='todoControlRemove' onClick={() => this.deleteTodo(todo.id)}></button>
+                           <button id ='trash' className='fas fa-cut' onClick={() => this.deleteTodo(todo.id)}></button>
                         </div>
                        </div> 
                     )
