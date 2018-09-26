@@ -182,11 +182,11 @@ class Home extends Component {
                         <div className="top-menu"></div>
                         {backdrop}
                         <div className="top-menu-button">
-                            <img src={habits} />
+                            <img src={habits} onMouseEnter={this.habitsToggler}/>
                         </div>
 
                         <div className="left-menu-button"
-                            onClick={this.toggleNavMenu}>
+                            onMouseEnter={this.toggleNavMenu}>
                             <img src={arrow} />
                         </div>
 
