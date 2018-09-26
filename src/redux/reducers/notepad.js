@@ -1,4 +1,5 @@
 import axios from 'axios'
+// import { func } from '../../../node_modules/@types/prop-types';
 
 let initaialState = {
     notePad: [],
@@ -46,6 +47,14 @@ export function deleteNotes(id){
        }
 }
 
+export function editNotes(notePad){
+    return {
+        type: PUT_NOTES,
+        payload: notePad
+    }
+}     
+
+
 export function getScratchPad(){
     let scratchPad = axios.get('/api/scratchpad').then(results => {
         console.log(results)
@@ -76,6 +85,12 @@ export function deleteScratchPad(id){
            payload: scratchPad
        }
      }
+export function editScratchPad(scratchpad){
+    return {
+        type: PUT_SCRATCHPAD,
+        payload: scratchpad
+    }
+}     
 
 
 
@@ -94,7 +109,10 @@ export function deleteScratchPad(id){
             return Object.assign({}, state, {scratchPad: action.payload})
             case ADD_SCRATCHPAD + FULFILLED:
             return Object.assign({}, state, {scratchPad: action.payload})
-        
+            case PUT_SCRATCHPAD:
+            return Object.assign({}, state, {scratchPad: action.payload})
+            case PUT_NOTES:
+            return Object.assign({}, state, {notePad: action.payload})
             // case DELETE_ALL_FROM_SCRATCHPAD:
             // return Object.assign({}, state, {cart: []})
             default: 
