@@ -18,6 +18,11 @@
 }
 
 .weather-box p{
-    margin-top: -17px;
     font-size: 10px;
+}
+
+.weatherModalContainer{
+    width: 40vw;
+    height: 20vh;
+    background-color: royalblue;
 }

@@ -20,6 +20,7 @@
     "react": "^16.5.1",
     "react-addons-css-transition-group": "^15.6.2",
     "react-dom": "^16.5.1",
+    "react-geolocation": "^1.0.4",
     "react-infinite-calendar": "^2.3.1",
     "react-redux": "^5.0.7",
     "react-scripts": "1.1.5",

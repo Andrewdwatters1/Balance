@@ -38,6 +38,7 @@ class Home extends Component {
             isTodoVisible: false,
             isHabitsVisible: false,
             isCalendarVisible: false,
+            isWeatherModalVisivle: false,
 
             date: new Date(),
             time: time,
@@ -61,9 +62,9 @@ class Home extends Component {
         }, 1000)
     }
 
-    componentWillUnmount() {
-        clearInterval(this.timer);
-    }
+    // componentWillUnmount() {
+    //     clearInterval(this.timer);
+    // }
 
     toggleNavMenu = () => {
         this.setState({
@@ -84,6 +85,8 @@ class Home extends Component {
             isTimerVisible: false
         });
     };
+
+   
 
     notesToggler = () => {
         this.setState({
@@ -215,7 +218,6 @@ class Home extends Component {
                         </div>}
 
                         {this.state.isWeatherCardVisible && <Weather />}
-
                         {this.state.isNotesVisible && <Notes />}
                         {this.state.isTodoVisible && <Todo />}
                         {this.state.isHabitsVisible && <Habits />}
