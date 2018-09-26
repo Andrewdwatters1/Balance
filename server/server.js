@@ -3,9 +3,10 @@ const bodyParser = require('body-parser');
 const massive = require('massive');
 require('dotenv').config();
 const session = require('express-session');
-var bcrypt = require('bcryptjs');
-var salt = bcrypt.genSaltSync(10);
-var hash = bcrypt.hashSync("B4c0/\/r*d-lsx?}", salt);
+const bcrypt = require('bcryptjs');
+const salt = bcrypt.genSaltSync(10);
+const hash = bcrypt.hashSync(process.env.BCRYPT_HASH, salt);
+const cron = require('node-cron');
 // const path = require('path')  // PRODUCTION BUILD ONLY
 
 const authController = require('./authController');
@@ -27,7 +28,8 @@ app.use(session({
   saveUninitialized: false,
   resave: false
 }))
-// app.use(express.static(`${__dirname}/../build`)) /// PRODUCTION BUILD ONLY
+
+app.use( express.static( `${__dirname}/../build` ) );
 
 // AUTH ENDPTS
 app.post('/auth/register', authController.register);
@@ -43,6 +45,8 @@ app.post('/api/habits', habitsController.addHabit);
 app.delete('/api/habits', habitsController.deleteHabit);
 app.get('/api/habitEvents', habitsController.getAllHabitEventsByHabit);
 app.post('/api/habitEvents', habitsController.addHabitEvent);
+app.post('/api/addHabitToday', habitsController.addHabitToday);
+app.post('/api/getTodaysHabits', habitsController.getTodaysHabits);
 
 // TODO ENDPOINTS
 app.get('/api/todo/:userid', todoController.getTodos)
@@ -56,19 +60,30 @@ app.put('/api/todo/incomplete/:id/:userid', todoController.markIncomplete)
 // CALENDAR ENDPTS
 app.post('/api/events', eventsController.createEvent)
 app.get('/api/events', eventsController.getEventsByDate)
+app.put('/api/events/:id', eventsController.updateEventById)
+app.delete('/api/events/:id', eventsController.updateEventById)
 
 // NOTES ENDPTS
 app.get('/api/notepad', notesController.getAllNotes)
 app.post('/api/notepad', notesController.addNotes)
 app.delete('/api/notepad/:id', notesController.deleteNotes)
-    //SCRATCHPAD ENDPTS
+app.put('/api/notepad/:id', notesController.updateNotes)
+//SCRATCHPAD ENDPTS
 app.get('/api/scratchpad', notesController.getScratchPad)    
 app.post('/api/scratchpad', notesController.addScratchPad)    
-app.delete('/api/scratchpad/:id', notesController.deleteScratchPad)    
+app.delete('/api/scratchpad/:id', notesController.deleteScratchPad)
+app.put('/api/scratchpad/:id', notesController.updateScratchPad)   
 
-// app.get('*', (req, res) => { // PRODUCTION BUILD ONLY
-//   res.sendFile(path.join(__dirname, '../build/index.html'));
-// });
+app.get('*', (req, res) => { // PRODUCTION BUILD ONLY
+  res.sendFile(path.join(__dirname, '../build/index.html'));
+});
+
+cron.schedule('1 0 0 * * *', () => { // should run at 00:01 EST every day
+  habitsController.updateHabitEvents(app)
+}, {
+  scheduled: true,
+  timezone: "America/New_York" // better solution?
+})
 
 app.listen(serverPort, () => {
   console.log('Server is running on port: ', serverPort);

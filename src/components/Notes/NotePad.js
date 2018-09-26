@@ -1,25 +1,31 @@
 import React, { Component } from 'react';
 import Note from './Note';
 import {connect} from 'react-redux';
-import {getNotes, addNotes, addScratchPad, getScratchPad} from '../../redux/reducers/notepad';
+import {getNotes, addNotes, addScratchPad, getScratchPad, editNotes} from '../../redux/reducers/notepad';
+import axios from 'axios'
 import './Notes.css';
+
 import ScratchPad from './ScratchPad';
 
 class NotePad extends Component{
     constructor(props){
         super(props);
-        var time = this.getTimeString();
         this.state={
-            name: '',
+            title: 'note.content',
             date:'',
             content:'',
-            RenderedNote: [],
+            RenderedNote: {
+                title:'',
+                date:'',
+                content:''
+            },
+            edit: true,
 
-            isNotesVisible: false,
+            isSingleNoteVisible: false,
             isScratchPadVisible: true,
+            isAddNoteVisible: false,
 
             date: new Date(),
-            time: time,
         }
     }
 
@@ -28,55 +34,82 @@ class NotePad extends Component{
         return date;
     }
 
-    notepadToggler = () => {
+    scratchPadToggler = () => {
         this.setState({
-            isScratchPadVisible: !this.state.isScratchPadVisible,
-            isNotesVisible: !this.state.isNotesVisible
+            isScratchPadVisible: true,
+            isSingleNoteVisible: false,
+            isAddNoteVisible: false,
         })
     }
-    singleNoteToggler = () => {
+    singleNoteToggler = (note) => {
         this.setState({
-            // isScratchPadVisible: true,
-            // isNotesVisible: true,
+            RenderedNote: note, 
+            isScratchPadVisible: false,
+            isSingleNoteVisible: true,
+            isAddNoteVisible: false,
         })
-    
+    }
+    addNoteToggler = () => {
+        this.setState({
+            isScratchPadVisible: false,
+            isSingleNoteVisible: false,
+            isAddNoteVisible: true,
+        })
     }
     handleTitle = (e) => {
-        this.setState({title: e.target.value})
-      }
+        this.setState({RenderedNote: {...this.state.RenderedNote, title: e.target.value}})
+    }
       
-      handleContent = (e) => {
+    handleContent = (e) => {
+        this.setState({RenderedNote: {...this.state.RenderedNote, content: e.target.value}})
+    }
+
+    handleNewTitle = (e) => {
+        this.setState({title: e.target.value})
+    }
+
+    handleNewContent = (e) => {
         this.setState({content: e.target.value})
-      }
+    }
 
     componentDidMount(){
         this.props.getNotes()
         this.props.getScratchPad()
-        // this.timer = setInterval(function () {
-        //     var date = _this.getTimeString();
-        //     _this.setState({
-        //         time: date
-        //     })
-        // }, 1000)
-      }
+    }
     
-      updateNotes = (notes) => {
-        return notes
-      }
+    updateNotes = (notes) => {
+       return notes
+    }
 
-      updateScratchPad = (scratchpad) => {
-          return scratchpad
-      }
+    updateScratchPad = (scratchpad) => {
+        return scratchpad
+    }
+
+    saveUpdatedNote = (id) => {
+        let obj = {
+            date: '',
+            title: this.state.RenderedNote.title,
+            content: this.state.RenderedNote.content,
+        }
+            axios.put(`/api/notepad/${this.state.RenderedNote.id}`, obj).then(results=> {
+                // console.log('results', results.data)
+                this.props.editNotes(results.data)
+            })
+        }
+    
 
     render(){
+
         const  {title, date, content} = this.state
         const newNote = { title, date, content } 
-            console.log(this.props)
+            console.log(this.props)    
         let notePad = this.props.notePad.map(notes => {
             return <Note key={notes.id}
                     note={notes}
                     updatedNotes={this.updatedNotes}
-                    singleNoteToggler={this.singleNoteToggler}/>
+                    singleNoteToggler={this.singleNoteToggler}
+                    handleContent={this.handleContent}
+                    handleTitle={this.handleTitle}/>
         })
         const NewScratch = { title, date, content }
 
@@ -86,6 +119,9 @@ class NotePad extends Component{
                                 scratch={scratch}
                                 updatedScratchPad={this.updatedScratchPad}/>
         })
+
+
+        
         let daysOfTheWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
         let dayNumber = this.state.date.getDay();
         let day = daysOfTheWeek[dayNumber];
@@ -93,34 +129,50 @@ class NotePad extends Component{
         let monthsOfTheYear = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
         let monthNumber = this.state.date.getMonth();
         let month = monthsOfTheYear[monthNumber];
-        let formattedTime = this.state.time.slice(0, -6)
         return(
             <div className="content-container">
                 <div className="notes-container">
                     <h2>Note Pad</h2>
-                    <button onClick={this.notepadToggler}>Scratch Pad</button>
-                    {/* <input placeholder='title' value={this.state.title} onChange={this.handleTitle}></input>
-                        <textarea placeholder='content' value={this.state.content} onChange={this.handleContent}/>
-                        <button onClick={() => this.props.addScratchPad(NewScratch)}>Save Note</button>
-                        {scratchPad} */}
-                    <h3>Add A New Note(note pad)</h3>
-                        <input placeholder='title' value={this.state.title} onChange={this.handleTitle}></input>
-                        <textarea placeholder='content' value={this.state.content} onChange={this.handleContent}/>
-                        <button onClick={() => this.props.addNotes(newNote)}>Save Note</button>
-                        {notePad}    
+                        <button className="note-buttons" onClick={this.scratchPadToggler}>Scratch Pad</button>
+                        <button className="note-buttons" onClick={this.addNoteToggler}>Add A New Note(note pad)</button>
+                    {notePad}    
                 </div>
                 <div className="scratchpad">
-                <h5>
-                <span>{day}, </span>
-                <span>{month} </span>
-                <span>{this.state.date.getDate()} </span>
-                <span>{this.state.date.getFullYear()}</span></h5>
-                <input placeholder='title' value={this.state.title} onChange={this.handleTitle}></input>
-                        <textarea placeholder='content' value={this.state.content} onChange={this.handleContent}/>
-                        <button onClick={() => this.props.addScratchPad(NewScratch)}>Save to Scratch Pad</button>
-                        
-                    {this.state.isNotesVisible && notePad}
-                    {this.state.isScratchPadVisible && scratchPad}
+                    {this.state.isSingleNoteVisible && 
+                    <div>
+                        {this.state.RenderedNote.date}
+                       <input className="note-buttons" value={this.state.RenderedNote.title} onChange={this.handleTitle}/>
+                        <textarea className="note-buttons" value={this.state.RenderedNote.content} onChange={this.handleContent}/>
+                 <button className= "note-buttons" onClick={()=> this.saveUpdatedNote(this.state.RenderedNote.id)}>Save</button>
+
+                    </div> }
+                    {this.state.isScratchPadVisible && 
+                    <div>
+                        <h5> 
+                            <span>{day}, </span>
+                            <span>{month} </span>
+                            <span>{this.state.date.getDate()} </span>
+                            <span>{this.state.date.getFullYear()}</span>
+                        </h5>
+                        <input placeholder='title' value={this.state.title} onChange={this.handleNewTitle}></input>
+                        <textarea placeholder='content' value={this.state.content} onChange={this.handleNewContent}/>
+                        <button className="note-buttons" onClick={() => this.props.addScratchPad(NewScratch)}>Save to Scratch Pad</button>
+                        {scratchPad}
+                    </div>
+                    }
+                    {this.state.isAddNoteVisible &&
+                    <div>
+                        <h5> 
+                            <span>{day}, </span>
+                            <span>{month} </span>
+                            <span>{this.state.date.getDate()} </span>
+                            <span>{this.state.date.getFullYear()}</span>
+                        </h5>
+                        <input placeholder='title' value={this.state.title} onChange={this.handleNewTitle}></input>
+                        <textarea placeholder='content' value={this.state.content} onChange={this.handleNewContent}/>
+                        <button className="note-buttons" onClick={() => this.props.addNotes(newNote)}>Save Note</button>
+                    </div>
+                    }
                 </div> 
             </div>
         )
@@ -134,4 +186,6 @@ function mapStateToProps(state) {
     }
   }
   
-  export default connect(mapStateToProps,{getNotes, addNotes, addScratchPad, getScratchPad})(NotePad)
+export default connect(mapStateToProps,{getNotes, addNotes, addScratchPad, getScratchPad, editNotes})(NotePad)
+
+{/* <h3 className="add-event-submit" onClick={()=>this.eventUpdaterSubmit(event.event_id)}>Update Event</h3> */}

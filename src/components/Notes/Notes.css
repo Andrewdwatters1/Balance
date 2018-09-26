@@ -36,3 +36,7 @@
 .notes-container{
     overflow: scroll;
 }
+
+.note-buttons{
+    color: royalblue;
+}

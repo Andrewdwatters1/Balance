@@ -9,6 +9,7 @@ import Todo from '../Todo/Todo.js'
 import Habits from '../Habits/Habits.js'
 import Calendar from '../Calendar/Calendar.js'
 import Login from '../Login/Login.js'
+import Timer from '../Timer/Timer.js'
 import { getCurrentUser } from '../../redux/reducers/user'
 
 import './Home.css'
@@ -20,6 +21,7 @@ const habits = require('../../assets/infinity.png')
 const calendar = require('../../assets/calendar.png')
 const settings = require('../../assets/settings.png')
 
+
 class Home extends Component {
     constructor(props) {
         super(props);
@@ -30,6 +32,7 @@ class Home extends Component {
             isWeatherCardVisible: true,
             isNavMenuVisible: false,
             isHabitsMenuVisible: false,
+            isTimerVisisble: false,
 
             isNotesVisible: false,
             isTodoVisible: false,
@@ -77,7 +80,8 @@ class Home extends Component {
     backdropClickHandler = () => {
         this.setState({
             isHabitsMenuVisisble: false,
-            isNavMenuVisible: false
+            isNavMenuVisible: false,
+            isTimerVisible: false
         });
     };
 
@@ -133,6 +137,18 @@ class Home extends Component {
         })
     }
 
+    toggleTimer = () => {
+        this.setState({
+            isTimerVisible: true
+        })
+    }
+
+    minimizeTimer = () => {
+        this.setState({
+            isTimerVisible: false
+        })
+    }
+
     render() {
         // console.log('current user', this.props.user);
         let backdrop;
@@ -166,12 +182,17 @@ class Home extends Component {
                         <div className="top-menu"></div>
                         {backdrop}
                         <div className="top-menu-button">
-                            <img src={habits} />
+                            <img src={habits} onMouseEnter={this.habitsToggler}/>
                         </div>
 
                         <div className="left-menu-button"
-                            onClick={this.toggleNavMenu}>
+                            onMouseEnter={this.toggleNavMenu}>
                             <img src={arrow} />
+                        </div>
+
+                        <div>
+                        {!this.state.isTimerVisible && <div id="timer-homepage-icon" onClick={this.toggleTimer}/>}
+                        {this.state.isTimerVisible && <Timer minimize={this.minimizeTimer}/>}
                         </div>
 
                         {this.state.isNavMenuVisible && <div className="left-menu">
@@ -223,7 +244,7 @@ class Home extends Component {
             )
         }
         else {
-            return <Login />
+            return <Login/>
         }
     }
 }

@@ -7,8 +7,13 @@ import {deleteNotes} from '../../redux/reducers/notepad'
 class Note extends Component{
     constructor(props){
         super(props)
+        this.state = {
+           title: props.note.title,
+           content: props.note.content,
+            edit: true
         }
-
+        }
+       
 
     render(){
         let {note} = this.props
@@ -17,10 +22,9 @@ class Note extends Component{
          <div className="textContainer-pup">  
                 
              <div key={note.id}> 
-                 <button onClick={this.singleNoteToggler}>{note.title}</button>
-                 <h3>{note.date}</h3>
-                 <button className= "buttons" onClick={ this.toggleEdit}>Edit Note</button>
-                 <button onClick={() => this.props.deleteNotes(note.id)}>Delete Note</button>   
+                 <h5 className="note-buttons" onClick={()=>this.props.singleNoteToggler(note)}>{note.title}</h5>
+                 <h6>{note.date}</h6>
+                 <button className="note-buttons" onClick={() => this.props.deleteNotes(note.id)}>Delete Note</button>   
      
              </div>
          </div> 
