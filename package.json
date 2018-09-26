@@ -11,6 +11,7 @@
     "body-parser": "^1.18.3",
     "dotenv": "^6.0.0",
     "express-session": "^1.15.6",
+    "google-trends-api": "^4.7.0",
     "hoek": "^5.0.4",
     "massive": "^5.4.0",
     "material": "^0.3.0",

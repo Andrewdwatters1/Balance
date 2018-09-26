@@ -1,4 +1,5 @@
 import React,{Component} from 'react'
+import './Notes.css';
 import {connect} from 'react-redux'
 import {deleteNotes} from '../../redux/reducers/notepad'
 
@@ -24,7 +25,7 @@ class Note extends Component{
              <div key={note.id}> 
                  <h5 className="note-buttons" onClick={()=>this.props.singleNoteToggler(note)}>{note.title}</h5>
                  <h6>{note.date}</h6>
-                 <button className="note-buttons" onClick={() => this.props.deleteNotes(note.id)}>Delete Note</button>   
+                 <button className="notesRemove" onClick={() => this.props.deleteNotes(note.id)}></button>   
      
              </div>
          </div> 
