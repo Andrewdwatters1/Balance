@@ -4,8 +4,8 @@ import moment from 'moment'
 import './Timer.css'
 
 //Variables
-var timerTime = 1;
-var breakTime = 1;
+var timerTime = 5;
+var breakTime = 5;
 
 //Images etc.
 const question = require('../../assets/question.png')
@@ -23,11 +23,14 @@ export default class Timer extends Component{
             
             pomodoros: 0,
 
+            //Focus Timer State
             focusTimer: moment.duration(timerTime, 'minutes'),
             focusTimerCountdown: null,
 
+
+            //Break Timer State
             breakTimer: moment.duration(breakTime, 'minutes'),
-            breakTimerCountdown: null
+            breakTimerCountdown: null,
 
           };
     }
@@ -36,12 +39,12 @@ export default class Timer extends Component{
 
     startFocusTimer = () => {
         this.setState({
-            focusTimerCountdown: setInterval(this.reduceFocusTimer, 1000)
+            focusTimerCountdown: setInterval(this.reduceFocusTimer, 20)
         })
     }
     pauseFocusTimer = () => {
         this.setState({
-            focusTimerCountdown: clearInterval(this.state.timer)
+            focusTimerCountdown: clearInterval(this.state.focusTimerCountdown)
         })
     }
     reduceFocusTimer = () => {
@@ -52,7 +55,7 @@ export default class Timer extends Component{
         }, () => {
             if ( this.state.focusTimer.get('minutes') === 0 && this.state.focusTimer.get('seconds') === -1){
                 this.setState({
-                    focusTimerCountdown: clearInterval(this.state.timer),
+                    focusTimerCountdown: clearInterval(this.state.focusTimerCountdown),
                     focusTimer: moment.duration(timerTime, 'minutes')
         }, () => {
             this.completeFocusTimer();
@@ -63,25 +66,15 @@ export default class Timer extends Component{
 )
     }
     completeFocusTimer = () => {
-        alert("Done!");
-        this.pomodoroIncrementer();
-        this.startBreakTimer();
-        this.focusTimerCompleterSound()
-    }
-
-    focusTimerCompleterSound = () => {
-        this.myRef = React.createRef();
-        return(
-            <audio ref={this.myRef} src={focusAlertSound} autoPlay/>
-        )
+        this.pomodoroIncrementer()
+        this.startBreakTimer()
     }
  
-
     //    Break Timer Controls
 
     startBreakTimer = () => {
         this.setState({
-            breakTimerCountdown: setInterval(this.reduceBreakTimer, 1000)
+            breakTimerCountdown: setInterval(this.reduceBreakTimer, 1)
         })
     }
 
@@ -93,10 +86,11 @@ export default class Timer extends Component{
         }, () => {
             if ( this.state.breakTimer.get('minutes') === 0 && this.state.breakTimer.get('seconds') === -1){
                 this.setState({
-                    breakTimerCountdown: clearInterval(this.state.breakTimer),
+                    breakTimerCountdown: clearInterval(this.state.breakTimerCountdown),
                     breakTimer: moment.duration(breakTime, 'minutes')
         }, () => {
-            this.completeBreakTimer();
+            this.startFocusTimer()
+            this.completeBreakTimer()
         }
         )
     }
@@ -104,12 +98,23 @@ export default class Timer extends Component{
 )
     }
 
+    completeBreakTimer = () => {
+        if(this.state.pomodoros === 3){
+            this.setState({
+                breakTimer: moment.duration(15, 'minutes')
+            })
+        }else if(this.state.pomodoros === 4){
+            this.setState({
+                pomodoros: 0
+            })
+        }
+    }
+
     //  Other
 
     pomodoroIncrementer = () => {
-        var pomodoroCount = this.state.pomodoros
         this.setState({
-            pomodoros : pomodoroCount+=pomodoroCount
+            pomodoros: this.state.pomodoros+1
         })
     }
 
@@ -124,7 +129,7 @@ export default class Timer extends Component{
             if(this.state.focusTimerCountdown){ playButtonEnabled = "none"}else{ playButtonEnabled = "auto"}
 
             let pauseButtonEnabled;
-            if(this.state.focusTimerCountdown === null){pauseButtonEnabled = "auto"}else{pauseButtonEnabled = "none"}
+            if(this.state.focusTimerCountdown === null){pauseButtonEnabled = "auto"}else{pauseButtonEnabled = "none"};
 
             return(
                 <div className="timer-container">
@@ -146,7 +151,7 @@ export default class Timer extends Component{
                     </div>
                     <div className="timer-buttons-div">
                     <img src={start} alt="start timer" className="timer-buttons" onClick={this.startFocusTimer} style={{pointerEvents : playButtonEnabled}}/>
-                    <img src={pause} alt="pause timer" className="timer-buttons" onClick={this.pauseFocusTimer} /*style={{pointerEvents : pauseButtonEnabled}}*//>
+                    <img src={pause} alt="pause timer" className="timer-buttons" onClick={this.pauseFocusTimer}  />
                     </div>
                 </div>
             )
