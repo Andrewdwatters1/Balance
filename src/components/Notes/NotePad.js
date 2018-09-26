@@ -6,12 +6,13 @@ import axios from 'axios'
 import './Notes.css';
 
 import ScratchPad from './ScratchPad';
+const add = require('../../assets/plus.png')
 
 class NotePad extends Component{
     constructor(props){
         super(props);
         this.state={
-            title: 'note.content',
+            title: '',
             date:'',
             content:'',
             RenderedNote: {
@@ -133,17 +134,19 @@ class NotePad extends Component{
             <div className="content-container">
                 <div className="notes-container">
                     <h2>Note Pad</h2>
-                        <button className="note-buttons" onClick={this.scratchPadToggler}>Scratch Pad</button>
-                        <button className="note-buttons" onClick={this.addNoteToggler}>Add A New Note(note pad)</button>
+                        <h3 className="note-buttons" onClick={this.scratchPadToggler}>Scratch Pad</h3>
+                        <h3 className="note-buttons" onClick={this.addNoteToggler}>Create A New Note</h3>
                     {notePad}    
                 </div>
                 <div className="scratchpad">
                     {this.state.isSingleNoteVisible && 
                     <div>
-                        {this.state.RenderedNote.date}
-                       <input className="note-buttons" value={this.state.RenderedNote.title} onChange={this.handleTitle}/>
-                        <textarea className="note-buttons" value={this.state.RenderedNote.content} onChange={this.handleContent}/>
-                 <button className= "note-buttons" onClick={()=> this.saveUpdatedNote(this.state.RenderedNote.id)}>Save</button>
+                        <header className="notestitlearea">
+                            {this.state.RenderedNote.date}
+                            <input className="" value={this.state.RenderedNote.title} onChange={this.handleTitle}/>
+                        </header>
+                        <textarea className="notestextarea" value={this.state.RenderedNote.content} onChange={this.handleContent}/>
+                        <button className= "note-buttons" onClick={()=> this.saveUpdatedNote(this.state.RenderedNote.id)}>Save</button>
 
                     </div> }
                     {this.state.isScratchPadVisible && 
