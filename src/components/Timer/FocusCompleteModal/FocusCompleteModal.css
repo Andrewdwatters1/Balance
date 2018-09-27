@@ -1,0 +1,13 @@
+.complete-modal-wrapper{
+background-color: rgba(255, 205, 5, 0.735);
+position: absolute;
+height: 40px;
+width: 100%;
+bottom: 250px;
+}
+
+.complete-modal-wrapper>p{
+    text-align: center;
+    font-size: 14px;
+    }
+    

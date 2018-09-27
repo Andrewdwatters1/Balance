@@ -212,10 +212,9 @@ class Home extends Component {
                             onMouseEnter={this.toggleNavMenu}>
                             <img src={arrow} />
                         </div>
-
                         <div>
                         {!this.state.isTimerVisible && <div id="timer-homepage-icon" onClick={this.toggleTimer}/>}
-                        {this.state.isTimerVisible && <Timer minimize={this.minimizeTimer}/>}
+                        {this.state.isTimerVisible && <Timer style={{}} minimize={this.minimizeTimer}/>}
                         </div>
 
                         {this.state.isNavMenuVisible && <div className="left-menu">

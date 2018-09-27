@@ -2,9 +2,12 @@
 import React, { Component } from 'react'
 import moment from 'moment'
 import './Timer.css'
+import FocusCompleteModal from './FocusCompleteModal/FocusCompleteModal'
+import BreakCompleteModal from './BreakCompleteModal/BreakCompleteModal'
+import Alarm from './Alarm/Alarm'
 
 //Variables
-var timerTime = 5;
+var timerTime = 25;
 var breakTime = 5;
 
 //Images etc.
@@ -23,15 +26,22 @@ export default class Timer extends Component{
             
             pomodoros: 0,
 
-            //Focus Timer State
+    //   Focus Timer State
+    
             focusTimer: moment.duration(timerTime, 'minutes'),
             focusTimerCountdown: null,
+            focusControlsAreVisible: true,
 
+    //    Break Timer State
 
-            //Break Timer State
             breakTimer: moment.duration(breakTime, 'minutes'),
             breakTimerCountdown: null,
+            breakControlsAreVisible: false,
 
+    //    Modal Toggling
+
+            focusCompleteModalIsVisible: false,
+            breakCompleteModalIsVisible: false
           };
     }
 
@@ -66,18 +76,37 @@ export default class Timer extends Component{
 )
     }
     completeFocusTimer = () => {
+        let {toggleFocusCompleteModal} = this
         this.pomodoroIncrementer()
         this.startBreakTimer()
+        this.toggleFocusCompleteModal()
+        setTimeout(function(){toggleFocusCompleteModal()}, 3000);
+        this.hideFocusControls();
     }
- 
+    toggleFocusCompleteModal = () => {
+         this.setState({
+             focusCompleteModalIsVisible: !this.state.focusCompleteModalIsVisible
+         })
+    }
+    hideFocusControls = () => {
+        this.setState({
+            focusControlsAreVisible: !this.state.focusControlsAreVisible,
+            breakControlsAreVisible: !this.state.breakControlsAreVisible
+        })
+    }
+
     //    Break Timer Controls
 
     startBreakTimer = () => {
         this.setState({
-            breakTimerCountdown: setInterval(this.reduceBreakTimer, 1)
+            breakTimerCountdown: setInterval(this.reduceBreakTimer, 20)
         })
     }
-
+    pauseBreakTimer = () => {
+        this.setState({
+            breakTimerCountdown: clearInterval(this.state.breakTimerCountdown)
+        })
+    }
     reduceBreakTimer = () => {
         const newTime = moment.duration(this.state.breakTimer);
         newTime.subtract(1, 'second');
@@ -97,8 +126,16 @@ export default class Timer extends Component{
 }
 )
     }
-
+    toggleBreakCompleteModal = () => {
+        this.setState({
+            breakCompleteModalIsVisible: !this.state.breakCompleteModalIsVisible
+        })
+    }
     completeBreakTimer = () => {
+        let {toggleBreakCompleteModal} = this;
+        this.hideBreakControls();
+        toggleBreakCompleteModal();
+        setTimeout(function(){toggleBreakCompleteModal()}, 3000)
         if(this.state.pomodoros === 3){
             this.setState({
                 breakTimer: moment.duration(15, 'minutes')
@@ -109,8 +146,14 @@ export default class Timer extends Component{
             })
         }
     }
+    hideBreakControls = () => {
+        this.setState({
+            breakControlsAreVisible: !this.state.breakControlsAreVisible,
+            focusControlsAreVisible: !this.state.focusControlsAreVisible
+        })
+    }
 
-    //  Other
+    //      Other
 
     pomodoroIncrementer = () => {
         this.setState({
@@ -120,39 +163,71 @@ export default class Timer extends Component{
 
         render(){
 
+            let completedColor1 = "rgba(255, 255, 255, 0.304)";
+            let completedColor2 = "rgba(255, 255, 255, 0.304)";
+            let completedColor3 = "rgba(255, 255, 255, 0.304)";
+            let completedColor4 = "rgba(255, 255, 255, 0.304)";
+
+            if(this.state.pomodoros === 1){completedColor1 = "rgba(255, 205, 5, 0.9)"}
+            if(this.state.pomodoros === 2){completedColor1 = "rgba(255, 205, 5, 0.9)"; completedColor2 = "rgba(255, 205, 5, 0.9)";}
+            if(this.state.pomodoros === 3){completedColor1 = "rgba(255, 205, 5, 0.9)"; completedColor2 = "rgba(255, 205, 5, 0.9)"; completedColor3 = "rgba(255, 205, 5, 0.9)"}
+            if(this.state.pomodoros === 4){completedColor1 = "rgba(255, 205, 5, 0.9)"; completedColor2 = "rgba(255, 205, 5, 0.9)"; completedColor3 = "rgba(255, 205, 5, 0.9)"; completedColor4 = "rgba(255, 205, 5, 0.9)"}
+
+            let activeColor = "rgb(255, 205, 5)";
+            let inactiveColor = "#FAFAFA";
+            let focusColor;
+            let breakColor;
+
+            if(this.state.focusControlsAreVisible){focusColor = activeColor; breakColor = inactiveColor}
+            else{focusColor = inactiveColor; breakColor = activeColor}
+
             const addZero = (val) => {
                 if (val < 10) return `0${val}`;
                 return `${val}`
             }
 
-            let playButtonEnabled;
-            if(this.state.focusTimerCountdown){ playButtonEnabled = "none"}else{ playButtonEnabled = "auto"}
+            let focusPlayButtonEnabled;
+            if(this.state.focusTimerCountdown){ focusPlayButtonEnabled = "none"}else{ focusPlayButtonEnabled = "auto"}
 
-            let pauseButtonEnabled;
-            if(this.state.focusTimerCountdown === null){pauseButtonEnabled = "auto"}else{pauseButtonEnabled = "none"};
+            // let pauseButtonEnabled;
+            // if(this.state.focusTimerCountdown === null){pauseButtonEnabled = "auto"}else{pauseButtonEnabled = "none"};
 
             return(
                 <div className="timer-container">
-                    <img src={minimize} alt="minimize timer" className="timer-help-button" onClick={this.props.minimize}/>
+                {this.state.focusCompleteModalIsVisible && <FocusCompleteModal/>}
+                {this.state.breakCompleteModalIsVisible && <BreakCompleteModal/>}
+                    <img src={minimize} alt="minimize timer" className="timer-help-button" onClick={this.props.minimize} minimize={this.props.minimize}/>
                     <img src={question} alt="help" className="timer-minimize-button"/>
+                    <div className="timer-indicator-width">
+                        <div style={{borderRadius: "50%", border: `2px solid ${completedColor1}`}} className="number-circle"><p style={{color: `${completedColor1}`}} >1</p></div>
+                        <div style={{borderRadius: "50%", border: `2px solid ${completedColor2}`}} className="number-circle"><p style={{color: `${completedColor2}`}} >2</p></div>
+                        <div style={{borderRadius: "50%", border: `2px solid ${completedColor3}`}} className="number-circle"><p style={{color: `${completedColor3}`}} >3</p></div>
+                        <div style={{borderRadius: "50%", border: `2px solid ${completedColor4}`}} className="number-circle"><p style={{color: `${completedColor4}`}} >4</p></div>
+                    </div>
                     <div className="timer-details-wrapper">
                     <div className="timer-details-box">
                         {/*<img src={minus} alt="subtract one minute" className="plus-minus"/>*/}
-                        <span className="timer-title">Focus:</span>
+                        <span className="timer-title" style={{color: `${focusColor}`}}>Focus:</span>
                         <span className="timer-select-time">{`${addZero(this.state.focusTimer.get('minutes'))}:${addZero(this.state.focusTimer.get('seconds'))}`}</span>
                         {/*<img src={plus} alt="add one minute" className="plus-minus"/>*/}
                     </div>
                     <div className="timer-details-box">
                     {/*<img src={minus} alt="subtract one minute" className="plus-minus"/>*/}
-                    <span className="timer-title">Break:</span>
+                    <span className="timer-title" style={{color: `${breakColor}`}}>Break:</span>
                     <span className="timer-select-time">{`${addZero(this.state.breakTimer.get('minutes'))}:${addZero(this.state.breakTimer.get('seconds'))}`}</span>
                     {/*<img src={plus} alt="add one minute" className="plus-minus"/>*/}
                     </div>
                     </div>
+                    {this.state.focusControlsAreVisible && 
                     <div className="timer-buttons-div">
-                    <img src={start} alt="start timer" className="timer-buttons" onClick={this.startFocusTimer} style={{pointerEvents : playButtonEnabled}}/>
-                    <img src={pause} alt="pause timer" className="timer-buttons" onClick={this.pauseFocusTimer}  />
-                    </div>
+                    <img src={start} alt="start timer" className="timer-buttons" onClick={this.startFocusTimer} style={{pointerEvents : focusPlayButtonEnabled}}/>
+                    <img src={pause} alt="pause timer" className="timer-buttons" onClick={this.pauseFocusTimer}/>
+                    </div>}
+                    {this.state.breakControlsAreVisible && 
+                    <div className="timer-buttons-div">
+                    <img src={start} alt="start timer" className="timer-buttons" onClick={this.startBreakTimer} style={{pointerEvents : focusPlayButtonEnabled}}/>
+                    <img src={pause} alt="pause timer" className="timer-buttons" onClick={this.pauseBreakTimer}/>
+                    </div>}
                 </div>
             )
         }

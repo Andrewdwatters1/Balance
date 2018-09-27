@@ -7,7 +7,6 @@ const bcrypt = require('bcryptjs');
 const salt = bcrypt.genSaltSync(10);
 const hash = bcrypt.hashSync(process.env.BCRYPT_HASH, salt);
 const cron = require('node-cron');
-var cors = require('cors')
 
 
 // const path = require('path')  // PRODUCTION BUILD ONLY
@@ -21,8 +20,7 @@ const todoController = require('./todoController')
 const app = express();
 const serverPort = process.env.SERVER_PORT;
 
-app.use(cors())
-app.use(function(req, res, next) { res.header("Access-Control-Allow-Origin", "*"); res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept"); next(); });
+
 
 app.use(bodyParser.json());
 massive(process.env.CONNECTION_STRING).then(db => {
