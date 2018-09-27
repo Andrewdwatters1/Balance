@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getCurrentUser } from '../../redux/reducers/user'
+import { getWeatherInfo } from '../../redux/reducers/weather'
 import axios from 'axios';
-import Geolocation from "react-geolocation";
+// import Geolocation from "react-geolocation";
 
 import './Weather.css'
 
@@ -26,18 +27,14 @@ class Weather extends Component {
             userLng: "",
             userCityName: "",
             currentTemperature: "",
-            cityName: "",
             icon: "",
             currentWeather: "",
 
             //Forecast Info on State
             // Today = 0, Tomorrow = 1...etc
-
-            dailyHi0: "",
-            dailyLow0: "",
-            dailyMoonPhase0: "",
-            //currentWeather: "",
-            //icon: "",
+            todayHiTemp: "",
+            todayLowTemp: "",
+            todayMoonPhase: "",
 
             dailyHi1: "",
             dailyLow1: "",
@@ -94,11 +91,53 @@ class Weather extends Component {
                 userLng: results.data.places[0].longitude,
                 userCityName: results.data.places[0]['place name'],
             }, () => {
-                axios.get(`https://api.darksky.net/forecast/${process.env.REACT_APP_DARK_SKY_KEY}/${this.state.userLat},${this.state.userLng}`).then(results => {
-                    console.log(results)
+                this.props.getWeatherInfo(this.state.userLat, this.state.userLng).then(result => {
+                    // console.log(result)
+                    let { currently } = result.value.data;
+                    let { data } = result.value.data.daily;
                     this.setState({
-                        currentTemperature: results.data.currently.temperature,
-                        currentWeather: results.data.currently.icon,
+                        currentTemperature: currently.temperature,
+                        icon: currently.icon,
+                        currentWeather: currently.summary,
+                        todayHiTemp: data[0].apparentTemperatureHigh,
+                        todayLowTemp: data[0].apparentTemperatureLow,
+                        todayMoonPhase: data[0].moonPhase,
+
+                        dailyHi1: data[1].apparentTemperatureHigh,
+                        dailyLow1: data[1].apparentTemperatureLow,
+                        dailyMoonPhase1: data[1].moonPhase,
+                        dailyWeather1: data[1].summary,
+                        dailyWeatherIcon1: data[1].icon,
+
+                        dailyHi2: data[2].apparentTemperatureHigh,
+                        dailyLow2: data[2].apparentTemperatureLow,
+                        dailyMoonPhase2: data[2].moonPhase,
+                        dailyWeather2: data[2].summary,
+                        dailyWeatherIcon2: data[2].icon,
+
+                        dailyHi3: data[3].apparentTemperatureHigh,
+                        dailyLow3: data[3].apparentTemperatureLow,
+                        dailyMoonPhase3: data[3].moonPhase,
+                        dailyWeather3: data[3].summary,
+                        dailyWeatherIcon3: data[3].icon,
+
+                        dailyHi4: data[4].apparentTemperatureHigh,
+                        dailyLow4: data[4].apparentTemperatureLow,
+                        dailyMoonPhase4: data[4].moonPhase,
+                        dailyWeather4: data[4].summary,
+                        dailyWeatherIcon4: data[4].icon,
+
+                        dailyHi5: data[5].apparentTemperatureHigh,
+                        dailyLow5: data[5].apparentTemperatureLow,
+                        dailyMoonPhase5: data[5].moonPhase,
+                        dailyWeather5: data[5].summary,
+                        dailyWeatherIcon5: data[5].icon,
+
+                        dailyHi6: data[6].apparentTemperatureHigh,
+                        dailyLow6: data[6].apparentTemperatureLow,
+                        dailyMoonPhase6: data[6].moonPhase,
+                        dailyWeather6: data[6].summary,
+                        dailyWeatherIcon6: data[6].icon,
                     })
                 })
             })
@@ -142,7 +181,7 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps, { getCurrentUser })(Weather);
+export default connect(mapStateToProps, { getCurrentUser, getWeatherInfo })(Weather);
 
 
 // users zip code must be converted to approx longitude and latitude for API call
