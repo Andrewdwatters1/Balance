@@ -78,11 +78,13 @@ app.get('*', (req, res) => { // PRODUCTION BUILD ONLY
   res.sendFile(path.join(__dirname, '../build/index.html'));
 });
 
-cron.schedule('1 0 0 * * *', () => { // should run at 00:01 EST every day
-  habitsController.updateHabitEvents(app)
+cron.schedule('1 0 0 * * *', () => { // runs at 00:01 EST every day
+// cron.schedule('*/10 * * * * *', (req) => {
+  habitsController.updateHabitEvents(app);
+  habitsController.deleteTodaysHabits(app);
 }, {
   scheduled: true,
-  timezone: "America/New_York" // better solution?
+  timezone: "America/New_York" // set to users timezone if poss
 })
 
 app.listen(serverPort, () => {

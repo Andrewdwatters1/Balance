@@ -21,7 +21,6 @@ module.exports = {
     db.habits.add_habit([userId, title, description, dateFormatted, date, type]).then(() => {
       db.habits.get_habits_by_user(userId).then(result => {
         res.status(200).send(result);
-        console.log(result);
       })
     }).catch(error => console.log('Error from habitsController.addHabit', error));
   },
@@ -55,7 +54,7 @@ module.exports = {
     let db = app.get('db');
     db.habits.update_habit_events().then(result => {
       console.log('chron-script hit at: ', new Date());
-    }).catch(error => console.log('Error from habitsController.updateHabitEvents THIS IS TRIGGERED BY CRON SCRIPT', error))
+    }).catch(error => console.log('Error from habitsController.updateHabitEvents CRON EVENT', error))
   },
   addHabitToday: (req, res) => {
     let db = req.app.get('db');
@@ -72,5 +71,11 @@ module.exports = {
     db.habits.get_todays_habits(id).then(result => {
       res.status(200).send(result);
     }).catch(error => console.log('Error from habitsController.getTodaysHabits', error));
+  },
+  deleteTodaysHabits: (app) => {
+    let db = app.get('db');
+    db.habits.delete_todays_habits().then(result => {
+      console.log('chron-script hit at: ', new Date());
+    }).catch(error => console.log('Error from habitsController.deleteTodaysHabits, CRON EVENT', error))
   }
 }
