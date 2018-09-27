@@ -134,19 +134,22 @@ class NotePad extends Component{
             <div className="content-container">
                 <div className="notes-container">
                     <h2>Note Pad</h2>
-                        <h3 className="note-buttons" onClick={this.scratchPadToggler}>Scratch Pad</h3>
-                        <h3 className="note-buttons" onClick={this.addNoteToggler}>Create A New Note</h3>
+                        <div className="notepadtitlearea">
+                            <h3 className="note-buttons" onClick={this.scratchPadToggler}>Scratch Pad</h3>
+                            <h3 className="note-buttons" onClick={this.addNoteToggler}>Create A New Note</h3>
+                        </div>  
+                    <h3>Your Saved Notes</h3>      
                     {notePad}    
                 </div>
                 <div className="scratchpad">
                     {this.state.isSingleNoteVisible && 
                     <div>
                         <header className="notestitlearea">
-                            {this.state.RenderedNote.date}
-                            <input className="" value={this.state.RenderedNote.title} onChange={this.handleTitle}/>
+                            <div>{this.state.RenderedNote.date}</div>
+                            <input className="notepadtitles" value={this.state.RenderedNote.title} onChange={this.handleTitle}/>
                         </header>
                         <textarea className="notestextarea" value={this.state.RenderedNote.content} onChange={this.handleContent}/>
-                        <button className= "note-buttons" onClick={()=> this.saveUpdatedNote(this.state.RenderedNote.id)}>Save</button>
+                        {/* <button className= "note-buttons" onClick={()=> this.saveUpdatedNote(this.state.RenderedNote.id)}>Save</button> */}
 
                     </div> }
                     {this.state.isScratchPadVisible && 
@@ -157,8 +160,8 @@ class NotePad extends Component{
                             <span>{this.state.date.getDate()} </span>
                             <span>{this.state.date.getFullYear()}</span>
                         </h5>
-                        <input placeholder='title' value={this.state.title} onChange={this.handleNewTitle}></input>
-                        <textarea placeholder='content' value={this.state.content} onChange={this.handleNewContent}/>
+                        <input className="notepadtitles" placeholder='title' value={this.state.title} onChange={this.handleNewTitle}></input>
+                        <textarea className="addscratchpadcontent" placeholder='content' value={this.state.content} onChange={this.handleNewContent}/>
                         <button className="note-buttons" onClick={() => this.props.addScratchPad(NewScratch)}>Save to Scratch Pad</button>
                         {scratchPad}
                     </div>
@@ -171,9 +174,9 @@ class NotePad extends Component{
                             <span>{this.state.date.getDate()} </span>
                             <span>{this.state.date.getFullYear()}</span>
                         </h5>
-                        <input placeholder='title' value={this.state.title} onChange={this.handleNewTitle}></input>
-                        <textarea placeholder='content' value={this.state.content} onChange={this.handleNewContent}/>
-                        <button className="note-buttons" onClick={() => this.props.addNotes(newNote)}>Save Note</button>
+                        <input className="notepadtitles" placeholder='title' value={this.state.title} onChange={this.handleNewTitle}></input>
+                        <textarea wrap="on" cols="30" className="addnotestextarea" name="text" placeholder='content' value={this.state.content} onChange={this.handleNewContent}/>
+                        <h4 className="note-buttons" onClick={() => this.props.addNotes(newNote)}>Save Note</h4>
                     </div>
                     }
                 </div> 

@@ -4,7 +4,6 @@ import { getCurrentUser } from '../../redux/reducers/user'
 import axios from 'axios';
 import Geolocation from "react-geolocation";
 
-
 import './Weather.css'
 
 //Images
@@ -13,13 +12,13 @@ const sunny = require('../../assets/sunny.png')
 
 
 //IMPORTANT!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-// Note: You are required to display the link “Powered by Dark Sky” somewhere prominent in your app or service.
+// Note: You are required to display the link "Powered by Dark Sky" somewhere prominent in your app or service.
 // ^^^^^^^^^^BE SURE TO DO THIS IF WE PUT INTO PRODUCTION^^^^^^^^^^^^^^^^^^^^^
 
 class Weather extends Component {
-    constructor(props){
+    constructor(props) {
         super(props);
-        this.state={
+        this.state = {
 
             //Current Info on State
             userZipCode: this.props.user.zipcode,
@@ -81,63 +80,59 @@ class Weather extends Component {
     }
 
 
-    handleCurrentWeatherIcon = (results) => {
-        if(results.data.currently.icon === 'rain'){
-            <i className=''/>
-        }
-    }
-
-
-    weatherModalToggler = () =>{
+    weatherModalToggler = () => {
         this.setState({
             isWeatherModalVisible: !this.state.isWeatherModalVisible
         })
     }
 
-      componentDidMount() {
-          this.props.getCurrentUser()
-          axios.get(`http://api.zippopotam.us/us/${this.state.userZipCode}`).then(results => {
-               console.log(results);
-               
-              this.setState({
+    componentDidMount() {
+        this.props.getCurrentUser()
+        axios.get(`http://api.zippopotam.us/us/${this.state.userZipCode}`).then(results => {
+            this.setState({
                 userLat: results.data.places[0].latitude,
                 userLng: results.data.places[0].longitude,
                 userCityName: results.data.places[0]['place name'],
-              })
-          axios.get(`https://api.darksky.net/forecast/${process.env.REACT_APP_DARK_SKY_KEY}/${this.state.userLat},${this.state.userLng}`).then(results => {
-              this.setState({
-                  currentTemperature: results.data.currently.temperature
-              })
-          })
-        
-      }
-    )}
+            }, () => {
+                axios.get(`https://api.darksky.net/forecast/${process.env.REACT_APP_DARK_SKY_KEY}/${this.state.userLat},${this.state.userLng}`).then(results => {
+                    console.log(results)
+                    this.setState({
+                        currentTemperature: results.data.currently.temperature,
+                        currentWeather: results.data.currently.icon,
+                    })
+                })
+            })
+        })
+    }
 
 
-    render(){
-        console.log(this.state.userCityName);
-        
-        return(
+    render() {
+        console.log(this.state.currentWeather);
+
+        return (
             <div className="weather-box" onClick={this.weatherModalToggler}>
 
-             
-             
-                {/* <div>
-                <img src={this.state.icon}/>
-                <div style={{width: "5px"}}></div>
-                <h1>{this.state.temperature}°</h1>
-                </div>
-                <p>SALT LAKE CITY</p> */}
-
-                <p>{this.state.currentTemperature}</p>
+                {this.state.currentWeather === 'rain' ? <p>🌧</p>
+                    : this.state.currentWeather === 'clear-day' ? <p>☀️</p>
+                        : this.state.currentWeather === 'clear-night' ? <p>🌙</p>
+                            : this.state.currentWeather === 'snow' ? <p>🌨</p>
+                                : this.state.currentWeather === 'sleet' ? <p>🌧</p>
+                                    : this.state.currentWeather === 'wind' ? <p>💨</p>
+                                        : this.state.currentWeather === 'fog' ? <p></p>
+                                            : this.state.currentWeather === 'cloudy' ? <i class="fas fa-sad-cry"></i>
+                                                : this.state.currentWeather === 'partly-cloudy-day' ? <i class="fas fa-sad-cry"></i>
+                                                    : this.state.currentWeather === 'partly-cloudy-night' ? <i class="fas fa-sad-cry"></i>
+                                                        : <i class="fas fa-sad-cry"></i>}
+                {/* default case */}
+                <p>{this.state.currentTemperature}{'\u00B0'}</p>
                 <p>{this.state.userCityName}</p>
                 {this.state.isWeatherModalVisible &&
-                <div className="weatherModalContainer">
-                    <h1>weeklyforcast</h1>
-                </div>}
+                    <div className="weatherModalContainer">
+                        <h1>weeklyforcast</h1>
+                    </div>}
             </div>
         )
-        
+
     }
 }
 
