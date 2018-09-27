@@ -28,6 +28,15 @@ CREATE TABLE habitEvents (
   completed BOOLEAN
 );
 
+CREATE TABLE habitsToday(
+  id SERIAL PRIMARY KEY,
+  habitid INT,
+  FOREIGN KEY (habitid) REFERENCES habits,
+  userid INT,
+  FOREIGN KEY (userid) REFERENCES users,
+  completedtoday BOOLEAN
+);
+
 CREATE TABLE todos (
   id SERIAL PRIMARY KEY,
   userId INTEGER,

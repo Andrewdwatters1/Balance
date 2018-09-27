@@ -58,11 +58,19 @@ class Habits extends Component {
                 daysFromStart
             }
             axios.post('api/habitEvents', habitEventObj).then(() => {
-                console.log(`habit event added as complete w/ daysFromStart=${habitEventObj.daysFromStart}, and habitId=${habitEventObj.habitId}`);
-                axios.get(`/api/habitEvents?id=${habitId}`);
+                // console.log(`habit event added as complete w/ daysFromStart=${habitEventObj.daysFromStart}, and habitId=${habitEventObj.habitId}`);
+                axios.get(`/api/habitEvents?id=${habitId}`).then(result => {
+                    this.setState({
+                        habitEvents: result.data
+                    })
+                })
             }).catch(error => console.log('Error from Habits.js => addHabitEvent => axios.post("api/habitEvents")', error));
             axios.post('api/addHabitToday', { habitId, id: this.props.user.id }).then(result => {
-                console.log("addHabitEvent => axios.post('api/addHabitToday') result", result);
+                this.setState({
+                    habitsToday: result.data
+                }, () => {
+                    this.updateTodaysHabits();
+                })
             })
         })
     }
@@ -106,8 +114,19 @@ class Habits extends Component {
             })
         });
     }
+    // shouldComponentUpdate(nextProps, nextState) {
+    //     console.log(' prevstate', this.state.habitsCompletedToday);
+    //     console.log('nextstate', nextState.habitsCompletedToday);
+    //     if(this.state.habitsCompletedToday.length === nextState.habitsCompletedToday.length) {
+    //         console.log('shouldComponentupdate w/ FALSE')
+    //         return false
+    //     }
+    //     console.log('shouldComponentupdate w/ TRUE')
+    //     return true
+    // }
 
     render() {
+        console.log(this.state.habitsCompletedToday);
         if (this.state.habitsList.length) {
             let daysOfTheWeek = [' ', 'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
             let monthsOfTheYear = [' ', 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
@@ -117,7 +136,7 @@ class Habits extends Component {
                 let day = daysOfTheWeek[(+e.date[3]) + 1];
                 let month = monthsOfTheYear[(+e.date[1]) + 1];
                 return (
-                    <div key={i} className="habits-sidebar-habit">
+                    <div key={i} className="habits-sidebar-habit-item">
                         <button onClick={() => this.showHabitDetail(e.id)} className="habits-sidebar-habit">
                             <p className="habit-sidebar-text">{e.title} <br /> Started: {`${day}, ${month} ${e.date[2]}, ${e.date[0]}`}</p>
                         </button>
@@ -146,7 +165,7 @@ class Habits extends Component {
                         <h3>{e.title}</h3>
                         <p>{e.description}</p>
                         <i className="habit-type-icon">
-                            {e.type === "Personal" ? <i className="fas fa-book-reader"></i> : e.type === "Professional" ? <i className="fas fa-user-tie"></i> : <i className="fas fa-heartbeat"></i>}
+                            Habit Category: {e.type === "Personal" ? <i className="fas fa-book-reader"></i> : e.type === "Professional" ? <i className="fas fa-user-tie"></i> : <i className="fas fa-heartbeat"></i>}
                         </i>
                         <p>You started tracking this habit on {`${day}, ${month} ${e.date[2]}, ${e.date[0]}, ${moment([+e.date[0], (+e.date[1]), +e.date[2]]).fromNow()}`}</p>
                         <p>Here's your progress for the past week: </p>
@@ -178,7 +197,7 @@ class Habits extends Component {
         var todaysHabits;
         if (this.state.habitsCompletedToday.length) {
             todaysHabits = this.state.habitsCompletedToday.map((e) => {
-                console.log(e);
+                // console.log(e);
                 if (e.completed) {
                     return <i className="far fa-check-circle habit-green-button"></i>
                 } else {
@@ -189,11 +208,13 @@ class Habits extends Component {
 
         return (
             <div className="content-container" >
-                <div>
-                    {todaysHabits}
-                </div>
                 <div className="habits-sidebar">
-                    {allHabitsOverview}
+                    <div className="habits-sidebar-habit">
+                        {allHabitsOverview}
+                    </div>
+                    <div className="habits-sidebar-buttons">
+                        {todaysHabits}
+                    </div>
                 </div>
                 {!this.state.habitsList.length ?
                     <div className="habits-content" >
