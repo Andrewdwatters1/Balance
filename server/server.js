@@ -7,6 +7,8 @@ const bcrypt = require('bcryptjs');
 const salt = bcrypt.genSaltSync(10);
 const hash = bcrypt.hashSync(process.env.BCRYPT_HASH, salt);
 const cron = require('node-cron');
+
+
 // const path = require('path')  // PRODUCTION BUILD ONLY
 
 const authController = require('./authController');
@@ -17,6 +19,8 @@ const todoController = require('./todoController')
 
 const app = express();
 const serverPort = process.env.SERVER_PORT;
+
+
 
 app.use(bodyParser.json());
 massive(process.env.CONNECTION_STRING).then(db => {

@@ -1,5 +1,5 @@
 .timer-container{
-    height: 200px;
+    height: 250px;
     width: 200px;
     background-color: rgba(0, 0, 0, 0.708);
     position: absolute;
@@ -28,8 +28,15 @@
     cursor: pointer;
 }
 
+.number-circle>p{
+    font-size: 16px;
+    position: relative;
+    top: -16px;
+    right: -5.5px;
+}
+
 .timer-details-wrapper{
-    margin-top: 50px;
+    margin-top: 55px;
     text-align: center;
 }
 
@@ -39,7 +46,6 @@
 }
 
 .timer-title{
-    color: rgb(255, 205, 5);
     margin-right: 10px;
     font-size: 14px;
 }
@@ -72,4 +78,21 @@
 
 .plus-minus:hover{
     opacity: 1;
+}
+
+.number-circle{
+    position: relative;
+    top: 40px;
+    width:25px;
+    height: 25px;
+    border-radius: 50%;
+}
+
+.timer-indicator-width{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-top: 5px;
+    justify-content: space-evenly;
 }
