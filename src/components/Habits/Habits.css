@@ -179,3 +179,35 @@
     opacity: 1;
     cursor: pointer;
 }
+.quick-view-button-cover {
+    background-color: transparent;
+    height: 3vh;
+    width: 100px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    margin: 0 auto;
+}
+.habits-quick-menu {
+    max-width: 60vw;
+    background-color: rgba(0, 0, 0, 0.646);
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-around;
+    overflow: scroll;
+}
+.habits-quick-menu-item {
+    margin-top: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+.habits-quick-menu-item > i, .habits-quick-menu-item > p {
+    padding: 0;
+    margin: 0 auto;
+}
