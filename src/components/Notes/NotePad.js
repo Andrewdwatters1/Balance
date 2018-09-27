@@ -160,8 +160,8 @@ class NotePad extends Component{
                             <span>{this.state.date.getDate()} </span>
                             <span>{this.state.date.getFullYear()}</span>
                         </h5>
-                        <input className="notepadtitles" placeholder='title' value={this.state.title} onChange={this.handleNewTitle}></input>
-                        <textarea className="addscratchpadcontent" placeholder='content' value={this.state.content} onChange={this.handleNewContent}/>
+                        {/* <input className="notepadtitles" placeholder='title' value={this.state.title} onChange={this.handleNewTitle}></input> */}
+                        <textarea className="addscratchpadcontent" placeholder='text' value={this.state.content} onChange={this.handleNewContent}/>
                         <button className="note-buttons" onClick={() => this.props.addScratchPad(NewScratch)}>Save to Scratch Pad</button>
                         {scratchPad}
                     </div>

@@ -99,6 +99,7 @@
     border-color: transparent;
     background-color: transparent;
     font-size: 1.4em;
+    outline: none;
 }
 
 .addscratchpadcontent{
