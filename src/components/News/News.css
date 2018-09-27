@@ -22,24 +22,44 @@
     flex-direction: column;
     align-content: center;
     align-items: center;
+    height: 150vh;
 }
 
 .article-title-and-content{
     float: right;
-    background-color: green;
-    border: 3px orange solid;
+    margin-right: 70px;
 }
 
 .article-box{
+    height: auto;
     width: 100%;
-    display: inline-block;
-    background-color: yellow;
-    border: 3px red solid
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 200px;
+}
+
+.article-box h1{
+    font-size: 25px;
+    margin-left: 10px;
+}
+
+.article-box a{
+    text-decoration: none;
+}
+
+.article-box h1:hover{
+    color: rgba(233, 88, 88, 0.708);  
+}
+
+.article-box p{
+    font-size: 13px;
+    margin-left: 10px;
 }
 
 .articles-image{
     width: 300px;
-    height: auto;
+    height: 200px;
+    object-fit: cover;
 }
 
 .next-button{
