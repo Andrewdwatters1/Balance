@@ -91,10 +91,6 @@ class Home extends Component {
                 time: date
             })
         }, 1000)
-<<<<<<< HEAD
-        this.habitsToggler()
-=======
->>>>>>> master
     }
     toggleNavMenu = () => {
         this.setState({
