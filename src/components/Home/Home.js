@@ -10,6 +10,7 @@ import Backdrop from '../Backdrop/Backdrop.js'
 import Notes from '../Notes/NotePad.js'
 import Todo from '../Todo/Todo.js'
 import Habits from '../Habits/Habits.js'
+import HabitQuickMenu from '../Habits/HabitQuickMenu.js'
 import Calendar from '../Calendar/Calendar.js'
 import Login from '../Login/Login.js'
 import News from '../News/News.js'
@@ -59,6 +60,7 @@ class Home extends Component {
             isCalendarVisible: false,
             isWeatherModalVisivle: false,
             isNewsVisible: false,
+            habitsQuickToggler: false,
 
             date: new Date(),
             time: time,
@@ -91,10 +93,6 @@ class Home extends Component {
                 time: date
             })
         }, 1000)
-<<<<<<< HEAD
-        this.habitsToggler()
-=======
->>>>>>> master
     }
     toggleNavMenu = () => {
         this.setState({
@@ -139,18 +137,26 @@ class Home extends Component {
             isNewsVisible: false,
         })
     }
-    habitsToggler = () => {
-        this.setState({
-            isHomeCardVisible: false,
-            isWeatherCardVisible: false,
-            isHabitsMenuVisible: false,
-            isNavMenuVisible: false,
-            isNotesVisible: false,
-            isTodoVisible: false,
-            isHabitsVisible: true,
-            isCalendarVisible: false,
-            isNewsVisible: false,
-        })
+    habitsToggler = (shouldQuickViewDisplay) => {
+        if (shouldQuickViewDisplay) {
+            this.setState({
+                habitsQuickToggler: shouldQuickViewDisplay,
+                isHabitsVisible: true
+            })
+        } else {
+            this.setState({
+                isHomeCardVisible: false,
+                isWeatherCardVisible: false,
+                isHabitsMenuVisible: false,
+                isNavMenuVisible: false,
+                isNotesVisible: false,
+                isTodoVisible: false,
+                isHabitsVisible: true,
+                isCalendarVisible: false,
+                isNewsVisible: false,
+                habitsQuickToggler: shouldQuickViewDisplay
+            })
+        }
     }
     calendarToggler = () => {
         this.setState({
@@ -207,29 +213,29 @@ class Home extends Component {
         this.setState({
             focusTimer: newTime
         }, () => {
-            if ( this.state.focusTimer.get('minutes') === 0 && this.state.focusTimer.get('seconds') === -1){
+            if (this.state.focusTimer.get('minutes') === 0 && this.state.focusTimer.get('seconds') === -1) {
                 this.setState({
                     focusTimerCountdown: clearInterval(this.state.focusTimerCountdown),
                     focusTimer: moment.duration(timerTime, 'minutes')
-        }, () => {
-            this.completeFocusTimer();
+                }, () => {
+                    this.completeFocusTimer();
+                }
+                )
+            }
         }
         )
     }
-}
-)
-    }
     completeFocusTimer = () => {
-        let {toggleFocusCompleteModal} = this
-        let {audioTrigger} = this
-        let {setState} = this
+        let { toggleFocusCompleteModal } = this
+        let { audioTrigger } = this
+        let { setState } = this
         this.pomodoroIncrementer()
         this.startBreakTimer()
         toggleFocusCompleteModal()
-        setTimeout(function(){toggleFocusCompleteModal()}, 3000);
+        setTimeout(function () { toggleFocusCompleteModal() }, 3000);
         this.hideFocusControls();
         audioTrigger();
-        setTimeout(function(){audioTrigger()}, 3000)
+        setTimeout(function () { audioTrigger() }, 3000)
     }
     audioTrigger = () => {
         this.setState({
@@ -237,9 +243,9 @@ class Home extends Component {
         })
     }
     toggleFocusCompleteModal = () => {
-         this.setState({
-             focusCompleteModalIsVisible: !this.state.focusCompleteModalIsVisible
-         })
+        this.setState({
+            focusCompleteModalIsVisible: !this.state.focusCompleteModalIsVisible
+        })
     }
     hideFocusControls = () => {
         this.setState({
@@ -263,18 +269,18 @@ class Home extends Component {
         this.setState({
             breakTimer: newTime
         }, () => {
-            if ( this.state.breakTimer.get('minutes') === 0 && this.state.breakTimer.get('seconds') === -1){
+            if (this.state.breakTimer.get('minutes') === 0 && this.state.breakTimer.get('seconds') === -1) {
                 this.setState({
                     breakTimerCountdown: clearInterval(this.state.breakTimerCountdown),
                     breakTimer: moment.duration(breakTime, 'minutes')
-        }, () => {
-            this.startFocusTimer()
-            this.completeBreakTimer()
+                }, () => {
+                    this.startFocusTimer()
+                    this.completeBreakTimer()
+                }
+                )
+            }
         }
         )
-    }
-}
-)
     }
     toggleBreakCompleteModal = () => {
         this.setState({
@@ -282,18 +288,18 @@ class Home extends Component {
         })
     }
     completeBreakTimer = () => {
-        let {audioTrigger} = this;
-        let {toggleBreakCompleteModal} = this;
+        let { audioTrigger } = this;
+        let { toggleBreakCompleteModal } = this;
         this.hideBreakControls();
         toggleBreakCompleteModal();
         audioTrigger();
-        setTimeout(function(){audioTrigger()}, 3000)
-        setTimeout(function(){toggleBreakCompleteModal()}, 3000)
-        if(this.state.pomodoros === 3){
+        setTimeout(function () { audioTrigger() }, 3000)
+        setTimeout(function () { toggleBreakCompleteModal() }, 3000)
+        if (this.state.pomodoros === 3) {
             this.setState({
                 breakTimer: moment.duration(15, 'minutes')
             })
-        }else if(this.state.pomodoros === 4){
+        } else if (this.state.pomodoros === 4) {
             this.setState({
                 pomodoros: 0
             })
@@ -307,7 +313,7 @@ class Home extends Component {
     }
     pomodoroIncrementer = () => {
         this.setState({
-            pomodoros: this.state.pomodoros+1
+            pomodoros: this.state.pomodoros + 1
         })
     }
 
@@ -340,22 +346,22 @@ class Home extends Component {
         let completedColor2 = "rgba(255, 255, 255, 0.304)";
         let completedColor3 = "rgba(255, 255, 255, 0.304)";
         let completedColor4 = "rgba(255, 255, 255, 0.304)";
-        if(this.state.pomodoros === 1){completedColor1 = "rgba(255, 205, 5, 0.9)"}
-        if(this.state.pomodoros === 2){completedColor1 = "rgba(255, 205, 5, 0.9)"; completedColor2 = "rgba(255, 205, 5, 0.9)";}
-        if(this.state.pomodoros === 3){completedColor1 = "rgba(255, 205, 5, 0.9)"; completedColor2 = "rgba(255, 205, 5, 0.9)"; completedColor3 = "rgba(255, 205, 5, 0.9)"}
-        if(this.state.pomodoros === 4){completedColor1 = "rgba(255, 205, 5, 0.9)"; completedColor2 = "rgba(255, 205, 5, 0.9)"; completedColor3 = "rgba(255, 205, 5, 0.9)"; completedColor4 = "rgba(255, 205, 5, 0.9)"}
+        if (this.state.pomodoros === 1) { completedColor1 = "rgba(255, 205, 5, 0.9)" }
+        if (this.state.pomodoros === 2) { completedColor1 = "rgba(255, 205, 5, 0.9)"; completedColor2 = "rgba(255, 205, 5, 0.9)"; }
+        if (this.state.pomodoros === 3) { completedColor1 = "rgba(255, 205, 5, 0.9)"; completedColor2 = "rgba(255, 205, 5, 0.9)"; completedColor3 = "rgba(255, 205, 5, 0.9)" }
+        if (this.state.pomodoros === 4) { completedColor1 = "rgba(255, 205, 5, 0.9)"; completedColor2 = "rgba(255, 205, 5, 0.9)"; completedColor3 = "rgba(255, 205, 5, 0.9)"; completedColor4 = "rgba(255, 205, 5, 0.9)" }
         let activeColor = "rgb(255, 205, 5)";
         let inactiveColor = "#FAFAFA";
         let focusColor;
         let breakColor;
-        if(this.state.focusControlsAreVisible){focusColor = activeColor; breakColor = inactiveColor}
-        else{focusColor = inactiveColor; breakColor = activeColor}
+        if (this.state.focusControlsAreVisible) { focusColor = activeColor; breakColor = inactiveColor }
+        else { focusColor = inactiveColor; breakColor = activeColor }
         const addZero = (val) => {
             if (val < 10) return `0${val}`;
             return `${val}`
         }
         let focusPlayButtonEnabled;
-        if(this.state.focusTimerCountdown){ focusPlayButtonEnabled = "none"}else{ focusPlayButtonEnabled = "auto"}
+        if (this.state.focusTimerCountdown) { focusPlayButtonEnabled = "none" } else { focusPlayButtonEnabled = "auto" }
 
         if (this.props.user) {
             return (
@@ -365,7 +371,7 @@ class Home extends Component {
                         <div className="top-menu"></div>
                         {backdrop}
                         <div className="top-menu-button">
-                            <img src={habits} onMouseEnter={this.habitsToggler}/>
+                            <img src={habits} onMouseEnter={() => this.habitsToggler(true)} />
                         </div>
 
                         <div className="left-menu-button"
@@ -373,45 +379,45 @@ class Home extends Component {
                             <img src={arrow} />
                         </div>
                         <div>
-                        {!this.state.isTimerVisible && <div id="timer-homepage-icon" onClick={this.toggleTimer}/>}
+                            {!this.state.isTimerVisible && <div id="timer-homepage-icon" onClick={this.toggleTimer} />}
 
-                        {this.state.isTimerVisible &&
+                            {this.state.isTimerVisible &&
 
-                        <div className="timer-container">
-                            <img src={minimize} alt="minimize timer" className="timer-help-button" onClick={this.minimizeTimer}/>
-                            <img src={question} alt="help" className="timer-minimize-button"/>
-                            <div className="timer-indicator-width">
-                                <div style={{borderRadius: "50%", border: `2px solid ${completedColor1}`}} className="number-circle"><p style={{color: `${completedColor1}`}} >1</p></div>
-                                <div style={{borderRadius: "50%", border: `2px solid ${completedColor2}`}} className="number-circle"><p style={{color: `${completedColor2}`}} >2</p></div>
-                                <div style={{borderRadius: "50%", border: `2px solid ${completedColor3}`}} className="number-circle"><p style={{color: `${completedColor3}`}} >3</p></div>
-                                <div style={{borderRadius: "50%", border: `2px solid ${completedColor4}`}} className="number-circle"><p style={{color: `${completedColor4}`}} >4</p></div>
-                            </div>
-                            <div className="timer-details-wrapper">
-                                <div className="timer-details-box">
-                                {/*<img src={minus} alt="subtract one minute" className="plus-minus"/>*/}
-                                <span className="timer-title" style={{color: `${focusColor}`}}>Focus:</span>
-                                <span className="timer-select-time">{`${addZero(this.state.focusTimer.get('minutes'))}:${addZero(this.state.focusTimer.get('seconds'))}`}</span>
-                                {/*<img src={plus} alt="add one minute" className="plus-minus"/>*/}
-                            </div>
-                            <div className="timer-details-box">
-                                {/*<img src={minus} alt="subtract one minute" className="plus-minus"/>*/}
-                                <span className="timer-title" style={{color: `${breakColor}`}}>Break:</span>
-                                <span className="timer-select-time">{`${addZero(this.state.breakTimer.get('minutes'))}:${addZero(this.state.breakTimer.get('seconds'))}`}</span>
-                                {/*<img src={plus} alt="add one minute" className="plus-minus"/>*/}
-                            </div>
-                        </div>
-                        {this.state.focusControlsAreVisible && 
-                            <div className="timer-buttons-div">
-                            <img src={start} alt="start timer" className="timer-buttons" onClick={this.startFocusTimer} style={{pointerEvents : focusPlayButtonEnabled}}/>
-                            <img src={pause} alt="pause timer" className="timer-buttons" onClick={this.pauseFocusTimer}/>
-                            </div>}
-                        {this.state.breakControlsAreVisible && 
-                            <div className="timer-buttons-div">
-                            <img src={start} alt="start timer" className="timer-buttons" onClick={this.startBreakTimer} style={{pointerEvents : focusPlayButtonEnabled}}/>
-                            <img src={pause} alt="pause timer" className="timer-buttons" onClick={this.pauseBreakTimer}/>
-                            </div>}
-                        </div>
-                        }
+                                <div className="timer-container">
+                                    <img src={minimize} alt="minimize timer" className="timer-help-button" onClick={this.minimizeTimer} />
+                                    <img src={question} alt="help" className="timer-minimize-button" />
+                                    <div className="timer-indicator-width">
+                                        <div style={{ borderRadius: "50%", border: `2px solid ${completedColor1}` }} className="number-circle"><p style={{ color: `${completedColor1}` }} >1</p></div>
+                                        <div style={{ borderRadius: "50%", border: `2px solid ${completedColor2}` }} className="number-circle"><p style={{ color: `${completedColor2}` }} >2</p></div>
+                                        <div style={{ borderRadius: "50%", border: `2px solid ${completedColor3}` }} className="number-circle"><p style={{ color: `${completedColor3}` }} >3</p></div>
+                                        <div style={{ borderRadius: "50%", border: `2px solid ${completedColor4}` }} className="number-circle"><p style={{ color: `${completedColor4}` }} >4</p></div>
+                                    </div>
+                                    <div className="timer-details-wrapper">
+                                        <div className="timer-details-box">
+                                            {/*<img src={minus} alt="subtract one minute" className="plus-minus"/>*/}
+                                            <span className="timer-title" style={{ color: `${focusColor}` }}>Focus:</span>
+                                            <span className="timer-select-time">{`${addZero(this.state.focusTimer.get('minutes'))}:${addZero(this.state.focusTimer.get('seconds'))}`}</span>
+                                            {/*<img src={plus} alt="add one minute" className="plus-minus"/>*/}
+                                        </div>
+                                        <div className="timer-details-box">
+                                            {/*<img src={minus} alt="subtract one minute" className="plus-minus"/>*/}
+                                            <span className="timer-title" style={{ color: `${breakColor}` }}>Break:</span>
+                                            <span className="timer-select-time">{`${addZero(this.state.breakTimer.get('minutes'))}:${addZero(this.state.breakTimer.get('seconds'))}`}</span>
+                                            {/*<img src={plus} alt="add one minute" className="plus-minus"/>*/}
+                                        </div>
+                                    </div>
+                                    {this.state.focusControlsAreVisible &&
+                                        <div className="timer-buttons-div">
+                                            <img src={start} alt="start timer" className="timer-buttons" onClick={this.startFocusTimer} style={{ pointerEvents: focusPlayButtonEnabled }} />
+                                            <img src={pause} alt="pause timer" className="timer-buttons" onClick={this.pauseFocusTimer} />
+                                        </div>}
+                                    {this.state.breakControlsAreVisible &&
+                                        <div className="timer-buttons-div">
+                                            <img src={start} alt="start timer" className="timer-buttons" onClick={this.startBreakTimer} style={{ pointerEvents: focusPlayButtonEnabled }} />
+                                            <img src={pause} alt="pause timer" className="timer-buttons" onClick={this.pauseBreakTimer} />
+                                        </div>}
+                                </div>
+                            }
                         </div>
 
                         {this.state.isNavMenuVisible && <div className="left-menu">
@@ -423,7 +429,7 @@ class Home extends Component {
                                 <img src={todos} onClick={this.todoToggler} />
                             </div>
                             <div className="left-menu-item-wrapper">
-                                <img src={habits} onClick={this.habitsToggler} />
+                                <img src={habits} onClick={() => this.habitsToggler(false)} />
                             </div>
                             <div className="left-menu-item-wrapper">
                                 <img src={calendar} onClick={this.calendarToggler} />
@@ -436,18 +442,18 @@ class Home extends Component {
                             </div>
                         </div>}
 
-                                                    
+
                         {/* Timer Modals*/}
 
-                        {this.state.focusCompleteModalIsVisible && <FocusCompleteModal/>}
-                        {this.state.breakCompleteModalIsVisible && <BreakCompleteModal/>}
+                        {this.state.focusCompleteModalIsVisible && <FocusCompleteModal />}
+                        {this.state.breakCompleteModalIsVisible && <BreakCompleteModal />}
 
                         {/*Feature Modals*/}
 
                         {this.state.isWeatherCardVisible && <Weather />}
                         {this.state.isNotesVisible && <Notes />}
                         {this.state.isTodoVisible && <Todo />}
-                        {this.state.isHabitsVisible && <Habits />}
+                        {this.state.isHabitsVisible && <Habits quickView={this.state.habitsQuickToggler} />}
                         {this.state.isCalendarVisible && <Calendar />}
                         {this.state.isNewsVisible && <News />}
 
@@ -474,7 +480,7 @@ class Home extends Component {
             )
         }
         else {
-            return <Login/>
+            return <Login />
         }
     }
 }
