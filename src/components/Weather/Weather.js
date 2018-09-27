@@ -13,7 +13,7 @@ const sunny = require('../../assets/sunny.png')
 
 
 //IMPORTANT!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-// Note: You are required to display the link “Powered by Dark Sky” somewhere prominent in your app or service.
+// Note: You are required to display the link "Powered by Dark Sky" somewhere prominent in your app or service.
 // ^^^^^^^^^^BE SURE TO DO THIS IF WE PUT INTO PRODUCTION^^^^^^^^^^^^^^^^^^^^^
 
 class Weather extends Component {
@@ -146,24 +146,23 @@ class Weather extends Component {
 
 
     render() {
-        // console.log(this.state);
+        console.log(this.state.currentWeather);
 
         return (
             <div className="weather-box" onClick={this.weatherModalToggler}>
 
-                {this.state.icon === 'rain' ? <p>🌧</p>
-                    : this.state.icon === 'clear-day' ? <p>☀️</p>
-                        : this.state.icon === 'clear-night' ? <p>🌙</p>
-                            : this.state.icon === 'snow' ? <p>🌨</p>
-                                : this.state.icon === 'sleet' ? <p>🌧</p>
-                                    : this.state.icon === 'wind' ? <p>💨</p>
-                                        : this.state.icon === 'fog' ? <p></p>
-                                            : this.state.icon === 'cloudy' ? <i class="fas fa-sad-cry"></i>
-                                                : this.state.icon === 'partly-cloudy-day' ? <i class="fas fa-sad-cry"></i>
-                                                    : this.state.icon === 'partly-cloudy-night' ? <i class="fas fa-sad-cry"></i>
+                {this.state.currentWeather === 'rain' ? <p>🌧</p>
+                    : this.state.currentWeather === 'clear-day' ? <p>☀️</p>
+                        : this.state.currentWeather === 'clear-night' ? <p>🌙</p>
+                            : this.state.currentWeather === 'snow' ? <p>🌨</p>
+                                : this.state.currentWeather === 'sleet' ? <p>🌧</p>
+                                    : this.state.currentWeather === 'wind' ? <p>💨</p>
+                                        : this.state.currentWeather === 'fog' ? <p></p>
+                                            : this.state.currentWeather === 'cloudy' ? <i class="fas fa-sad-cry"></i>
+                                                : this.state.currentWeather === 'partly-cloudy-day' ? <i class="fas fa-sad-cry"></i>
+                                                    : this.state.currentWeather === 'partly-cloudy-night' ? <i class="fas fa-sad-cry"></i>
                                                         : <i class="fas fa-sad-cry"></i>}
                 {/* default case */}
-                
                 <p>{this.state.currentTemperature}{'\u00B0'}</p>
                 <p>{this.state.userCityName}</p>
                 {this.state.isWeatherModalVisible &&
