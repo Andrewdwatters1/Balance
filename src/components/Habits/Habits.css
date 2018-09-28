@@ -22,49 +22,71 @@
     background-color: transparent;
     border: 1px rgba(255, 255, 255, 0.283) solid;
     box-sizing: border-box;
-    overflow: visible;
+    overflow: scroll;
 }
 .habits-sidebar-habit {
-    width: 85%;
-    /* height: 15%; */
+    width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    align-items: center;
+    align-items: stretch;
     background-color: transparent;
-    /* background-color: aqua; */
-    border: 0;
+    box-sizing: border-box;
+    height: 100%;
+}
+.habits-sidebar-habit-item > button {
+    justify-content: center;
+}
+.habits-sidebar-habit-item > button:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    cursor: pointer;
 }
 .habits-sidebar-habit-item {
-    height: 12%;
+    height: 150px;
+    box-sizing: border-box;
 }
-.habits-sidebar-buttons {
-    width: 15%;
-    /* height: 15%; */
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
-    background-color: transparent;
+.habits-sidebar-habit-item:hover {
+    /* background-color: ; */
+    /* cursor: pointer; */
 }
 .habit-sidebar-text {
     width: 90%;
     font-size: 1.5em;
+    box-sizing: border-box;
+}
+.habits-sidebar-buttons {
+    width: 15%;
+    margin-left: -15%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    background-color: transparent;
+    box-sizing: border-box;
+}
+.habit-sidebar-button {
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    margin-top: 75px;
+    margin-bottom: 75px;
+}
+.habit-green-button {
+    color: rgb(0, 192, 0);
+    font-size: 3em;
+}
+.habit-red-button {
+    color: rgb(233, 88, 88);
+    font-size: 3em;
 }
 .habit-quick-check {
     font-size: 3em;
     opacity: .85;
-    height: 12%;
-    padding-right: 50%;
-    padding-top: 20%;
 }
 .habit-quick-check:hover {
     opacity: 1;
     cursor: pointer;
 }
-/* .completed {
-    color: rgb(0, 192, 0);
-} */
 .habits-content {
     width: 100%;
     height: 100%;
@@ -78,26 +100,52 @@
     margin-top: 15%;
     text-align: center;
 }
-.habits-detail-habit-progress {
+.habits-detail-habit {
     display: flex;
     flex-direction: column;
-    height: 100; 
-    width: 50; 
-    background-color: lightcoral;
+    justify-content: space-around;
+    height: 75%;
 }
-.habit-green-button {
-    color: rgb(0, 192, 0);
-    font-size: 3em;
-    height: 12%;
-    padding-right: 50%;
-    padding-top: 20%;
+.habit-detail-top {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
 }
-.habit-red-button {
-    color: rgb(233, 88, 88);
-    font-size: 3em;
+.habits-detail-bottom {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    overflow: hidden
+}
+.habits-detail-bottom-items {
+    width: 70px;
+}
+.habits-detail-bottom-days-ago {
+    height: 40px;
+    width: 50px;
+    overflow: hidden;
+    text-align: center;
+}
+.streak {
+    font-size: 2.25em;
+    text-align: center;
+}
+.habit-detail-none-shown {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+.delete-habit {
+    position: absolute;
+    bottom: 0;
+    right: 0;
 }
 .habit-type-icon {
-    font-size: 2em;
+    font-size: 1.5em;
 }
 .habit-type-icon {
     cursor: pointer;
@@ -142,8 +190,8 @@
     height: 33%;
     border: 1px rgba(255, 255, 255, 0.283) solid;
     position: absolute;
-    top: 50px;
-    right: -30px;
+    top: 40px;
+    right: 20px;
     width: 62.5%;
     z-index: 7;
 }
@@ -161,10 +209,34 @@
     display: flex;
     flex-direction: column;
     justify-content: space-around;
-    align-items: center;
+    align-items: stretch;
+    text-align: center;
 }
-.add-habit-form>input,textarea {
+.add-habit-form-select {
     color: black;
+    border-radius: 5px;
+    border: solid black 1px;
+    opacity: .8;
+}
+.add-habit-form-select:hover {
+    opacity: 1;
+}
+.add-habit-form-select:focus {
+    opacity: 1;
+}
+.add-habit-form > input, .add-habit-form > textarea, .add-habit-form > button {
+    color: black;
+    text-align: center;
+    border-radius: 5px;
+    border: solid black 1px;
+    opacity: .8;
+}
+.add-habit-form > input:focus, .add-habit-form > input:hover, .add-habit-form > textarea:focus, .add-habit-form > textarea:hover, .add-habit-form > button:hover, .add-habit-form > button:focus {
+    opacity: 1;
+}
+.add-habit-form > button:hover {
+    cursor: pointer;
+
 }
 .add-habit-close-form {
     height: 25px;
@@ -190,7 +262,7 @@
     margin: 0 auto;
 }
 .habits-quick-menu {
-    max-width: 60vw;
+    max-width: 80vw;
     background-color: rgba(0, 0, 0, 0.646);
     position: absolute;
     top: 0;
@@ -198,16 +270,21 @@
     left: 0;
     margin: 0 auto;
     display: flex;
+    height: 9vh;
     justify-content: space-around;
-    overflow: scroll;
+    overflow-x: scroll;
+    overflow-y: hidden;
 }
 .habits-quick-menu-item {
     margin-top: 0;
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    justify-content: space-between;
+    width: 200px;
+    height: 9vh;
+    background-color: green;
 }
 .habits-quick-menu-item > i, .habits-quick-menu-item > p {
-    padding: 0;
     margin: 0 auto;
+    text-align: center;
 }

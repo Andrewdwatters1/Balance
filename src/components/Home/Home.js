@@ -11,7 +11,6 @@ import Backdrop from '../Backdrop/Backdrop.js'
 import Notes from '../Notes/NotePad.js'
 import Todo from '../Todo/Todo.js'
 import Habits from '../Habits/Habits.js'
-import HabitQuickMenu from '../Habits/HabitQuickMenu.js'
 import Calendar from '../Calendar/Calendar.js'
 import Login from '../Login/Login.js'
 import News from '../News/News.js'
@@ -103,6 +102,7 @@ class Home extends Component {
                 time: date
             })
         }, 1000)
+        // this.habitsToggler()
     }
 
     toggleNavMenu = () => {
@@ -394,7 +394,7 @@ class Home extends Component {
                         <div className="top-menu"></div>
                         {backdrop}
                         <div className="top-menu-button">
-                            <img src={habits} onMouseEnter={() => this.habitsToggler(true)} />
+                            <img src={habits} onMouseEnter={() => this.habitsToggler(true)}/>
                         </div>
 
                         <div className="left-menu-button"

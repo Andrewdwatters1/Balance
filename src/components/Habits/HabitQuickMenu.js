@@ -34,9 +34,9 @@ class HabitQuickMenu extends Component {
     }
     return (
       <div className="habits-quick-menu">
-        {renderedItem.map((e) => {
+        {renderedItem.map((e, i) => {
           return (
-            <div className="habits-quick-menu-item">
+            <div className="habits-quick-menu-item" key={i}>
               <p>{e.habit}</p>
               {e.completed ?
                 <i className="far fa-check-circle habit-green-button"></i>
