@@ -90,7 +90,6 @@ class Home extends Component {
         this.props.getCurrentUser();
         let date1 =moment(new Date()).format("YYYY/MM/DD")
         let date2 =moment(moment(new Date()).add(7, 'd').format('YYYY/MM/DD'))._i    
-        console.log(date1, date2)    
         axios.get(`/api/eventdates?event_date1=${date1}&event_date2=${date2}`).then(response => {
             console.log('response data', response)
             this.setState({
@@ -335,6 +334,16 @@ class Home extends Component {
 
         //Home-Related Renders
 
+        let upcomingEvents = this.state.events.map(event => {
+            return (
+            <div className="upcoming-events-div">
+                <span className="event-date">{event.event_formatted_date}</span>
+                <span className="event-time">{moment(event.event_time, "HH:mm:ss").format("h:mm A")}</span>
+                <span className="event-name">{event.event_name}</span>
+            </div>
+            )
+        }) 
+
         let backdrop;
         if (this.state.isNavMenuVisible || this.state.isHabitsMenuVisible) {
             backdrop = <Backdrop click={this.backdropClickHandler} />
@@ -485,6 +494,7 @@ class Home extends Component {
                                 <div className="home-spacer"></div>
 
                                 <p>Here are your upcoming events:</p>
+                                {upcomingEvents}
 
                             </div>
                         }
