@@ -36,7 +36,7 @@
     border: 0;
 }
 .habits-sidebar-habit-item {
-    height: 12%;
+    height: 15%;
 }
 .habits-sidebar-buttons {
     width: 15%;
@@ -54,7 +54,7 @@
 .habit-quick-check {
     font-size: 3em;
     opacity: .85;
-    height: 12%;
+    height: 15%;
     padding-right: 50%;
     padding-top: 20%;
 }
@@ -88,7 +88,7 @@
 .habit-green-button {
     color: rgb(0, 192, 0);
     font-size: 3em;
-    height: 12%;
+    height: 15%;
     padding-right: 50%;
     padding-top: 20%;
 }
@@ -142,8 +142,8 @@
     height: 33%;
     border: 1px rgba(255, 255, 255, 0.283) solid;
     position: absolute;
-    top: 50px;
-    right: -30px;
+    top: 40px;
+    right: 20px;
     width: 62.5%;
     z-index: 7;
 }
@@ -161,10 +161,34 @@
     display: flex;
     flex-direction: column;
     justify-content: space-around;
-    align-items: center;
+    align-items: stretch;
+    text-align: center;
 }
-.add-habit-form>input,textarea {
+.add-habit-form-select {
     color: black;
+    border-radius: 5px;
+    border: solid black 1px;
+    opacity: .8;
+}
+.add-habit-form-select:hover {
+    opacity: 1;
+}
+.add-habit-form-select:focus {
+    opacity: 1;
+}
+.add-habit-form > input, .add-habit-form > textarea, .add-habit-form > button {
+    color: black;
+    text-align: center;
+    border-radius: 5px;
+    border: solid black 1px;
+    opacity: .8;
+}
+.add-habit-form > input:focus, .add-habit-form > input:hover, .add-habit-form > textarea:focus, .add-habit-form > textarea:hover, .add-habit-form > button:hover, .add-habit-form > button:focus {
+    opacity: 1;
+}
+.add-habit-form > button:hover {
+    cursor: pointer;
+
 }
 .add-habit-close-form {
     height: 25px;

@@ -59,9 +59,9 @@ export default class AddHabitForm extends Component {
       <div className="add-habit">
         <img src={add} onMouseDown={this.props.toggleForm} className="add-habit-close-form" />
         <form onSubmit={this.addHabit} className="add-habit-form">
-          <input onChange={this.handleTitleInput} placeholder="TITLE" value={this.state.title} />
+          <input onChange={this.handleTitleInput} placeholder="TITLE" value={this.state.title} maxlength="15"/>
           <textarea onChange={this.handleDescriptionInput} type="submit text" placeholder='Description' value={this.state.description} rows="4" cols="30"><input /></textarea>
-          Category: <select value={this.state.type} onChange={this.handleTypeInput} type="submit">
+          Category: <select value={this.state.type} onChange={this.handleTypeInput} type="submit" className="add-habit-form-select">
             <option value="Health/Fitness">Health/Fitness</option>
             <option value="Professional">Professional</option>
             <option value="Personal">Personal</option>
