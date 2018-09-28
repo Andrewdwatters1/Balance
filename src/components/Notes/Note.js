@@ -1,9 +1,5 @@
 import React,{Component} from 'react'
 import './Notes.css';
-import {connect} from 'react-redux'
-import {deleteNotes} from '../../redux/reducers/notepad'
-
-
 
 class Note extends Component{
     constructor(props){
@@ -20,13 +16,10 @@ class Note extends Component{
         let {note} = this.props
         // console.log('note', note)
         return(
-         <div className="textContainer-pup">  
-                
+         <div className="textContainer-pup">                  
              <div key={note.id}> 
-                 <h5 className="note-buttons" onClick={()=>this.props.singleNoteToggler(note)}>{note.title}</h5>
-                 <h6>{note.date}</h6>
-                 <button className="notesRemove" onClick={() => this.props.deleteNotes(note.id)}></button>   
-     
+                 <h3 className="note-buttons" onClick={()=>this.props.singleNoteToggler(note)}>{note.title}</h3>
+                 {/* <h6>{note.date}</h6>      */}
              </div>
          </div> 
         ) 
@@ -36,4 +29,4 @@ class Note extends Component{
 
 
 
-export default connect(null, {deleteNotes})(Note)
+export default Note

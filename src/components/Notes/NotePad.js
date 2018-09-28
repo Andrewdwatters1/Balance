@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Note from './Note';
 import {connect} from 'react-redux';
-import {getNotes, addNotes, addScratchPad, getScratchPad, editNotes} from '../../redux/reducers/notepad';
+import {getNotes, addNotes, addScratchPad, getScratchPad, editNotes, deleteNotes} from '../../redux/reducers/notepad';
 import axios from 'axios'
 import './Notes.css';
 
@@ -25,6 +25,8 @@ class NotePad extends Component{
             isSingleNoteVisible: false,
             isScratchPadVisible: true,
             isAddNoteVisible: false,
+
+            isDelelteModalopen: false,
 
             date: new Date(),
         }
@@ -55,6 +57,12 @@ class NotePad extends Component{
             isScratchPadVisible: false,
             isSingleNoteVisible: false,
             isAddNoteVisible: true,
+        })
+    }
+
+    deleteModalToggler = () => {
+        this.setState({
+            isDelelteModalopen: !this.state.isDelelteModalopen,
         })
     }
     handleTitle = (e) => {
@@ -133,12 +141,12 @@ class NotePad extends Component{
         return(
             <div className="content-container">
                 <div className="notes-container">
-                    <h2>Note Pad</h2>
+                    <h1 className="maintitles">Note Pad</h1>
                         <div className="notepadtitlearea">
-                            <h3 className="note-buttons" onClick={this.scratchPadToggler}>Scratch Pad</h3>
-                            <h3 className="note-buttons" onClick={this.addNoteToggler}>Create A New Note</h3>
+                            <h2 className="note-buttons" onClick={this.scratchPadToggler}>Scratch Pad</h2>
+                            <h2 className="note-buttons" onClick={this.addNoteToggler}>Create A New Note</h2>
                         </div>  
-                    <h3>Your Saved Notes</h3>      
+                    <h2 className="maintitles">Your Saved Notes</h2>      
                     {notePad}    
                 </div>
                 <div className="scratchpad">
@@ -149,8 +157,16 @@ class NotePad extends Component{
                             <input className="notepadtitles" value={this.state.RenderedNote.title} onChange={this.handleTitle}/>
                         </header>
                         <textarea className="notestextarea" value={this.state.RenderedNote.content} onChange={this.handleContent}/>
-                        {/* <button className= "note-buttons" onClick={()=> this.saveUpdatedNote(this.state.RenderedNote.id)}>Save</button> */}
-
+                        <button className= "note-buttons" onClick={()=> this.saveUpdatedNote(this.state.RenderedNote.id)}>Save</button>
+                        <div className="garbagecandiv">
+                            <h5 className="notesRemove" onClick={()=>this.deleteModalToggler()}></h5> 
+                            {this.state.isDelelteModalopen && 
+                                <div>
+                                    <h5>Are you sure you want to delete {this.state.RenderedNote.title}?</h5>
+                                    <h4 className="note-buttons-delete" onClick={() => {{this.props.deleteNotes(this.state.RenderedNote.id);this.deleteModalToggler();this.addNoteToggler()}}}>Delete</h4>
+                                    <h4 className="note-buttons-cancel" onClick={()=>this.deleteModalToggler()}>Cancel</h4>  
+                                </div>}
+                        </div>
                     </div> }
                     {this.state.isScratchPadVisible && 
                     <div>
@@ -192,6 +208,6 @@ function mapStateToProps(state) {
     }
   }
   
-export default connect(mapStateToProps,{getNotes, addNotes, addScratchPad, getScratchPad, editNotes})(NotePad)
+export default connect(mapStateToProps,{getNotes, addNotes, addScratchPad, getScratchPad, editNotes, deleteNotes})(NotePad)
 
 {/* <h3 className="add-event-submit" onClick={()=>this.eventUpdaterSubmit(event.event_id)}>Update Event</h3> */}

@@ -37,13 +37,33 @@
 
 .notes-container{
     overflow: scroll;
-    width: 40vh;
-    margin-left: 3vw;
+    width: 23vw;
 }
 
 .note-buttons{
     color: royalblue;
     cursor: pointer;
+    margin-left:4.5vw;
+}
+
+.maintitles{
+    margin-left: 3vw;
+}
+
+.note-buttons-delete{
+    color: rgb(241, 80, 59);
+    cursor: pointer;
+}
+
+.note-buttons-cancel{
+    color: rgb(65, 179, 54);
+    cursor: pointer;
+}
+
+.garbagecandiv{
+    position: absolute;
+    right:1vw;
+    top:1vw;
 }
 
 .notesRemove{
