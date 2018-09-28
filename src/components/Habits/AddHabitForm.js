@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import * as moment from 'moment';
+import { ToastContainer, ToastStore } from 'react-toasts';
 
 import './Habits.css'
 
@@ -40,35 +41,43 @@ export default class AddHabitForm extends Component {
     let habit = { userId: this.props.currentUser.id, title, description, dateFormatted, date, type };
     title ? description ?
       axios.post('/api/habits', habit).then(result => {
+        ToastStore.success('Nice! Your habit has been added!')
         this.props.addHabitToList(result.data);
+        this.props.getTodaysHabits();
         this.setState({
           title: '',
           description: '',
           type: ''
+        }, () => {
+          this.props.getUpdatedHabitsByUser()
         })
       })
       :
-      alert('please enter a description') // toast
+      ToastStore.error('please enter a description for your habit')
       :
-      alert('please enter a title') // toast
+      ToastStore.error('please enter a title for your habit')
   }
 
   render() {
-    console.log(this.state);
+    console.log(this.props);
     return (
-      <div className="add-habit">
-        <img src={add} onMouseDown={this.props.toggleForm} className="add-habit-close-form" />
-        <form onSubmit={this.addHabit} className="add-habit-form">
-          <input onChange={this.handleTitleInput} placeholder="TITLE" value={this.state.title} maxlength="15"/>
-          <textarea onChange={this.handleDescriptionInput} type="submit text" placeholder='Description' value={this.state.description} rows="4" cols="30"><input /></textarea>
-          Category: <select value={this.state.type} onChange={this.handleTypeInput} type="submit" className="add-habit-form-select">
-            <option value="Health/Fitness">Health/Fitness</option>
-            <option value="Professional">Professional</option>
-            <option value="Personal">Personal</option>
-          </select>
-          <button type="submit">Add Habit</button>
-        </form>
+      <div style={{height: '100vh', width: '100vw'}}>
+        <div className="add-habit">
+          <img src={add} onMouseDown={this.props.toggleForm} className="add-habit-close-form" />
+          <form onSubmit={this.addHabit} className="add-habit-form">
+            <input onChange={this.handleTitleInput} placeholder="TITLE" value={this.state.title} maxlength="18" />
+            <textarea onChange={this.handleDescriptionInput} type="submit text" placeholder='Description' value={this.state.description} rows="4" cols="30"><input /></textarea>
+            Category: <select value={this.state.type} onChange={this.handleTypeInput} type="submit" className="add-habit-form-select">
+              <option value="Health/Fitness">Health/Fitness</option>
+              <option value="Professional">Professional</option>
+              <option value="Personal">Personal</option>
+            </select>
+            <button type="submit">Add Habit</button>
+          </form>
+        </div>
+        <ToastContainer store={ToastStore} position={ToastContainer.POSITION.BOTTOM_RIGHT} />
       </div>
+
     )
   }
 }
