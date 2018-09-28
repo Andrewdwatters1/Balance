@@ -104,7 +104,11 @@ class Weather extends Component {
                 userLng: results.data.places[0].longitude,
                 userCityName: results.data.places[0]['place name'],
               })
-          axios.get(`https://api.darksky.net/forecast/${process.env.REACT_APP_DARK_SKY_KEY}/${this.state.userLat},${this.state.userLng}`).then(results => {
+          axios.get(`https://api.darksky.net/forecast/${process.env.REACT_APP_DARK_SKY_KEY}/${this.state.userLat},${this.state.userLng}`, {
+              headers : {
+                  'Access-Control-Allow-Origin' : '*'
+              }
+          }).then(results => {
               this.setState({
                   currentTemperature: results.data.currently.temperature
               })

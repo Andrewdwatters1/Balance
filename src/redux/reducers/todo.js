@@ -22,15 +22,42 @@ const MARK_INCOMPLETE_FULFILLED = 'MARK_INCOMPLETE_FULFILLED'
 
 const TOGGLE_EDIT = 'TOGGLE_EDIT'
 
+//NESTED BELOW
+
+const GET_NESTED = 'GET_NESTED'
+const GET_NESTED_FULFILLED = 'GET_NESTED_FULFILLED'
+
+const CREATE_NESTED = 'CREATE_NESTED'
+const CREATE_NESTED_FULFILLED = 'CREATE_NESTED_FULFILLED'
+
+const DELETE_NESTED = 'DELETE_NESTED'
+const DELETE_NESTED_FULFILLED = 'DELETE_NESTED_FULFILLED'
+
+const EDIT_NESTED = 'EDIT_NESTED'
+const EDIT_NESTED_FULFILLED = 'EDIT_NESTED_FULFILLED'
+
+const COMPLETE_NESTED = 'COMPLETE_NESTED'
+const COMPLETE_NESTED_FULFILLED = 'COMPLETE_NESTED_FULFILLED'
+
+const INCOMPLETE_NESTED = 'INCOMPLETE_NESTED'
+const INCOMPLETE_NESTED_FULFILLED = 'INCOMPLETE_NESTED_FULFILLED'
+
+const NESTED_TOGGLE_EDIT = 'NESTED_TOGGLE_EDIT'
+
 
 
 
 let initialState = {
+    //Regular
     todos : [],
     input: '',
-    completed: [],
     editFlag: false,
-    editInput: ''
+    editInput: '',
+    //Nested
+    nested: [],
+    nestedInput: '',
+    nestedFlag: false,
+    nestedEdit: ''
 }
 
 export default function reducer(state = initialState, action){    
@@ -49,6 +76,18 @@ export default function reducer(state = initialState, action){
             return{...state, todos:action.payload.data}
         case TOGGLE_EDIT:
             return{...state, editFlag:action.payload}
+        case CREATE_NESTED_FULFILLED:
+            return{...state, nested:action.payload.data}
+        case DELETE_NESTED_FULFILLED:
+            return{...state, nested:action.payload.data}
+        case EDIT_NESTED_FULFILLED:
+            return{...state, nested:action.payload.data}
+        case COMPLETE_NESTED_FULFILLED:
+            return{...state, nested:action.payload.data}
+        case INCOMPLETE_NESTED_FULFILLED:
+            return{...state, todos:action.payload.data}
+        case NESTED_TOGGLE_EDIT:
+            return{...state, nestedEdit:action.payload}
         default:
             return state
     }
@@ -100,5 +139,50 @@ export function toggleEdit(something){
     return{
         type: TOGGLE_EDIT,
         payload: something
+    }
+}
+
+//NESTED
+
+export function getNested(parenttodoid){
+    return{
+        type: GET_NESTED,
+        payload: axios.get(`/api/todo/nested/${parenttodoid}`)
+    }
+}
+export function createNested(parenttodoid, userid, content){
+    return{
+        type: CREATE_NESTED,
+        payload: axios.post(`/api/todo/nested`, {parenttodoid, userid, content})
+    }
+}
+export function deleteNested(id,userid){
+    return{
+        type: GET_NESTED,
+        payload: axios.delete(`/api/todo/nested/${id}/${userid}`)
+    }
+}
+export function editNested(content,id,userid){
+    return{
+        type: EDIT_NESTED,
+        payload: axios.put(`/api/todo/nested/${id}/${userid}`, {content})
+    }
+}
+export function completeNested(id,userid){
+    return{
+        type: COMPLETE_NESTED,
+        payload: axios.put(`/api/todo/nested/complete/${id}/${userid}`)
+    }
+}
+export function incompleteNested(id,userid){
+    return{
+        type: COMPLETE_NESTED,
+        payload: axios.put(`/api/todo/nested/incomplete/${id}/${userid}`)
+    }
+}
+export function nestedToggleEdit(x){
+    return{
+        type: NESTED_TOGGLE_EDIT,
+        payload: x
     }
 }

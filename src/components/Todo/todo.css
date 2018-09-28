@@ -39,8 +39,8 @@
 .fa-plus, .fa-pen-nib{
     padding-bottom: 10px;
     position: absolute;
-    -webkit-transition-duration: 0.8s;
-    transition-duration: 0.8s;
+    -webkit-transition-duration: 0.5s;
+    transition-duration: 0.5s;
     color:rgb(255, 255, 255, 0.6);
     font-size: 24px;
     border:none;
@@ -50,10 +50,10 @@
     width: 50px;
 }
 
-.fa-plus:hover, .fa-pen-nib:hover, .fa-check:hover, .fa-cut:hover, .fa-circle:hover{
-    color: rgba(31,62,90, 1);
+.fa-plus:hover, .fa-pen-nib:hover, .fa-check:hover, .fa-cut:hover, .fa-circle:hover, .fa-angle-right:hover{
+    color: rgba(51,130,94, 1);
 }
-.fa-circle, .todoControlEdit, .fa-cut{
+.fa-circle, .todoControlEdit, .fa-cut, .fa-angle-right{
     background-color: rgb(0,0,0,0);
     border: none;
     outline: none;
@@ -68,8 +68,8 @@
 }
 
 .fa-cut{
-    -webkit-transition-duration: 0.8s;
-    transition-duration: 0.8s;
+    -webkit-transition-duration: 0.5s;
+    transition-duration: 0.5s;
     color:rgb(255, 255, 255, 0.6);
     font-size: 24px;
     width: 50px;
@@ -77,6 +77,8 @@
 }
 
 .fa-circle{
+    -webkit-transition-duration: 0.5s;
+    transition-duration: 0.5s;
     color:rgb(255, 255, 255, 0.6);
     cursor: pointer;
     font-size: 24px;
@@ -84,6 +86,15 @@
     height: 50px;
 }
 
+.fa-angle-right{
+    -webkit-transition-duration: 0.5s;
+    transition-duration: 0.5s;
+    color:rgb(255, 255, 255, 0.6);
+    cursor: pointer;
+    font-size: 32px;
+    width: 50px;
+    height: 50px;
+}
 
 .baseTodoWrapper{
     width: 50%;
@@ -127,7 +138,7 @@
     outline:none;
     width: 50px;
     height: 50px;
-    -webkit-transition-duration: 0.8s;
-    transition-duration: 0.8s;
+    -webkit-transition-duration: 0.5s;
+    transition-duration: 0.5s;
     color:rgb(255, 255, 255, 0.6);
 }
