@@ -1,29 +1,89 @@
 .weather-box{
     position: absolute;
-    top: 0;
-    right: 25px;
-    display: inline;
-    paddingn-top: 20vh;
+    top:10px;
+    right: 10px;
 }
 
-.weather-box div{
-    display: flex;
-    justify-content: center;
-    align-content: center;
-    align-items: center;
+.weather-box>img{
+    height:24px;
+    width: 24px;
+    position: absolute;
+    top: 12px;
+    right: 75px;
 }
 
-.weather-box img{
-    height:20px;
-    width: 20px;
+.weather-box>p{
+    font-size: 30px;
+    position: absolute;
+    top: -25px;
+    right: 20px;
 }
 
-.weather-box p{
-    font-size: 10px;
+.city-name>p{
+    font-size: 11px;
+    position: absolute;
+    white-space: nowrap;
+    top: 36px;
+    right: 22px;
+    text-transform: uppercase;
 }
 
 .weatherModalContainer{
-    width: 40vw;
-    height: 20vh;
-    background-color: royalblue;
+    position: absolute;
+    top: 65px;
+    right: 15px;
+    width: 750px;
+    height: 150px;
+    background-color: rgba(0, 0, 0, 0.708);
 }
+
+.weatherModalContainerTriangle{
+    position: absolute;
+    top: -7px;
+    right: 10px;
+    width: 0; 
+    height: 0;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-bottom: 8px solid rgb(23, 24, 24);
+    z-index: 3;
+  }
+
+  .daily-weather-container{
+      display: flex;
+      flex-direction: row;
+      justify-content: space-evenly;
+      margin-left: 30px;
+  }
+
+  .weather-daily{
+      flex-direction: column;
+      display: flex;
+      align-items: center;
+      margin-right: 30px;
+  }
+
+  .temp-wrapper{
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      margin-top: -25px;
+  }
+
+  .weather-forecast-icon{
+      width: 24px;
+      margin-top: -15px;
+  }
+
+  .weather-temp-descriptor{
+      font-size:12px;
+      margin-right: 15px;
+      margin-top: 2px;
+
+  }
+
+  .day-of-the-week-text{
+      font-size: 22px;
+      text-transform: uppercase
+  }
+
