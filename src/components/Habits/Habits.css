@@ -45,10 +45,6 @@
     height: 150px;
     box-sizing: border-box;
 }
-.habits-sidebar-habit-item:hover {
-    /* background-color: ; */
-    /* cursor: pointer; */
-}
 .habit-sidebar-text {
     width: 90%;
     font-size: 1.5em;
@@ -68,8 +64,9 @@
     box-sizing: border-box;
     display: flex;
     align-items: center;
-    margin-top: 75px;
-    margin-bottom: 75px;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    height: 50px;
 }
 .habit-green-button {
     color: rgb(0, 192, 0);
@@ -141,8 +138,24 @@
 }
 .delete-habit {
     position: absolute;
-    bottom: 0;
-    right: 0;
+    bottom: 10px;
+    right: 10px;
+    opacity: 0.6;
+}
+.delete-habit:hover {
+    opacity: 1;
+    cursor: pointer;
+}
+.delete-habit-confirm {
+    position: absolute;
+    bottom: 30px;
+    right: 80px;
+    opacity: 0.6;
+    color: rgba(233, 88, 88, 0.708);
+}
+.delete-habit-confirm {
+    opacity: 1;
+    cursor: pointer;
 }
 .habit-type-icon {
     font-size: 1.5em;
@@ -236,7 +249,6 @@
 }
 .add-habit-form > button:hover {
     cursor: pointer;
-
 }
 .add-habit-close-form {
     height: 25px;
@@ -282,7 +294,6 @@
     justify-content: space-between;
     width: 200px;
     height: 9vh;
-    background-color: green;
 }
 .habits-quick-menu-item > i, .habits-quick-menu-item > p {
     margin: 0 auto;

@@ -24,7 +24,8 @@ class Habits extends Component {
             habitEventsReturned: false,
             habitsToday: [],
             habitsCompletedToday: [],
-            habitQuickView: false
+            habitQuickView: false,
+            deleteConfirmationOpen: false,
         }
     }
 
@@ -49,7 +50,8 @@ class Habits extends Component {
                 habitEvents: result.data
             }, () => {
                 this.setState({
-                    habitEventsReturned: true
+                    habitEventsReturned: true,
+                    deleteConfirmationOpen: false
                 })
             })
         })
@@ -118,8 +120,15 @@ class Habits extends Component {
             })
         });
     }
-    deleteHabit = () => {
-
+    toggleDeleteConfirmation = () => {
+        this.setState({
+            deleteConfirmationOpen: !this.state.deleteConfirmationOpen
+        })
+    }
+    deleteHabit = (id) => {
+        axios.post('api/deleteHabit', { id }).then(result => {
+            this.getUpdatedHabitsByUser();
+        })
     }
     componentDidMount() {
         this.props.getCurrentUser();
@@ -181,6 +190,12 @@ class Habits extends Component {
                                             `${day}, ${month} ${e.date[2]}, ${e.date[0]}, ${moment([+e.date[0], (+e.date[1]), +e.date[2]]).fromNow()}`
                                     }</p>
                                 <p>Here's your progress for the past week: </p>
+                                <img src={trash} className="delete-habit" onMouseDown={this.toggleDeleteConfirmation} />
+                                <div style={{ display: this.state.deleteConfirmationOpen ? 'block' : 'none' }} className="delete-habit-confirm">
+                                    <p>Are you sure you want to delete this Habit?</p>
+                                    <p onMouseDown={(id) => this.deleteHabit(e.id)}>Yes</p>
+                                    <p onMouseDown={this.toggleDeleteConfirmation}>No</p>
+                                </div>
                             </div>
                             <div className="habits-detail-bottom">
                                 {habitEventDivs}
@@ -205,7 +220,6 @@ class Habits extends Component {
                                     }
                                 </div>
                             </div>
-                            <img src={trash} />
                             {streak}
                         </div>
                     </div>
@@ -228,7 +242,7 @@ class Habits extends Component {
         return (
             <div>
                 {this.props.quickView ?
-                    <HabitQuickMenu habitsCompletedToday={this.state.habitsCompletedToday} addHabitEvent={this.addHabitEvent} />
+                        <HabitQuickMenu habitsCompletedToday={this.state.habitsCompletedToday} addHabitEvent={this.addHabitEvent} habitsQuickViewToggler={this.props.habitsQuickViewToggler}/>
                     :
                     <div>
                         <div className="quick-view-button-cover"></div>

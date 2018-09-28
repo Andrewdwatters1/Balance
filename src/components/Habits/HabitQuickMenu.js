@@ -33,7 +33,7 @@ class HabitQuickMenu extends Component {
       }
     }
     return (
-      <div className="habits-quick-menu">
+      <div className="habits-quick-menu" onMouseLeave={this.props.habitsQuickViewToggler}>
         {renderedItem.map((e, i) => {
           return (
             <div className="habits-quick-menu-item" key={i}>
