@@ -21,7 +21,7 @@
     width: 54vw;
     height: 100%;
     padding-left: 5vw;
-    border-left: 1px solid rgba(122, 120, 120, 0.708);    
+    border-left: 2px solid rgba(122, 120, 120, 0.708);    
     overflow: scroll;
 }
 
@@ -56,24 +56,57 @@
 }
 
 .notestextarea{
-    height: 80vh;
+    height: 67vh;
     width: 100%;
     color: rgb(210, 212, 218);
     background-color: transparent;
     border-color: transparent;
-    margin-top: 5vh;
+    margin-top: 13vh;
+    font-size: 1.2em;
 }
-.noteaddicon{
-    height: 2.3vh;
-    color: royalblue;
+
+.addnotestextarea{
+    /* height: 67vh; */
+    width: 100%;
+    color: rgb(210, 212, 218);
+    background-color: transparent;
+    border-color: transparent;
+    font-size: 1.2em;
+    resize: vertical;
+    /* overflow: visible; */
+    /* outline: none; */
 }
+
+.notepadtitlearea{
+    border-bottom: 2px solid rgba(122, 120, 120, 0.708);
+}
+
 
 .notestitlearea{
     position: fixed;
+    margin-top: 3vh;    
 }
+
 
 .scratchpadtextarea{
     height: auto;
     width: 100%;
     color: rgb(245, 247, 250);
+}
+
+.notepadtitles{
+    width: 30vw;
+    border-color: transparent;
+    background-color: transparent;
+    font-size: 1.4em;
+    outline: none;
+}
+
+.addscratchpadcontent{
+    height: auto;
+    width: 100%;
+    color: rgb(210, 212, 218);
+    background-color: transparent;
+    border-color: transparent;
+    font-size: 1.2em;
 }
