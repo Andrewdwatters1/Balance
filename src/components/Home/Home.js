@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { ToastContainer, ToastStore } from 'react-toasts';
+import axios from 'axios'
 import moment from 'moment'
 import FocusCompleteModal from './Timer/FocusCompleteModal/FocusCompleteModal'
 import BreakCompleteModal from './Timer/BreakCompleteModal/BreakCompleteModal'
@@ -82,8 +83,18 @@ class Home extends Component {
         const date = new Date(Date.now()).toLocaleTimeString();
         return date;
     }
+
     componentDidMount() {
         this.props.getCurrentUser();
+        let date1 =moment(new Date()).format("YYYY/MM/DD")
+        let date2 =moment(moment(new Date()).add(7, 'd').format('YYYY/MM/DD'))._i    
+        console.log(date1, date2)    
+        axios.get(`/api/eventdates?event_date1=${date1}&event_date2=${date2}`).then(response => {
+            console.log('response data', response)
+            this.setState({
+                events: response.data
+            })
+        })
         const _this = this;
         this.timer = setInterval(function () {
             var date = _this.getTimeString();
@@ -92,6 +103,7 @@ class Home extends Component {
             })
         }, 1000)
     }
+
     toggleNavMenu = () => {
         this.setState({
             isNavMenuVisible: !this.state.isNavMenuVisible
@@ -308,6 +320,8 @@ class Home extends Component {
     }
 
     render() {
+
+
 
         //Home-Related Renders
 

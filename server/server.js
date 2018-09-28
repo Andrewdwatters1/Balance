@@ -66,6 +66,7 @@ app.post('/api/events', eventsController.createEvent)
 app.get('/api/events', eventsController.getEventsByDate)
 app.put('/api/events/:id', eventsController.updateEventById)
 app.delete('/api/events/:id', eventsController.updateEventById)
+app.get('/api/eventdates', eventsController.getEventsForWeek)
 
 // NOTES ENDPTS
 app.get('/api/notepad', notesController.getAllNotes)
