@@ -112,7 +112,7 @@ class Home extends Component {
     }
     toggleHabitsMenu = () => {
         this.setState({
-            isHabitsMenuVisible: !this.state.isNavMenuVisible
+            isHabitsMenuVisible: !this.state.isHabitsMenuVisible
         })
     }
     backdropClickHandler = () => {
@@ -168,6 +168,11 @@ class Home extends Component {
                 habitsQuickToggler: shouldQuickViewDisplay
             })
         }
+    }
+    habitsQuickViewToggler = () => {
+        this.setState({
+            isHabitsVisible: false
+        })
     }
     calendarToggler = () => {
         this.setState({
@@ -476,7 +481,7 @@ class Home extends Component {
                         {this.state.isWeatherCardVisible && <Weather />}
                         {this.state.isNotesVisible && <Notes />}
                         {this.state.isTodoVisible && <Todo />}
-                        {this.state.isHabitsVisible && <Habits quickView={this.state.habitsQuickToggler} />}
+                        {this.state.isHabitsVisible && <Habits quickView={this.state.habitsQuickToggler} habitsQuickViewToggler={this.habitsQuickViewToggler}/>}
                         {this.state.isCalendarVisible && <Calendar />}
                         {this.state.isNewsVisible && <News />}
 
