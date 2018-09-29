@@ -60,6 +60,12 @@
     cursor: pointer;
 }
 
+.note-buttons-delete-modal{
+    color: rgb(120, 136, 184);
+    cursor: pointer;
+    margin-right:1vw;
+}
+
 .garbagecandiv{
     position: absolute;
     right:1vw;
