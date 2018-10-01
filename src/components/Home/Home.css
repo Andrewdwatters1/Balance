@@ -1,15 +1,22 @@
 *{
     font-family: 'Lato';
-    color: white;
+    color: #FAFAFA;
     box-sizing: border-box;
+    background-color: transparent;
 }
 
-.background{
-    width: 100vw;
-    height: 100vh;
-    background-image: url('./background.jpeg')
-    /* background weather photos */
-}
+html { 
+    background: 
+    linear-gradient(
+        rgba(0,0,0,0.516),
+        rgba(0,0,0,0.516)
+    ),
+    url('../../assets/background.jpeg') no-repeat center center fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+  }
 
 .top-menu{
     position: absolute;
@@ -17,15 +24,6 @@
     height: 20vh;
     background-color: rgba(0, 0, 0, 0.516);
     display: none;
-}
-
-/* dismount weather */
-
-.background-cover{
-    position: absolute;
-    background-color: rgba(0, 0, 0, 0.516);
-    width: 100vw;
-    height: 100vh;
 }
 
 .top-menu-button{
@@ -48,17 +46,13 @@
 .left-menu{
     position: absolute;
     top: 0;
-    background-color: rgba(0, 0, 0, 0.01);
+    background-color: rgba(0, 0, 0, 0.488);
     height: 100%;
     width: 6vw;
     display: flex;
     flex-direction: column;
     align-items: center;
     z-index: 3;
-}
-.left-menu:hover{
-    background-color: rgba(0, 0, 0, 0.8);
-    transition: background-color 500ms ease-out;
 }
 
 .left-menu .spacer{
@@ -84,9 +78,9 @@
 }
 
 .left-menu-button{
-    position: relative;
+    position: absolute;
     margin: auto 0;
-    top: 35%;
+    top: 45%;
     width: 30px;
     height: 60px;
     background-color: rgba(0, 0, 0, 0.7);
@@ -109,19 +103,26 @@
     left: 0;
     right: 0;
     margin: auto;
-    margin-top: 16vh;
+    margin-top: 14vh;
     height: 40vh;
     width: 60vw;
 }
 
 .home-center-card>h1{
-    font-family: 'Lato';
-    font-size: 130px;
+    font-size: 160px;
     margin-bottom: 15px;
+}
+
+.home-center-card>h2{
+font-size: 40px;
+margin-top: -20px;
+font-family: 'Montserrat', sans-serif;
+letter-spacing: 1.2px;
 }
 
 .home-center-card>span{
     font-size: 22px;
+    letter-spacing: .8px;
 }
 
 .home-spacer{
@@ -156,4 +157,25 @@
     color: rgba(255, 255, 255, 0.701);
     font-size: 13px;
     margin-right: 10px;
+}
+
+.info-button{
+    position: absolute;
+    top: 85px;
+    right: 30px;
+    width: 20px
+}
+
+.transparent-left-menu-div{
+    position: absolute;
+    height: 100%;
+    width: 80px;
+    z-index: 2;
+}
+
+.transparent-top-menu-div{
+    position: absolute;
+    height: 80px;
+    width: 100%;
+    z-index: 2;
 }
