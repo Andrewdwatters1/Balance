@@ -53,6 +53,24 @@ module.exports = {
         res.status(200).send(result);
       })
     },
+
+   autoAddScratchPad: (app) => {
+      let db = app.get('db');
+      let title = ''
+      let content= ''
+      let date = "2018-10-01T07:40:42.902Z"
+     db.auth.get_all_users().then(userarr => {     
+      for(let i = 0; i< userarr.length ; i++){
+        // console.log('userid', userarr)
+
+       
+        db.notes.createscratchpad([userarr[i].id, title, content, date])
+      }
+    })
+
+
+     },
+
     deleteScratchPad: (req, res) => {
         let{id} = req.params
         let db = req.app.get('db');

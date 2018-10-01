@@ -182,8 +182,8 @@ class NotePad extends Component{
                             <span>{this.state.date.getFullYear()}</span>
                         </h5>
                         {/* <input className="notepadtitles" placeholder='title' value={this.state.title} onChange={this.handleNewTitle}></input> */}
-                        <textarea className="addscratchpadcontent" placeholder='text' value={this.state.content} onChange={this.handleNewContent}/>
-                        <h4 className="note-buttons" onClick={() => this.props.addScratchPad(NewScratch)}>Save to Scratch Pad</h4>
+                        {/* <textarea className="addscratchpadcontent" placeholder='text' value={this.state.content} onChange={this.handleNewContent}/>
+                        <h4 className="note-buttons" onClick={() => this.props.addScratchPad(NewScratch)}>Save to Scratch Pad</h4> */}
                         {scratchPad}
                     </div>
                     }
@@ -217,11 +217,11 @@ export default connect(mapStateToProps,{getNotes, addNotes, addScratchPad, getSc
 
 {/* <h3 className="add-event-submit" onClick={()=>this.eventUpdaterSubmit(event.event_id)}>Update Event</h3> */}
 
-// //cron.schedule('1 0 0 * * *', () => { // runs at 00:01 EST every day
+// cron.schedule('1 0 0 * * *', () => { // runs at 00:01 EST every day
 //  //cron.schedule('*/10 * * * * *', (req) => {
-//  // habitsController.updateHabitEvents(app);
-//   //habitsController.deleteTodaysHabits(app);
-//   notesController.addScratchPad(app);
+//  habitsController.updateHabitEvents(app);
+//  habitsController.deleteTodaysHabits(app);
+//  notesController.addScratchPad(app);
 // }, {
 //   scheduled: true,
 //   timezone: "America/New_York" // set to users timezone if poss
