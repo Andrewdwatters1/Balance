@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getCurrentUser } from '../../redux/reducers/user'
+import { getWeatherInfo } from '../../redux/reducers/weather'
 import axios from 'axios';
-import Geolocation from "react-geolocation";
-
+// import Geolocation from "react-geolocation";
 
 import './Weather.css'
 
@@ -13,13 +13,13 @@ const sunny = require('../../assets/sunny.png')
 
 
 //IMPORTANT!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-// Note: You are required to display the link “Powered by Dark Sky” somewhere prominent in your app or service.
+// Note: You are required to display the link "Powered by Dark Sky" somewhere prominent in your app or service.
 // ^^^^^^^^^^BE SURE TO DO THIS IF WE PUT INTO PRODUCTION^^^^^^^^^^^^^^^^^^^^^
 
 class Weather extends Component {
-    constructor(props){
+    constructor(props) {
         super(props);
-        this.state={
+        this.state = {
 
             //Current Info on State
             userZipCode: this.props.user.zipcode,
@@ -27,18 +27,14 @@ class Weather extends Component {
             userLng: "",
             userCityName: "",
             currentTemperature: "",
-            cityName: "",
             icon: "",
             currentWeather: "",
 
             //Forecast Info on State
             // Today = 0, Tomorrow = 1...etc
-
-            dailyHi0: "",
-            dailyLow0: "",
-            dailyMoonPhase0: "",
-            //currentWeather: "",
-            //icon: "",
+            todayHiTemp: "",
+            todayLowTemp: "",
+            todayMoonPhase: "",
 
             dailyHi1: "",
             dailyLow1: "",
@@ -81,67 +77,101 @@ class Weather extends Component {
     }
 
 
-    handleCurrentWeatherIcon = (results) => {
-        if(results.data.currently.icon === 'rain'){
-            <i className=''/>
-        }
-    }
-
-
-    weatherModalToggler = () =>{
+    weatherModalToggler = () => {
         this.setState({
             isWeatherModalVisible: !this.state.isWeatherModalVisible
         })
     }
 
-      componentDidMount() {
-          this.props.getCurrentUser()
-          axios.get(`http://api.zippopotam.us/us/${this.state.userZipCode}`).then(results => {
-               console.log(results);
-               
-              this.setState({
+    componentDidMount() {
+        this.props.getCurrentUser()
+        axios.get(`http://api.zippopotam.us/us/${this.state.userZipCode}`).then(results => {
+            this.setState({
                 userLat: results.data.places[0].latitude,
                 userLng: results.data.places[0].longitude,
                 userCityName: results.data.places[0]['place name'],
-              })
-          axios.get(`https://api.darksky.net/forecast/${process.env.REACT_APP_DARK_SKY_KEY}/${this.state.userLat},${this.state.userLng}`, {
-              headers : {
-                  'Access-Control-Allow-Origin' : '*'
-              }
-          }).then(results => {
-              this.setState({
-                  currentTemperature: results.data.currently.temperature
-              })
-          })
-        
-      }
-    )}
+            }, () => {
+                this.props.getWeatherInfo(this.state.userLat, this.state.userLng).then(result => {
+                    // console.log(result)
+                    let { currently } = result.value.data;
+                    let { data } = result.value.data.daily;
+                    this.setState({
+                        currentTemperature: currently.temperature,
+                        icon: currently.icon,
+                        currentWeather: currently.summary,
+                        todayHiTemp: data[0].apparentTemperatureHigh,
+                        todayLowTemp: data[0].apparentTemperatureLow,
+                        todayMoonPhase: data[0].moonPhase,
+
+                        dailyHi1: data[1].apparentTemperatureHigh,
+                        dailyLow1: data[1].apparentTemperatureLow,
+                        dailyMoonPhase1: data[1].moonPhase,
+                        dailyWeather1: data[1].summary,
+                        dailyWeatherIcon1: data[1].icon,
+
+                        dailyHi2: data[2].apparentTemperatureHigh,
+                        dailyLow2: data[2].apparentTemperatureLow,
+                        dailyMoonPhase2: data[2].moonPhase,
+                        dailyWeather2: data[2].summary,
+                        dailyWeatherIcon2: data[2].icon,
+
+                        dailyHi3: data[3].apparentTemperatureHigh,
+                        dailyLow3: data[3].apparentTemperatureLow,
+                        dailyMoonPhase3: data[3].moonPhase,
+                        dailyWeather3: data[3].summary,
+                        dailyWeatherIcon3: data[3].icon,
+
+                        dailyHi4: data[4].apparentTemperatureHigh,
+                        dailyLow4: data[4].apparentTemperatureLow,
+                        dailyMoonPhase4: data[4].moonPhase,
+                        dailyWeather4: data[4].summary,
+                        dailyWeatherIcon4: data[4].icon,
+
+                        dailyHi5: data[5].apparentTemperatureHigh,
+                        dailyLow5: data[5].apparentTemperatureLow,
+                        dailyMoonPhase5: data[5].moonPhase,
+                        dailyWeather5: data[5].summary,
+                        dailyWeatherIcon5: data[5].icon,
+
+                        dailyHi6: data[6].apparentTemperatureHigh,
+                        dailyLow6: data[6].apparentTemperatureLow,
+                        dailyMoonPhase6: data[6].moonPhase,
+                        dailyWeather6: data[6].summary,
+                        dailyWeatherIcon6: data[6].icon,
+                    })
+                })
+            })
+        })
+    }
 
 
-    render(){
-        console.log(this.state.userCityName);
-        
-        return(
+    render() {
+        console.log(this.state.currentWeather);
+
+        return (
             <div className="weather-box" onClick={this.weatherModalToggler}>
 
-             
-             
-                {/* <div>
-                <img src={this.state.icon}/>
-                <div style={{width: "5px"}}></div>
-                <h1>{this.state.temperature}°</h1>
-                </div>
-                <p>SALT LAKE CITY</p> */}
-
-                <p>{this.state.currentTemperature}</p>
+                {this.state.currentWeather === 'rain' ? <p>🌧</p>
+                    : this.state.currentWeather === 'clear-day' ? <p>☀️</p>
+                        : this.state.currentWeather === 'clear-night' ? <p>🌙</p>
+                            : this.state.currentWeather === 'snow' ? <p>🌨</p>
+                                : this.state.currentWeather === 'sleet' ? <p>🌧</p>
+                                    : this.state.currentWeather === 'wind' ? <p>💨</p>
+                                        : this.state.currentWeather === 'fog' ? <p></p>
+                                            : this.state.currentWeather === 'cloudy' ? <i class="fas fa-sad-cry"></i>
+                                                : this.state.currentWeather === 'partly-cloudy-day' ? <i class="fas fa-sad-cry"></i>
+                                                    : this.state.currentWeather === 'partly-cloudy-night' ? <i class="fas fa-sad-cry"></i>
+                                                        : <i class="fas fa-sad-cry"></i>}
+                {/* default case */}
+                <p>{this.state.currentTemperature}{'\u00B0'}</p>
                 <p>{this.state.userCityName}</p>
                 {this.state.isWeatherModalVisible &&
-                <div className="weatherModalContainer">
-                    <h1>weeklyforcast</h1>
-                </div>}
+                    <div className="weatherModalContainer">
+                        <h1>weeklyforcast</h1>
+                    </div>}
             </div>
         )
-        
+
     }
 }
 
@@ -151,7 +181,7 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps, { getCurrentUser })(Weather);
+export default connect(mapStateToProps, { getCurrentUser, getWeatherInfo })(Weather);
 
 
 // users zip code must be converted to approx longitude and latitude for API call

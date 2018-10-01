@@ -5,7 +5,9 @@ import * as moment from 'moment';
 
 import './Habits.css'
 import AddHabitForm from './AddHabitForm';
+import HabitQuickMenu from './HabitQuickMenu';
 import { getCurrentUser } from '../../redux/reducers/user';
+import { updateHabitsCompletedToday } from '../../redux/reducers/habits';
 
 const add = require('../../assets/plus.png')
 
@@ -20,7 +22,8 @@ class Habits extends Component {
             habitEvents: [],
             habitEventsReturned: false,
             habitsToday: [],
-            habitsCompletedToday: []
+            habitsCompletedToday: [],
+            habitQuickView: false
         }
     }
 
@@ -58,11 +61,19 @@ class Habits extends Component {
                 daysFromStart
             }
             axios.post('api/habitEvents', habitEventObj).then(() => {
-                console.log(`habit event added as complete w/ daysFromStart=${habitEventObj.daysFromStart}, and habitId=${habitEventObj.habitId}`);
-                axios.get(`/api/habitEvents?id=${habitId}`);
+                // console.log(`habit event added as complete w/ daysFromStart=${habitEventObj.daysFromStart}, and habitId=${habitEventObj.habitId}`);
+                axios.get(`/api/habitEvents?id=${habitId}`).then(result => {
+                    this.setState({
+                        habitEvents: result.data
+                    })
+                })
             }).catch(error => console.log('Error from Habits.js => addHabitEvent => axios.post("api/habitEvents")', error));
             axios.post('api/addHabitToday', { habitId, id: this.props.user.id }).then(result => {
-                console.log("addHabitEvent => axios.post('api/addHabitToday') result", result);
+                this.setState({
+                    habitsToday: result.data
+                }, () => {
+                    this.updateTodaysHabits();
+                })
             })
         })
     }
@@ -94,6 +105,7 @@ class Habits extends Component {
         this.setState({
             habitsCompletedToday
         })
+        this.props.updateHabitsCompletedToday(habitsCompletedToday)
     }
     componentDidMount() {
         this.props.getCurrentUser();
@@ -108,6 +120,7 @@ class Habits extends Component {
     }
 
     render() {
+        console.log(this.props);
         if (this.state.habitsList.length) {
             let daysOfTheWeek = [' ', 'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
             let monthsOfTheYear = [' ', 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
@@ -117,7 +130,7 @@ class Habits extends Component {
                 let day = daysOfTheWeek[(+e.date[3]) + 1];
                 let month = monthsOfTheYear[(+e.date[1]) + 1];
                 return (
-                    <div key={i} className="habits-sidebar-habit">
+                    <div key={i} className="habits-sidebar-habit-item">
                         <button onClick={() => this.showHabitDetail(e.id)} className="habits-sidebar-habit">
                             <p className="habit-sidebar-text">{e.title} <br /> Started: {`${day}, ${month} ${e.date[2]}, ${e.date[0]}`}</p>
                         </button>
@@ -146,7 +159,7 @@ class Habits extends Component {
                         <h3>{e.title}</h3>
                         <p>{e.description}</p>
                         <i className="habit-type-icon">
-                            {e.type === "Personal" ? <i className="fas fa-book-reader"></i> : e.type === "Professional" ? <i className="fas fa-user-tie"></i> : <i className="fas fa-heartbeat"></i>}
+                            Habit Category: {e.type === "Personal" ? <i className="fas fa-book-reader"></i> : e.type === "Professional" ? <i className="fas fa-user-tie"></i> : <i className="fas fa-heartbeat"></i>}
                         </i>
                         <p>You started tracking this habit on {`${day}, ${month} ${e.date[2]}, ${e.date[0]}, ${moment([+e.date[0], (+e.date[1]), +e.date[2]]).fromNow()}`}</p>
                         <p>Here's your progress for the past week: </p>
@@ -160,11 +173,16 @@ class Habits extends Component {
                                     <i className="far fa-times-circle habit-red-button"></i>}
                             </div>
                             <div className="habits-detail-habit-progress">today
-                            {this.state.habitEventsReturned && // checks that habitEvents array has been returned
-                                    this.state.habitEvents.filter((e) => e.daysfromstart === "0")[0] ? // checks that first item in habitEvents {x} days ago is true
-                                    <i className="far fa-check-circle habit-green-button"></i> // rendered if true
-                                    : // if false
-                                    <i className="far fa-times-circle habit-red-button"></i>}
+                            {this.state.habitEventsReturned && this.props.completed.length && // checks that habitEvents array has been returned
+                                    this.props.completed.map((e, i) => {
+                                        console.log(i);
+                                        if (e.completed) {
+                                            return <i className="far fa-check-circle habit-green-button"></i>
+                                        } else {
+                                            return <i className="far fa-times-circle habit-red-button" onMouseDown={(habitId) => this.addHabitEvent(e.id)}></i>
+                                        }
+                                    })/*.slice(i, i + 1)*/
+                                }
                             </div>
                             <p>Completed today? </p>
                             <i onMouseDown={(habitId) => this.addHabitEvent(e.id)} className="far fa-check-circle"></i>
@@ -176,9 +194,9 @@ class Habits extends Component {
         }
 
         var todaysHabits;
-        if (this.state.habitsCompletedToday.length) {
-            todaysHabits = this.state.habitsCompletedToday.map((e) => {
-                console.log(e);
+        if (this.props.completed && this.props.completed.length) {
+            todaysHabits = this.props.completed.map((e) => {
+                // console.log(e);
                 if (e.completed) {
                     return <i className="far fa-check-circle habit-green-button"></i>
                 } else {
@@ -186,70 +204,82 @@ class Habits extends Component {
                 }
             })
         }
-
         return (
-            <div className="content-container" >
-                <div>
-                    {todaysHabits}
-                </div>
-                <div className="habits-sidebar">
-                    {allHabitsOverview}
-                </div>
-                {!this.state.habitsList.length ?
-                    <div className="habits-content" >
-                        {
-                            this.state.addHabitVisible ?
-                                <div>
-                                    <div onClick={this.toggleForm} className="add-habit-background">
-                                    </div>
-                                    <AddHabitForm habitsList={this.state.habitsList} currentUser={this.props.user}/**/ toggleForm={this.toggleForm} addHabitToList={this.addHabitToList} />
+            <div>
+                {this.props.quickView ?
+                    <HabitQuickMenu habitsCompletedToday={this.state.habitsCompletedToday} addHabitEvent={this.addHabitEvent}/>
+                    :
+                    <div>
+                        <div className="quick-view-button-cover"></div>
+                        <div className="content-container">
+                            <div className="habits-sidebar">
+                                <div className="habits-sidebar-habit">
+                                    {allHabitsOverview}
+                                </div>
+                                <div className="habits-sidebar-buttons">
+                                    {todaysHabits}
+                                </div>
+                            </div>
+                            {!this.state.habitsList.length ?
+                                <div className="habits-content" >
+                                    {
+                                        this.state.addHabitVisible ?
+                                            <div>
+                                                <div onClick={this.toggleForm} className="add-habit-background">
+                                                </div>
+                                                <AddHabitForm habitsList={this.state.habitsList} currentUser={this.props.user}/**/ toggleForm={this.toggleForm} addHabitToList={this.addHabitToList} />
+                                            </div>
+                                            :
+                                            <div className="add-first-habit-button">
+                                                <img src={add} onMouseDown={this.toggleForm} className="add-first-habit-plus" />
+                                                <p>Add your first habit!</p>
+                                            </div>
+                                    }
                                 </div>
                                 :
-                                <div className="add-first-habit-button">
-                                    <img src={add} onMouseDown={this.toggleForm} className="add-first-habit-plus" />
-                                    <p>Add your first habit!</p>
-                                </div>
-                        }
-                    </div>
-                    :
-                    <div className="habits-content">
-                        {this.state.habitDetailVisible ?
-                            <div>
-                                <img src={add} onMouseDown={this.toggleForm} className="add-habit-button" />
-                                <div>
-                                    {allHabitsDetail}
-                                </div>
-                                {this.state.addHabitVisible &&
-                                    <div>
-                                        <div onClick={this.toggleForm} className="add-habit-background">
+                                <div className="habits-content">
+                                    {this.state.habitDetailVisible ?
+                                        <div>
+                                            <img src={add} onMouseDown={this.toggleForm} className="add-habit-button" />
+                                            <div>
+                                                {allHabitsDetail}
+                                            </div>
+                                            {this.state.addHabitVisible &&
+                                                <div>
+                                                    <div onClick={this.toggleForm} className="add-habit-background">
+                                                    </div>
+                                                    <AddHabitForm habitsList={this.state.habitsList} currentUser={this.props.user} toggleForm={this.toggleForm} addHabitToList={this.addHabitToList} />
+                                                </div>}
                                         </div>
-                                        <AddHabitForm habitsList={this.state.habitsList} currentUser={this.props.user} toggleForm={this.toggleForm} addHabitToList={this.addHabitToList} />
-                                    </div>}
-                            </div>
-                            :
-                            <div>
-                                <img src={add} onMouseDown={this.toggleForm} className="add-habit-button" />
-                                <div>
-                                    <p>user has habits, hasn't selected one</p>
+                                        :
+                                        <div>
+                                            <img src={add} onMouseDown={this.toggleForm} className="add-habit-button" />
+                                            <div>
+                                                <p>user has habits, hasn't selected one</p>
+                                            </div>
+                                            {this.state.addHabitVisible &&
+                                                <div>
+                                                    <div onClick={this.toggleForm} className="add-habit-background">
+                                                    </div>
+                                                    <AddHabitForm habitsList={this.state.habitsList} currentUser={this.props.user} toggleForm={this.toggleForm} addHabitToList={this.addHabitToList} />
+                                                </div>}
+                                        </div>}
                                 </div>
-                                {this.state.addHabitVisible &&
-                                    <div>
-                                        <div onClick={this.toggleForm} className="add-habit-background">
-                                        </div>
-                                        <AddHabitForm habitsList={this.state.habitsList} currentUser={this.props.user} toggleForm={this.toggleForm} addHabitToList={this.addHabitToList} />
-                                    </div>}
-                            </div>}
+                            }
+                        </div>
                     </div>
                 }
-            </div >
+            </div>
+
         )
     }
 }
 
 const mapStateToProps = state => {
     return {
-        user: state.user.data
+        user: state.user.data,
+        completed: state.habits.completed
     }
 }
 
-export default connect(mapStateToProps, { getCurrentUser })(Habits);
+export default connect(mapStateToProps, { getCurrentUser, updateHabitsCompletedToday })(Habits);

@@ -18,33 +18,53 @@
     width: 60%;
     height: 100%;
     display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
+    flex-direction: row;
     background-color: transparent;
     border: 1px rgba(255, 255, 255, 0.283) solid;
-    overflow: scroll;
+    box-sizing: border-box;
+    overflow: visible;
 }
 .habits-sidebar-habit {
-    width: 100%;
-    background-color: transparent;
+    width: 85%;
+    /* height: 15%; */
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
+    justify-content: flex-start;
     align-items: center;
+    background-color: transparent;
+    /* background-color: aqua; */
+    border: 0;
+}
+.habits-sidebar-habit-item {
+    height: 12%;
+}
+.habits-sidebar-buttons {
+    width: 15%;
+    /* height: 15%; */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    background-color: transparent;
 }
 .habit-sidebar-text {
     width: 90%;
+    font-size: 1.5em;
 }
 .habit-quick-check {
     font-size: 3em;
     opacity: .85;
+    height: 12%;
+    padding-right: 50%;
+    padding-top: 20%;
 }
 .habit-quick-check:hover {
     opacity: 1;
     cursor: pointer;
 }
-.completed {
+/* .completed {
     color: rgb(0, 192, 0);
-}
+} */
 .habits-content {
     width: 100%;
     height: 100%;
@@ -67,15 +87,14 @@
 }
 .habit-green-button {
     color: rgb(0, 192, 0);
-    font-size: 2em;
+    font-size: 3em;
+    height: 12%;
+    padding-right: 50%;
+    padding-top: 20%;
 }
 .habit-red-button {
     color: rgb(233, 88, 88);
-    font-size: 2em;
-}
-.habit-quick0check {
-    color: rgba(255, 255, 255, 0.8);
-    font-size: 2em;
+    font-size: 3em;
 }
 .habit-type-icon {
     font-size: 2em;
@@ -159,4 +178,36 @@
 .add-habit-close-form:hover {
     opacity: 1;
     cursor: pointer;
+}
+.quick-view-button-cover {
+    background-color: transparent;
+    height: 3vh;
+    width: 100px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    margin: 0 auto;
+}
+.habits-quick-menu {
+    max-width: 60vw;
+    background-color: rgba(0, 0, 0, 0.646);
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-around;
+    overflow: scroll;
+}
+.habits-quick-menu-item {
+    margin-top: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+.habits-quick-menu-item > i, .habits-quick-menu-item > p {
+    padding: 0;
+    margin: 0 auto;
 }
