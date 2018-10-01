@@ -611,7 +611,7 @@ class Calendar extends Component{
         }
 
         let calendarBackdrop;
-        if(this.state.isNavMenuVisible || this.state.isHabitsMenuVisible || this.state.isEventModalVisible || this.state.isInfoModalVisible){
+        if(this.state.isEventModalVisible || this.state.isInfoModalVisible){
             calendarBackdrop = <Backdrop click={this.backdropClickHandler}/>
         }
 
@@ -631,6 +631,7 @@ class Calendar extends Component{
         return(
 
             <div className="content-container">
+            {calendarBackdrop}
                 <div className="calendar-div">
                     <InfiniteCalendar
                         width={"100%"}
@@ -638,12 +639,28 @@ class Calendar extends Component{
                         onSelect={this.updateSelectedDate}
                         className="calendar"/>
                 </div>
-
-                {calendarBackdrop}
-
                 <div className="calendar-day-info">
+                <div className="calendar-morning">
+                        <div className="event-list">
+                            {morningEventsRender}
+                        </div>
+                    </div>
+                    <div className="calendar-afternoon">
+                        <div className="event-list">
+                        {afternoonEventRender}
+                        </div>
+                    </div>
+                    <div className="calendar-evening">
+                        <div className="event-list">
+                        {eveningEventRender}
+                        </div>
+                    </div>
                         <div className="button-menu-wrapper-visible">
                             <img alt="add" src={add} onClick={this.toggleEventModal} className="add-button"/>
+                
+
+
+
                             {this.state.isEventModalVisible &&
                             <div className="add-event-menu">
                                 <div className="add-event-triangle"></div>
@@ -694,22 +711,13 @@ class Calendar extends Component{
                                 </div>
                                 </div>
                             </div>}
+
+
+
+
+
+                            
                         </div>
-                    <div className="calendar-morning">
-                        <div className="event-list">
-                            {morningEventsRender}
-                        </div>
-                    </div>
-                    <div className="calendar-afternoon">
-                        <div className="event-list">
-                        {afternoonEventRender}
-                        </div>
-                    </div>
-                    <div className="calendar-evening">
-                        <div className="event-list">
-                        {eveningEventRender}
-                        </div>
-                    </div>
             </div>    
             </div>
         )

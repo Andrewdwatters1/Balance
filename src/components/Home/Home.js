@@ -171,7 +171,7 @@ class Home extends Component {
     calendarToggler = () => {
         this.setState({
             isHomeCardVisible: false,
-            isWeatherCardVisible: false,
+            isWeatherCardVisible: true,
             isHabitsMenuVisible: false,
             isNavMenuVisible: false,
             isNotesVisible: false,
