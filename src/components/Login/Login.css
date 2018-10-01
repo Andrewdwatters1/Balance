@@ -1,4 +1,10 @@
 
+.loginBackgroundGradient{
+    height: 100vh;
+    width: 100vw;
+    background-color: rgba(0, 0, 0, 0.2)
+}
+
 .content-container>h1 {
     text-align: center;
     padding-top: 4vh;
@@ -7,6 +13,33 @@
     right: 0;
     top: 0;
 }
+
+.content-container{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+.logo-container{
+    display: inline-block;
+    margin-top: 40px;
+}
+
+.logo-container>h1{
+    margin-left: 20px;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.balance-logo{
+    width: 150px;
+    height: 150px;
+}
+
+.logo-container>h1{
+    font-family: 'Montserrat', sans-serif;
+}
+
+
 .login-form-container {
     display: flex;
     flex-direction: column;
@@ -14,6 +47,12 @@
     align-items: center;
     width: 100%;
 }
+
+.login-form-container>h3{
+    font-family: 'Montserrat', sans-serif;
+}
+
+
 .login-field-wrapper {
     display: flex;
     flex-direction: column;
@@ -22,9 +61,11 @@
     width: 60%;
     max-height: 55%;
 }
+
 .login-field-wrapper>p {
     margin-bottom: 0;
 }
+
 .button-wrapper {
     display: flex;
     flex-direction: row;
@@ -35,13 +76,22 @@
 .login-button {
     border: none;
     background-color: green;
-    width: 70px;
+    width: 90px;
     height: 30px;
-    margin-top: 3vh;
+    position: absolute;
+    bottom: 110px;
+    left: 452px;
+    border-radius: 3px;
 }
+
+.login-button:hover{
+    letter-spacing: 1px;
+}
+
 .register {
     background-color: orange;
 }
+
 .outside-form {
     position: absolute;
     right: 0;
@@ -49,9 +99,15 @@
     margin: 10%;
 }
 .login-input {
-    width: 10vw;
-    height: 20px;
+    width: 20vw;
+    height: 30px;
     border: none;
-    background-color: black;
+    background-color: transparent;
     text-align: center;
+    font-size: 15px;
+}
+
+.login-field-wrapper p{
+    font-family: 'Montserrat', sans-serif;
+    letter-spacing: 1px;
 }

@@ -6,6 +6,9 @@ import { ToastContainer, ToastStore } from 'react-toasts';
 import { getCurrentUser } from '../../redux/reducers/user';
 import './Login.css'
 
+//Images
+const balance = require('../../assets/balance.png')
+
 class Login extends Component {
     constructor(props) {
         super(props);
@@ -78,8 +81,9 @@ class Login extends Component {
         axios.post('/auth/register', newUserInfo).then(result => {
             let loginInfo = { username: newUserInfo.username, password: newUserInfo.password };
             axios.post('/auth/login', loginInfo).then(response => {
-                this.props.getCurrentUser();
                 ToastStore.success("Sign-up successful!", 4000, 'toast-success');
+            }, () => {
+                this.props.getCurrentUser();
             })
         }).catch(error => {
             console.log("Error from Login.js => handleRegisterSubmit", error);
@@ -103,21 +107,22 @@ class Login extends Component {
         let loginSubmitEnabled = username && password;
         let registerSubmitEnabled = firstName && lastName && username && email && password && zip
         return (
-            <div className="background">
-                <div className="background-cover">
+        <div className="loginBackgroundGradient">
                     <div className="content-container">
-                        <h1>Welcome to Planner</h1>
+                        <div className="logo-container">
+                        <img src={balance} className="balance-logo"/>
+                        <h1>Welcome to Balance</h1>
+                        </div>
                         {
                             this.state.isLoginVisible
                                 ?
                                 <div className="login-form-container">
-                                    <h3>Welcome Back!    Please Login</h3>
                                     <div className="login-field-wrapper">
                                         <form onSubmit={this.handleLoginSubmit} styles={{ display: 'block' }}>
                                             <p>USERNAME</p>
-                                            <input type="submit text" autoFocus="autoFocus" onChange={this.handleUsernameInput} value={this.state.username} placeholder="username" className="login-input"></input>
+                                            <input className="username-input" type="submit text" autoFocus="autoFocus" onChange={this.handleUsernameInput} value={this.state.username} placeholder="username" className="login-input"></input>
                                             <p>PASSWORD</p>
-                                            <input type="password" onChange={this.handlePasswordInput} value={this.state.password} placeholder="password" className="login-input"></input>
+                                            <input className="password-input" type="password" onChange={this.handlePasswordInput} value={this.state.password} placeholder="password" className="login-input"></input>
                                             <button type="submit" disabled={!loginSubmitEnabled} className="login-button">SUBMIT</button>
                                         </form>
                                     </div>
@@ -148,8 +153,7 @@ class Login extends Component {
                         }
                     </div>
                     <ToastContainer store={ToastStore} position={ToastContainer.POSITION.BOTTOM_RIGHT} />
-                </div>
-            </div>
+                    </div>
         )
     }
 }

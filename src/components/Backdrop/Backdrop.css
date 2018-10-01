@@ -16,10 +16,4 @@
     top: 0;
     z-index: 1;
     background-color: rgba(0, 0, 0, 0.01);
-    animation: fadeIn .2s steps(10) forwards;
-}
-
-@keyframes fadeIn {
-    from{background-color: rgba(0, 0, 0, 0.01)}
-    to{background-color: rgba(0, 0, 0, 0.646)}
 }
