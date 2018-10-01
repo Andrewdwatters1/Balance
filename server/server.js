@@ -50,6 +50,7 @@ app.get('/api/habitEvents', habitsController.getAllHabitEventsByHabit);
 app.post('/api/habitEvents', habitsController.addHabitEvent);
 app.post('/api/addHabitToday', habitsController.addHabitToday);
 app.post('/api/getTodaysHabits', habitsController.getTodaysHabits);
+app.post('/api/deleteHabit', habitsController.deleteHabit);
 
 // TODO ENDPOINTS
 app.get('/api/todo/:userid', todoController.getTodos)

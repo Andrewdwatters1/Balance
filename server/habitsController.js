@@ -77,5 +77,12 @@ module.exports = {
     db.habits.delete_todays_habits().then(result => {
       console.log('chron-script hit at: ', new Date());
     }).catch(error => console.log('Error from habitsController.deleteTodaysHabits, CRON EVENT', error))
+  },
+  deleteHabit: (req, res) => {
+    let db = req.app.get('db');
+    let { id } = req.body;
+    db.habits.delete_habit(id).then(result => {
+      res.status(200).send(result);
+    }).catch(error => console.log('Error from habitsController.deleteHabits', error));
   }
 }

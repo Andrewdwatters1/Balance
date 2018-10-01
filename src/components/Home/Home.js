@@ -10,11 +10,10 @@ import Backdrop from '../Backdrop/Backdrop.js'
 import Notes from '../Notes/NotePad.js'
 import Todo from '../Todo/Todo.js'
 import Habits from '../Habits/Habits.js'
-import HomeEvents from './homeEvents/HomeEvents'
-import HabitQuickMenu from '../Habits/HabitQuickMenu.js'
 import Calendar from '../Calendar/Calendar.js'
 import Login from '../Login/Login.js'
 import News from '../News/News.js'
+import HomeEvents from './homeEvents/HomeEvents'
 import { getCurrentUser } from '../../redux/reducers/user'
 
 
@@ -96,6 +95,7 @@ class Home extends Component {
                 time: date
             })
         }, 1000)
+        // this.habitsToggler()
     }
 
     toggleNavMenu = () => {
@@ -103,7 +103,11 @@ class Home extends Component {
             isNavMenuVisible: !this.state.isNavMenuVisible
         })
     }
-
+    toggleHabitsMenu = () => {
+        this.setState({
+            isHabitsMenuVisible: !this.state.isHabitsMenuVisible
+        })
+    }
     backdropClickHandler = () => {
         this.setState({
             isHabitsMenuVisisble: false,
@@ -158,6 +162,11 @@ class Home extends Component {
                 habitsQuickToggler: shouldQuickViewDisplay
             })
         }
+    }
+    habitsQuickViewToggler = () => {
+        this.setState({
+            isHabitsVisible: false
+        })
     }
     calendarToggler = () => {
         this.setState({
@@ -371,9 +380,9 @@ class Home extends Component {
                     {this.state.shouldAudioPlay && <audio src={focusAlertSound} autoPlay type="audio/wav">Your Browser Does Not Support Audio</audio>}
                     <img src={info} className="info-button" alt="info"/>
 
-                        <div className="transparent-top-menu-div" onMouseEnter={() => this.habitsToggler(true)}></div>
+                        
                         <div className="top-menu-button">
-                            <img src={habits}/>
+                            <img src={habits} onMouseEnter={() => this.habitsToggler(true)}/>
                         </div>
                         
                         <div className="transparent-left-menu-div" onMouseEnter={this.toggleNavMenu}></div>
@@ -455,7 +464,7 @@ class Home extends Component {
                         {this.state.isWeatherCardVisible && <Weather />}
                         {this.state.isNotesVisible && <Notes />}
                         {this.state.isTodoVisible && <Todo />}
-                        {this.state.isHabitsVisible && <Habits quickView={this.state.habitsQuickToggler}/>}
+                        {this.state.isHabitsVisible && <Habits quickView={this.state.habitsQuickToggler} habitsQuickViewToggler={this.habitsQuickViewToggler}/>}
                         {this.state.isCalendarVisible && <Calendar />}
                         {this.state.isNewsVisible && <News />}
 
