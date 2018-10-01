@@ -13,9 +13,10 @@
     background-color: rgba(0, 0, 0, 0.9);
     z-index: 5;
     display: flex;
+    flex-direction: row;
 }
 .habits-sidebar {
-    width: 60%;
+    width: 40%;
     height: 100%;
     display: flex;
     flex-direction: row;
@@ -111,10 +112,10 @@
     justify-content: center;
     text-align: center;
 }
-.habits-detail-description {
+/* .habits-detail-description {
     width: 70%;
     margin: 0 auto;
-}
+} */
 .habits-detail-bottom {
     display: flex;
     justify-content: center;

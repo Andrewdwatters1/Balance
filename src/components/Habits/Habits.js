@@ -144,10 +144,15 @@ class Habits extends Component {
                 e.date = e.dateformatted.split('/');
                 let day = daysOfTheWeek[(+e.date[3]) + 1];
                 let month = monthsOfTheYear[(+e.date[1]) + 1].substring(0, 3);
+                if(day === "Tuesday" || day === "Thursday") {
+                    day = day.substring(0, 4);
+                } else {
+                    day = day.substring(0, 3);
+                }
                 return (
                     <div key={i} className="habits-sidebar-habit-item">
                         <button onClick={() => this.showHabitDetail(e.id)} className="habits-sidebar-habit">
-                            <p className="habit-sidebar-text">{e.title} <br /> Started: <br /> {`${day}`}<br />{`${month}${e.date[2]}, ${e.date[0]}`}</p>
+                            <p className="habit-sidebar-text">{e.title} <br /> Started: {`${day}`}<br />{`${month} ${e.date[2]}, ${e.date[0]}`}</p>
                         </button>
                     </div >
                 )
