@@ -55,8 +55,8 @@ class ScratchPad extends Component{
                  <h5>{scratch.date}</h5>
                  {/* <input className="notepadtitles" value={title} onChange={this.handleTitle}/> */}
                  <textarea className="addscratchpadcontent" value={this.state.content} onChange={this.handleContent}/>
-                 <button className= "note-buttons" onClick={()=> this.saveUpdatedScrachPad(scratch.id)}>Save</button>
-                 <button className="note-buttons" onClick={() => this.props.deleteScratchPad(scratch.id)}>Delete</button>   
+                 {/* <h4 className= "note-buttons" onClick={()=> this.saveUpdatedScrachPad(scratch.id)}>Save</h4>
+                 <h4 className="note-buttons-delete" onClick={() => this.props.deleteScratchPad(scratch.id)}>Delete</h4>    */}
      
              </div>
          </div> 
