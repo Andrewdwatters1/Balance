@@ -32,7 +32,6 @@ module.exports = {
         }
     },
     editTodo : async (req,res) => {
-        console.log(req.body)
         try {
             let db = req.app.get('db')
             let todo = await db.todos.updateTodo(req.body.content, req.params.id, req.params.userid)
@@ -91,7 +90,7 @@ module.exports = {
     deleteNested : async (req,res) => {
         try {
             let db = req.app.get('db')
-            let todo = await db.todos.deleteNested(req.params.id, req.params.userid)
+            let todo = await db.todos.deleteNested(req.params.id, req.params.parenttodoid)
             res.send(todo)
         } catch (e) {
             console.log('Error deleting nested Orgin: todocontroller:',e);
@@ -102,7 +101,7 @@ module.exports = {
     updateNested : async(req,res)=>{
         try {
             let db = req.app.get('db')
-            let todo = await db.todos.updateNested(req.body.content, req.params.id, req.params.userid)
+            let todo = await db.todos.updateNested(req.body.content, req.params.id, req.params.parenttodoid)
             res.send(todo)
         } catch (e) {
             console.log('Error editing nested Orgin: todocontroller:',e);
@@ -113,7 +112,7 @@ module.exports = {
     markNestedComplete : async(req,res)=> {
         try {
             let db = req.app.get('db')
-            let todo = await db.todos.markNestedAsComplete(req.params.id, req.params.userid)
+            let todo = await db.todos.markNestedAsComplete(req.params.id, req.params.parenttodoid)
             res.send(todo)
         } catch (e) {
             console.log('Error marking complete nested Orgin: todocontroller:',e);
@@ -124,7 +123,7 @@ module.exports = {
     markNestedIncomplete : async(req,res)=> {
         try {
             let db = req.app.get('db')
-            let todo = await db.todos.markNestedAsIncomplete(req.params.id, req.params.userid)
+            let todo = await db.todos.markNestedAsIncomplete(req.params.id, req.params.parenttodoid)
             res.send(todo)
         } catch (e) {
             console.log('Error marking incomplete nested Orgin: todocontroller:',e);

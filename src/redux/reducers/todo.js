@@ -85,9 +85,11 @@ export default function reducer(state = initialState, action){
         case COMPLETE_NESTED_FULFILLED:
             return{...state, nested:action.payload.data}
         case INCOMPLETE_NESTED_FULFILLED:
-            return{...state, todos:action.payload.data}
+            return{...state, nested:action.payload.data}
         case NESTED_TOGGLE_EDIT:
-            return{...state, nestedEdit:action.payload}
+            return{...state, nestedFlag:action.payload}
+        case GET_NESTED_FULFILLED:
+            return{...state, nested:action.payload.data}
         default:
             return state
     }
@@ -156,28 +158,28 @@ export function createNested(parenttodoid, userid, content){
         payload: axios.post(`/api/todo/nested`, {parenttodoid, userid, content})
     }
 }
-export function deleteNested(id,userid){
+export function deleteNested(id,parenttodoid){
     return{
         type: GET_NESTED,
-        payload: axios.delete(`/api/todo/nested/${id}/${userid}`)
+        payload: axios.delete(`/api/todo/nested/${id}/${parenttodoid}`)
     }
 }
-export function editNested(content,id,userid){
+export function editNested(content,id,parenttodoid){
     return{
         type: EDIT_NESTED,
-        payload: axios.put(`/api/todo/nested/${id}/${userid}`, {content})
+        payload: axios.put(`/api/todo/nested/${id}/${parenttodoid}`, {content})
     }
 }
-export function completeNested(id,userid){
+export function completeNested(id,parenttodoid){
     return{
         type: COMPLETE_NESTED,
-        payload: axios.put(`/api/todo/nested/complete/${id}/${userid}`)
+        payload: axios.put(`/api/todo/nested/complete/${id}/${parenttodoid}`)
     }
 }
-export function incompleteNested(id,userid){
+export function incompleteNested(id,parenttodoid){
     return{
-        type: COMPLETE_NESTED,
-        payload: axios.put(`/api/todo/nested/incomplete/${id}/${userid}`)
+        type: INCOMPLETE_NESTED,
+        payload: axios.put(`/api/todo/nested/incomplete/${id}/${parenttodoid}`)
     }
 }
 export function nestedToggleEdit(x){
