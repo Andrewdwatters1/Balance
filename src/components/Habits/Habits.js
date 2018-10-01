@@ -207,7 +207,7 @@ class Habits extends Component {
         return (
             <div>
                 {this.props.quickView ?
-                    <HabitQuickMenu habitsCompletedToday={this.state.habitsCompletedToday} addHabitEvent={this.addHabitEvent}/>
+                    <HabitQuickMenu onMouseLeave={()=>this.props.toggler(this.props.quickView)} habitsCompletedToday={this.state.habitsCompletedToday} addHabitEvent={this.addHabitEvent}/>
                     :
                     <div>
                         <div className="quick-view-button-cover"></div>

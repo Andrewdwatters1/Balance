@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { ToastContainer, ToastStore } from 'react-toasts';
-import axios from 'axios'
 import moment from 'moment'
 import FocusCompleteModal from './Timer/FocusCompleteModal/FocusCompleteModal'
 import BreakCompleteModal from './Timer/BreakCompleteModal/BreakCompleteModal'
@@ -11,6 +10,7 @@ import Backdrop from '../Backdrop/Backdrop.js'
 import Notes from '../Notes/NotePad.js'
 import Todo from '../Todo/Todo.js'
 import Habits from '../Habits/Habits.js'
+import HomeEvents from './homeEvents/HomeEvents'
 import HabitQuickMenu from '../Habits/HabitQuickMenu.js'
 import Calendar from '../Calendar/Calendar.js'
 import Login from '../Login/Login.js'
@@ -30,6 +30,8 @@ const todos = require('../../assets/todo.png')
 const habits = require('../../assets/infinity.png')
 const calendar = require('../../assets/calendar.png')
 const settings = require('../../assets/settings.png')
+const info = require('../../assets/info.png')
+const news = require('../../assets/news.png')
 
 //Timer Variables, Media
 
@@ -39,8 +41,8 @@ const question = require('../../assets/question.png')
 const start = require('../../assets/play.png')
 const pause = require('../../assets/pause.png')
 const minimize = require('../../assets/minimize.png')
-const minus = require('../../assets/minimize.png')
-const plus = require('../../assets/plus.png')
+// const minus = require('../../assets/minimize.png')
+// const plus = require('../../assets/plus.png')
 const focusAlertSound = require('../../assets/focusAlert.wav')
 
 class Home extends Component {
@@ -65,7 +67,6 @@ class Home extends Component {
 
             date: new Date(),
             time: time,
-            events: [],
 
             //Timer State
             pomodoros: 0,
@@ -88,14 +89,6 @@ class Home extends Component {
 
     componentDidMount() {
         this.props.getCurrentUser();
-        let date1 =moment(new Date()).format("YYYY/MM/DD")
-        let date2 =moment(moment(new Date()).add(7, 'd').format('YYYY/MM/DD'))._i    
-        axios.get(`/api/eventdates?event_date1=${date1}&event_date2=${date2}`).then(response => {
-            console.log('response data', response)
-            this.setState({
-                events: response.data
-            })
-        })
         const _this = this;
         this.timer = setInterval(function () {
             var date = _this.getTimeString();
@@ -110,18 +103,14 @@ class Home extends Component {
             isNavMenuVisible: !this.state.isNavMenuVisible
         })
     }
-    toggleHabitsMenu = () => {
-        this.setState({
-            isHabitsMenuVisible: !this.state.isNavMenuVisible
-        })
-    }
+
     backdropClickHandler = () => {
         this.setState({
             isHabitsMenuVisisble: false,
             isNavMenuVisible: false,
-            isTimerVisible: false
         });
     };
+
     notesToggler = () => {
         this.setState({
             isHomeCardVisible: false,
@@ -135,6 +124,7 @@ class Home extends Component {
             isNewsVisible: false,
         })
     }
+
     todoToggler = () => {
         this.setState({
             isHomeCardVisible: false,
@@ -239,7 +229,6 @@ class Home extends Component {
     completeFocusTimer = () => {
         let { toggleFocusCompleteModal } = this
         let { audioTrigger } = this
-        let { setState } = this
         this.pomodoroIncrementer()
         this.startBreakTimer()
         toggleFocusCompleteModal()
@@ -330,24 +319,14 @@ class Home extends Component {
 
     render() {
 
-
-
-        //Home-Related Renders
-
-        let upcomingEvents = this.state.events.map(event => {
-            return (
-            <div className="upcoming-events-div">
-                <span className="event-date">{event.event_formatted_date}</span>
-                <span className="event-time">{moment(event.event_time, "HH:mm:ss").format("h:mm A")}</span>
-                <span className="event-name">{event.event_name}</span>
-            </div>
-            )
-        }) 
-
+        let navButtonVisibility = "block";
+        if(this.state.isNavMenuVisible === true){navButtonVisibility = "none"}
+        
         let backdrop;
         if (this.state.isNavMenuVisible || this.state.isHabitsMenuVisible) {
-            backdrop = <Backdrop click={this.backdropClickHandler} />
+            backdrop = <Backdrop click={this.backdropClickHandler}/>
         }
+
         let daysOfTheWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
         let dayNumber = this.state.date.getDay();
         let day = daysOfTheWeek[dayNumber];
@@ -359,7 +338,7 @@ class Home extends Component {
             if (hour >= 17) { return "Good Evening" }
             else if (hour >= 12) { return "Good Afternoon" }
             else if (hour >= 4) { return "Good Morning" }
-            else return "Hello"
+            else return "Good Evening"
         }
         let formattedTime = this.state.time.slice(0, -6)
 
@@ -388,17 +367,17 @@ class Home extends Component {
 
         if (this.props.user) {
             return (
-                <div className="background">
+                <div>
                     {this.state.shouldAudioPlay && <audio src={focusAlertSound} autoPlay type="audio/wav">Your Browser Does Not Support Audio</audio>}
-                    <div className="background-cover">
-                        <div className="top-menu"></div>
-                        {backdrop}
-                        <div className="top-menu-button">
-                            <img src={habits} onMouseEnter={() => this.habitsToggler(true)} />
-                        </div>
+                    <img src={info} className="info-button" alt="info"/>
 
-                        <div className="left-menu-button"
-                            onMouseEnter={this.toggleNavMenu}>
+                        <div className="transparent-top-menu-div" onMouseEnter={() => this.habitsToggler(true)}></div>
+                        <div className="top-menu-button">
+                            <img src={habits}/>
+                        </div>
+                        
+                        <div className="transparent-left-menu-div" onMouseEnter={this.toggleNavMenu}></div>
+                        <div className="left-menu-button" style={{display: `${navButtonVisibility}`}}>
                             <img src={arrow} />
                         </div>
                         <div>
@@ -443,7 +422,7 @@ class Home extends Component {
                             }
                         </div>
 
-                        {this.state.isNavMenuVisible && <div className="left-menu">
+                        {this.state.isNavMenuVisible && <div className="left-menu" onMouseLeave={this.toggleNavMenu}>
                             <div className="spacer"></div>
                             <div className="left-menu-item-wrapper">
                                 <img src={notepad} onClick={this.notesToggler} />
@@ -458,7 +437,7 @@ class Home extends Component {
                                 <img src={calendar} onClick={this.calendarToggler} />
                             </div>
                             <div className="left-menu-item-wrapper">
-                                <i class="far fa-newspaper" onClick={this.newsToggler} />
+                                <img src={news} onClick={this.newsToggler} />
                             </div>
                             <div className="left-menu-item-wrapper">
                                 <img src={settings} />
@@ -476,7 +455,7 @@ class Home extends Component {
                         {this.state.isWeatherCardVisible && <Weather />}
                         {this.state.isNotesVisible && <Notes />}
                         {this.state.isTodoVisible && <Todo />}
-                        {this.state.isHabitsVisible && <Habits quickView={this.state.habitsQuickToggler} />}
+                        {this.state.isHabitsVisible && <Habits quickView={this.state.habitsQuickToggler}/>}
                         {this.state.isCalendarVisible && <Calendar />}
                         {this.state.isNewsVisible && <News />}
 
@@ -489,18 +468,17 @@ class Home extends Component {
                                 <span>{day}, </span>
                                 <span>{month} </span>
                                 <span>{this.state.date.getDate()} </span>
-                                <span>{this.state.date.getFullYear()}</span>
+                                <span>{this.state.date.getFullYear()}.</span>
 
                                 <div className="home-spacer"></div>
 
                                 <p>Here are your upcoming events:</p>
-                                {upcomingEvents}
+                                <HomeEvents/>
 
                             </div>
                         }
-                    </div>
                     <ToastContainer store={ToastStore} position={ToastContainer.POSITION.BOTTOM_RIGHT} />
-                </div>
+                    </div>
             )
         }
         else {
