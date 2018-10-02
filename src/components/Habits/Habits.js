@@ -143,11 +143,16 @@ class Habits extends Component {
             var allHabitsOverview = this.state.habitsList.map((e, i) => {
                 e.date = e.dateformatted.split('/');
                 let day = daysOfTheWeek[(+e.date[3]) + 1];
-                let month = monthsOfTheYear[(+e.date[1]) + 1];
+                let month = monthsOfTheYear[(+e.date[1]) + 1].substring(0, 3);
+                if(day === "Tuesday" || day === "Thursday") {
+                    day = day.substring(0, 4);
+                } else {
+                    day = day.substring(0, 3);
+                }
                 return (
                     <div key={i} className="habits-sidebar-habit-item">
                         <button onClick={() => this.showHabitDetail(e.id)} className="habits-sidebar-habit">
-                            <p className="habit-sidebar-text">{e.title} <br /> Started: {`${day}, ${month} ${e.date[2]}, ${e.date[0]}`}</p>
+                            <p className="habit-sidebar-text">{e.title} <br /> Started: {`${day}`}<br />{`${month} ${e.date[2]}, ${e.date[0]}`}</p>
                         </button>
                     </div >
                 )
@@ -175,7 +180,7 @@ class Habits extends Component {
                     <div key={i} className="habits-detail-habit">
                         <div className="habit-detail-top">
                             <h1>{e.title}</h1>
-                            <h3>{e.description}</h3>
+                            <h3 className="habits-detail-description">{e.description}</h3>
                             <p>Habit Category: {e.type === "Personal" ? 'Personal' : e.type === "Professional" ? 'Professional' : 'Health/Fitness'}</p>
                         </div>
                         <div>
@@ -242,7 +247,7 @@ class Habits extends Component {
         return (
             <div>
                 {this.props.quickView ?
-                        <HabitQuickMenu habitsCompletedToday={this.state.habitsCompletedToday} addHabitEvent={this.addHabitEvent} habitsQuickViewToggler={this.props.habitsQuickViewToggler}/>
+                    <HabitQuickMenu habitsCompletedToday={this.state.habitsCompletedToday} addHabitEvent={this.addHabitEvent} habitsQuickViewToggler={this.props.habitsQuickViewToggler} />
                     :
                     <div>
                         <div className="quick-view-button-cover"></div>

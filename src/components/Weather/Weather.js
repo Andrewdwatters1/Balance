@@ -17,6 +17,7 @@ const fog  = require('../../assets/weather images/fog.png')
 const cloudy  = require('../../assets/weather images/cloudy.png')
 const partlyCloudyDay  = require('../../assets/weather images/partly-cloudy-day.png')
 const partlyCloudyNight = require('../../assets/weather images/partly-cloudy-night.png')
+const loading = require('../../assets/loading.svg')
 
 
 //IMPORTANT!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -101,7 +102,6 @@ class Weather extends Component {
                 axios.get(`/api/weather?long=${this.state.userLng}&lat=${this.state.userLat}`).then(results => {
                     let { currently } = results.data;
                     let { data } = results.data.daily;
-                    console.log(results.data)
                     this.setState({
                         currentTemperature: Math.trunc(currently.temperature),
                         icon: currently.icon,
@@ -157,7 +157,7 @@ class Weather extends Component {
             else if(icon === 'cloudy'){return <img className="weather-forecast-icon" src={cloudy} alt="cloudy"/>}
             else if(icon === 'partly-cloudy-day'){return <img className="weather-forecast-icon" src={partlyCloudyDay} alt="partly cloudy day"/>}
             else if(icon === 'partly-cloudy-night'){return <img className="weather-forecast-icon" src={partlyCloudyNight} alt="partly cloudy night"/>}
-            else return "?"
+            else return <img className="weather-forecast-icon" src={loading} alt="loading"/>
         }
 
         function mainIconMaker(icon){
@@ -171,7 +171,7 @@ class Weather extends Component {
             else if(icon === 'cloudy'){return <img className="main-forecast-icon" src={cloudy} alt="cloudy"/>}
             else if(icon === 'partly-cloudy-day'){return <img className="main-forecast-icon" src={partlyCloudyDay} alt="partly cloudy day"/>}
             else if(icon === 'partly-cloudy-night'){return <img className="main-forecast-icon" src={partlyCloudyNight} alt="partly cloudy night"/>}
-            else return "?"
+            else return <img className="main-forecast-icon" src={loading} alt="loading"/>
         }
 
         let daysOfTheWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']

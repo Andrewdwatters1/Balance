@@ -73,7 +73,7 @@
 }
 
 .notesRemove{
-    background: url(../../assets/trash-icon.png) no-repeat;
+    : url(../../assets/trash-icon.png) no-repeat;
     cursor: pointer;
     width: 25px;
     height: 25px;

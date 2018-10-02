@@ -75,10 +75,10 @@ module.exports = {
           try {
             let db = req.app.get('db');
             let { id } = req.session.user
-            let {event_date1, event_date2 } = req.query;
-            console.log(req.query)
-            let eventInfo = await db.calendar.getEventsForWeek([id, event_date1, event_date2]);
-            res.send(eventInfo)
+            let {event_date1, event_date2, event_date3 } = req.query;
+            let events = await db.calendar.getEventsForWeek([id, event_date1, event_date2, event_date3]);
+            console.log(events)
+            res.send(events)
           } catch (error) {
             console.log('Error retrieving next weeks events', error)
             res.status(500).send(error)

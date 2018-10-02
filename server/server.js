@@ -87,7 +87,7 @@ app.put('/api/scratchpad/:id', notesController.updateScratchPad)
 // });
 
 cron.schedule('1 0 0 * * *', () => { // runs at 00:01 EST every day
-cron.schedule('*/10 * * * * *', () => {
+// cron.schedule('*/10 * * * * *', () => {
   habitsController.updateHabitEvents(app);
   habitsController.deleteTodaysHabits(app);
   notesController.autoAddScratchPad(app);
@@ -101,6 +101,7 @@ cron.schedule('*/10 * * * * *', () => {
 // }, {
 //   schedule: true
 // })
+
 
 app.listen(serverPort, () => {
   console.log('Server is running on port: ', serverPort);
