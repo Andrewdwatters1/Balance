@@ -28,7 +28,7 @@ CREATE TABLE habitEvents (
   completed BOOLEAN
 );
 
-CREATE TABLE habitsToday(
+CREATE TABLE habitsToday (
   id SERIAL PRIMARY KEY,
   habitid INT,
   FOREIGN KEY (habitid) REFERENCES habits,

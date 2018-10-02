@@ -1,5 +1,5 @@
 ## BALANCE 
-# Balance is our take on the popular Momentum Chrome Extension, and is a productivity centric SPA with a feature-rich UI and fully-integrated full-stack design.  The project was bootstrapped with the create-react-app CLI and a nodeJS backend.  
+Balance is our take on the popular Momentum Chrome Extension, and is a productivity centric SPA with a feature-rich UI and fully-integrated full-stack design.  The project was bootstrapped with the create-react-app CLI and a nodeJS backend.  
 
 # Project Design: 
   Initial planning suggested that a SPA layout would be the most effective and engaging for a productivity focused application, so we decided to forego routing and create a fairly simple component architecture.  As the project's timeline was fairly constricted, we decided to start working towards an MVP which included a scratchpad/notes section, a nested to-do section, a calendar section, and a habit tracking section.  
