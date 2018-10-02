@@ -96,7 +96,7 @@ class Home extends Component {
             })
         }, 1000)
         // ,
-        // this.newsToggler()
+        this.newsToggler()
         // this.habitsToggler()
     }
 
