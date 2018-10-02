@@ -16,11 +16,10 @@ const habitsController = require('./habitsController');
 const eventsController = require('./eventsController')
 const notesController = require('./notesController');
 const todoController = require('./todoController')
+const weatherController = require('./weatherController')
 
 const app = express();
 const serverPort = process.env.SERVER_PORT;
-
-
 
 app.use(bodyParser.json());
 massive(process.env.CONNECTION_STRING).then(db => {
@@ -51,6 +50,7 @@ app.get('/api/habitEvents', habitsController.getAllHabitEventsByHabit);
 app.post('/api/habitEvents', habitsController.addHabitEvent);
 app.post('/api/addHabitToday', habitsController.addHabitToday);
 app.post('/api/getTodaysHabits', habitsController.getTodaysHabits);
+app.post('/api/deleteHabit', habitsController.deleteHabit);
 
 // TODO ENDPOINTS
 app.get('/api/todo/:userid', todoController.getTodos)
@@ -73,21 +73,26 @@ app.post('/api/events', eventsController.createEvent)
 app.get('/api/events', eventsController.getEventsByDate)
 app.put('/api/events/:id', eventsController.updateEventById)
 app.delete('/api/events/:id', eventsController.updateEventById)
+app.get('/api/eventdates', eventsController.getEventsForWeek)
+
+//  WEATHER ENDPTS
+app.get('/api/weather', weatherController.getWeather)
 
 // NOTES ENDPTS
 app.get('/api/notepad', notesController.getAllNotes)
 app.post('/api/notepad', notesController.addNotes)
 app.delete('/api/notepad/:id', notesController.deleteNotes)
 app.put('/api/notepad/:id', notesController.updateNotes)
+
 //SCRATCHPAD ENDPTS
 app.get('/api/scratchpad', notesController.getScratchPad)    
 app.post('/api/scratchpad', notesController.addScratchPad)    
 app.delete('/api/scratchpad/:id', notesController.deleteScratchPad)
 app.put('/api/scratchpad/:id', notesController.updateScratchPad)   
 
-app.get('*', (req, res) => { // PRODUCTION BUILD ONLY
-  res.sendFile(path.join(__dirname, '../build/index.html'));
-});
+// app.get('*', (req, res) => { // PRODUCTION BUILD ONLY
+//   res.sendFile(path.join(__dirname, '../build/index.html'));
+// });
 
 cron.schedule('1 0 0 * * *', () => { // runs at 00:01 EST every day
 // cron.schedule('*/10 * * * * *', (req) => {

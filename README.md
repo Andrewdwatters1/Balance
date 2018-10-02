@@ -1,10 +1,31 @@
-Branch master as the primary production branch.  
-  -Branch "Calendar" Ryan Whitecar
-  -Branch "Notes" Taylor Montgomery
-  -Branch "Todos" Palmer Campbell
-  -Branch "Habits" Andrew Watters
+## BALANCE 
+# Balance is our take on the popular Momentum Chrome Extension, and is a productivity centric SPA with a feature-rich UI and fully-integrated full-stack design.  The project was bootstrapped with the create-react-app CLI and a nodeJS backend.  
 
-Trello Board: https://trello.com/b/ui61drnq/group-project-board
+# Project Design: 
+  Initial planning suggested that a SPA layout would be the most effective and engaging for a productivity focused application, so we decided to forego routing and create a fairly simple component architecture.  As the project's timeline was fairly constricted, we decided to start working towards an MVP which included a scratchpad/notes section, a nested to-do section, a calendar section, and a habit tracking section.  
+
+# Project Functionality: 
+  As the project progressed beyond our initial MVP, we opted to expand the functionality to include a basic pomodoro, weather display and news section. We also implemented basic endpoint and unit testing, leading a more test-driven development process as we neared completion.
+
+# Project Tech: 
+  One of our objectives in creating BALANCE was to continue exploring relevant 3rd party libraries.  As such, we opted to bring in the following tech: 
+    - Redux: JS library for global state management
+    - MomentJS: JS library for date manipulation, validation and parsing
+    - MaterialUI: React UI framework to implement Google's Material Design
+    - React Infinite Calendar: Mobile friendly, highly customizable c calendar wireframe
+    - NodeCron: NodeJS task scheduler module
+    - Redux Promise Middleware: Middleware library enabling more robust async handling in Redux
+    - BcryptJS: NodeJS library for password encryption/decryption
+    - Massive: PostgreSQL database access tool
+    - Axios: Promise based HTTP client for the browser and node.js
+
+# The Team: 
+  Momentum was created by Palmer Campbell, Ryan Whitecar, Taylor Montgomery and Andrew Watters during the first Salt Lake City, UT Cohort at DevMountain, circa 2018.  
+
+
+
+
+
 
 
 
