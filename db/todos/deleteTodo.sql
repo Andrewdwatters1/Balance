@@ -1,3 +1,7 @@
+DELETE FROM nestedtodos
+WHERE parenttodoid = $1;
+
+
 DELETE FROM todos
 WHERE id = $1;
 
