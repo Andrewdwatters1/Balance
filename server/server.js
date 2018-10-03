@@ -59,6 +59,14 @@ app.put('/api/todo/:id/:userid', todoController.editTodo)
 app.post('/api/todo', todoController.createTodo)
 app.put('/api/todo/complete/:id/:userid', todoController.markComplete)
 app.put('/api/todo/incomplete/:id/:userid', todoController.markIncomplete)
+app.get('/api/todo/nested/:parenttodoid', todoController.getNested)
+app.post('/api/todo/nested', todoController.createNested)
+app.delete('/api/todo/nested/:id/:parenttodoid', todoController.deleteNested)
+app.put('/api/todo/nested/:id/:parenttodoid', todoController.updateNested)
+app.put('/api/todo/nested/complete/:id/:parenttodoid', todoController.markNestedComplete)
+app.put('/api/todo/nested/incomplete/:id/:parenttodoid', todoController.markNestedIncomplete)
+
+// TODO ENDPTS
 
 // CALENDAR ENDPTS
 app.post('/api/events', eventsController.createEvent)

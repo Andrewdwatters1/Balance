@@ -6,7 +6,7 @@ import FocusCompleteModal from './Timer/FocusCompleteModal/FocusCompleteModal'
 import BreakCompleteModal from './Timer/BreakCompleteModal/BreakCompleteModal'
 
 import Weather from '../Weather/Weather.js'
-import Backdrop from '../Backdrop/Backdrop.js'
+import Backdrop from '../Backdrop/Backdrop'
 import Notes from '../Notes/NotePad.js'
 import Todo from '../Todo/Todo.js'
 import Habits from '../Habits/Habits.js'
@@ -22,8 +22,7 @@ import './Home.css'
 import './Timer/Timer.css'
 
 //Home Images
-
-const arrow = require('../../assets/play-button.png')
+const home = require('../../assets/home.png')
 const notepad = require('../../assets/notepad.png')
 const todos = require('../../assets/todo.png')
 const habits = require('../../assets/infinity.png')
@@ -31,6 +30,7 @@ const calendar = require('../../assets/calendar.png')
 const settings = require('../../assets/settings.png')
 const info = require('../../assets/info.png')
 const news = require('../../assets/news.png')
+const timer = require('../../assets/timer.png')
 
 //Timer Variables, Media
 
@@ -40,8 +40,6 @@ const question = require('../../assets/question.png')
 const start = require('../../assets/play.png')
 const pause = require('../../assets/pause.png')
 const minimize = require('../../assets/minimize.png')
-// const minus = require('../../assets/minimize.png')
-// const plus = require('../../assets/plus.png')
 const focusAlertSound = require('../../assets/focusAlert.wav')
 
 class Home extends Component {
@@ -52,15 +50,13 @@ class Home extends Component {
 
             isHomeCardVisible: true,
             isWeatherCardVisible: true,
-            isNavMenuVisible: false,
             isHabitsMenuVisible: false,
             isTimerVisisble: false,
-
             isNotesVisible: false,
             isTodoVisible: false,
             isHabitsVisible: false,
             isCalendarVisible: false,
-            isWeatherModalVisivle: false,
+            isWeatherModalVisible: false,
             isNewsVisible: false,
             habitsQuickToggler: false,
 
@@ -95,32 +91,36 @@ class Home extends Component {
                 time: date
             })
         }, 1000)
-        // this.habitsToggler()
+
     }
 
-    toggleNavMenu = () => {
-        this.setState({
-            isNavMenuVisible: !this.state.isNavMenuVisible
-        })
-    }
     toggleHabitsMenu = () => {
         this.setState({
             isHabitsMenuVisible: !this.state.isHabitsMenuVisible
         })
     }
-    backdropClickHandler = () => {
+
+    homeClickHandler = () => {
         this.setState({
-            isHabitsMenuVisisble: false,
-            isNavMenuVisible: false,
-        });
-    };
+            isHomeCardVisible: true,
+            isWeatherCardVisible: true,
+            isHabitsMenuVisible: false,
+            isTimerVisisble: false,
+            isNotesVisible: false,
+            isTodoVisible: false,
+            isHabitsVisible: false,
+            isCalendarVisible: false,
+            isWeatherModalVisible: false,
+            isNewsVisible: false,
+            habitsQuickToggler: false,
+        })
+    }
 
     notesToggler = () => {
         this.setState({
             isHomeCardVisible: false,
-            isWeatherCardVisible: false,
+            isWeatherCardVisible: true,
             isHabitsMenuVisible: false,
-            isNavMenuVisible: false,
             isNotesVisible: true,
             isTodoVisible: false,
             isHabitsVisible: false,
@@ -132,9 +132,8 @@ class Home extends Component {
     todoToggler = () => {
         this.setState({
             isHomeCardVisible: false,
-            isWeatherCardVisible: false,
+            isWeatherCardVisible: true,
             isHabitsMenuVisible: false,
-            isNavMenuVisible: false,
             isNotesVisible: false,
             isTodoVisible: true,
             isHabitsVisible: false,
@@ -151,9 +150,8 @@ class Home extends Component {
         } else {
             this.setState({
                 isHomeCardVisible: false,
-                isWeatherCardVisible: false,
+                isWeatherCardVisible: true,
                 isHabitsMenuVisible: false,
-                isNavMenuVisible: false,
                 isNotesVisible: false,
                 isTodoVisible: false,
                 isHabitsVisible: true,
@@ -171,9 +169,8 @@ class Home extends Component {
     calendarToggler = () => {
         this.setState({
             isHomeCardVisible: false,
-            isWeatherCardVisible: false,
+            isWeatherCardVisible: true,
             isHabitsMenuVisible: false,
-            isNavMenuVisible: false,
             isNotesVisible: false,
             isTodoVisible: false,
             isHabitsVisible: false,
@@ -184,9 +181,8 @@ class Home extends Component {
     newsToggler = () => {
         this.setState({
             isHomeCardVisible: false,
-            isWeatherCardVisible: false,
+            isWeatherCardVisible: true,
             isHabitsMenuVisible: false,
-            isNavMenuVisible: false,
             isNotesVisible: false,
             isTodoVisible: false,
             isHabitsVisible: false,
@@ -196,7 +192,7 @@ class Home extends Component {
     }
     toggleTimer = () => {
         this.setState({
-            isTimerVisible: true
+            isTimerVisible: !this.state.isTimerVisible
         })
     }
 
@@ -327,13 +323,10 @@ class Home extends Component {
     }
 
     render() {
-
-        let navButtonVisibility = "block";
-        if(this.state.isNavMenuVisible === true){navButtonVisibility = "none"}
         
         let backdrop;
-        if (this.state.isNavMenuVisible || this.state.isHabitsMenuVisible) {
-            backdrop = <Backdrop click={this.backdropClickHandler}/>
+        if (this.state.isTimerVisible) {
+            backdrop = <Backdrop click={this.toggleTimer}/>
         }
 
         let daysOfTheWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
@@ -378,22 +371,12 @@ class Home extends Component {
             return (
                 <div>
                     {this.state.shouldAudioPlay && <audio src={focusAlertSound} autoPlay type="audio/wav">Your Browser Does Not Support Audio</audio>}
-                    <img src={info} className="info-button" alt="info"/>
-
-                        
-                        <div className="top-menu-button">
-                            <img src={habits} onMouseEnter={() => this.habitsToggler(true)}/>
-                        </div>
-                        
-                        <div className="transparent-left-menu-div" onMouseEnter={this.toggleNavMenu}></div>
-                        <div className="left-menu-button" style={{display: `${navButtonVisibility}`}}>
-                            <img src={arrow} />
-                        </div>
-                        <div>
-                            {!this.state.isTimerVisible && <div id="timer-homepage-icon" onClick={this.toggleTimer} />}
-
+                    <div className="top-menu-button">
+                        <img alt="habits-quick-check" src={habits} onMouseEnter={() => this.habitsToggler(true)}/>
+                    </div>
+                        {backdrop}
+                    <div>
                             {this.state.isTimerVisible &&
-
                                 <div className="timer-container">
                                     <img src={minimize} alt="minimize timer" className="timer-help-button" onClick={this.minimizeTimer} />
                                     <img src={question} alt="help" className="timer-minimize-button" />
@@ -431,27 +414,18 @@ class Home extends Component {
                             }
                         </div>
 
-                        {this.state.isNavMenuVisible && <div className="left-menu" onMouseLeave={this.toggleNavMenu}>
+                        <div className="left-menu">
                             <div className="spacer"></div>
-                            <div className="left-menu-item-wrapper">
-                                <img src={notepad} onClick={this.notesToggler} />
-                            </div>
-                            <div className="left-menu-item-wrapper">
-                                <img src={todos} onClick={this.todoToggler} />
-                            </div>
-                            <div className="left-menu-item-wrapper">
-                                <img src={habits} onClick={() => this.habitsToggler(false)} />
-                            </div>
-                            <div className="left-menu-item-wrapper">
-                                <img src={calendar} onClick={this.calendarToggler} />
-                            </div>
-                            <div className="left-menu-item-wrapper">
-                                <img src={news} onClick={this.newsToggler} />
-                            </div>
-                            <div className="left-menu-item-wrapper">
-                                <img src={settings} />
-                            </div>
-                        </div>}
+                                <img alt="home" src={home} onClick={this.homeClickHandler}/>
+                                <img alt="notepad" src={notepad} style={{marginLeft : "10px"}}onClick={this.notesToggler} />
+                                <img alt="todos" src={todos} onClick={this.todoToggler} />
+                                <img alt="habits" src={habits} onClick={() => this.habitsToggler(false)} />
+                                <img alt="calendar" src={calendar} onClick={this.calendarToggler} />
+                                <img alt="news" src={news} onClick={this.newsToggler} />
+                                <img alt="timer" src={timer} onClick={this.toggleTimer} />
+                                <img alt="info" src={info}/>
+                                <img alt="settings" src={settings} />
+                        </div>
 
 
                         {/* Timer Modals*/}
@@ -461,11 +435,11 @@ class Home extends Component {
 
                         {/*Feature Modals*/}
 
-                        {this.state.isWeatherCardVisible && <Weather />}
+                        {this.state.isWeatherCardVisible && <Weather/>}
                         {this.state.isNotesVisible && <Notes />}
                         {this.state.isTodoVisible && <Todo />}
                         {this.state.isHabitsVisible && <Habits quickView={this.state.habitsQuickToggler} habitsQuickViewToggler={this.habitsQuickViewToggler}/>}
-                        {this.state.isCalendarVisible && <Calendar />}
+                        {this.state.isCalendarVisible && <Calendar isWeatherModalVisible={this.state.isWeatherModalVisible} />}
                         {this.state.isNewsVisible && <News />}
 
 
@@ -480,9 +454,11 @@ class Home extends Component {
                                 <span>{this.state.date.getFullYear()}.</span>
 
                                 <div className="home-spacer"></div>
-
+                                
+                                <div className="upcoming-events">
                                 <p>Here are your upcoming events:</p>
                                 <HomeEvents/>
+                                </div>
 
                             </div>
                         }
