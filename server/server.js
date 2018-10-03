@@ -105,6 +105,7 @@ app.put('/api/scratchpad/:id', notesController.updateScratchPad)
 cron.schedule('1 0 0 * * *', () => { // runs at 00:01 in user's timezone daily
   habitsController.updateHabitEvents(app);
   habitsController.deleteTodaysHabits(app);
+  notesController.autoAddScratchPad(app);
   console.log('cron script hit at ', new Date());
 }, {
     scheduled: true,
