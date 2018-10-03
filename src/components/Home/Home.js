@@ -83,9 +83,6 @@ class Home extends Component {
                 time: date
             })
         }, 1000)
-        // ,
-        // this.newsToggler()
-        // this.habitsToggler()
     }
 
     toggleHabitsMenu = () => {
