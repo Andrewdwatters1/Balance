@@ -24,6 +24,7 @@ html {
     height: 20vh;
     background-color: rgba(0, 0, 0, 0.516);
     display: none;
+    z-index: 1;
 }
 
 .top-menu-button{
@@ -34,6 +35,7 @@ html {
     background-color: rgba(0, 0, 0, 0.70);
     border-bottom-left-radius: 50px;
     border-bottom-right-radius: 50px;
+    z-index: 1;
 }
 
 .top-menu-button img{
@@ -52,6 +54,7 @@ html {
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: space-evenly;
     z-index: 3;
     background-color: transparent;
     box-shadow: 0 0 0 0 transparent;
@@ -66,26 +69,18 @@ html {
     opacity: 1;
 }
 
-.left-menu img{
-    margin-bottom: 30px;
+.left-menu div{
     height: 35px;
+    width: 35px;
     opacity: inherit;
 }
 
-.left-menu img:hover{
-    opacity: 1;
-}
-
-.left-menu .spacer{
-    height: 15vh;
-}
-
-.left-menu img:hover{
+.left-menu div:hover{
     cursor: pointer;
+    background-position: 0 0;
 }
 
 .home-center-card{
-
     position: absolute;
     text-align: center;
     top:0;
@@ -120,18 +115,6 @@ letter-spacing: 1.2px;
     height: 50px;
 }
 
-#timer-homepage-icon{
-    height: 35px;
-    background: url("../../assets/timer.png") bottom;
-    width: 35px;
-    position: absolute;
-    bottom: -30px;
-}
-
-#timer-homepage-icon:hover {
-    background-position: 0 0;
-}
-
 .event-date{
     color: rgba(255, 255, 255, 0.701);
     font-size: 13px;
@@ -144,9 +127,39 @@ letter-spacing: 1.2px;
     margin-right: 10px;
 }
 
-.info-button{
-    position: absolute;
-    top: 85px;
-    right: 25px;
-    width: 20px
+.icon-home{
+    background: url("../../assets/home.png") bottom;
 }
+
+.icon-notepad{
+    background: url("../../assets/notepad.png") bottom;
+}
+
+.icon-todos{
+    background: url("../../assets/todo.png") bottom;
+}
+
+.icon-habits{
+    background: url("../../assets/infinity.png") bottom;
+}
+
+.icon-calendar{
+    background: url("../../assets/calendar.png") bottom;
+}
+
+.icon-news{
+    background: url("../../assets/news.png") bottom;
+}
+
+.icon-timer{
+    background: url("../../assets/timer.png") bottom;
+}
+
+.icon-info{
+    background: url("../../assets/info.png") bottom;
+}
+
+.icon-settings{
+    background: url("../../assets/settings.png") bottom;
+}
+
