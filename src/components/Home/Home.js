@@ -134,6 +134,7 @@ class Home extends Component {
     }
     habitsToggler = (shouldQuickViewDisplay) => {
         if (shouldQuickViewDisplay) {
+            console.log('hit')
             this.setState({
                 habitsQuickToggler: shouldQuickViewDisplay,
                 isHabitsVisible: true

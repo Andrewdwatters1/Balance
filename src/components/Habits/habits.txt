@@ -1,7 +1,0 @@
-UX feedback from Zach
-  -make sidebar menu an on-hover
-  -on-hover color change and cursor pointer on habits sidebar for active
-  -quick checkoff checkmark so user can checkoff habit in one click
-  -add color to past week habit icons
-  -give user last week snapshot at the bottom,
-  -allow user to see more detailed view maybe up to a year out
