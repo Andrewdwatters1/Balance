@@ -45,56 +45,47 @@ html {
 
 .left-menu{
     position: absolute;
+    left: 0;
     top: 0;
-    background-color: rgba(0, 0, 0, 0.488);
-    height: 100%;
-    width: 6vw;
+    bottom: 0;
+    width: 70px;
     display: flex;
     flex-direction: column;
     align-items: center;
     z-index: 3;
+    background-color: transparent;
+    box-shadow: 0 0 0 0 transparent;
+    transition: all 500ms ease-in-out;   
+    opacity: 0.6;
+}
+
+.left-menu:hover{
+    background-color: rgba(0, 0, 0, 0.5);
+    transition: all 500ms ease-in-out;
+    box-shadow: 0 0 5px 10px rgba(0, 0, 0, 0.5);
+    opacity: 1;
+}
+
+.left-menu img{
+    margin-bottom: 30px;
+    height: 35px;
+    opacity: inherit;
+}
+
+.left-menu img:hover{
+    opacity: 1;
 }
 
 .left-menu .spacer{
     height: 15vh;
 }
 
-.left-menu-item-wrapper{
-    margin-top: 5vh;
-    display:flex;
-    flex-direction: row;
-    align-content: center;
-    align-items: center;
-}
-
-.left-menu-item-wrapper>img{
-    height: auto;
-    width: 3vw;
-}
-
-.left-menu-item-wrapper>img:hover{
+.left-menu img:hover{
     cursor: pointer;
 }
 
-.left-menu-button{
-    position: absolute;
-    margin: auto 0;
-    top: 45%;
-    width: 30px;
-    height: 60px;
-    background-color: rgba(0, 0, 0, 0.7);
-    border-bottom-right-radius: 50px;
-    border-top-right-radius: 50px;
-}
-
-.left-menu-button img{
-    height:20px;
-    width: auto;
-    margin-top: 20px;
-    margin-left: 4px;
-}
-
 .home-center-card{
+
     position: absolute;
     text-align: center;
     top:0;
@@ -102,9 +93,10 @@ html {
     left: 0;
     right: 0;
     margin: auto;
-    margin-top: 14vh;
-    height: 40vh;
+    padding-top: 10vh;
+    height: 100%;
     width: 60vw;
+    /* background-color: rgba(0, 0, 0, 0.694); */
 }
 
 .home-center-card>h1{
@@ -133,17 +125,11 @@ letter-spacing: 1.2px;
     background: url("../../assets/timer.png") bottom;
     width: 35px;
     position: absolute;
-    bottom: 25px;
-    right: 25px;
+    bottom: -30px;
 }
 
 #timer-homepage-icon:hover {
     background-position: 0 0;
-}
-
-.upcoming-events-div{
-    margin: 0 auto;
-    width: auto;
 }
 
 .event-date{
@@ -161,20 +147,6 @@ letter-spacing: 1.2px;
 .info-button{
     position: absolute;
     top: 85px;
-    right: 30px;
+    right: 25px;
     width: 20px
-}
-
-.transparent-left-menu-div{
-    position: absolute;
-    height: 100%;
-    width: 80px;
-    z-index: 2;
-}
-
-.transparent-top-menu-div{
-    position: absolute;
-    height: 80px;
-    width: 100%;
-    z-index: 2;
 }
