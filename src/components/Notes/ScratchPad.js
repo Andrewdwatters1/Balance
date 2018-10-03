@@ -2,6 +2,7 @@ import React,{Component} from 'react'
 import {connect} from 'react-redux'
 import {deleteScratchPad, editScratchPad} from '../../redux/reducers/notepad'
 import axios from 'axios'
+import TextField from '@material-ui/core/TextField';
 import './Notes.css'
 
 
@@ -54,7 +55,18 @@ class ScratchPad extends Component{
              <div key={scratch.id}> 
                  <h5>{scratch.date}</h5>
                  {/* <input className="notepadtitles" value={title} onChange={this.handleTitle}/> */}
-                 <textarea className="addscratchpadcontent" value={this.state.content} onChange={this.handleContent}/>
+                 <TextField
+                            id="filled-textarea"
+                            name="text"
+                            placeholder="content"
+                            value={this.state.content}
+                            onChange={this.handleContent}
+                            multiline
+                            className="addscratchpadcontent"
+                            margin="normal"
+                            variant="filled"
+                        />
+                 {/* <textarea className="addscratchpadcontent" value={this.state.content} onChange={this.handleContent}/> */}
                  <h4 className= "note-buttons" onClick={()=> this.saveUpdatedScrachPad(scratch.id)}>Save</h4>
                  <h4 className="note-buttons-delete" onClick={() => this.props.deleteScratchPad(scratch.id)}>Delete</h4>   
      

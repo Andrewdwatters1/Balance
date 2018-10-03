@@ -3,6 +3,7 @@ import Note from './Note';
 import {connect} from 'react-redux';
 import {getNotes, addNotes, addScratchPad, getScratchPad, editNotes, deleteNotes} from '../../redux/reducers/notepad';
 import axios from 'axios'
+import TextField from '@material-ui/core/TextField';
 import './Notes.css';
 
 import ScratchPad from './ScratchPad';
@@ -162,7 +163,7 @@ class NotePad extends Component{
                             <input className="notepadtitles" value={this.state.RenderedNote.title} onChange={this.handleTitle}/>
                         </header>
                         <textarea className="notestextarea" value={this.state.RenderedNote.content} onChange={this.handleContent}/>
-                        <button className= "note-buttons" onClick={()=> this.saveUpdatedNote(this.state.RenderedNote.id)}>Save</button>
+                        {/* <button className= "note-buttons" onClick={()=> this.saveUpdatedNote(this.state.RenderedNote.id)}>Save</button> */}
                         <div className="garbagecandiv">
                             <h5 className="notesRemove" onClick={()=>this.deleteModalToggler()}></h5> 
                             {this.state.isDelelteModalopen && 
@@ -196,7 +197,18 @@ class NotePad extends Component{
                             <span>{this.state.date.getFullYear()}</span>
                         </h5>
                         <input className="notepadtitles" placeholder='title' value={this.state.title} onChange={this.handleNewTitle}></input>
-                        <textarea wrap="on"  className="addnotestextarea" name="text" placeholder='content' value={this.state.content} onChange={this.handleNewContent}/>
+                        {/* <textarea wrap="on"  className="addnotestextarea" name="text" placeholder='content' value={this.state.content} onChange={this.handleNewContent}/> */}
+                        <TextField
+                            id="filled-textarea"
+                            name="text"
+                            placeholder="content"
+                            value={this.state.content}
+                            onChange={this.handleNewContent}
+                            multiline
+                            className="addnotestextarea"
+                            margin="normal"
+                            variant="filled"
+                        />
                         <h4 className="note-buttons" onClick={() => this.props.addNotes(newNote)}>Save Note</h4>
                     </div>
                     }

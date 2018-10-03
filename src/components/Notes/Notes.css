@@ -73,7 +73,7 @@
 }
 
 .notesRemove{
-    : url(../../assets/trash-icon.png) no-repeat;
+    background: url(../../assets/trash-icon.png) no-repeat;
     cursor: pointer;
     width: 25px;
     height: 25px;
@@ -89,6 +89,8 @@
     border-color: transparent;
     margin-top: 13vh;
     font-size: 1.2em;
+    outline: none;
+
 }
 
 .addnotestextarea{
@@ -100,7 +102,7 @@
     font-size: 1.2em;
     resize: vertical;
     /* overflow: visible; */
-    /* outline: none; */
+    outline: none;
 }
 
 .notepadtitlearea{
@@ -118,6 +120,8 @@
     height: auto;
     width: 100%;
     color: rgb(245, 247, 250);
+    outline: none;
+
 }
 
 .notepadtitles{
