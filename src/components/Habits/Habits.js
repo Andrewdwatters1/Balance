@@ -152,7 +152,7 @@ class Habits extends Component {
                 return (
                     <div key={i} className="habits-sidebar-habit-item">
                         <button onClick={() => this.showHabitDetail(e.id)} className="habits-sidebar-habit">
-                            <p className="habit-sidebar-text">{e.title} <br /> Started: {`${day}`}<br />{`${month} ${e.date[2]}, ${e.date[0]}`}</p>
+                            <p className="habit-sidebar-text">{e.title} <br /> Started: {`${day}`}{`${month} ${e.date[2]}, ${e.date[0]}`}</p>
                         </button>
                     </div >
                 )
