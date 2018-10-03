@@ -33,6 +33,12 @@ class NotePad extends Component{
         }
     }
 
+    componentDidMount(){
+        this.props.getNotes()
+        this.props.getScratchPad()
+    }
+    
+
     getTimeString() {
         const date = new Date(Date.now()).toLocaleTimeString();
         return date;
@@ -82,11 +88,12 @@ class NotePad extends Component{
         this.setState({content: e.target.value})
     }
 
-    componentDidMount(){
-        this.props.getNotes()
-        this.props.getScratchPad()
+    eraseText = () => {
+        this.setState({content:''});
+        this.setState({title:''});
+
     }
-    
+   
     updateNotes = (notes) => {
        return notes
     }
@@ -167,7 +174,7 @@ class NotePad extends Component{
                         <div className="garbagecandiv">
                             <h5 className="notesRemove" onClick={()=>this.deleteModalToggler()}></h5> 
                             {this.state.isDelelteModalopen && 
-                                <div>
+                                <div className="deleteModal">
                                     <h5 className="note-buttons-delete-modal">Are you sure you want to delete {this.state.RenderedNote.title}?</h5>
                                     <h4 className="note-buttons-delete" onClick={() => {{this.props.deleteNotes(this.state.RenderedNote.id);this.deleteModalToggler();this.addNoteToggler()}}}>Delete</h4>
                                     <h4 className="note-buttons-cancel" onClick={()=>this.deleteModalToggler()}>Cancel</h4>  
@@ -209,7 +216,7 @@ class NotePad extends Component{
                             margin="normal"
                             variant="filled"
                         />
-                        <h4 className="note-buttons" onClick={() => this.props.addNotes(newNote)}>Save Note</h4>
+                        <h4 className="note-buttons" onClick={() => {this.props.addNotes(newNote); this.eraseText(content,title)}}>Save</h4>
                     </div>
                     }
                 </div> 
