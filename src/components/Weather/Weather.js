@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getCurrentUser } from '../../redux/reducers/user'
 import axios from 'axios';
+import Backdrop from '../Backdrop/Backdrop'
 
 import './Weather.css'
 import moment from 'moment'
@@ -146,6 +147,11 @@ class Weather extends Component {
 
     render() {
 
+        let backdrop;
+        if (this.state.isWeatherModalVisible) {
+            backdrop = <Backdrop weatherClick={this.weatherModalToggler}/>
+        }
+
         function iconMaker(icon){
             if (icon === 'rain'){return <img className="weather-forecast-icon" src={rain} alt="rain"/>}
             else if (icon === 'clear-day'){return <img className="weather-forecast-icon" src={clearDay} alt="clear day"/>}
@@ -178,12 +184,12 @@ class Weather extends Component {
 
         return (
             <div className="weather-box" onClick={this.weatherModalToggler}>
+            {backdrop}
                 {mainIconMaker(this.state.icon)}
                 <p>{this.state.currentTemperature}{'\u00B0'}</p>
                 <div className="city-name"><p>{this.state.userCityName}</p></div>
                 {this.state.isWeatherModalVisible &&
                     <div className="weatherModalContainer">
-                        <div className="weatherModalContainerTriangle"></div>
                         <div className="daily-weather-container">
                         <div className="weather-daily">
                                         {/* TODAY or DAY 0 */}
@@ -283,7 +289,7 @@ class Weather extends Component {
 
                         <div className="weather-daily">
                                         {/* DAY 6 */}
-                            <p className="day-of-the-week-text">{daysOfTheWeek[[moment().add(1, '6').weekday()]]}</p>
+                            <p className="day-of-the-week-text">{daysOfTheWeek[[moment().add(6, 'd').weekday()]]}</p>
                             {iconMaker(this.state.dailyWeatherIcon6)}
                             <p></p>
                             <div className="temp-wrapper">
@@ -311,7 +317,6 @@ const mapStateToProps = state => {
 }
 
 export default connect(mapStateToProps, { getCurrentUser})(Weather);
-
 
 
 // this includes icon for icon and 

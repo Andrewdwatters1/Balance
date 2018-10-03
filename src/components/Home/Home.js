@@ -21,16 +21,8 @@ import { getCurrentUser } from '../../redux/reducers/user'
 import './Home.css'
 import './Timer/Timer.css'
 
-//Home Images
-const home = require('../../assets/home.png')
-const notepad = require('../../assets/notepad.png')
-const todos = require('../../assets/todo.png')
-const habits = require('../../assets/infinity.png')
-const calendar = require('../../assets/calendar.png')
-const settings = require('../../assets/settings.png')
-const info = require('../../assets/info.png')
-const news = require('../../assets/news.png')
-const timer = require('../../assets/timer.png')
+//Images
+const habits = require('../../assets/infinity-top.png')
 
 //Timer Variables, Media
 
@@ -91,7 +83,6 @@ class Home extends Component {
                 time: date
             })
         }, 1000)
-
     }
 
     toggleHabitsMenu = () => {
@@ -416,16 +407,17 @@ class Home extends Component {
                         </div>
 
                         <div className="left-menu">
-                            <div className="spacer"></div>
-                                <img alt="home" src={home} onClick={this.homeClickHandler}/>
-                                <img alt="notepad" src={notepad} style={{marginLeft : "10px"}}onClick={this.notesToggler} />
-                                <img alt="todos" src={todos} onClick={this.todoToggler} />
-                                <img alt="habits" src={habits} onClick={() => this.habitsToggler(false)} />
-                                <img alt="calendar" src={calendar} onClick={this.calendarToggler} />
-                                <img alt="news" src={news} onClick={this.newsToggler} />
-                                <img alt="timer" src={timer} onClick={this.toggleTimer} />
-                                <img alt="info" src={info}/>
-                                <img alt="settings" src={settings} />
+                                <div className="menu-spacer"/>
+                                <div className="icon-home" onClick={this.homeClickHandler}/>
+                                <div className="icon-notepad" style={{marginLeft : "10px"}}onClick={this.notesToggler} />
+                                <div className="icon-todos" onClick={this.todoToggler} />
+                                <div className="icon-habits" onClick={() => this.habitsToggler(false)} />
+                                <div className="icon-calendar" onClick={this.calendarToggler} />
+                                <div className="icon-news" onClick={this.newsToggler} />
+                                <div className="icon-timer" onClick={this.toggleTimer} />
+                                <div className="icon-info"/>
+                                <div className="icon-settings"/>
+                                <div className="menu-spacer"/>
                         </div>
 
 

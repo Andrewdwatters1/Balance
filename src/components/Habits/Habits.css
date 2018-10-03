@@ -279,10 +279,10 @@
     right: 0;
     left: 0;
     margin: 0 auto;
+    z-index: 3;
 }
 .habits-quick-menu {
     max-width: 80vw;
-    background-color: rgba(0, 0, 0, 0.646);
     position: absolute;
     top: 0;
     right: 0;
@@ -293,7 +293,31 @@
     justify-content: space-around;
     overflow-x: scroll;
     overflow-y: hidden;
+    z-index: 3;
+    background-color: transparent;
+    box-shadow: 0 0 0 0 transparent;
+    transition: all 500ms ease-in-out;   
 }
+
+.habits-quick-menu:hover {
+    max-width: 80vw;
+    background-color: rgba(0, 0, 0, 0.5);
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    margin: 0 auto;
+    display: flex;
+    height: 9vh;
+    justify-content: space-around;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    z-index: 3;
+    box-shadow: 0 0 5px 10px rgba(0, 0, 0, 0.5);
+    transition: all 500ms ease-in-out;   
+}
+
+
 .habits-quick-menu-item {
     margin-top: 0;
     display: flex;
