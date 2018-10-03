@@ -22,17 +22,27 @@ const app = express();
 const serverPort = process.env.SERVER_PORT;
 
 app.use(bodyParser.json());
-massive(process.env.CONNECTION_STRING).then(db => {
+// massive(process.env.CONNECTION_STRING).then(db => {
+//   app.set('db', db)
+//   console.log('Database is linked! ');
+// })
+massive(process.env.TEST_CONNECTION_STRING).then(db => {
   app.set('db', db)
-  console.log('Database is linked! ');
+  console.log('Test Database is linked! ');
 })
 app.use(session({
   secret: process.env.SESSION_SECRET,
   saveUninitialized: false,
   resave: false
 }))
+app.use((req, res, next) => {
+  if (req.query.test || req.body.test || req.params.test === process.env.TEST_CODE) {
+    req.session.user = { id: 1 }
+  }
+  next()
+})
 
-app.use( express.static( `${__dirname}/../build` ) );
+app.use(express.static(`${__dirname}/../build`));
 
 // AUTH ENDPTS
 app.post('/auth/register', authController.register);
@@ -85,23 +95,23 @@ app.delete('/api/notepad/:id', notesController.deleteNotes)
 app.put('/api/notepad/:id', notesController.updateNotes)
 
 //SCRATCHPAD ENDPTS
-app.get('/api/scratchpad', notesController.getScratchPad)    
-app.post('/api/scratchpad', notesController.addScratchPad)    
+app.get('/api/scratchpad', notesController.getScratchPad)
+app.post('/api/scratchpad', notesController.addScratchPad)
 app.delete('/api/scratchpad/:id', notesController.deleteScratchPad)
-app.put('/api/scratchpad/:id', notesController.updateScratchPad)   
+app.put('/api/scratchpad/:id', notesController.updateScratchPad)
 
 // app.get('*', (req, res) => { // PRODUCTION BUILD ONLY
 //   res.sendFile(path.join(__dirname, '../build/index.html'));
 // });
 
 cron.schedule('1 0 0 * * *', () => { // runs at 00:01 EST every day
-// cron.schedule('*/30 * * * * *', (req) => {
+  // cron.schedule('*/30 * * * * *', (req) => {
   habitsController.updateHabitEvents(app);
   habitsController.deleteTodaysHabits(app);
   console.log('cron hit')
 }, {
-  scheduled: true,
-})
+    scheduled: true,
+  })
 
 
 app.listen(serverPort, () => {

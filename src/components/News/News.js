@@ -19,7 +19,8 @@ class News extends Component {
 
     componentDidMount() {
         axios.get(`https://newsapi.org/v2/top-headlines?country=us&apiKey=${process.env.REACT_APP_NEWS_API_KEY}&pageSize=40`).then(results => {
-            this.setState({
+        console.log(results)    
+        this.setState({
                 newsData: results.data.articles
             },
                 () => {
@@ -83,9 +84,9 @@ class News extends Component {
     render() {
         return (
             <div className="content-container">
-                <div className="news-content">
+                <div className="news-content-header">
                     <h1>Top Headlines Today</h1>
-                    <p>Category: </p><select onChange={this.updateNewsCategory} placeholder="category">
+                    <p>Category: </p><select onChange={this.updateNewsCategory} placeholder="category" className="news-hover">
                         <option value="" disabled selected hidden>select</option>
                         <option value="business">business</option>
                         <option value="entertainment">entertainment</option>
@@ -95,7 +96,7 @@ class News extends Component {
                         <option value="sport">sports</option>
                         <option value="technology">technology</option>
                     </select>
-                    <button onClick={this.getNewsByCategory}>Go</button>
+                    <button onClick={this.getNewsByCategory} className="news-hover">Go</button>
                     {this.state.noMoreResults && <p className="news-no-more">That's it! Go focus.</p>}
                     <i className="far fa-arrow-alt-circle-right next-button" onMouseDown={this.nextPage}></i>
                 </div>
@@ -106,7 +107,7 @@ class News extends Component {
                                 <a href={articles.url} target="_blank"><img className="articles-image" src={articles.urlToImage || news} /></a>
                                 <div className="article-title-and-content">
                                     <a href={articles.url} target="_blank" className="articles-title"><h2 className="articles-title">{articles.title}</h2></a>
-                                    <p>{articles.description}</p>
+                                    <p>{articles.content ? articles.content.substring(0, 260) : articles.description ? articles.description : "Follow link for more"}</p>
                                 </div>
                             </div>
                         )

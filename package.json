@@ -13,6 +13,7 @@
     "express-session": "^1.15.6",
     "google-trends-api": "^4.7.0",
     "hoek": "^5.0.4",
+    "jest": "^23.6.0",
     "massive": "^5.4.0",
     "material": "^0.3.0",
     "material-ui": "^0.20.2",
