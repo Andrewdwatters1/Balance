@@ -13,9 +13,10 @@
     background-color: rgba(0, 0, 0, 0.9);
     z-index: 5;
     display: flex;
+    flex-direction: row;
 }
 .habits-sidebar {
-    width: 60%;
+    width: 40%;
     height: 100%;
     display: flex;
     flex-direction: row;
@@ -49,10 +50,11 @@
     width: 90%;
     font-size: 1.5em;
     box-sizing: border-box;
+    text-align: left;
 }
 .habits-sidebar-buttons {
-    width: 15%;
-    margin-left: -15%;
+    width: 25%;
+    margin-left: -25%;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -64,8 +66,8 @@
     box-sizing: border-box;
     display: flex;
     align-items: center;
-    margin-top: 50px;
-    margin-bottom: 50px;
+    margin-top: 55px;
+    margin-bottom: 45px;
     height: 50px;
 }
 .habit-green-button {
@@ -110,10 +112,15 @@
     justify-content: center;
     text-align: center;
 }
+/* .habits-detail-description {
+    width: 70%;
+    margin: 0 auto;
+} */
 .habits-detail-bottom {
     display: flex;
     justify-content: center;
-    width: 100%;
+    width: 75%;
+    margin: 0 auto;
     overflow: hidden
 }
 .habits-detail-bottom-items {
@@ -272,10 +279,10 @@
     right: 0;
     left: 0;
     margin: 0 auto;
+    z-index: 3;
 }
 .habits-quick-menu {
     max-width: 80vw;
-    background-color: rgba(0, 0, 0, 0.646);
     position: absolute;
     top: 0;
     right: 0;
@@ -286,7 +293,31 @@
     justify-content: space-around;
     overflow-x: scroll;
     overflow-y: hidden;
+    z-index: 3;
+    background-color: transparent;
+    box-shadow: 0 0 0 0 transparent;
+    transition: all 500ms ease-in-out;   
 }
+
+.habits-quick-menu:hover {
+    max-width: 80vw;
+    background-color: rgba(0, 0, 0, 0.5);
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    margin: 0 auto;
+    display: flex;
+    height: 9vh;
+    justify-content: space-around;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    z-index: 3;
+    box-shadow: 0 0 5px 10px rgba(0, 0, 0, 0.5);
+    transition: all 500ms ease-in-out;   
+}
+
+
 .habits-quick-menu-item {
     margin-top: 0;
     display: flex;

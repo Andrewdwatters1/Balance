@@ -1,11 +1,12 @@
 .timer-container{
     height: 250px;
     width: 200px;
-    background-color: rgba(0, 0, 0, 0.708);
+    background-color: rgba(0, 0, 0, 0.70);
+    box-shadow: 0 0 5px 10px rgba(0, 0, 0, 0.70);
     position: absolute;
-    bottom: 25px;
-    right: 25px;
-    z-index: 500
+    bottom: 15px;
+    right: 15px;
+    z-index: 6;
 }
 
 .timer-help-button{

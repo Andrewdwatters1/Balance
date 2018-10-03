@@ -108,7 +108,7 @@ class Login extends Component {
         let registerSubmitEnabled = firstName && lastName && username && email && password && zip
         return (
         <div className="loginBackgroundGradient">
-                    <div className="content-container">
+                    <div className="content-container login-content-container">
                         <div className="logo-container">
                         <img src={balance} className="balance-logo"/>
                         <h1>Welcome to Balance</h1>

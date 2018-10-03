@@ -2,6 +2,7 @@
     position: absolute;
     top:10px;
     right: 10px;
+    cursor: pointer;
 }
 
 .weather-box>img{
@@ -26,34 +27,31 @@
     top: 36px;
     right: 22px;
     text-transform: uppercase;
+    cursor: pointer;
+}
+
+.city-name{
+    cursor: pointer;
 }
 
 .weatherModalContainer{
     position: absolute;
-    top: 65px;
+    top: 75px;
     right: 15px;
-    width: 750px;
-    height: 150px;
-    background-color: rgba(0, 0, 0, 0.708);
+    width: 730px;
+    height: 110px;
+    background-color: rgba(0, 0, 0, 0.70);
+    border-radius: 2px;
+    box-shadow: 0 0 2px 5px rgba(0, 0, 0, 0.70);
+    z-index: 6;
 }
-
-.weatherModalContainerTriangle{
-    position: absolute;
-    top: -7px;
-    right: 10px;
-    width: 0; 
-    height: 0;
-    border-left: 8px solid transparent;
-    border-right: 8px solid transparent;
-    border-bottom: 8px solid rgb(23, 24, 24);
-    z-index: 3;
-  }
 
   .daily-weather-container{
       display: flex;
       flex-direction: row;
       justify-content: space-evenly;
       margin-left: 30px;
+      margin-top:-25px;
   }
 
   .weather-daily{
