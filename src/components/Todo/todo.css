@@ -39,8 +39,8 @@
 .fa-plus, .fa-pen-nib{
     padding-bottom: 10px;
     position: absolute;
-    -webkit-transition-duration: 0.8s;
-    transition-duration: 0.8s;
+    -webkit-transition-duration: 0.5s;
+    transition-duration: 0.5s;
     color:rgb(255, 255, 255, 0.6);
     font-size: 24px;
     border:none;
@@ -50,10 +50,10 @@
     width: 50px;
 }
 
-.fa-plus:hover, .fa-pen-nib:hover, .fa-check:hover, .fa-cut:hover, .fa-circle:hover{
-    color: rgba(31,62,90, 1);
+.fa-plus:hover, .fa-pen-nib:hover, .fa-check:hover, .fa-cut:hover, .fa-circle:hover, .fa-angle-right:hover{
+    color: rgba(51,130,94, 1);
 }
-.fa-circle, .todoControlEdit, .fa-cut{
+.fa-circle, .todoControlEdit, .fa-cut, .fa-angle-right{
     background-color: rgb(0,0,0,0);
     border: none;
     outline: none;
@@ -68,8 +68,8 @@
 }
 
 .fa-cut{
-    -webkit-transition-duration: 0.8s;
-    transition-duration: 0.8s;
+    -webkit-transition-duration: 0.5s;
+    transition-duration: 0.5s;
     color:rgb(255, 255, 255, 0.6);
     font-size: 24px;
     width: 50px;
@@ -77,6 +77,8 @@
 }
 
 .fa-circle{
+    -webkit-transition-duration: 0.5s;
+    transition-duration: 0.5s;
     color:rgb(255, 255, 255, 0.6);
     cursor: pointer;
     font-size: 24px;
@@ -84,6 +86,15 @@
     height: 50px;
 }
 
+.fa-angle-right{
+    -webkit-transition-duration: 0.5s;
+    transition-duration: 0.5s;
+    color:rgb(255, 255, 255, 0.6);
+    cursor: pointer;
+    font-size: 32px;
+    width: 50px;
+    height: 50px;
+}
 
 .baseTodoWrapper{
     width: 50%;
@@ -91,7 +102,7 @@
     flex-direction: column;
     display: flex;
     float: left;
-    border-right: 1px solid rgba(255,250,250, 0.2);
+    /* border-right: 1px solid rgba(255,250,250, 0.2); */
     border-top: 1px solid rgba(255,250,250, 0.2);
     overflow: scroll;
     overflow-x: hidden;
@@ -127,7 +138,70 @@
     outline:none;
     width: 50px;
     height: 50px;
-    -webkit-transition-duration: 0.8s;
-    transition-duration: 0.8s;
+    -webkit-transition-duration: 0.5s;
+    transition-duration: 0.5s;
     color:rgb(255, 255, 255, 0.6);
+}
+
+.nested{
+    /* padding: 12px; */
+    position: absolute;
+    width: 50%;
+    height:100%;
+    align-self: flex-end;
+    flex-direction: column;
+    display: flex;
+    /* float: right; */
+    border-left: 1px solid rgba(255,250,250, 0.2);
+    /* border-top: 1px solid rgba(255,250,250, 0.2); */
+    overflow: scroll;
+    overflow-x: hidden;
+}
+
+.nestedInput{
+    color: rgba(255,255,255, .7);
+    font-family: 'Lato';
+    font-size: 16px;
+    padding: 3px;
+    outline: none;
+    margin: 10px;
+    margin-top: 0px;
+    background-color: rgba(0,0,0,0);
+    width : 25vw;
+    height : 35px;
+    border:none;
+    border-bottom: 2px solid rgba(51,130,94, .7);
+}
+
+.nested .fa-plus, {
+    margin-left: 65%
+}
+
+.nested .fa-pen-nib{
+    margin-right: 10%
+}
+
+.nestedContent{
+    width: 100%;
+    height:100%;
+    flex-direction: column;
+    display: flex;
+    float: left;
+    /* border-right: 1px solid rgba(255,250,250, 0.2); */
+    border-top: 1px solid rgba(255,250,250, 0.2);
+    overflow: scroll;
+    overflow-x: hidden;
+}
+.nestedButtons{
+    padding-top:10px;
+    padding-left:10px;
+
+}
+
+
+
+.nestedInfo{
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid rgba(31,62,90, 1);
 }

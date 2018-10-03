@@ -1,3 +1,5 @@
+DELETE FROM habitEvents
+WHERE daysfromstart = '8+';
 UPDATE habitEvents 
 SET daysfromstart = '8+'
 WHERE daysfromstart = '7';
@@ -22,21 +24,3 @@ WHERE daysfromstart = '1';
 UPDATE habitEvents 
 SET daysfromstart = '1'
 WHERE daysfromstart = '0';
-
-
--- INSERT INTO habitevents (habitid, daysfromstart, completed)
--- VALUES (3, '0', true);
--- INSERT INTO habitEvents (habitid, daysfromstart, completed)
--- VALUES (3, '1', true);
--- INSERT INTO habitEvents (habitid, daysfromstart, completed)
--- VALUES (3, '2', true);
--- INSERT INTO habitEvents (habitid, daysfromstart, completed)
--- VALUES (3, '3', true);
--- INSERT INTO habitEvents (habitid, daysfromstart, completed)
--- VALUES (3, '4', true);
--- INSERT INTO habitEvents (habitid, daysfromstart, completed)
--- VALUES (3, '5', true);
--- INSERT INTO habitEvents (habitid, daysfromstart, completed)
--- VALUES (3, '6', true);
--- INSERT INTO habitEvents (habitid, daysfromstart, completed)
--- VALUES (3, '7', true);

@@ -14,8 +14,10 @@
     top: 0;
 }
 
-.content-container{
+.content-container{ 
     display: flex;
+}
+.login-content-container {
     flex-direction: column;
     text-align: center;
 }

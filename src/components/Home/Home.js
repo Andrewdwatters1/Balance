@@ -91,6 +91,7 @@ class Home extends Component {
                 time: date
             })
         }, 1000)
+
     }
 
     toggleHabitsMenu = () => {

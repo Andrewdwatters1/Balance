@@ -53,7 +53,6 @@ module.exports = {
   updateHabitEvents: (app) => {
     let db = app.get('db');
     db.habits.update_habit_events().then(result => {
-      console.log('chron-script hit at: ', new Date());
     }).catch(error => console.log('Error from habitsController.updateHabitEvents CRON EVENT', error))
   },
   addHabitToday: (req, res) => {
@@ -75,7 +74,6 @@ module.exports = {
   deleteTodaysHabits: (app) => {
     let db = app.get('db');
     db.habits.delete_todays_habits().then(result => {
-      console.log('chron-script hit at: ', new Date());
     }).catch(error => console.log('Error from habitsController.deleteTodaysHabits, CRON EVENT', error))
   },
   deleteHabit: (req, res) => {
