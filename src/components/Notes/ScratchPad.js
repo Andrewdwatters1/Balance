@@ -34,7 +34,7 @@ class ScratchPad extends Component{
 
         handleTitle = (e) => {
             this.setState({
-                title: e.target.value
+                title: e.target.value 
             })
         }
 

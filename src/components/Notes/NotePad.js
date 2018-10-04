@@ -181,7 +181,7 @@ class NotePad extends Component{
                                 </div>}
                         </div>
                     </div> }
-                    {this.state.isScratchPadVisible && 
+                    {this.state.isScratchPadVisible &&  
                     <div>
                        {/* <h5> 
                             <span>{day}, </span>
