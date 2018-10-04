@@ -29,6 +29,6 @@ export function getCurrentUser() {
 export function logout() {
   return {
     type: LOGOUT,
-    payload: axios.get(`/auth/logout`)
+    payload: axios.delete(`/auth/logout`)
   }
 }

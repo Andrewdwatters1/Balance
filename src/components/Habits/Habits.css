@@ -22,7 +22,6 @@
     display: flex;
     flex-direction: row;
     background-color: transparent;
-    border: 1px rgba(255, 255, 255, 0.283) solid;
     box-sizing: border-box;
     overflow: scroll;
 }
@@ -35,6 +34,7 @@
     background-color: transparent;
     box-sizing: border-box;
     height: 100%;
+    border: none;
 }
 .habits-sidebar-habit-item > button {
     justify-content: center;
@@ -91,7 +91,7 @@
     width: 100%;
     height: 100%;
     background-color: transparent;
-    border: 1px rgba(255, 255, 255, 0.283) solid;
+    border-left: 1px rgba(255, 255, 255, 0.283) solid;
 }
 .habits-content>p {
     width: 70%;
@@ -113,10 +113,6 @@
     justify-content: center;
     text-align: center;
 }
-/* .habits-detail-description {
-    width: 70%;
-    margin: 0 auto;
-} */
 .habits-detail-bottom {
     display: flex;
     justify-content: center;
@@ -209,7 +205,6 @@
     align-items: center;
     background-color: rgba(0, 0, 0, 0.979);
     height: 33%;
-    border: 1px rgba(255, 255, 255, 0.283) solid;
     position: absolute;
     top: 40px;
     right: 20px;
