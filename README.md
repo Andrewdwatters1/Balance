@@ -1,4 +1,4 @@
-## BALANCE 
+### BALANCE 
 Balance is our take on the popular Momentum Chrome Extension, and is a productivity centric SPA with a feature-rich UI and fully-integrated full-stack design.  The project was bootstrapped with the create-react-app CLI and a nodeJS backend.  
 
 # Project Design: 
@@ -9,18 +9,27 @@ Balance is our take on the popular Momentum Chrome Extension, and is a productiv
 
 # Project Tech: 
   One of our objectives in creating BALANCE was to continue exploring relevant 3rd party libraries.  As such, we opted to bring in the following tech: 
-    - Redux: JS library for global state management
-    - MomentJS: JS library for date manipulation, validation and parsing
-    - MaterialUI: React UI framework to implement Google's Material Design
-    - React Infinite Calendar: Mobile friendly, highly customizable c calendar wireframe
-    - NodeCron: NodeJS task scheduler module
-    - Redux Promise Middleware: Middleware library enabling more robust async handling in Redux
-    - BcryptJS: NodeJS library for password encryption/decryption
-    - Massive: PostgreSQL database access tool
-    - Axios: Promise based HTTP client for the browser and node.js
+  - [Redux: JS library for global state management patterns]
+  - [MomentJS: JS library for date manipulation, validation and parsing]
+  - [MaterialUI: React UI framework to implement Google's Material Design]
+  - [React Infinite Calendar: Mobile friendly, highly customizable c calendar wireframe]
+  - [NodeCron: NodeJS task scheduler module]
+  - [Redux Promise Middleware: Middleware library enabling more robust async handling in Redux]
+  - [BcryptJS: NodeJS library for password encryption/decryption]
+  - [Massive: PostgreSQL database access tool]
+  - [Axios: Promise based HTTP client for the browser and node.js]
 
 # The Team: 
-  Balance was created by Palmer Campbell, Ryan Whitecar, Taylor Montgomery and Andrew Watters during the first Salt Lake City, UT Cohort at DevMountain, circa 2018.  
+  Balance was created by during DevMountain's first-ever Salt Lake City, UT Immersive Web Development Cohort by: 
+  
+  **Palmer Campbell**
+  **Ryan Whitecar**
+  **Taylor Montgomery**
+  **Andrew Watters**
+  - [Github](https://github.com/Andrewdwatters1)
+  - [LinkedIn](https://www.linkedin.com/in/adwatters)
+  - [Portfolio](https://www.andrewdwattersdev.com/)
+
 
 
 
