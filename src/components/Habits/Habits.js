@@ -11,6 +11,7 @@ import { updateHabitsCompletedToday } from '../../redux/reducers/habits';
 
 const add = require('../../assets/plus.png');
 const trash = require('../../assets/trash-icon.png');
+const loading = require('../../assets/loading.svg');
 
 export class Habits extends Component {
     constructor() {
@@ -26,6 +27,7 @@ export class Habits extends Component {
             habitsCompletedToday: [],
             habitQuickView: false,
             deleteConfirmationOpen: false,
+            shouldLoadingDisplay: true,
         }
     }
 
@@ -134,6 +136,11 @@ export class Habits extends Component {
     componentDidMount() {
         this.props.getCurrentUser();
         this.getUpdatedHabitsByUser();
+        setTimeout(() => {
+            this.setState({
+                shouldLoadingDisplay: false
+            })
+        }, 120)
     }
 
     render() {
@@ -145,7 +152,7 @@ export class Habits extends Component {
                 e.date = e.dateformatted.split('/');
                 let day = daysOfTheWeek[(+e.date[3]) + 1];
                 let month = monthsOfTheYear[(+e.date[1]) + 1].substring(0, 3);
-                if(day === "Tuesday" || day === "Thursday") {
+                if (day === "Tuesday" || day === "Thursday") {
                     day = day.substring(0, 4);
                 } else {
                     day = day.substring(0, 3);
@@ -251,80 +258,86 @@ export class Habits extends Component {
                     <HabitQuickMenu habitsCompletedToday={this.state.habitsCompletedToday} addHabitEvent={this.addHabitEvent} habitsQuickViewToggler={this.props.habitsQuickViewToggler} />
                     :
                     <div>
-                        <div className="quick-view-button-cover"></div>
-                        <div className="content-container">
-                            <div className="habits-sidebar">
-                                <div className="habits-sidebar-habit">
-                                    {allHabitsOverview}
-                                </div>
-                                <div className="habits-sidebar-buttons">
-                                    {todaysHabits}
-                                </div>
-                            </div>
-                            {!this.state.habitsList.length ?
-                                <div className="habits-content" >
-                                    {
-                                        this.state.addHabitVisible ?
-                                            <div>
-                                                <div onClick={this.toggleForm} className="add-habit-background">
-                                                </div>
-                                                <AddHabitForm
-                                                    habitsList={this.state.habitsList}
-                                                    currentUser={this.props.user}
-                                                    toggleForm={this.toggleForm}
-                                                    addHabitToList={this.addHabitToList}
-                                                    getUpdatedHabitsByUser={this.getUpdatedHabitsByUser}
-                                                    getTodaysHabits={this.getTodaysHabits} />
-                                            </div>
-                                            :
-                                            <div className="add-first-habit-button">
-                                                <img src={add} onMouseDown={this.toggleForm} className="add-first-habit-plus" />
-                                                <p>Add your first habit!</p>
-                                            </div>
-                                    }
-                                </div>
-                                :
-                                <div className="habits-content">
-                                    {this.state.habitDetailVisible ?
-                                        <div style={{ height: '100%' }}>
-                                            <img src={add} onMouseDown={this.toggleForm} className="add-habit-button" />
-                                            {allHabitsDetail}
-                                            {this.state.addHabitVisible &&
-                                                <div>
-                                                    <div onClick={this.toggleForm} className="add-habit-background">
+                        {!this.state.shouldLoadingDisplay ?
+                            <div>
+                                <div className="quick-view-button-cover"></div>
+                                <div className="content-container">
+                                    <div className="habits-sidebar">
+                                        <div className="habits-sidebar-habit">
+                                            {allHabitsOverview}
+                                        </div>
+                                        <div className="habits-sidebar-buttons">
+                                            {todaysHabits}
+                                        </div>
+                                    </div>
+                                    {!this.state.habitsList.length ?
+                                        <div className="habits-content" >
+                                            {
+                                                this.state.addHabitVisible ?
+                                                    <div>
+                                                        <div onClick={this.toggleForm} className="add-habit-background">
+                                                        </div>
+                                                        <AddHabitForm
+                                                            habitsList={this.state.habitsList}
+                                                            currentUser={this.props.user}
+                                                            toggleForm={this.toggleForm}
+                                                            addHabitToList={this.addHabitToList}
+                                                            getUpdatedHabitsByUser={this.getUpdatedHabitsByUser}
+                                                            getTodaysHabits={this.getTodaysHabits} />
                                                     </div>
-                                                    <AddHabitForm
-                                                        habitsList={this.state.habitsList}
-                                                        currentUser={this.props.user}
-                                                        toggleForm={this.toggleForm}
-                                                        addHabitToList={this.addHabitToList}
-                                                        getUpdatedHabitsByUser={this.getUpdatedHabitsByUser}
-                                                        getTodaysHabits={this.getTodaysHabits} />
-                                                </div>}
+                                                    :
+                                                    <div className="add-first-habit-button">
+                                                        <img src={add} onMouseDown={this.toggleForm} className="add-first-habit-plus" />
+                                                        <p>Add your first habit!</p>
+                                                    </div>
+                                            }
                                         </div>
                                         :
-                                        <div>
-                                            <img src={add} onMouseDown={this.toggleForm} className="add-habit-button" />
-                                            <div className="habit-detail-none-shown">
-                                                <h1>Welcome back {this.props.user.firstname}</h1>
-                                                <h3>Select a habit to view analytics</h3>
-                                            </div>
-                                            {this.state.addHabitVisible &&
+                                        <div className="habits-content">
+                                            {this.state.habitDetailVisible ?
+                                                <div style={{ height: '100%' }}>
+                                                    <img src={add} onMouseDown={this.toggleForm} className="add-habit-button" />
+                                                    {allHabitsDetail}
+                                                    {this.state.addHabitVisible &&
+                                                        <div>
+                                                            <div onClick={this.toggleForm} className="add-habit-background">
+                                                            </div>
+                                                            <AddHabitForm
+                                                                habitsList={this.state.habitsList}
+                                                                currentUser={this.props.user}
+                                                                toggleForm={this.toggleForm}
+                                                                addHabitToList={this.addHabitToList}
+                                                                getUpdatedHabitsByUser={this.getUpdatedHabitsByUser}
+                                                                getTodaysHabits={this.getTodaysHabits} />
+                                                        </div>}
+                                                </div>
+                                                :
                                                 <div>
-                                                    <div onClick={this.toggleForm} className="add-habit-background">
+                                                    <img src={add} onMouseDown={this.toggleForm} className="add-habit-button" />
+                                                    <div className="habit-detail-none-shown">
+                                                        <h1>Welcome back {this.props.user.firstname}</h1>
+                                                        <h3>Select a habit to view analytics</h3>
                                                     </div>
-                                                    <AddHabitForm
-                                                        habitsList={this.state.habitsList}
-                                                        currentUser={this.props.user}
-                                                        toggleForm={this.toggleForm}
-                                                        addHabitToList={this.addHabitToList}
-                                                        getUpdatedHabitsByUser={this.getUpdatedHabitsByUser}
-                                                        getTodaysHabits={this.getTodaysHabits} />
+                                                    {this.state.addHabitVisible &&
+                                                        <div>
+                                                            <div onClick={this.toggleForm} className="add-habit-background">
+                                                            </div>
+                                                            <AddHabitForm
+                                                                habitsList={this.state.habitsList}
+                                                                currentUser={this.props.user}
+                                                                toggleForm={this.toggleForm}
+                                                                addHabitToList={this.addHabitToList}
+                                                                getUpdatedHabitsByUser={this.getUpdatedHabitsByUser}
+                                                                getTodaysHabits={this.getTodaysHabits} />
+                                                        </div>}
                                                 </div>}
-                                        </div>}
+                                        </div>
+                                    }
                                 </div>
-                            }
-                        </div>
+                            </div>
+                            :
+                            <img src={loading} style={{position: 'absolute', top: '37%', left: '45%', right: '45%', bottom: '37%'}}/>
+                        }
                     </div>
                 }
             </div>

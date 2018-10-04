@@ -7,7 +7,6 @@ let initialState = {
 export default function reducer(state = initialState, action) {
   switch (action.type) {
     case GET_HABITS_COMPLETED_TODAY:
-    console.log(action.payload);
       return { ...state, completed: action.payload }
     default:
       return state
