@@ -177,3 +177,6 @@ letter-spacing: 1.2px;
     background: url("../../assets/settings.png") bottom;
 }
 
+.icon-logout{
+    background: url('../../assets/exit.png') bottom;
+}
