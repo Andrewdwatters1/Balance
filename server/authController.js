@@ -17,7 +17,7 @@ module.exports = {
   },
   login: (req, res) => {
     let db = req.app.get('db');
-    let { username, password } = req.body; // needs to come from elsewhere
+    let { username, password } = req.body;
     db.auth.get_user_by_login_info([username, password]).then(result => {
       bcrypt.compare(password, result[0].password, (err, response) => {
         if (response === true) {
@@ -27,17 +27,17 @@ module.exports = {
             res.status(200).send({ username, firstname, lastname, zipcode, email, avitar });
           })
         } else {
-          res.status(403).send({data: null});
+          res.status(403).send({ data: null });
         }
       });
     });
   },
   logout: (req, res) => {
     req.session.destroy();
-    res.sendStatus(200);
+    res.status(200);
   },
   getCurrentUser: (req, res) => {
-    if(req.session.user) {
+    if (req.session.user) {
       let { id, firstname, lastname, username, email, avitar, zipcode } = req.session.user;
       id ? id : null;
       firstname ? firstname : null;

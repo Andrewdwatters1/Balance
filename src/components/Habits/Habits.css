@@ -237,7 +237,8 @@
     color: black;
     border-radius: 5px;
     border: solid black 1px;
-    opacity: .8;
+    opacity: .85;
+    background-color: white;
 }
 .add-habit-form-select:hover {
     opacity: 1;
@@ -250,7 +251,8 @@
     text-align: center;
     border-radius: 5px;
     border: solid black 1px;
-    opacity: .8;
+    opacity: .85;
+    background-color: white;
 }
 .add-habit-form > input:focus, .add-habit-form > input:hover, .add-habit-form > textarea:focus, .add-habit-form > textarea:hover, .add-habit-form > button:hover, .add-habit-form > button:focus {
     opacity: 1;

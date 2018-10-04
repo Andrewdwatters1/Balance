@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import Note from './Note';
 import {connect} from 'react-redux';
-import {getNotes, addNotes, addScratchPad, getScratchPad, editNotes} from '../../redux/reducers/notepad';
+import {getNotes, addNotes, addScratchPad, getScratchPad, editNotes, deleteNotes} from '../../redux/reducers/notepad';
 import axios from 'axios'
+import TextField from '@material-ui/core/TextField';
 import './Notes.css';
 
 import ScratchPad from './ScratchPad';
@@ -26,9 +27,17 @@ class NotePad extends Component{
             isScratchPadVisible: true,
             isAddNoteVisible: false,
 
+            isDelelteModalopen: false,
+
             date: new Date(),
         }
     }
+
+    componentDidMount(){
+        this.props.getNotes()
+        this.props.getScratchPad()
+    }
+    
 
     getTimeString() {
         const date = new Date(Date.now()).toLocaleTimeString();
@@ -57,6 +66,12 @@ class NotePad extends Component{
             isAddNoteVisible: true,
         })
     }
+
+    deleteModalToggler = () => {
+        this.setState({
+            isDelelteModalopen: !this.state.isDelelteModalopen,
+        })
+    }
     handleTitle = (e) => {
         this.setState({RenderedNote: {...this.state.RenderedNote, title: e.target.value}})
     }
@@ -73,11 +88,12 @@ class NotePad extends Component{
         this.setState({content: e.target.value})
     }
 
-    componentDidMount(){
-        this.props.getNotes()
-        this.props.getScratchPad()
+    eraseText = () => {
+        this.setState({content:''});
+        this.setState({title:''});
+
     }
-    
+   
     updateNotes = (notes) => {
        return notes
     }
@@ -97,6 +113,11 @@ class NotePad extends Component{
                 this.props.editNotes(results.data)
             })
         }
+
+    textAreaAdjust(o) {
+            o.style.height = "1px";
+            o.style.height = (25+o.scrollHeight)+"px";
+          }
     
 
     render(){
@@ -133,12 +154,12 @@ class NotePad extends Component{
         return(
             <div className="content-container">
                 <div className="notes-container">
-                    <h2>Note Pad</h2>
+                    <h1 className="maintitles">Note Pad</h1>
                         <div className="notepadtitlearea">
-                            <h3 className="note-buttons" onClick={this.scratchPadToggler}>Scratch Pad</h3>
-                            <h3 className="note-buttons" onClick={this.addNoteToggler}>Create A New Note</h3>
+                            <h2 className="note-buttons" onClick={this.scratchPadToggler}>Scratch Pad</h2>
+                            <h2 className="note-buttons" onClick={this.addNoteToggler}>Create A New Note</h2>
                         </div>  
-                    <h3>Your Saved Notes</h3>      
+                    <h2 className="maintitles">Your Saved Notes</h2>      
                     {notePad}    
                 </div>
                 <div className="scratchpad">
@@ -150,19 +171,27 @@ class NotePad extends Component{
                         </header>
                         <textarea className="notestextarea" value={this.state.RenderedNote.content} onChange={this.handleContent}/>
                         {/* <button className= "note-buttons" onClick={()=> this.saveUpdatedNote(this.state.RenderedNote.id)}>Save</button> */}
-
+                        <div className="garbagecandiv">
+                            <h5 className="notesRemove" onClick={()=>this.deleteModalToggler()}></h5> 
+                            {this.state.isDelelteModalopen && 
+                                <div className="deleteModal">
+                                    <h5 className="note-buttons-delete-modal">Are you sure you want to delete {this.state.RenderedNote.title}?</h5>
+                                    <h4 className="note-buttons-delete" onClick={() => {{this.props.deleteNotes(this.state.RenderedNote.id);this.deleteModalToggler();this.addNoteToggler()}}}>Delete</h4>
+                                    <h4 className="note-buttons-cancel" onClick={()=>this.deleteModalToggler()}>Cancel</h4>  
+                                </div>}
+                        </div>
                     </div> }
                     {this.state.isScratchPadVisible && 
                     <div>
-                        <h5> 
+                       {/* <h5> 
                             <span>{day}, </span>
                             <span>{month} </span>
                             <span>{this.state.date.getDate()} </span>
                             <span>{this.state.date.getFullYear()}</span>
                         </h5>
                         {/* <input className="notepadtitles" placeholder='title' value={this.state.title} onChange={this.handleNewTitle}></input> */}
-                        <textarea className="addscratchpadcontent" placeholder='text' value={this.state.content} onChange={this.handleNewContent}/>
-                        <button className="note-buttons" onClick={() => this.props.addScratchPad(NewScratch)}>Save to Scratch Pad</button>
+                        {/* <textarea className="addscratchpadcontent" placeholder='text' value={this.state.content} onChange={this.handleNewContent}/>
+                        <h4 className="note-buttons" onClick={() => this.props.addScratchPad(NewScratch)}>Save to Scratch Pad</h4> */}
                         {scratchPad}
                     </div>
                     }
@@ -175,8 +204,19 @@ class NotePad extends Component{
                             <span>{this.state.date.getFullYear()}</span>
                         </h5>
                         <input className="notepadtitles" placeholder='title' value={this.state.title} onChange={this.handleNewTitle}></input>
-                        <textarea wrap="on" cols="30" className="addnotestextarea" name="text" placeholder='content' value={this.state.content} onChange={this.handleNewContent}/>
-                        <h4 className="note-buttons" onClick={() => this.props.addNotes(newNote)}>Save Note</h4>
+                        {/* <textarea wrap="on"  className="addnotestextarea" name="text" placeholder='content' value={this.state.content} onChange={this.handleNewContent}/> */}
+                        <TextField
+                            id="filled-textarea"
+                            name="text"
+                            placeholder="content"
+                            value={this.state.content}
+                            onChange={this.handleNewContent}
+                            multiline
+                            className="addnotestextarea"
+                            margin="normal"
+                            variant="filled"
+                        />
+                        <h4 className="note-buttons" onClick={() => {this.props.addNotes(newNote); this.eraseText(content,title)}}>Save</h4>
                     </div>
                     }
                 </div> 
@@ -192,6 +232,24 @@ function mapStateToProps(state) {
     }
   }
   
-export default connect(mapStateToProps,{getNotes, addNotes, addScratchPad, getScratchPad, editNotes})(NotePad)
+export default connect(mapStateToProps,{getNotes, addNotes, addScratchPad, getScratchPad, editNotes, deleteNotes})(NotePad)
 
 {/* <h3 className="add-event-submit" onClick={()=>this.eventUpdaterSubmit(event.event_id)}>Update Event</h3> */}
+
+// cron.schedule('1 0 0 * * *', () => { // runs at 00:01 EST every day
+//  //cron.schedule('*/10 * * * * *', (req) => {
+//  habitsController.updateHabitEvents(app);
+//  habitsController.deleteTodaysHabits(app);
+//  notesController.addScratchPad(app);
+// }, {
+//   scheduled: true,
+//   timezone: "America/New_York" // set to users timezone if poss
+// })
+
+// cron.schedule('* * * * * sun', () => {
+// // cron.schedule('*/10 * * * * *', (req) => {
+//   notesController.deleteScratchPad(app);
+// }, {
+//   schedule: true,
+//   timezone: "America/New_York"
+// })

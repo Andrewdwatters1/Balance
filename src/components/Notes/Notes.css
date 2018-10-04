@@ -37,17 +37,54 @@
 
 .notes-container{
     overflow: scroll;
-    width: 40vh;
-    margin-left: 3vw;
+    width: 23vw;
 }
 
 .note-buttons{
     color: royalblue;
     cursor: pointer;
+    margin-left:4.5vw;
+}
+
+.maintitles{
+    margin-left: 3vw;
+}
+
+.deleteModal{
+    background-color: rgba(0, 0, 0, 0.911);
+}
+
+.note-buttons-delete{
+    color: rgb(241, 80, 59);
+    cursor: pointer;
+    padding-left: 2.5vw;
+}
+
+.note-buttons-cancel{
+    color: rgb(65, 179, 54);
+    cursor: pointer;
+    padding-left: 2.5vw;
+    padding-bottom: 1.5vw;
+
+}
+
+.note-buttons-delete-modal{
+    color: rgb(120, 136, 184);
+    cursor: pointer;
+    margin-right:1vw;
+    margin-left:1vw;
+    margin-top: 0vw;
+    padding-top: 1vw;
+}
+
+.garbagecandiv{
+    position: absolute;
+    right:1vw;
+    top:1vw;
 }
 
 .notesRemove{
-    : url(../../assets/trash-icon.png) no-repeat;
+    background: url(../../assets/trash-icon.png) no-repeat;
     cursor: pointer;
     width: 25px;
     height: 25px;
@@ -63,6 +100,8 @@
     border-color: transparent;
     margin-top: 13vh;
     font-size: 1.2em;
+    outline: none;
+
 }
 
 .addnotestextarea{
@@ -74,7 +113,7 @@
     font-size: 1.2em;
     resize: vertical;
     /* overflow: visible; */
-    /* outline: none; */
+    outline: none;
 }
 
 .notepadtitlearea{
@@ -92,6 +131,8 @@
     height: auto;
     width: 100%;
     color: rgb(245, 247, 250);
+    outline: none;
+
 }
 
 .notepadtitles{
