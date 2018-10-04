@@ -7,6 +7,7 @@ import TextField from '@material-ui/core/TextField';
 import './Notes.css';
 
 import ScratchPad from './ScratchPad';
+import { ClickAwayListener } from '../../../node_modules/@material-ui/core';
 const add = require('../../assets/plus.png')
 
 class NotePad extends Component{
@@ -33,11 +34,28 @@ class NotePad extends Component{
         }
     }
 
-    componentDidMount(){
+    componentDidMount() {
         this.props.getNotes()
         this.props.getScratchPad()
+        document.addEventListener('click', this.unmoutcallbackmethod)
+    }
+
+    componentWillUnmount(){
+        // this.unmoutcallbackmethod()
+        setTimeout(() => {
+    document.removeEventListener('click', this.unmoutcallbackmethod)
+        }, 150)
     }
     
+    unmoutcallbackmethod = (e) =>{
+        // return (e) => {
+            if(!document.getElementById('content-outer') && !this.state.isScratchPadVisible) {
+                this.saveUpdatedNote(this.state.RenderedNote.id)
+            } else {
+                console.log('note should not save')
+            }
+        // }
+    }
 
     getTimeString() {
         const date = new Date(Date.now()).toLocaleTimeString();
@@ -45,6 +63,7 @@ class NotePad extends Component{
     }
 
     scratchPadToggler = () => {
+        this.saveUpdatedNote(this.state.RenderedNote.id)
         this.setState({
             isScratchPadVisible: true,
             isSingleNoteVisible: false,
@@ -52,6 +71,7 @@ class NotePad extends Component{
         })
     }
     singleNoteToggler = (note) => {
+        this.saveUpdatedNote(this.state.RenderedNote.id)
         this.setState({
             RenderedNote: note, 
             isScratchPadVisible: false,
@@ -60,6 +80,7 @@ class NotePad extends Component{
         })
     }
     addNoteToggler = () => {
+        this.saveUpdatedNote(this.state.RenderedNote.id)
         this.setState({
             isScratchPadVisible: false,
             isSingleNoteVisible: false,
@@ -103,6 +124,7 @@ class NotePad extends Component{
     }
 
     saveUpdatedNote = (id) => {
+        console.log('33333333333333333333333333333333333333333333333333')
         let obj = {
             date: '',
             title: this.state.RenderedNote.title,
@@ -139,7 +161,8 @@ class NotePad extends Component{
         let scratchPad = this.props.scratchPad.map(scratch => {
             return <ScratchPad key={scratch.id}
                                 scratch={scratch}
-                                updatedScratchPad={this.updatedScratchPad}/>
+                                updatedScratchPad={this.updatedScratchPad}
+                                />
         })
 
 
@@ -151,8 +174,19 @@ class NotePad extends Component{
         let monthsOfTheYear = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
         let monthNumber = this.state.date.getMonth();
         let month = monthsOfTheYear[monthNumber];
+
+        let daterrr = new Date (this.state.RenderedNote.date);
+        let dayNumber2 = daterrr.getDay()
+        let daysOfTheWeek2 = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
+        let monthsOfTheYear2 = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec']
+        let monthNumber2 = daterrr.getMonth()
+        let day2 = daysOfTheWeek2[dayNumber2];
+        let month2 = monthsOfTheYear2[monthNumber2];
+        let date2 = daterrr.getDate()
+        let formattedDate = `${day2}, ${month2} ${date2}`
+
         return(
-            <div className="content-container">
+            <div className="content-container" id="content-outer">
                 <div className="notes-container">
                     <h1 className="maintitles">Note Pad</h1>
                         <div className="notepadtitlearea">
@@ -166,11 +200,11 @@ class NotePad extends Component{
                     {this.state.isSingleNoteVisible && 
                     <div>
                         <header className="notestitlearea">
-                            <div>{this.state.RenderedNote.date}</div>
+                            <div><h5 >{formattedDate}</h5></div>
                             <input className="notepadtitles" value={this.state.RenderedNote.title} onChange={this.handleTitle}/>
                         </header>
                         <textarea className="notestextarea" value={this.state.RenderedNote.content} onChange={this.handleContent}/>
-                        {/* <button className= "note-buttons" onClick={()=> this.saveUpdatedNote(this.state.RenderedNote.id)}>Save</button> */}
+                            {/* <h3 className= "note-buttons" onClick={()=> this.saveUpdatedNote(this.state.RenderedNote.id)}>Save</h3> */}
                         <div className="garbagecandiv">
                             <h5 className="notesRemove" onClick={()=>this.deleteModalToggler()}></h5> 
                             {this.state.isDelelteModalopen && 
@@ -181,15 +215,8 @@ class NotePad extends Component{
                                 </div>}
                         </div>
                     </div> }
-                    {this.state.isScratchPadVisible && 
+                    {this.state.isScratchPadVisible &&  
                     <div>
-                       {/* <h5> 
-                            <span>{day}, </span>
-                            <span>{month} </span>
-                            <span>{this.state.date.getDate()} </span>
-                            <span>{this.state.date.getFullYear()}</span>
-                        </h5>
-                        {/* <input className="notepadtitles" placeholder='title' value={this.state.title} onChange={this.handleNewTitle}></input> */}
                         {/* <textarea className="addscratchpadcontent" placeholder='text' value={this.state.content} onChange={this.handleNewContent}/>
                         <h4 className="note-buttons" onClick={() => this.props.addScratchPad(NewScratch)}>Save to Scratch Pad</h4> */}
                         {scratchPad}

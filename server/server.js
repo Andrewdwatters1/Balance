@@ -23,6 +23,7 @@ const app = express();
 const serverPort = process.env.SERVER_PORT;
 
 app.use(bodyParser.json());
+
 massive(process.env.CONNECTION_STRING).then(db => {
   app.set('db', db)
   console.log('Database is linked! ');
