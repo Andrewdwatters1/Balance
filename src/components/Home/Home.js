@@ -204,7 +204,7 @@ class Home extends Component {
         this.setState({
             isTimerVisible: !this.state.isTimerVisible
         })
-        this.logout(!this.state.isTimerVisible)
+        this.logout(0)
     }
     logout = (abs) => {
         if (document.getElementById('logout-button')) {
