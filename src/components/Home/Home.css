@@ -24,7 +24,7 @@ body {
     height: 20vh;
     background-color: rgba(0, 0, 0, 0.516);
     display: none;
-    z-index: 1;
+    z-index: 3;
 }
 
 .top-menu-button{
@@ -35,7 +35,7 @@ body {
     background-color: rgba(0, 0, 0, 0.70);
     border-bottom-left-radius: 50px;
     border-bottom-right-radius: 50px;
-    z-index: 1;
+    z-index: 3;
 }
 
 .top-menu-button img{
