@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
 import { ToastContainer, ToastStore } from 'react-toasts';
+import OtherBackdrop from '../OtherBackdrop/OtherBackdrop'
 import moment from 'moment'
 import FocusCompleteModal from './Timer/FocusCompleteModal/FocusCompleteModal'
 import BreakCompleteModal from './Timer/BreakCompleteModal/BreakCompleteModal'
@@ -10,15 +12,11 @@ import Notes from '../Notes/NotePad.js'
 import Todo from '../Todo/Todo.js'
 import Habits from '../Habits/Habits.js'
 import Calendar from '../Calendar/Calendar.js'
-
 import News from '../News/News.js'
 import HomeEvents from './homeEvents/HomeEvents'
 import InfoPage from '../InfoPage/infoPage'
 import Settings from '../Settings/Settings'
-import { getCurrentUser } from '../../redux/reducers/user'
-
-
-
+import { getCurrentUser, logout } from '../../redux/reducers/user'
 
 //CSS FILES
 import './Home.css'
@@ -83,6 +81,7 @@ class Home extends Component {
         this.props.getCurrentUser();
         let background = this.props.user.avitar
         document.body.style.background = `linear-gradient(\n        rgba(0,0,0,0.516),\n        rgba(0,0,0,0.516)\n    ),\n    url(${background}) no-repeat center center fixed`
+        document.body.style.backgroundSize = 'cover'
         const _this = this;
         this.timer = setInterval(function () {
             var date = _this.getTimeString();
@@ -147,7 +146,6 @@ class Home extends Component {
     }
     habitsToggler = (shouldQuickViewDisplay) => {
         if (shouldQuickViewDisplay) {
-            console.log('hit')
             this.setState({
                 habitsQuickToggler: shouldQuickViewDisplay,
                 isHabitsVisible: true
@@ -167,6 +165,7 @@ class Home extends Component {
                 isSettingsPageVisible: false
             })
         }
+        this.logout()
     }
     habitsQuickViewToggler = () => {
         this.setState({
@@ -205,8 +204,24 @@ class Home extends Component {
         this.setState({
             isTimerVisible: !this.state.isTimerVisible
         })
+        this.logout(0)
     }
-    
+    logout = (abs) => {
+        if (document.getElementById('logout-button')) {
+            ReactDOM.unmountComponentAtNode(document.getElementById('logout'));
+        } else {
+            if (abs && document.getElementById('logout')) {
+                ReactDOM.render(
+                    <button className="logout-user-button" onClick={this.confirmLogout} id="logout-button">LOGOUT</button>
+                    , document.getElementById('logout'))
+            }
+        }
+    }
+    confirmLogout = () => {
+        this.props.logout();
+        this.props.getCurrentUser();
+    }
+
     toggleInfoPage = () => {
         this.setState({
             isInfoPageVisible: true,
@@ -364,9 +379,14 @@ class Home extends Component {
 
     render() {
         
-        let backdrop;
+        let backdrop; //Timer
         if (this.state.isTimerVisible) {
-            backdrop = <Backdrop click={this.toggleTimer}/>
+            backdrop = <Backdrop click={this.toggleTimer} />
+        }
+
+        let otherBackdrop;
+        if (this.state.isTimerVisisble || this.state.isNotesVisible || this.state.isTodoVisible || this.state.isHabitsVisible || this.state.isCalendarVisible || this.state.isWeatherModalVisible || this.state.isNewsVisible || this.state.isSettingsVisible || this.state.isInfoPageVisible ){
+            otherBackdrop = <OtherBackdrop click={this.homeClickHandler}/>
         }
 
         let daysOfTheWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
@@ -408,107 +428,113 @@ class Home extends Component {
         if (this.state.focusTimerCountdown) { focusPlayButtonEnabled = "none" } else { focusPlayButtonEnabled = "auto" }
 
 
-            return (
+        return (
             <div className="window">
                 <div>
                     {this.state.shouldAudioPlay && <audio src={focusAlertSound} autoPlay type="audio/wav">Your Browser Does Not Support Audio</audio>}
                     <div className="top-menu-button">
-                        <img alt="habits-quick-check" src={habits} onMouseEnter={() => this.habitsToggler(true)}/>
+                        <img alt="habits-quick-check" src={habits} onMouseEnter={() => this.habitsToggler(true)} />
                     </div>
                         {backdrop}
+                        {otherBackdrop}
                     <div>
-                            {this.state.isTimerVisible &&
-                                <div className="timer-container">
-                                    <img src={minimize} alt="minimize timer" className="timer-help-button" onClick={this.minimizeTimer} />
-                                    <img src={question} alt="help" className="timer-minimize-button" />
-                                    <div className="timer-indicator-width">
-                                        <div style={{ borderRadius: "50%", border: `2px solid ${completedColor1}` }} className="number-circle"><p style={{ color: `${completedColor1}` }} >1</p></div>
-                                        <div style={{ borderRadius: "50%", border: `2px solid ${completedColor2}` }} className="number-circle"><p style={{ color: `${completedColor2}` }} >2</p></div>
-                                        <div style={{ borderRadius: "50%", border: `2px solid ${completedColor3}` }} className="number-circle"><p style={{ color: `${completedColor3}` }} >3</p></div>
-                                        <div style={{ borderRadius: "50%", border: `2px solid ${completedColor4}` }} className="number-circle"><p style={{ color: `${completedColor4}` }} >4</p></div>
-                                    </div>
-                                    <div className="timer-details-wrapper">
-                                        <div className="timer-details-box">
-                                            <span className="timer-title" style={{ color: `${focusColor}` }}>Focus:</span>
-                                            <span className="timer-select-time">{`${addZero(this.state.focusTimer.get('minutes'))}:${addZero(this.state.focusTimer.get('seconds'))}`}</span>
-                                        </div>
-                                        <div className="timer-details-box">
-                                            <span className="timer-title" style={{ color: `${breakColor}` }}>Break:</span>
-                                            <span className="timer-select-time">{`${addZero(this.state.breakTimer.get('minutes'))}:${addZero(this.state.breakTimer.get('seconds'))}`}</span>
-                                        </div>
-                                    </div>
-                                    {this.state.focusControlsAreVisible &&
-                                        <div className="timer-buttons-div">
-                                            <img src={start} alt="start timer" className="timer-buttons" onClick={this.startFocusTimer} style={{ pointerEvents: focusPlayButtonEnabled }} />
-                                            <img src={pause} alt="pause timer" className="timer-buttons" onClick={this.pauseFocusTimer} />
-                                        </div>}
-                                    {this.state.breakControlsAreVisible &&
-                                        <div className="timer-buttons-div">
-                                            <img src={start} alt="start timer" className="timer-buttons" onClick={this.startBreakTimer} style={{ pointerEvents: focusPlayButtonEnabled }} />
-                                            <img src={pause} alt="pause timer" className="timer-buttons" onClick={this.pauseBreakTimer} />
-                                        </div>}
+                        {this.state.isTimerVisible &&
+                            <div className="timer-container">
+                                <img src={minimize} alt="minimize timer" className="timer-help-button" onClick={this.minimizeTimer} />
+                                <img src={question} alt="help" className="timer-minimize-button" />
+                                <div className="timer-indicator-width">
+                                    <div style={{ borderRadius: "50%", border: `2px solid ${completedColor1}` }} className="number-circle"><p style={{ color: `${completedColor1}` }} >1</p></div>
+                                    <div style={{ borderRadius: "50%", border: `2px solid ${completedColor2}` }} className="number-circle"><p style={{ color: `${completedColor2}` }} >2</p></div>
+                                    <div style={{ borderRadius: "50%", border: `2px solid ${completedColor3}` }} className="number-circle"><p style={{ color: `${completedColor3}` }} >3</p></div>
+                                    <div style={{ borderRadius: "50%", border: `2px solid ${completedColor4}` }} className="number-circle"><p style={{ color: `${completedColor4}` }} >4</p></div>
                                 </div>
-                            }
-                        </div>
-
-                        <div className="left-menu">
-                                <div className="menu-spacer"/>
-                                <div className="icon-home" onClick={this.homeClickHandler}/>
-                                <div className="icon-notepad" style={{marginLeft : "10px"}}onClick={this.notesToggler} />
-                                <div className="icon-todos" onClick={this.todoToggler} />
-                                <div className="icon-habits" onClick={() => this.habitsToggler(false)} />
-                                <div className="icon-calendar" onClick={this.calendarToggler} />
-                                <div className="icon-news" onClick={this.newsToggler} />
-                                <div className="icon-timer" onClick={this.toggleTimer} />
-                                <div className="icon-info" onClick={this.toggleInfoPage}/>
-                                <div className="icon-settings" onClick={this.toggleSettingsPage}/>
-                                <div className="menu-spacer"/>
-                        </div>
-
-
-                        {/* Timer Modals*/}
-
-                        {this.state.focusCompleteModalIsVisible && <FocusCompleteModal />}
-                        {this.state.breakCompleteModalIsVisible && <BreakCompleteModal />}
-
-                        {/*Feature Modals*/}
-
-                        {this.state.isWeatherCardVisible && <Weather/>}
-                        {this.state.isNotesVisible && <Notes />}
-                        {this.state.isTodoVisible && <Todo />}
-                        {this.state.isHabitsVisible && <Habits quickView={this.state.habitsQuickToggler} habitsQuickViewToggler={this.habitsQuickViewToggler}/>}
-                        {this.state.isCalendarVisible && <Calendar isWeatherModalVisible={this.state.isWeatherModalVisible} />}
-                        {this.state.isNewsVisible && <News />}
-                        {this.state.isInfoPageVisible && <InfoPage/>}
-                        {this.state.isSettingsVisible && <Settings homeClick={this.homeClickHandler}/>}
-
-
-                        {this.state.isHomeCardVisible &&
-                            <div className="home-center-card">
-                                <h1>{formattedTime}</h1>
-                                <h2>{getTimeOfDay()}, {this.props.user.firstname}.</h2>
-                                <span>Today is </span>
-                                <span>{day}, </span>
-                                <span>{month} </span>
-                                <span>{this.state.date.getDate()} </span>
-                                <span>{this.state.date.getFullYear()}.</span>
-
-                                <div className="home-spacer"></div>
-                                
-                                <div className="upcoming-events">
-                                <p>Here are your upcoming events:</p>
-                                <HomeEvents/>
+                                <div className="timer-details-wrapper">
+                                    <div className="timer-details-box">
+                                        {/*<img src={minus} alt="subtract one minute" className="plus-minus"/>*/}
+                                        <span className="timer-title" style={{ color: `${focusColor}` }}>Focus:</span>
+                                        <span className="timer-select-time">{`${addZero(this.state.focusTimer.get('minutes'))}:${addZero(this.state.focusTimer.get('seconds'))}`}</span>
+                                        {/*<img src={plus} alt="add one minute" className="plus-minus"/>*/}
+                                    </div>
+                                    <div className="timer-details-box">
+                                        {/*<img src={minus} alt="subtract one minute" className="plus-minus"/>*/}
+                                        <span className="timer-title" style={{ color: `${breakColor}` }}>Break:</span>
+                                        <span className="timer-select-time">{`${addZero(this.state.breakTimer.get('minutes'))}:${addZero(this.state.breakTimer.get('seconds'))}`}</span>
+                                        {/*<img src={plus} alt="add one minute" className="plus-minus"/>*/}
+                                    </div>
                                 </div>
-
+                                {this.state.focusControlsAreVisible &&
+                                    <div className="timer-buttons-div">
+                                        <img src={start} alt="start timer" className="timer-buttons" onClick={this.startFocusTimer} style={{ pointerEvents: focusPlayButtonEnabled }} />
+                                        <img src={pause} alt="pause timer" className="timer-buttons" onClick={this.pauseFocusTimer} />
+                                    </div>}
+                                {this.state.breakControlsAreVisible &&
+                                    <div className="timer-buttons-div">
+                                        <img src={start} alt="start timer" className="timer-buttons" onClick={this.startBreakTimer} style={{ pointerEvents: focusPlayButtonEnabled }} />
+                                        <img src={pause} alt="pause timer" className="timer-buttons" onClick={this.pauseBreakTimer} />
+                                    </div>}
                             </div>
                         }
-                    <ToastContainer store={ToastStore} position={ToastContainer.POSITION.BOTTOM_RIGHT} />
                     </div>
+
+                    <div className="left-menu">
+                        <div className="menu-spacer" />
+                        <div className="icon-home" onClick={this.homeClickHandler} />
+                        <div className="icon-notepad" style={{ marginLeft: "10px" }} onClick={this.notesToggler} />
+                        <div className="icon-todos" onClick={this.todoToggler} />
+                        <div className="icon-habits" onClick={() => this.habitsToggler(false)} />
+                        <div className="icon-calendar" onClick={this.calendarToggler} />
+                        <div className="icon-news" onClick={this.newsToggler} />
+                        <div className="icon-timer" onClick={this.toggleTimer} />
+                        <div className="icon-info" onClick={this.toggleInfoPage} />
+                        <div className="icon-settings" onClick={this.toggleSettingsPage} />
+                        <div className="icon-logout" onClick={this.logout} style={{marginLeft: "8px"}} />
+                        <div className="menu-spacer" />
+                    </div>
+
+
+                    {/* Timer Modals*/}
+
+                    {this.state.focusCompleteModalIsVisible && <FocusCompleteModal />}
+                    {this.state.breakCompleteModalIsVisible && <BreakCompleteModal />}
+
+                    {/*Feature Modals*/}
+
+                    {this.state.isWeatherCardVisible && <Weather logout={this.logout} />}
+                    {this.state.isNotesVisible && <Notes />}
+                    {this.state.isTodoVisible && <Todo />}
+                    {this.state.isHabitsVisible && <Habits quickView={this.state.habitsQuickToggler} habitsQuickViewToggler={this.habitsQuickViewToggler} />}
+                    {this.state.isCalendarVisible && <Calendar isWeatherModalVisible={this.state.isWeatherModalVisible} />}
+                    {this.state.isNewsVisible && <News />}
+                    {this.state.isInfoPageVisible && <InfoPage />}
+                    {this.state.isSettingsVisible && <Settings homeClick={this.homeClickHandler} />}
+
+
+                    {this.state.isHomeCardVisible &&
+                        <div className="home-center-card">
+                            <h1>{formattedTime}</h1>
+                            <h2>{getTimeOfDay()}, {this.props.user.firstname}.</h2>
+                            <span>Today is </span>
+                            <span>{day}, </span>
+                            <span>{month} </span>
+                            <span>{this.state.date.getDate()} </span>
+                            <span>{this.state.date.getFullYear()}.</span>
+
+                            <div className="home-spacer" id="logout"></div>
+
+                            <div className="upcoming-events">
+                                <p>Here are your upcoming events:</p>
+                                <HomeEvents />
+                            </div>
+
+                        </div>
+                    }
+                    <ToastContainer store={ToastStore} position={ToastContainer.POSITION.BOTTOM_RIGHT} />
                 </div>
-            )
-        }
-        
+            </div >
+        )
     }
+
+}
 
 
 const mapStateToProps = state => {
@@ -517,4 +543,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps, { getCurrentUser })(Home);
+export default connect(mapStateToProps, { getCurrentUser, logout })(Home);

@@ -6,6 +6,7 @@ import { Provider } from 'react-redux';
 
 import store from '../../redux/store';
 import Habits from './Habits';
+import { connect } from 'http2';
 
 Enzyme.configure({ adapter: new Adapter() })
 

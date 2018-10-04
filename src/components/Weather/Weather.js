@@ -90,6 +90,7 @@ class Weather extends Component {
         this.setState({
             isWeatherModalVisible: !this.state.isWeatherModalVisible
         })
+        this.props.logout()
     }
 
     componentDidMount() {
