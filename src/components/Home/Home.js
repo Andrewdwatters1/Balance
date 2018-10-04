@@ -482,7 +482,7 @@ class Home extends Component {
                         <div className="icon-timer" onClick={this.toggleTimer} />
                         <div className="icon-info" onClick={this.toggleInfoPage} />
                         <div className="icon-settings" onClick={this.toggleSettingsPage} />
-                        <div className="icon-settings" onClick={this.logout} />
+                        <div className="icon-logout" onClick={this.logout} />
                         <div className="menu-spacer" />
                     </div>
 
