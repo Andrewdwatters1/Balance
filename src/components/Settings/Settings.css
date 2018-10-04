@@ -1,0 +1,67 @@
+.content-container{
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    margin: auto;
+    width: 80vw;
+    height: 80vh;
+    background-color: rgba(0, 0, 0, 0.708);
+    z-index: 5;
+    display: flex;
+    flex-direction: column;
+    overflow: scroll;
+}
+
+.background-thumbnail{
+    height: auto;
+    width: 100%;
+    max-height: 80vh;
+    max-width: 80vw;
+    margin: auto;
+    z-index: -30;
+    position: absolute;
+    top: 0;
+}
+
+.left-arrow{
+    width: 75px;
+    height: auto;
+    position: absolute;
+    top: 40%;
+    left: 20px;
+    opacity: 0.2;
+}
+
+.right-arrow{
+    width: 75px;
+    height: auto;
+    position: absolute;
+    right: 20px;
+    top: 40%;
+    opacity: 0.2;
+}
+
+.left-arrow:hover,.right-arrow:hover{
+    opacity: 1;
+}
+
+.background-title{
+    position: absolute;
+    top: 10px;
+    left: 36%;
+}
+
+.checkmark{
+    position: absolute;
+    top: 39%;
+    left: 46%;
+    width: 100px;
+    height: auto;
+    opacity: 0.2
+}
+
+.checkmark:hover{
+    opacity: 1;
+}
