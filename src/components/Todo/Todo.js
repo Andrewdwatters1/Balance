@@ -187,7 +187,7 @@ class Todo extends Component{
                             <button onClick={() => this.handleEditSubmit(todo.id)} className='fas fa-check'></button>
                         </div>    
                         :
-                        <p id ='content' className='todoContent' style={finishedStyle}>{todo.content}</p>}
+                        <p id ='content' className='todoText' style={finishedStyle}>{todo.content}</p>}
                             {/*  TERNARY HERE please be careful he's very fragile*/}
 
                            <button id ='trash' className='fas fa-cut' onClick={() => this.deleteTodo(todo.id)}></button>
@@ -230,7 +230,7 @@ class Todo extends Component{
                          :
                          <div className='nestedInfo'>
                             <button className='far fa-circle' onClick={() => this.handleNestedCompletion(nest)} style={check}></button>
-                            <p style={finished}>{nest.content}</p>
+                            <p style={finished} className='nestedText'>{nest.content}</p>
                             <button className='fas fa-cut' onClick={() => this.deleteNested(nest.id)}></button>
                          </div>
                      }
