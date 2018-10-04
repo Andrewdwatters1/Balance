@@ -1,3 +1,7 @@
+//For whoever checks my tests, I had to do them this why because my actual code does not work with testing, as it always has references to props or state.
+//I refactored some function to work on their own, they have essentially the same functionality but do not rely on props for their values.
+
+
 handleNestedCompletion = (x) => {
     let complete = null
     let incomplete = null
@@ -35,6 +39,5 @@ test('mark todo as complete',()=>{
 test('adds nested',()=>{
     expect(handleCompletion(false)).toBe(true)
 })
-test('deletes nested',()=>{})
 
 
