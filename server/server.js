@@ -17,6 +17,7 @@ const eventsController = require('./eventsController')
 const notesController = require('./notesController');
 const todoController = require('./todoController')
 const weatherController = require('./weatherController')
+const backgroundController = require('./backgroundController')
 
 const app = express();
 const serverPort = process.env.SERVER_PORT;
@@ -97,6 +98,9 @@ app.get('/api/scratchpad', notesController.getScratchPad)
 app.post('/api/scratchpad', notesController.addScratchPad)
 app.delete('/api/scratchpad/:id', notesController.deleteScratchPad)
 app.put('/api/scratchpad/:id', notesController.updateScratchPad)
+
+//MORE ENDPTS
+app.put('/api/backgrounds/', backgroundController.updateBackground)
 
 // app.get('*', (req, res) => {
 //   res.sendFile(path.join(__dirname, '../build/index.html'));
