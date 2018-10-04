@@ -10,7 +10,7 @@ Balance is our take on the popular Momentum Chrome Extension, and is a productiv
 ### Project Tech: 
   One of our objectives in creating BALANCE was to continue exploring relevant 3rd party libraries.  As such, we opted to bring in the following tech: 
   - [Redux](https://redux.js.org/) JS library for global state management patterns
-    - [Redux Promise Middleware](https://www.npmjs.com/package/redux-promise-middleware) Middleware library enabling more robust async handling in Redux
+  - [Redux Promise Middleware](https://www.npmjs.com/package/redux-promise-middleware) Middleware library enabling more robust async handling in Redux
   - [MomentJS](https://momentjs.com/) JS library for date manipulation, validation and parsing
   - [MaterialUI](https://material-ui.com/) React UI framework to implement Google's Material Design
   - [React Infinite Calendar](https://www.npmjs.com/package/react-infinite-calendar) Mobile friendly, highly customizable calendar wireframe
