@@ -9,29 +9,33 @@ Balance is our take on the popular Momentum Chrome Extension, and is a productiv
 
 ### Project Tech: 
   One of our objectives in creating BALANCE was to continue exploring relevant 3rd party libraries.  As such, we opted to bring in the following tech: 
-  - Redux: JS library for global state management patterns
-  - MomentJS: JS library for date manipulation, validation and parsing
-  - MaterialUI: React UI framework to implement Google's Material Design
-  - React Infinite Calendar: Mobile friendly, highly customizable calendar wireframe
-  - NodeCron: NodeJS task scheduler module
-  - Redux Promise Middleware: Middleware library enabling more robust async handling in Redux
-  - BcryptJS: NodeJS library for password encryption/decryption
-  - Massive: PostgreSQL database access tool
-  - Axios: Promise based HTTP client for the browser and node.js
+  - [Redux](https://redux.js.org/) JS library for global state management patterns
+    - [Redux Promise Middleware](https://www.npmjs.com/package/redux-promise-middleware) Middleware library enabling more robust async handling in Redux
+  - [MomentJS](https://momentjs.com/) JS library for date manipulation, validation and parsing
+  - [MaterialUI](https://material-ui.com/) React UI framework to implement Google's Material Design
+  - [React Infinite Calendar](https://www.npmjs.com/package/react-infinite-calendar) Mobile friendly, highly customizable calendar wireframe
+  - [NodeCron](https://www.npmjs.com/package/node-cron) NodeJS task scheduler module
+  - [BcryptJS](https://www.npmjs.com/package/bcryptjs/v/0.7.6) NodeJS library for password encryption/decryption
+  - [Massive](https://massive-js.readthedocs.io/en/latest/) PostgreSQL database access tool
+  - [Axios](https://www.npmjs.com/package/axios) Promise based HTTP client for the browser and node.js
+  - [PostgreSQL](https://www.postgresql.org/) Relational database management/query system
 
 ### The Team: 
   Balance was created by during DevMountain's first-ever Salt Lake City, UT Immersive Web Development Cohort by:<br>
   
   **Palmer Campbell**
+  - [Github](https://github.com/Palmorc)
+  - [LinkedIn](https://www.linkedin.com/in/prcampbell/)
+  - [Portfolio](https://palmercampbell.squarespace.com/)
   
   **Ryan Whitecar**
   
   **Taylor Montgomery**
   
   **Andrew Watters**
-  - Gthub(https://github.com/Andrewdwatters1)
-  - LinkedIn(https://www.linkedin.com/in/adwatters)
-  - Portfolio(https://www.andrewdwattersdev.com/)
+  - [Github](https://github.com/Andrewdwatters1/)
+  - [LinkedIn](https://www.linkedin.com/in/adwatters/)
+  - [Portfolio](https://www.andrewdwattersdev.com/)
 
 
 
