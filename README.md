@@ -24,17 +24,14 @@ Balance is our take on the popular Momentum Chrome Extension, and is a productiv
   
   **Palmer Campbell**
   
-  <br>
   **Ryan Whitecar**
   
-  <br>
   **Taylor Montgomery**
   
-  <br>
   **Andrew Watters**
-  - [Github](https://github.com/Andrewdwatters1)
-  - [LinkedIn](https://www.linkedin.com/in/adwatters)
-  - [Portfolio](https://www.andrewdwattersdev.com/)<br>
+  - Gthub(https://github.com/Andrewdwatters1)
+  - LinkedIn(https://www.linkedin.com/in/adwatters)
+  - Portfolio(https://www.andrewdwattersdev.com/)
 
 
 
