@@ -212,10 +212,10 @@ class Home extends Component {
         if (document.getElementById('logout-button')) {
             ReactDOM.unmountComponentAtNode(document.getElementById('logout'));
         } else {
-            if(abs && document.getElementById('logout')) {
+            if (abs && document.getElementById('logout')) {
                 ReactDOM.render(
-                <button className="logout-user-button" onClick={this.confirmLogout} id="logout-button">LOGOUT</button>
-                , document.getElementById('logout'))
+                    <button className="logout-user-button" onClick={this.confirmLogout} id="logout-button">LOGOUT</button>
+                    , document.getElementById('logout'))
             }
         }
     }
@@ -223,7 +223,7 @@ class Home extends Component {
         this.props.logout();
         this.props.getCurrentUser();
     }
-    
+
     toggleInfoPage = () => {
         this.setState({
             isInfoPageVisible: true,
@@ -382,7 +382,7 @@ class Home extends Component {
     render() {
         let backdrop;
         if (this.state.isTimerVisible) {
-            backdrop = <Backdrop click={this.toggleTimer}/>
+            backdrop = <Backdrop click={this.toggleTimer} />
         }
 
         let daysOfTheWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
@@ -424,7 +424,7 @@ class Home extends Component {
         if (this.state.focusTimerCountdown) { focusPlayButtonEnabled = "none" } else { focusPlayButtonEnabled = "auto" }
 
 
-            return (
+        return (
             <div className="window">
                 <div>
                     {this.state.shouldAudioPlay && <audio src={focusAlertSound} autoPlay type="audio/wav">Your Browser Does Not Support Audio</audio>}
@@ -450,15 +450,11 @@ class Home extends Component {
                                         <span className="timer-select-time">{`${addZero(this.state.focusTimer.get('minutes'))}:${addZero(this.state.focusTimer.get('seconds'))}`}</span>
                                         {/*<img src={plus} alt="add one minute" className="plus-minus"/>*/}
                                     </div>
-                                    <div className="timer-details-wrapper">
-                                        <div className="timer-details-box">
-                                            <span className="timer-title" style={{ color: `${focusColor}` }}>Focus:</span>
-                                            <span className="timer-select-time">{`${addZero(this.state.focusTimer.get('minutes'))}:${addZero(this.state.focusTimer.get('seconds'))}`}</span>
-                                        </div>
-                                        <div className="timer-details-box">
-                                            <span className="timer-title" style={{ color: `${breakColor}` }}>Break:</span>
-                                            <span className="timer-select-time">{`${addZero(this.state.breakTimer.get('minutes'))}:${addZero(this.state.breakTimer.get('seconds'))}`}</span>
-                                        </div>
+                                    <div className="timer-details-box">
+                                        {/*<img src={minus} alt="subtract one minute" className="plus-minus"/>*/}
+                                        <span className="timer-title" style={{ color: `${breakColor}` }}>Break:</span>
+                                        <span className="timer-select-time">{`${addZero(this.state.breakTimer.get('minutes'))}:${addZero(this.state.breakTimer.get('seconds'))}`}</span>
+                                        {/*<img src={plus} alt="add one minute" className="plus-minus"/>*/}
                                     </div>
                                 </div>
                                 {this.state.focusControlsAreVisible &&
@@ -484,9 +480,9 @@ class Home extends Component {
                         <div className="icon-calendar" onClick={this.calendarToggler} />
                         <div className="icon-news" onClick={this.newsToggler} />
                         <div className="icon-timer" onClick={this.toggleTimer} />
-                        <div className="icon-info" onClick={this.toggleInfoPage}/>
-                        <div className="icon-settings" onClick={this.toggleSettingsPage}/>
-                        <div className="icon-settings" onClick={this.logout}/>
+                        <div className="icon-info" onClick={this.toggleInfoPage} />
+                        <div className="icon-settings" onClick={this.toggleSettingsPage} />
+                        <div className="icon-settings" onClick={this.logout} />
                         <div className="menu-spacer" />
                     </div>
 
@@ -498,14 +494,14 @@ class Home extends Component {
 
                     {/*Feature Modals*/}
 
-                        {this.state.isWeatherCardVisible && <Weather logout={this.logout}/>}
-                        {this.state.isNotesVisible && <Notes />}
-                        {this.state.isTodoVisible && <Todo />}
-                        {this.state.isHabitsVisible && <Habits quickView={this.state.habitsQuickToggler} habitsQuickViewToggler={this.habitsQuickViewToggler}/>}
-                        {this.state.isCalendarVisible && <Calendar isWeatherModalVisible={this.state.isWeatherModalVisible} />}
-                        {this.state.isNewsVisible && <News />}
-                        {this.state.isInfoPageVisible && <InfoPage/>}
-                        {this.state.isSettingsVisible && <Settings homeClick={this.homeClickHandler}/>}
+                    {this.state.isWeatherCardVisible && <Weather logout={this.logout} />}
+                    {this.state.isNotesVisible && <Notes />}
+                    {this.state.isTodoVisible && <Todo />}
+                    {this.state.isHabitsVisible && <Habits quickView={this.state.habitsQuickToggler} habitsQuickViewToggler={this.habitsQuickViewToggler} />}
+                    {this.state.isCalendarVisible && <Calendar isWeatherModalVisible={this.state.isWeatherModalVisible} />}
+                    {this.state.isNewsVisible && <News />}
+                    {this.state.isInfoPageVisible && <InfoPage />}
+                    {this.state.isSettingsVisible && <Settings homeClick={this.homeClickHandler} />}
 
 
                     {this.state.isHomeCardVisible &&
@@ -528,12 +524,12 @@ class Home extends Component {
                         </div>
                     }
                     <ToastContainer store={ToastStore} position={ToastContainer.POSITION.BOTTOM_RIGHT} />
-                    </div>
                 </div>
-            )
-        }
-        
+            </div >
+        )
     }
+
+}
 
 
 const mapStateToProps = state => {
