@@ -21,15 +21,16 @@ Balance is our take on the popular Momentum Chrome Extension, and is a productiv
   - [PostgreSQL](https://www.postgresql.org/) Relational database management/query system
 
 ### The Team: 
-  Balance was created by during DevMountain's first-ever Salt Lake City, UT Immersive Web Development Cohort by:<br>
-    **Palmer Campbell**
+  Balance was created by during DevMountain's first-ever Salt Lake City, UT Immersive Web Development Cohort by:<br><br>
+  
+  **Palmer Campbell**
   - [Github](https://github.com/Palmorc) | [LinkedIn](https://www.linkedin.com/in/prcampbell/) | [Portfolio](https://palmercampbell.squarespace.com/)<br><br>
   **Ryan Whitecar**
   - [Github](https://github.com/thewhitecar) | [LinkedIn](https://www.linkedin.com/in/ryanwhitecar) | [Portfolio](https://thewhitecar.info/)<br><br>
   **Taylor Montgomery**
   - [Github](https://github.com/tmonty312) | [LinkedIn](https://www.linkedin.com/in/taylor-montgomery/)<br><br>
   **Andrew Watters**
-  - [Github](https://github.com/Andrewdwatters1/) | [LinkedIn](https://www.linkedin.com/in/adwatters/) | [Portfolio](https://www.andrewdwattersdev.com/)<br><br>
+  - [Github](https://github.com/Andrewdwatters1/) | [LinkedIn](https://www.linkedin.com/in/adwatters/) | [Portfolio](https://www.andrewdwattersdev.com/)
   -circa 2018
   
 
