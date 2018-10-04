@@ -199,7 +199,7 @@ class Todo extends Component{
                 </div>
                 <div className='nested'>
                 <div className='nestedButtons'>
-                    <input className='nestedInput' placeholder='Add more to your todo here!' value={this.state.nestedInput} onChange={this.handleNestedInput}/>
+                    <input className='nestedInput' placeholder='Select a todo to add more' value={this.state.nestedInput} onChange={this.handleNestedInput}/>
                     <button className='fas fa-plus' onClick={() => this.handleNestedSubmit(this.state.parentId)}></button>
                     <button id='edit' className='fas fa-pen-nib' onClick={this.nestedToggleEdit}></button>
                 </div>
