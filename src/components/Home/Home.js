@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
 import { ToastContainer, ToastStore } from 'react-toasts';
+import OtherBackdrop from '../OtherBackdrop/OtherBackdrop'
 import moment from 'moment'
 import FocusCompleteModal from './Timer/FocusCompleteModal/FocusCompleteModal'
 import BreakCompleteModal from './Timer/BreakCompleteModal/BreakCompleteModal'
@@ -11,15 +12,11 @@ import Notes from '../Notes/NotePad.js'
 import Todo from '../Todo/Todo.js'
 import Habits from '../Habits/Habits.js'
 import Calendar from '../Calendar/Calendar.js'
-
 import News from '../News/News.js'
 import HomeEvents from './homeEvents/HomeEvents'
 import InfoPage from '../InfoPage/infoPage'
 import Settings from '../Settings/Settings'
 import { getCurrentUser, logout } from '../../redux/reducers/user'
-
-
-
 
 //CSS FILES
 import './Home.css'
@@ -84,6 +81,7 @@ class Home extends Component {
         this.props.getCurrentUser();
         let background = this.props.user.avitar
         document.body.style.background = `linear-gradient(\n        rgba(0,0,0,0.516),\n        rgba(0,0,0,0.516)\n    ),\n    url(${background}) no-repeat center center fixed`
+        document.body.style.backgroundSize = 'cover'
         const _this = this;
         this.timer = setInterval(function () {
             var date = _this.getTimeString();
@@ -380,9 +378,15 @@ class Home extends Component {
     }
 
     render() {
-        let backdrop;
+        
+        let backdrop; //Timer
         if (this.state.isTimerVisible) {
             backdrop = <Backdrop click={this.toggleTimer} />
+        }
+
+        let otherBackdrop;
+        if (this.state.isTimerVisisble || this.state.isNotesVisible || this.state.isTodoVisible || this.state.isHabitsVisible || this.state.isCalendarVisible || this.state.isWeatherModalVisible || this.state.isNewsVisible || this.state.isSettingsVisible || this.state.isInfoPageVisible ){
+            otherBackdrop = <OtherBackdrop click={this.homeClickHandler}/>
         }
 
         let daysOfTheWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
@@ -431,7 +435,8 @@ class Home extends Component {
                     <div className="top-menu-button">
                         <img alt="habits-quick-check" src={habits} onMouseEnter={() => this.habitsToggler(true)} />
                     </div>
-                    {backdrop}
+                        {backdrop}
+                        {otherBackdrop}
                     <div>
                         {this.state.isTimerVisible &&
                             <div className="timer-container">
@@ -482,7 +487,7 @@ class Home extends Component {
                         <div className="icon-timer" onClick={this.toggleTimer} />
                         <div className="icon-info" onClick={this.toggleInfoPage} />
                         <div className="icon-settings" onClick={this.toggleSettingsPage} />
-                        <div className="icon-logout" onClick={this.logout} />
+                        <div className="icon-logout" onClick={this.logout} style={{marginLeft: "8px"}} />
                         <div className="menu-spacer" />
                     </div>
 

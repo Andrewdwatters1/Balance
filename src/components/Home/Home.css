@@ -1,5 +1,5 @@
 *{
-    font-family: 'Lato';
+    font-family: 'Raleway', sans-serif;
     color: #FAFAFA;
     box-sizing: border-box;
     background-color: transparent;
@@ -24,7 +24,7 @@ body {
     height: 20vh;
     background-color: rgba(0, 0, 0, 0.516);
     display: none;
-    z-index: 1;
+    z-index: 3;
 }
 
 .top-menu-button{
@@ -35,7 +35,7 @@ body {
     background-color: rgba(0, 0, 0, 0.70);
     border-bottom-left-radius: 50px;
     border-bottom-right-radius: 50px;
-    z-index: 1;
+    z-index: 3;
 }
 
 .top-menu-button img{
@@ -60,6 +60,7 @@ body {
     box-shadow: 0 0 0 0 transparent;
     transition: all 500ms ease-in-out;   
     opacity: 0.6;
+    z-index: 100000000;
 }
 
 .left-menu:hover{
@@ -102,7 +103,7 @@ body {
 .home-center-card>h2{
 font-size: 40px;
 margin-top: -20px;
-font-family: 'Montserrat', sans-serif;
+font-family: 'Raleway';
 letter-spacing: 1.2px;
 }
 
