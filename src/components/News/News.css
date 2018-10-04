@@ -1,7 +1,3 @@
-:root {
-    --primary-accent-color: rgba(233, 88, 88, 0.708);  
-}
-
 .content-container{
     position: absolute;
     top: 0;
@@ -11,44 +7,59 @@
     margin: auto;
     width: 80vw;
     height: 80vh;
-    background-color: rgba(0, 0, 0, 0.708);
+    background-color: rgba(0, 0, 0, 0.7);
     z-index: 5;
     display: flex;
     overflow: scroll;
+    box-shadow: 0 0 5px 10px rgba(0, 0, 0, 0.7);
 }
 
-.content-container-news-sub{
+.content-container-news-sub {
     display: flex;
     flex-direction: column;
     align-content: center;
     align-items: center;
     height: 150vh;
+    margin: 80px auto 0 auto;
+    width: 90%;
 }
 
-.article-title-and-content{
+.news-no-more {
+    position: absolute;
+    top: 50px;
+    right: 15px;
+}
+
+.news-content-header {
+    position: absolute;
+    top: 0;
+    left: 100px;
+    right: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.news-content > p {
+    margin-left: 30px;
+}
+
+.article-title-and-content {
     float: right;
-    margin-right: 70px;
+    margin-left: 30px;
 }
 
-.article-box{
+.news-hover:hover {
+    background-color: rgba(255, 255, 255, 0.25);
+    cursor: pointer;
+}
+
+.article-box {
     height: auto;
     width: 100%;
     display: flex;
     flex-direction: row;
-    margin-bottom: 200px;
-}
-
-.article-box h1{
-    font-size: 25px;
-    margin-left: 10px;
-}
-
-.article-box a{
-    text-decoration: none;
-}
-
-.article-box h1:hover{
-    color: rgba(233, 88, 88, 0.708);  
+    margin-bottom: 180px;
 }
 
 .article-box p{
@@ -56,16 +67,30 @@
     margin-left: 10px;
 }
 
-.articles-image{
-    width: 300px;
-    height: 200px;
-    object-fit: cover;
+.articles-image {
+    min-width: 210px;
+    max-width: 220px;
+    height: 150px;
+    border-radius: 15px;
+    border: solid white 3px;
+}
+
+.articles-title:hover {
+    color: rgba(233, 88, 88, 0.708);  
+}
+
+.articles-image:hover {
+    opacity: 0.7;
+    cursor: pointer;
 }
 
 .next-button{
-    height: 50px;
-    width: 50px;
-    position: absolute;
-    top: 10px;
-    right: 10px;
+    position: fixed;
+    top: 11vh;
+    right: 10.8vw;
+    font-size: 3em;
+}
+
+.next-button:hover {
+    opacity: .8;
 }
