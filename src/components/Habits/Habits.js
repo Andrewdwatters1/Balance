@@ -140,7 +140,7 @@ export class Habits extends Component {
             this.setState({
                 shouldLoadingDisplay: false
             })
-        }, 120)
+        }, 150)
     }
 
     render() {

@@ -20,7 +20,7 @@ Balance is our take on the popular Momentum Chrome Extension, and is a productiv
     - Axios: Promise based HTTP client for the browser and node.js
 
 # The Team: 
-  Momentum was created by Palmer Campbell, Ryan Whitecar, Taylor Montgomery and Andrew Watters during the first Salt Lake City, UT Cohort at DevMountain, circa 2018.  
+  Balance was created by Palmer Campbell, Ryan Whitecar, Taylor Montgomery and Andrew Watters during the first Salt Lake City, UT Cohort at DevMountain, circa 2018.  
 
 
 
