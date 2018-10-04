@@ -185,55 +185,58 @@ export class Habits extends Component {
                 var streak = habitEventDivs.every((e) => e.props.children[1].props.className.includes('habit-green-button')) ? <p className="streak">You're on a roll! Keep it up!</p> : null
 
                 return (
-                    <div key={i} className="habits-detail-habit">
-                        <div className="habit-detail-top">
-                            <h1>{e.title}</h1>
-                            <h3 className="habits-detail-description">{e.description}</h3>
-                            <p>Habit Category: {e.type === "Personal" ? 'Personal' : e.type === "Professional" ? 'Professional' : 'Health/Fitness'}</p>
-                        </div>
-                        <div>
-                            <div style={{ textAlign: 'center' }}>
+                    <div>
 
-                                <p>You started tracking this habit: <br />
-                                    {
-                                        moment([+e.date[0], (+e.date[1]), +e.date[2]]).fromNow().includes('hours')
-                                            ?
-                                            "Today"
-                                            :
-                                            `${day}, ${month} ${e.date[2]}, ${e.date[0]}, ${moment([+e.date[0], (+e.date[1]), +e.date[2]]).fromNow()}`
-                                    }</p>
-                                <p>Here's your progress for the past week: </p>
-                                <img src={trash} className="delete-habit" onMouseDown={this.toggleDeleteConfirmation} />
-                                <div style={{ display: this.state.deleteConfirmationOpen ? 'block' : 'none' }} className="delete-habit-confirm">
-                                    <p>Are you sure you want to delete this Habit?</p>
-                                    <p onMouseDown={(id) => this.deleteHabit(e.id)}>Yes</p>
-                                    <p onMouseDown={this.toggleDeleteConfirmation}>No</p>
-                                </div>
+                        <div key={i} className="habits-detail-habit">
+                            <div className="habit-detail-top">
+                                <h1>{e.title}</h1>
+                                <h3 className="habits-detail-description">{e.description}</h3>
+                                <p>Habit Category: {e.type === "Personal" ? 'Personal' : e.type === "Professional" ? 'Professional' : 'Health/Fitness'}</p>
                             </div>
-                            <div className="habits-detail-bottom">
-                                {habitEventDivs}
-                                <div className="habits-detail-bottom-items"><p className="habits-detail-bottom-days-ago">yest.</p>
-                                    {this.state.habitEventsReturned && // checks that habitEvents array has been returned
-                                        this.state.habitEvents.filter((e) => e.daysfromstart === "1")[0] ? // checks that first item in habitEvents {x} days ago is true
-                                        <i className="far fa-check-circle habit-green-button"></i> // rendered if true
-                                        : // if false 
-                                        <i className="far fa-times-circle habit-red-button"></i>}
+                            <div>
+                                <div style={{ textAlign: 'center' }}>
+
+                                    <p>You started tracking this habit: <br />
+                                        {
+                                            moment([+e.date[0], (+e.date[1]), +e.date[2]]).fromNow().includes('hours')
+                                                ?
+                                                "Today"
+                                                :
+                                                `${day}, ${month} ${e.date[2]}, ${e.date[0]}, ${moment([+e.date[0], (+e.date[1]), +e.date[2]]).fromNow()}`
+                                        }</p>
+                                    <p>Here's your progress for the past week: </p>
+                                    <img src={trash} className="delete-habit" onMouseDown={this.toggleDeleteConfirmation} />
+                                    <div style={{ display: this.state.deleteConfirmationOpen ? 'block' : 'none' }} className="delete-habit-confirm">
+                                        <p>Are you sure you want to delete this Habit?</p>
+                                        <p onMouseDown={(id) => this.deleteHabit(e.id)}>Yes</p>
+                                        <p onMouseDown={this.toggleDeleteConfirmation}>No</p>
+                                    </div>
                                 </div>
-                                <div className="habits-detail-bottom-items"><p className="habits-detail-bottom-days-ago">today</p>
-                                    {this.state.habitEventsReturned && this.props.completed.length && // checks that habitEvents array has been returned
-                                        this.props.completed.map((elem, i) => {
-                                            if (elem.id === e.id) {
-                                                if (elem.completed) {
-                                                    return <i key={i} id={e.id} className="far fa-check-circle habit-green-button"></i>
-                                                } else {
-                                                    return <i key={i} id={e.id} className="far fa-times-circle habit-red-button" onMouseDown={(habitId) => this.addHabitEvent(e.id)}></i>
+                                <div className="habits-detail-bottom">
+                                    {habitEventDivs}
+                                    <div className="habits-detail-bottom-items"><p className="habits-detail-bottom-days-ago">yest.</p>
+                                        {this.state.habitEventsReturned && // checks that habitEvents array has been returned
+                                            this.state.habitEvents.filter((e) => e.daysfromstart === "1")[0] ? // checks that first item in habitEvents {x} days ago is true
+                                            <i className="far fa-check-circle habit-green-button"></i> // rendered if true
+                                            : // if false 
+                                            <i className="far fa-times-circle habit-red-button"></i>}
+                                    </div>
+                                    <div className="habits-detail-bottom-items"><p className="habits-detail-bottom-days-ago">today</p>
+                                        {this.state.habitEventsReturned && this.props.completed.length && // checks that habitEvents array has been returned
+                                            this.props.completed.map((elem, i) => {
+                                                if (elem.id === e.id) {
+                                                    if (elem.completed) {
+                                                        return <i key={i} id={e.id} className="far fa-check-circle habit-green-button"></i>
+                                                    } else {
+                                                        return <i key={i} id={e.id} className="far fa-times-circle habit-red-button" onMouseDown={(habitId) => this.addHabitEvent(e.id)}></i>
+                                                    }
                                                 }
-                                            }
-                                        })
-                                    }
+                                            })
+                                        }
+                                    </div>
                                 </div>
+                                {streak}
                             </div>
-                            {streak}
                         </div>
                     </div>
                 );
@@ -336,7 +339,7 @@ export class Habits extends Component {
                                 </div>
                             </div>
                             :
-                            <img src={loading} style={{position: 'absolute', top: '37%', left: '45%', right: '45%', bottom: '37%'}}/>
+                            <img src={loading} style={{ position: 'absolute', top: '37%', left: '45%', right: '45%', bottom: '37%' }} />
                         }
                     </div>
                 }
