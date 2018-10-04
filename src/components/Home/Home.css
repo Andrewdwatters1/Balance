@@ -1,5 +1,5 @@
 *{
-    font-family: 'Lato';
+    font-family: 'Raleway', sans-serif;
     color: #FAFAFA;
     box-sizing: border-box;
     background-color: transparent;
@@ -60,6 +60,7 @@ body {
     box-shadow: 0 0 0 0 transparent;
     transition: all 500ms ease-in-out;   
     opacity: 0.6;
+    z-index: 100000000;
 }
 
 .left-menu:hover{
@@ -102,7 +103,7 @@ body {
 .home-center-card>h2{
 font-size: 40px;
 margin-top: -20px;
-font-family: 'Montserrat', sans-serif;
+font-family: 'Raleway';
 letter-spacing: 1.2px;
 }
 

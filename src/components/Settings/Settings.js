@@ -35,6 +35,7 @@ class Settings extends Component{
         let obj = {background_id : this.state.displayedBackground};
         axios.put(`/api/backgrounds`, obj).then(res =>{
             document.body.style.background = `linear-gradient(\n        rgba(0,0,0,0.516),\n        rgba(0,0,0,0.516)\n    ),\n    url(${backgroundOptions[this.state.displayedBackground]}) no-repeat center center fixed`
+            document.body.style.backgroundSize = 'cover'
             this.props.homeClick()
         })
     }
