@@ -12,7 +12,7 @@ import { updateHabitsCompletedToday } from '../../redux/reducers/habits';
 const add = require('../../assets/plus.png');
 const trash = require('../../assets/trash-icon.png');
 
-class Habits extends Component {
+export class Habits extends Component {
     constructor() {
         super();
         this.state = {
@@ -111,7 +111,8 @@ class Habits extends Component {
         this.props.updateHabitsCompletedToday(habitsCompletedToday)
     }
     getUpdatedHabitsByUser = () => {
-        let { id } = this.props.user;
+        // let { id } = this.props.user;
+        let { id } = this.props.user || 1; // testing only
         axios.get('api/habits', { id }).then(result => {
             this.setState({
                 habitsList: result.data

@@ -1,0 +1,787 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`verify environment setup should render without props 1`] = `
+ShallowWrapper {
+  Symbol(enzyme.__root__): [Circular],
+  Symbol(enzyme.__unrendered__): <AddHabitForm />,
+  Symbol(enzyme.__renderer__): Object {
+    "batchedUpdates": [Function],
+    "getNode": [Function],
+    "render": [Function],
+    "simulateError": [Function],
+    "simulateEvent": [Function],
+    "unmount": [Function],
+  },
+  Symbol(enzyme.__node__): Object {
+    "instance": null,
+    "key": undefined,
+    "nodeType": "host",
+    "props": Object {
+      "children": Array [
+        <div
+          className="add-habit"
+>
+          <img
+                    className="add-habit-close-form"
+                    onMouseDown={undefined}
+                    src="plus.png"
+          />
+          <form
+                    className="add-habit-form"
+                    onSubmit={[Function]}
+          >
+                    <input
+                              maxLength="18"
+                              onChange={[Function]}
+                              placeholder="TITLE"
+                              value=""
+                    />
+                    <textarea
+                              cols="30"
+                              onChange={[Function]}
+                              placeholder="Description"
+                              rows="4"
+                              type="submit text"
+                              value=""
+                    >
+                              <input />
+                    </textarea>
+                    Category: 
+                    <select
+                              className="add-habit-form-select"
+                              onChange={[Function]}
+                              type="submit"
+                              value=""
+                    >
+                              <option
+                                        value="Health/Fitness"
+                              >
+                                        Health/Fitness
+                              </option>
+                              <option
+                                        value="Professional"
+                              >
+                                        Professional
+                              </option>
+                              <option
+                                        value="Personal"
+                              >
+                                        Personal
+                              </option>
+                    </select>
+                    <button
+                              type="submit"
+                    >
+                              Add Habit
+                    </button>
+          </form>
+</div>,
+        <Container
+          position="bottom_right"
+          store={
+                    Object {
+                              "data": Object {
+                                "action": "",
+                                "message": "",
+                              },
+                              "error": [Function],
+                              "info": [Function],
+                              "success": [Function],
+                              "unwatch": [Function],
+                              "warning": [Function],
+                              "watch": [Function],
+                            }
+          }
+/>,
+      ],
+      "style": Object {
+        "height": "100vh",
+        "width": "100vw",
+      },
+    },
+    "ref": null,
+    "rendered": Array [
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "host",
+        "props": Object {
+          "children": Array [
+            <img
+              className="add-habit-close-form"
+              onMouseDown={undefined}
+              src="plus.png"
+/>,
+            <form
+              className="add-habit-form"
+              onSubmit={[Function]}
+>
+              <input
+                            maxLength="18"
+                            onChange={[Function]}
+                            placeholder="TITLE"
+                            value=""
+              />
+              <textarea
+                            cols="30"
+                            onChange={[Function]}
+                            placeholder="Description"
+                            rows="4"
+                            type="submit text"
+                            value=""
+              >
+                            <input />
+              </textarea>
+              Category: 
+              <select
+                            className="add-habit-form-select"
+                            onChange={[Function]}
+                            type="submit"
+                            value=""
+              >
+                            <option
+                                          value="Health/Fitness"
+                            >
+                                          Health/Fitness
+                            </option>
+                            <option
+                                          value="Professional"
+                            >
+                                          Professional
+                            </option>
+                            <option
+                                          value="Personal"
+                            >
+                                          Personal
+                            </option>
+              </select>
+              <button
+                            type="submit"
+              >
+                            Add Habit
+              </button>
+</form>,
+          ],
+          "className": "add-habit",
+        },
+        "ref": null,
+        "rendered": Array [
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "host",
+            "props": Object {
+              "className": "add-habit-close-form",
+              "onMouseDown": undefined,
+              "src": "plus.png",
+            },
+            "ref": null,
+            "rendered": null,
+            "type": "img",
+          },
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "host",
+            "props": Object {
+              "children": Array [
+                <input
+                  maxLength="18"
+                  onChange={[Function]}
+                  placeholder="TITLE"
+                  value=""
+/>,
+                <textarea
+                  cols="30"
+                  onChange={[Function]}
+                  placeholder="Description"
+                  rows="4"
+                  type="submit text"
+                  value=""
+>
+                  <input />
+</textarea>,
+                "Category: ",
+                <select
+                  className="add-habit-form-select"
+                  onChange={[Function]}
+                  type="submit"
+                  value=""
+>
+                  <option
+                                    value="Health/Fitness"
+                  >
+                                    Health/Fitness
+                  </option>
+                  <option
+                                    value="Professional"
+                  >
+                                    Professional
+                  </option>
+                  <option
+                                    value="Personal"
+                  >
+                                    Personal
+                  </option>
+</select>,
+                <button
+                  type="submit"
+>
+                  Add Habit
+</button>,
+              ],
+              "className": "add-habit-form",
+              "onSubmit": [Function],
+            },
+            "ref": null,
+            "rendered": Array [
+              Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "host",
+                "props": Object {
+                  "maxLength": "18",
+                  "onChange": [Function],
+                  "placeholder": "TITLE",
+                  "value": "",
+                },
+                "ref": null,
+                "rendered": null,
+                "type": "input",
+              },
+              Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "host",
+                "props": Object {
+                  "children": <input />,
+                  "cols": "30",
+                  "onChange": [Function],
+                  "placeholder": "Description",
+                  "rows": "4",
+                  "type": "submit text",
+                  "value": "",
+                },
+                "ref": null,
+                "rendered": Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "host",
+                  "props": Object {},
+                  "ref": null,
+                  "rendered": null,
+                  "type": "input",
+                },
+                "type": "textarea",
+              },
+              "Category: ",
+              Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "host",
+                "props": Object {
+                  "children": Array [
+                    <option
+                      value="Health/Fitness"
+>
+                      Health/Fitness
+</option>,
+                    <option
+                      value="Professional"
+>
+                      Professional
+</option>,
+                    <option
+                      value="Personal"
+>
+                      Personal
+</option>,
+                  ],
+                  "className": "add-habit-form-select",
+                  "onChange": [Function],
+                  "type": "submit",
+                  "value": "",
+                },
+                "ref": null,
+                "rendered": Array [
+                  Object {
+                    "instance": null,
+                    "key": undefined,
+                    "nodeType": "host",
+                    "props": Object {
+                      "children": "Health/Fitness",
+                      "value": "Health/Fitness",
+                    },
+                    "ref": null,
+                    "rendered": "Health/Fitness",
+                    "type": "option",
+                  },
+                  Object {
+                    "instance": null,
+                    "key": undefined,
+                    "nodeType": "host",
+                    "props": Object {
+                      "children": "Professional",
+                      "value": "Professional",
+                    },
+                    "ref": null,
+                    "rendered": "Professional",
+                    "type": "option",
+                  },
+                  Object {
+                    "instance": null,
+                    "key": undefined,
+                    "nodeType": "host",
+                    "props": Object {
+                      "children": "Personal",
+                      "value": "Personal",
+                    },
+                    "ref": null,
+                    "rendered": "Personal",
+                    "type": "option",
+                  },
+                ],
+                "type": "select",
+              },
+              Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "host",
+                "props": Object {
+                  "children": "Add Habit",
+                  "type": "submit",
+                },
+                "ref": null,
+                "rendered": "Add Habit",
+                "type": "button",
+              },
+            ],
+            "type": "form",
+          },
+        ],
+        "type": "div",
+      },
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "class",
+        "props": Object {
+          "position": "bottom_right",
+          "store": Object {
+            "data": Object {
+              "action": "",
+              "message": "",
+            },
+            "error": [Function],
+            "info": [Function],
+            "success": [Function],
+            "unwatch": [Function],
+            "warning": [Function],
+            "watch": [Function],
+          },
+        },
+        "ref": null,
+        "rendered": null,
+        "type": [Function],
+      },
+    ],
+    "type": "div",
+  },
+  Symbol(enzyme.__nodes__): Array [
+    Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "host",
+      "props": Object {
+        "children": Array [
+          <div
+            className="add-habit"
+>
+            <img
+                        className="add-habit-close-form"
+                        onMouseDown={undefined}
+                        src="plus.png"
+            />
+            <form
+                        className="add-habit-form"
+                        onSubmit={[Function]}
+            >
+                        <input
+                                    maxLength="18"
+                                    onChange={[Function]}
+                                    placeholder="TITLE"
+                                    value=""
+                        />
+                        <textarea
+                                    cols="30"
+                                    onChange={[Function]}
+                                    placeholder="Description"
+                                    rows="4"
+                                    type="submit text"
+                                    value=""
+                        >
+                                    <input />
+                        </textarea>
+                        Category: 
+                        <select
+                                    className="add-habit-form-select"
+                                    onChange={[Function]}
+                                    type="submit"
+                                    value=""
+                        >
+                                    <option
+                                                value="Health/Fitness"
+                                    >
+                                                Health/Fitness
+                                    </option>
+                                    <option
+                                                value="Professional"
+                                    >
+                                                Professional
+                                    </option>
+                                    <option
+                                                value="Personal"
+                                    >
+                                                Personal
+                                    </option>
+                        </select>
+                        <button
+                                    type="submit"
+                        >
+                                    Add Habit
+                        </button>
+            </form>
+</div>,
+          <Container
+            position="bottom_right"
+            store={
+                        Object {
+                                    "data": Object {
+                                      "action": "",
+                                      "message": "",
+                                    },
+                                    "error": [Function],
+                                    "info": [Function],
+                                    "success": [Function],
+                                    "unwatch": [Function],
+                                    "warning": [Function],
+                                    "watch": [Function],
+                                  }
+            }
+/>,
+        ],
+        "style": Object {
+          "height": "100vh",
+          "width": "100vw",
+        },
+      },
+      "ref": null,
+      "rendered": Array [
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "children": Array [
+              <img
+                className="add-habit-close-form"
+                onMouseDown={undefined}
+                src="plus.png"
+/>,
+              <form
+                className="add-habit-form"
+                onSubmit={[Function]}
+>
+                <input
+                                maxLength="18"
+                                onChange={[Function]}
+                                placeholder="TITLE"
+                                value=""
+                />
+                <textarea
+                                cols="30"
+                                onChange={[Function]}
+                                placeholder="Description"
+                                rows="4"
+                                type="submit text"
+                                value=""
+                >
+                                <input />
+                </textarea>
+                Category: 
+                <select
+                                className="add-habit-form-select"
+                                onChange={[Function]}
+                                type="submit"
+                                value=""
+                >
+                                <option
+                                                value="Health/Fitness"
+                                >
+                                                Health/Fitness
+                                </option>
+                                <option
+                                                value="Professional"
+                                >
+                                                Professional
+                                </option>
+                                <option
+                                                value="Personal"
+                                >
+                                                Personal
+                                </option>
+                </select>
+                <button
+                                type="submit"
+                >
+                                Add Habit
+                </button>
+</form>,
+            ],
+            "className": "add-habit",
+          },
+          "ref": null,
+          "rendered": Array [
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "host",
+              "props": Object {
+                "className": "add-habit-close-form",
+                "onMouseDown": undefined,
+                "src": "plus.png",
+              },
+              "ref": null,
+              "rendered": null,
+              "type": "img",
+            },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "host",
+              "props": Object {
+                "children": Array [
+                  <input
+                    maxLength="18"
+                    onChange={[Function]}
+                    placeholder="TITLE"
+                    value=""
+/>,
+                  <textarea
+                    cols="30"
+                    onChange={[Function]}
+                    placeholder="Description"
+                    rows="4"
+                    type="submit text"
+                    value=""
+>
+                    <input />
+</textarea>,
+                  "Category: ",
+                  <select
+                    className="add-habit-form-select"
+                    onChange={[Function]}
+                    type="submit"
+                    value=""
+>
+                    <option
+                                        value="Health/Fitness"
+                    >
+                                        Health/Fitness
+                    </option>
+                    <option
+                                        value="Professional"
+                    >
+                                        Professional
+                    </option>
+                    <option
+                                        value="Personal"
+                    >
+                                        Personal
+                    </option>
+</select>,
+                  <button
+                    type="submit"
+>
+                    Add Habit
+</button>,
+                ],
+                "className": "add-habit-form",
+                "onSubmit": [Function],
+              },
+              "ref": null,
+              "rendered": Array [
+                Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "host",
+                  "props": Object {
+                    "maxLength": "18",
+                    "onChange": [Function],
+                    "placeholder": "TITLE",
+                    "value": "",
+                  },
+                  "ref": null,
+                  "rendered": null,
+                  "type": "input",
+                },
+                Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "host",
+                  "props": Object {
+                    "children": <input />,
+                    "cols": "30",
+                    "onChange": [Function],
+                    "placeholder": "Description",
+                    "rows": "4",
+                    "type": "submit text",
+                    "value": "",
+                  },
+                  "ref": null,
+                  "rendered": Object {
+                    "instance": null,
+                    "key": undefined,
+                    "nodeType": "host",
+                    "props": Object {},
+                    "ref": null,
+                    "rendered": null,
+                    "type": "input",
+                  },
+                  "type": "textarea",
+                },
+                "Category: ",
+                Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "host",
+                  "props": Object {
+                    "children": Array [
+                      <option
+                        value="Health/Fitness"
+>
+                        Health/Fitness
+</option>,
+                      <option
+                        value="Professional"
+>
+                        Professional
+</option>,
+                      <option
+                        value="Personal"
+>
+                        Personal
+</option>,
+                    ],
+                    "className": "add-habit-form-select",
+                    "onChange": [Function],
+                    "type": "submit",
+                    "value": "",
+                  },
+                  "ref": null,
+                  "rendered": Array [
+                    Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "host",
+                      "props": Object {
+                        "children": "Health/Fitness",
+                        "value": "Health/Fitness",
+                      },
+                      "ref": null,
+                      "rendered": "Health/Fitness",
+                      "type": "option",
+                    },
+                    Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "host",
+                      "props": Object {
+                        "children": "Professional",
+                        "value": "Professional",
+                      },
+                      "ref": null,
+                      "rendered": "Professional",
+                      "type": "option",
+                    },
+                    Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "host",
+                      "props": Object {
+                        "children": "Personal",
+                        "value": "Personal",
+                      },
+                      "ref": null,
+                      "rendered": "Personal",
+                      "type": "option",
+                    },
+                  ],
+                  "type": "select",
+                },
+                Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "host",
+                  "props": Object {
+                    "children": "Add Habit",
+                    "type": "submit",
+                  },
+                  "ref": null,
+                  "rendered": "Add Habit",
+                  "type": "button",
+                },
+              ],
+              "type": "form",
+            },
+          ],
+          "type": "div",
+        },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "class",
+          "props": Object {
+            "position": "bottom_right",
+            "store": Object {
+              "data": Object {
+                "action": "",
+                "message": "",
+              },
+              "error": [Function],
+              "info": [Function],
+              "success": [Function],
+              "unwatch": [Function],
+              "warning": [Function],
+              "watch": [Function],
+            },
+          },
+          "ref": null,
+          "rendered": null,
+          "type": [Function],
+        },
+      ],
+      "type": "div",
+    },
+  ],
+  Symbol(enzyme.__options__): Object {
+    "adapter": ReactSixteenAdapter {
+      "options": Object {
+        "enableComponentDidUpdateOnSetState": true,
+        "lifecycles": Object {
+          "componentDidUpdate": Object {
+            "onSetState": true,
+          },
+          "getDerivedStateFromProps": true,
+          "getSnapshotBeforeUpdate": true,
+          "setState": Object {
+            "skipsComponentDidUpdateOnNullish": true,
+          },
+        },
+      },
+    },
+    "attachTo": undefined,
+    "hydrateIn": undefined,
+  },
+}
+`;
