@@ -3,6 +3,10 @@
     top:10px;
     right: 10px;
     cursor: pointer;
+    z-index: 20;
+    pointer-events: all;
+    width:100px;
+    height: 100px;
 }
 
 .weather-box>img{
