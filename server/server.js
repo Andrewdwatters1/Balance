@@ -7,9 +7,9 @@ const bcrypt = require('bcryptjs');
 const salt = bcrypt.genSaltSync(10);
 const hash = bcrypt.hashSync(process.env.BCRYPT_HASH, salt);
 const cron = require('node-cron');
+// const path = require('path')
 
 
-// const path = require('path')  // PRODUCTION BUILD ONLY
 
 const authController = require('./authController');
 const habitsController = require('./habitsController');
@@ -17,6 +17,7 @@ const eventsController = require('./eventsController')
 const notesController = require('./notesController');
 const todoController = require('./todoController')
 const weatherController = require('./weatherController')
+const backgroundController = require('./backgroundController')
 
 const app = express();
 const serverPort = process.env.SERVER_PORT;
@@ -26,11 +27,21 @@ massive(process.env.CONNECTION_STRING).then(db => {
   app.set('db', db)
   console.log('Database is linked! ');
 })
+// massive(process.env.TEST_CONNECTION_STRING).then(db => {
+//   app.set('db', db)
+//   console.log('Test Database is linked! ');
+// })
 app.use(session({
   secret: process.env.SESSION_SECRET,
   saveUninitialized: false,
   resave: false
 }))
+// app.use((req, res, next) => {
+//   if (req.query.test || req.body.test || req.params.test === process.env.TEST_CODE) {
+//     req.session.user = { id: 1 }
+//   }
+//   next()
+// })
 
 
 app.use((req, res, next) => { 
@@ -39,7 +50,7 @@ app.use((req, res, next) => {
   next()
 })
 
-app.use( express.static( `${__dirname}/../build` ) );
+app.use(express.static(`${__dirname}/../build`));
 
 // AUTH ENDPTS
 app.post('/auth/register', authController.register);
@@ -73,8 +84,6 @@ app.put('/api/todo/nested/:id/:parenttodoid', todoController.updateNested)
 app.put('/api/todo/nested/complete/:id/:parenttodoid', todoController.markNestedComplete)
 app.put('/api/todo/nested/incomplete/:id/:parenttodoid', todoController.markNestedIncomplete)
 
-// TODO ENDPTS
-
 // CALENDAR ENDPTS
 app.post('/api/events', eventsController.createEvent)
 app.get('/api/events', eventsController.getEventsByDate)
@@ -92,23 +101,26 @@ app.delete('/api/notepad/:id', notesController.deleteNotes)
 app.put('/api/notepad/:id', notesController.updateNotes)
 
 //SCRATCHPAD ENDPTS
-app.get('/api/scratchpad', notesController.getScratchPad)    
-app.post('/api/scratchpad', notesController.addScratchPad)    
+app.get('/api/scratchpad', notesController.getScratchPad)
+app.post('/api/scratchpad', notesController.addScratchPad)
 app.delete('/api/scratchpad/:id', notesController.deleteScratchPad)
-app.put('/api/scratchpad/:id', notesController.updateScratchPad)   
+app.put('/api/scratchpad/:id', notesController.updateScratchPad)
 
-// app.get('*', (req, res) => { // PRODUCTION BUILD ONLY
+//MORE ENDPTS
+app.put('/api/backgrounds/', backgroundController.updateBackground)
+
+// app.get('*', (req, res) => {
 //   res.sendFile(path.join(__dirname, '../build/index.html'));
 // });
 
-cron.schedule('1 0 0 * * *', () => { // runs at 00:01 EST every day
-// cron.schedule('*/30 * * * * *', (req) => {
+cron.schedule('1 0 0 * * *', () => { // runs at 00:01 in user's timezone daily
   habitsController.updateHabitEvents(app);
   habitsController.deleteTodaysHabits(app);
-  console.log('cron hit')
+  notesController.autoAddScratchPad(app);
+  console.log('cron script hit at ', new Date());
 }, {
-  scheduled: true,
-})
+    scheduled: true,
+  })
 
 
 app.listen(serverPort, () => {

@@ -75,31 +75,39 @@
     align-items: center;
     align-content: center;
 }
-.login-button {
-    border: none;
-    background-color: green;
-    width: 90px;
-    height: 30px;
-    position: absolute;
-    bottom: 110px;
-    left: 452px;
-    border-radius: 3px;
+
+
+.login-buttons-container {
+    display: flex;
+    height: 80px;
+    width: 220px;
+    justify-content: space-around;
+    /* background-color: red; */
+    align-items: center;
 }
 
-.login-button:hover{
-    letter-spacing: 1px;
+.login-button { 
+    border: none;
+    background-color: rgba(0, 128, 0, 0.9); 
+    width: 90px; 
+    height: 30px; 
+    letter-spacing: 1px; 
+    border-radius: 3px; 
+} 
+
+.login-button:hover { 
+    cursor: pointer;
+    border: solid white 2px;
 }
 
 .register {
-    background-color: orange;
+    background-color: rgba(255, 205, 5, 0.82);
+    cursor: pointer;
+}
+.register:hover {
+    cursor: pointer;
 }
 
-.outside-form {
-    position: absolute;
-    right: 0;
-    bottom: 0;
-    margin: 10%;
-}
 .login-input {
     width: 20vw;
     height: 30px;
@@ -107,9 +115,24 @@
     background-color: transparent;
     text-align: center;
     font-size: 15px;
+    outline: none;
+}   
+.login-input:focus {
+    border-bottom: solid rgba(255, 205, 5, 0.82) 2px;
+    animation: underline 450ms linear;
 }
 
-.login-field-wrapper p{
+.login-field-wrapper p {
     font-family: 'Montserrat', sans-serif;
     letter-spacing: 1px;
+}
+
+.login-field-wrapper-register p {
+    margin-top: 10px;
+    margin-bottom: 0;
+}
+
+@keyframes underline {
+    0% { width: 0; }
+    100% { width: 20vw; }
 }

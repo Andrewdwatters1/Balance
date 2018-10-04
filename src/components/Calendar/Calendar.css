@@ -7,8 +7,9 @@
     margin: auto;
     width: 80vw;
     height: 80vh;
-    background-color: rgba(0, 0, 0, 0.708);
+    background-color: rgba(0, 0, 0, 0.7);
     z-index: 2;
+    box-shadow: 0 0 5px 10px rgba(0, 0, 0, 0.7);
 }
 
 .calendar-div{
