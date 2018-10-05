@@ -640,6 +640,7 @@ class Calendar extends Component{
                         }}/>
                 </div>
                 <div className="calendar-day-info">
+                <img alt="add" src={add} onClick={this.toggleEventModal} className="add-button"/>
                 <div className="calendar-morning">
                         <div className="event-list">
                             {morningEventsRender}
@@ -652,12 +653,10 @@ class Calendar extends Component{
                     </div>
                     <div className="calendar-evening">
                         <div className="event-list">
-
                         {eveningEventRender}
                         </div>
                     </div>
                         <div className="button-menu-wrapper-visible">
-                            <img alt="add" src={add} onClick={this.toggleEventModal} className="add-button"/>
                 
 
 

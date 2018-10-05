@@ -43,11 +43,12 @@
 
 .add-button{
     height: 25px;
-    width: auto;
-    position: absolute;
-    top: 10px;
-    right: 10px;
+    width: 25px;
     opacity: 0.6;
+    z-index: 5;
+    position: relative;
+    top: 5vh;
+    left: 46vw;
 }
 
 .add-button:hover{

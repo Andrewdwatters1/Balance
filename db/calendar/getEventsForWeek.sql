@@ -8,4 +8,5 @@ event_date_as_date BETWEEN $2 AND $3
 OR user_id = $1 AND
 event_importance = 'lo' AND
 event_date_as_date BETWEEN $2 and $4
-ORDER BY event_date_as_date ASC
+ORDER BY event_date_as_date,
+event_time ASC
