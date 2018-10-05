@@ -19,10 +19,10 @@ import './side-calendar.css';
 //Images
 
 const add = require('../../assets/plus.png')
-const eventdate = require('../../assets/calendar.png')
+const eventdate = require('../../assets/calendarino.png')
 const time = require('../../assets/time.png')
 const importance = require('../../assets/importance.png')
-const question = require('../../assets/question.png')
+
 
 class Calendar extends Component{
 
@@ -383,7 +383,6 @@ class Calendar extends Component{
                    {this.state.isInfoModalVisible && this.state.modalId === event.event_id && 
                     <div className="event-info-modal">
                                 <div className="event-menu-container">
-                                <img alt="help" className="question" src={question}/>
                                 <div className="event-name-wrapper">
                                          <h3 className="event-desciptor">Event</h3>
                                          <input maxLength="120" autoFocus value={this.state.updatedEventName} onChange={this.eventNameUpdater} className="event-name-input-field"></input>
@@ -462,7 +461,6 @@ class Calendar extends Component{
                    {this.state.isInfoModalVisible && this.state.modalId === event.event_id && 
                     <div className="event-info-modal">
                                 <div className="event-menu-container">
-                                <img alt="help" className="question" src={question}/>
                                 <div className="event-name-wrapper">
                                          <h3 className="event-desciptor">Event</h3>
                                          <input maxLength="120" value={this.state.updatedEventName} onChange={this.eventNameUpdater} className="event-name-input-field"></input>
@@ -541,7 +539,6 @@ class Calendar extends Component{
                    {this.state.isInfoModalVisible && this.state.modalId === event.event_id && 
                     <div className="event-info-modal">
                                 <div className="event-menu-container">
-                                <img alt="help" className="question" src={question}/>
                                 <div className="event-name-wrapper">
                                          <h3 className="event-desciptor">Event</h3>
                                          <input maxLength="120" value={this.state.updatedEventName} onChange={this.eventNameUpdater} className="event-name-input-field"></input>
@@ -637,7 +634,10 @@ class Calendar extends Component{
                         width={"100%"}
                         theme={calendarTheme}
                         onSelect={this.updateSelectedDate}
-                        className="calendar"/>
+                        className="calendar"
+                        displayOptions={{
+                            showTodayHelper: true
+                        }}/>
                 </div>
                 <div className="calendar-day-info">
                 <div className="calendar-morning">
@@ -652,6 +652,7 @@ class Calendar extends Component{
                     </div>
                     <div className="calendar-evening">
                         <div className="event-list">
+
                         {eveningEventRender}
                         </div>
                     </div>
@@ -665,7 +666,6 @@ class Calendar extends Component{
                             <div className="add-event-menu">
                                 <div className="add-event-triangle"></div>
                                 <div className="event-menu-container">
-                                <img alt="help" className="question" src={question}/>
                                 <div className="event-name-wrapper">
                                          <h3 className="event-desciptor">Event</h3>
                                          <input maxLength="120"className="event-name-input-field" onChange={this.updateEventName}></input>

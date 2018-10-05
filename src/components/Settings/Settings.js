@@ -53,6 +53,7 @@ class Settings extends Component{
                 <img className="background-thumbnail" src={backgroundDisplay} />
                 <img className="checkmark" src={check} alt="select this background" onClick={this.updatePreferredBackground}/>
                 <img className="right-arrow" alt="right"src ={right} onClick={this.arrowRight}/>
+                <div className="black-overlay"></div>
             </div>
          </div> 
         ) 

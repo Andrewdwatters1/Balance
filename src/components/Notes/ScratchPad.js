@@ -53,7 +53,7 @@ class ScratchPad extends Component{
          <div>  
                 
              <div key={scratch.id}> 
-                 <h5>{scratch.date}</h5>
+                 <h5>{scratch.date}{console.log(typeof scratch.date)}</h5>
                  {/* <input className="notepadtitles" value={title} onChange={this.handleTitle}/> */}
                  <TextField
                             id="filled-textarea"

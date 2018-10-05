@@ -1,6 +1,6 @@
 .content-container{
     position: absolute;
-    top: 0;
+    top: 8vh;
     left: 0;
     bottom: 0;
     right: 0;
@@ -32,6 +32,7 @@
     top: 40%;
     left: 20px;
     opacity: 0.2;
+    z-index: 10;
 }
 
 .right-arrow{
@@ -41,6 +42,7 @@
     right: 20px;
     top: 40%;
     opacity: 0.2;
+    z-index: 10;
 }
 
 .left-arrow:hover,.right-arrow:hover{
@@ -59,9 +61,18 @@
     left: 46%;
     width: 100px;
     height: auto;
-    opacity: 0.2
+    opacity: 0.2;
+    z-index: 10;
 }
 
 .checkmark:hover{
     opacity: 1;
+}
+
+.black-overlay{
+    background-color: rgba(0, 0, 0, 0.29);
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    z-index: 1;
 }

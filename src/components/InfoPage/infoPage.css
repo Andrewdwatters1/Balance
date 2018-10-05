@@ -1,14 +1,55 @@
-.content-container{
+.info-container{
     position: absolute;
-    top: 0;
+    top: 8vh;
     left: 0;
     bottom: 0;
     right: 0;
     margin: auto;
     width: 80vw;
     height: 80vh;
-    background-color: rgba(0, 0, 0, 0.708);
-    z-index: 5;
-    display: flex;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 2;
+    box-shadow: 0 0 5px 10px rgba(0, 0, 0, 0.7);
     overflow: scroll;
+    text-align: center;
+}
+
+.logo-container{
+    display: inline-block;
+    margin-top: 0vh;
+    width: 100%;
+    margin: 0 
+}
+
+.logo-container>h1{
+    margin-left: 20px;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.balance-logo{
+    width: 150px;
+    height: 150px;
+}
+
+.logo-container>h1{
+    font-family: 'Montserrat', sans-serif;
+}
+
+.info-top>p{
+    margin: 0 5vw;
+}
+
+.info-container h2{
+    text-align: left;
+    margin: 3vw 5vw;
+}
+
+.userguide p{
+    text-align: left;
+    margin: 0 5vw;
+}
+
+.theTeam p{
+    text-align: left;
+    margin: 0 5vw;
 }
