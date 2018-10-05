@@ -23,30 +23,35 @@ const app = express();
 const serverPort = process.env.SERVER_PORT;
 
 app.use(bodyParser.json());
-//////////////////////////// TESTING ///////////////////////////////////
-massive(process.env.TEST_CONNECTION_STRING).then(db => {
+massive(process.env.CONNECTION_STRING).then(db => {
     app.set('db', db)
-    console.log('Test Database is linked! ');
-  })
-
-app.use((req, res, next) => {
-  if (req.query.test || req.body.test || req.params.test === process.env.TEST_CODE) {
-    req.session = {};
-    req.session.user = { id: 1 }
-  }
-  next()
+    console.log('Database is linked! ');
 })
-//////////////////////////// TESTING ///////////////////////////////////
+app.use(session({
+    secret: process.env.SESSION_SECRET,
+    saveUninitialized: false,
+    resave: false
+}))
 
-// massive(process.env.CONNECTION_STRING).then(db => {
+//////////////////////////// TESTING ///////////////////////////////////
+// massive(process.env.TEST_CONNECTION_STRING).then(db => {
 //     app.set('db', db)
-//     console.log('Database is linked! ');
+//     console.log('Test Database is linked! ');
+//   })
+
+// app.use((req, res, next) => {
+//   if (req.query.test || req.body.test || req.params.test === process.env.TEST_CODE) {
+//     req.session = {};
+//     req.session.user = { id: 1 }
+//   }
+//   next()
 // })
-// app.use(session({
-//     secret: process.env.SESSION_SECRET,
-//     saveUninitialized: false,
-//     resave: false
-// }))
+// // app.use((req, res, next) => { 
+// //     if(req.query.test === process.env.TEST_CODE){req.session.user = { id: 1 }
+// //     }
+// //     next()
+// //   })
+//////////////////////////// TESTING ///////////////////////////////////
 
 
 app.use(express.static(`${__dirname}/../build`));
@@ -114,7 +119,7 @@ app.put('/api/backgrounds/', backgroundController.updateBackground)
 // });
 
 cron.schedule('1 0 0 * * *', () => { // runs at 00:01 in user's timezone daily
-// cron.schedule('* * * * *', () => {
+    // cron.schedule('* * * * *', () => {
     habitsController.updateHabitEvents(app);
     habitsController.deleteTodaysHabits(app);
     notesController.autoAddScratchPad(app);
@@ -122,7 +127,6 @@ cron.schedule('1 0 0 * * *', () => { // runs at 00:01 in user's timezone daily
 }, {
         scheduled: true,
     })
-
 
 app.listen(serverPort, () => {
     console.log('Server is running on port: ', serverPort);

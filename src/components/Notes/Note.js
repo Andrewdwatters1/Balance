@@ -10,7 +10,7 @@ class Note extends Component{
             edit: true
         }
         }
-       
+        
 
     render(){
         let {note} = this.props
@@ -26,7 +26,8 @@ class Note extends Component{
     }
 }
 
-
-
-
 export default Note
+
+
+
+
