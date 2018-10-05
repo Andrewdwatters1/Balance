@@ -33,8 +33,12 @@ module.exports = {
     });
   },
   logout: (req, res) => {
-    req.session.destroy();
-    res.status(200);
+    req.session.destroy()
+    res.sendStatus(200);
+  },
+  logoutUser: (req, res) => {
+    res.session = {};
+    res.sendStatus(200);
   },
   getCurrentUser: (req, res) => {
     if (req.session.user) {

@@ -1,9 +1,6 @@
-:root {
-    --primary-accent-color: rgba(233, 88, 88, 0.708);  
-}
-.content-container {
+.habit-content-container {
     position: absolute;
-    top: 0;
+    top: 8vh;
     left: 0;
     bottom: 0;
     right: 0;
@@ -38,6 +35,7 @@
 }
 .habits-sidebar-habit-item > button {
     justify-content: center;
+    outline: none;
 }
 .habits-sidebar-habit-item > button:hover {
     background-color: rgba(255, 255, 255, 0.1);
@@ -67,9 +65,9 @@
     box-sizing: border-box;
     display: flex;
     align-items: center;
-    margin-top: 55px;
-    margin-bottom: 45px;
-    height: 50px;
+    margin-top: 75px;
+    margin-bottom: 55px;
+    height: 20px;
 }
 .habit-green-button {
     color: rgb(0, 192, 0);
@@ -86,6 +84,9 @@
 .habit-quick-check:hover {
     opacity: 1;
     cursor: pointer;
+}
+.habits-buttons-small {
+    font-size: 2.5em;
 }
 .habits-content {
     width: 100%;
@@ -146,19 +147,15 @@
     right: 10px;
     opacity: 0.6;
 }
-.delete-habit:hover {
-    opacity: 1;
-    cursor: pointer;
-}
 .delete-habit-confirm {
     position: absolute;
-    bottom: 30px;
-    right: 80px;
-    opacity: 0.6;
-    color: rgba(233, 88, 88, 0.708);
+    bottom: 10px;
+    right: 60px;
+    width: 350px;
+    background-color: rgba(0, 0, 0, 0.9);
+    border: 1px solid white;
 }
-.delete-habit-confirm {
-    opacity: 1;
+.delete-habit-confirm > p {
     cursor: pointer;
 }
 .habit-type-icon {
@@ -296,7 +293,6 @@
     box-shadow: 0 0 0 0 transparent;
     transition: all 500ms ease-in-out;   
 }
-
 .habits-quick-menu:hover {
     max-width: 80vw;
     background-color: rgba(0, 0, 0, 0.5);
@@ -314,8 +310,6 @@
     box-shadow: 0 0 5px 10px rgba(0, 0, 0, 0.5);
     transition: all 500ms ease-in-out;   
 }
-
-
 .habits-quick-menu-item {
     margin-top: 0;
     display: flex;
@@ -327,4 +321,9 @@
 .habits-quick-menu-item > i, .habits-quick-menu-item > p {
     margin: 0 auto;
     text-align: center;
+}
+.form-control {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
 }

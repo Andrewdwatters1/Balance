@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { getCurrentUser } from './redux/reducers/user'
 import Login from './components/Login/Login.js'
 
-class App extends Component {
+export class App extends Component {
   render() {
     if (this.props.user) {
       return(
