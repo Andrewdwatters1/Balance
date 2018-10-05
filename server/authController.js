@@ -38,6 +38,7 @@ module.exports = {
   },
   getCurrentUser: (req, res) => {
     if (req.session.user) {
+      console.log(req.session.user)
       let { id, firstname, lastname, username, email, avitar, zipcode } = req.session.user;
       id ? id : null;
       firstname ? firstname : null;
