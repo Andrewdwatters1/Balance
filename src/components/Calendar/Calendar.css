@@ -16,10 +16,9 @@
     border-right: 1px rgba(255, 255, 255, 0.283) solid;
     width: 40%;
     overflow: hidden;
-}
-
-.calendar{
-    overflow: hidden;
+    position: relative;
+    top: 5vh;
+    bottom: 5vh;
 }
 
 .calendar-day-info{
@@ -36,15 +35,20 @@
     height: 26.66vh;
     border-bottom: 1px rgba(255, 255, 255, 0.283) solid;
     text-align: left;
+    background-image: url('../../assets/sunrise.png');
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: 40%;
 }
 
 .add-button{
     height: 25px;
-    width: auto;
-    position: absolute;
-    top: 10px;
-    right: 10px;
+    width: 25px;
     opacity: 0.6;
+    z-index: 5;
+    position: relative;
+    top: 5vh;
+    left: 46vw;
 }
 
 .add-button:hover{
@@ -56,12 +60,20 @@
     height: 26.66vh;
     border-bottom: 1px rgba(255, 255, 255, 0.283) solid;
     text-align: left;
+    background-image: url('../../assets/sunny.png');
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: 27%;
 }
 
 .calendar-evening{
     width: 100%;
     height: 26.66vh;
     text-align: left;
+    background-image: url('../../assets/moon-and-stars.png');
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: 30%;
 }
 
 .add-event-menu{
@@ -205,7 +217,7 @@ color: #FAFAFA;
 .event-description-input-field{
     width: 98%;
     margin-right: 2%;
-    height: 22vh;
+    height: 15vh;
     background-color: transparent;
     outline: none;
     border:rgba(255, 255, 255, 0.406) 1px solid;
@@ -228,7 +240,6 @@ color: #FAFAFA;
 .question{
     height: 20px;
     position: absolute;
-    opacity: 0.2;
     top: 10px;
     right: 10px;
 }
@@ -270,10 +281,18 @@ color: #FAFAFA;
     bottom: -27%;
     cursor: pointer;
     width: auto;
-    color: rgba(255, 255, 255, 0.283)
+    color: rgba(255, 255, 255, 0.283);
 }
 
 .add-event-delete:hover{
     color: rgba(233, 88, 88, 1)!important;
 }
 
+.delete-button{
+    background-color: transparent;
+    margin-left: 5.5vw;
+}
+
+.delete-button:hover{
+    background-color: rgba(233, 88, 88, 1);
+}
