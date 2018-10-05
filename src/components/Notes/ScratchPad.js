@@ -14,47 +14,65 @@ class ScratchPad extends Component{
         this.state =
         {
             edit: true,
-            title: props.scratch.title,
             content: props.scratch.content
         }
     }
+    
+    componentDidMount() {
+        document.addEventListener('click', this.removeListenerSP)
+    }
 
-    saveUpdatedScrachPad = (id) => {
+    componentWillUnmount(){
+        // this.unmoutcallbackmethod()
+        setTimeout(() => {
+    document.removeEventListener('click', this.removeListenerSP)
+        }, 250)
+    }
+
+    removeListenerSP =  (e) => {
+        if(!document.getElementById('content-outer-scratchpad')) {
+            this.saveUpdatedScrachPad()
+        } else {
+            console.log('scratch should not save')
+        }
+    }
+    
+    saveUpdatedScrachPad = () => {
+        console.log('scratch should save7373646447')
         let obj = {
             date: '',
             title: this.state.title,
             content: this.state.content,
         }
-            axios.put(`/api/scratchpad/${id}`, obj).then(results=> {
-                // console.log('results', results.data)
-                this.props.editScratchPad(results.data)
-            })
-        }
-
-
-        handleTitle = (e) => {
-            this.setState({
-                title: e.target.value
-            })
-        }
-
+        axios.put(`/api/scratchpad/${this.props.scratch.id}`, obj).then(results=> {
+            this.props.editScratchPad(results.data)
+        })
+    }
+    
         handleContent = (e) => {
             this.setState({
                 content: e.target.value
             })
         }
-
-
-    render(){
-        let {scratch} = this.props 
-        let {title} = this.state 
-        // let {content} = this.state       // console.log('scratch', scratch)
+        
+        
+        render(){
+            let {scratch} = this.props 
+        let daterrr = new Date (scratch.date);
+        let dayNumber = daterrr.getDay()
+        let daysOfTheWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
+        let monthsOfTheYear = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec']
+        let monthNumber = daterrr.getMonth()
+        let day = daysOfTheWeek[dayNumber];
+        let month = monthsOfTheYear[monthNumber];
+        let date = daterrr.getDate()
+        let formattedDate = `${day}, ${month} ${date}`
+        console.log('so i know what is', this.props)
         return(
-         <div>  
+        //  <div id="">  
                 
-             <div key={scratch.id}> 
-                 <h5>{scratch.date}{console.log(typeof scratch.date)}</h5>
-                 {/* <input className="notepadtitles" value={title} onChange={this.handleTitle}/> */}
+             <div key={scratch.id} id="content-outer-scratchpad"> 
+                 <h5>{formattedDate}</h5>
                  <TextField
                             id="filled-textarea"
                             name="text"
@@ -66,12 +84,11 @@ class ScratchPad extends Component{
                             margin="normal"
                             variant="filled"
                         />
-                 {/* <textarea className="addscratchpadcontent" value={this.state.content} onChange={this.handleContent}/> */}
-                 <h4 className= "note-buttons" onClick={()=> this.saveUpdatedScrachPad(scratch.id)}>Save</h4>
-                 <h4 className="note-buttons-delete" onClick={() => this.props.deleteScratchPad(scratch.id)}>Delete</h4>   
+                 {/* <h4 className= "note-buttons" onClick={()=> this.saveUpdatedScrachPad(scratch.id)}>Save</h4> */}
+                 {/* <h4 className="note-buttons-delete" onClick={() => this.props.deleteScratchPad(scratch.id)}>Delete</h4>    */}
      
              </div>
-         </div> 
+        //  </div> 
             ) 
         }
     }

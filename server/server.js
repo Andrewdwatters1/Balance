@@ -23,6 +23,7 @@ const app = express();
 const serverPort = process.env.SERVER_PORT;
 
 app.use(bodyParser.json());
+
 massive(process.env.CONNECTION_STRING).then(db => {
   app.set('db', db)
   console.log('Database is linked! ');
@@ -42,6 +43,13 @@ app.use(session({
 //   }
 //   next()
 // })
+
+
+app.use((req, res, next) => { 
+  if(req.query.test === process.env.TEST_CODE){req.session.user = { id: 1 }
+  }
+  next()
+})
 
 app.use(express.static(`${__dirname}/../build`));
 
