@@ -1,9 +1,6 @@
-:root {
-    --primary-accent-color: rgba(233, 88, 88, 0.708);  
-}
-.content-container {
+.habit-content-container {
     position: absolute;
-    top: 0;
+    top: 8vh;
     left: 0;
     bottom: 0;
     right: 0;
@@ -38,6 +35,7 @@
 }
 .habits-sidebar-habit-item > button {
     justify-content: center;
+    outline: none;
 }
 .habits-sidebar-habit-item > button:hover {
     background-color: rgba(255, 255, 255, 0.1);
@@ -67,9 +65,9 @@
     box-sizing: border-box;
     display: flex;
     align-items: center;
-    margin-top: 55px;
-    margin-bottom: 45px;
-    height: 50px;
+    margin-top: 75px;
+    margin-bottom: 55px;
+    height: 20px;
 }
 .habit-green-button {
     color: rgb(0, 192, 0);
@@ -86,6 +84,9 @@
 .habit-quick-check:hover {
     opacity: 1;
     cursor: pointer;
+}
+.habits-buttons-small {
+    font-size: 2.5em;
 }
 .habits-content {
     width: 100%;
@@ -146,19 +147,15 @@
     right: 10px;
     opacity: 0.6;
 }
-.delete-habit:hover {
-    opacity: 1;
-    cursor: pointer;
-}
 .delete-habit-confirm {
     position: absolute;
-    bottom: 30px;
-    right: 80px;
-    opacity: 0.6;
-    color: rgba(233, 88, 88, 0.708);
+    bottom: 10px;
+    right: 60px;
+    width: 350px;
+    background-color: rgba(0, 0, 0, 0.9);
+    border: 1px solid white;
 }
-.delete-habit-confirm {
-    opacity: 1;
+.delete-habit-confirm > p {
     cursor: pointer;
 }
 .habit-type-icon {
@@ -296,7 +293,6 @@
     box-shadow: 0 0 0 0 transparent;
     transition: all 500ms ease-in-out;   
 }
-
 .habits-quick-menu:hover {
     max-width: 80vw;
     background-color: rgba(0, 0, 0, 0.5);
@@ -314,8 +310,6 @@
     box-shadow: 0 0 5px 10px rgba(0, 0, 0, 0.5);
     transition: all 500ms ease-in-out;   
 }
-
-
 .habits-quick-menu-item {
     margin-top: 0;
     display: flex;
@@ -329,11 +323,7 @@
     text-align: center;
 }
 .form-control {
-    appearance: none;
-    line-height: normal;
-    position: relative;
-    background-image: url(data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pg0KPHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB2ZXJzaW9uPSIxLjEiIHg9IjBweCIgeT0iMHB4IiB2aWV3Qm94PSIwIDAgNDA1LjQ1NiA0MDUuNDU2IiBzdHlsZT0iZW5hYmxlLWJhY2tncm91bmQ6bmV3IDAgMCA0MDUuNDU2IDQwNS40NTY7IiB4bWw6c3BhY2U9InByZXNlcnZlIiB3aWR0aD0iMTZweCIgaGVpZ2h0PSIxNnB4Ij4NCjxnPg0KCTxwYXRoIGQ9Ik03NC4xMzQsNjQuMTQ3Yy00Ljk4NSwwLjA3OC05LjkxMSwyLjE2My0xMy40MzgsNS42ODhsLTU1LDU1QzIuMDk2LDEyOC40MzIsMCwxMzMuNDkyLDAsMTM4LjU4MyAgIHMyLjA5NiwxMC4xNTEsNS42OTcsMTMuNzVsMTgzLjI4MSwxODMuMjgxYzMuNTk5LDMuNjAxLDguNjU5LDUuNjk3LDEzLjc1LDUuNjk3czEwLjE1MS0yLjA5NiwxMy43NS01LjY5N2wxODMuMjgxLTE4My4yODEgICBjMy42MDEtMy41OTksNS42OTctOC42NTksNS42OTctMTMuNzVzLTIuMDk2LTEwLjE1MS01LjY5Ny0xMy43NWwtNTUtNTVjLTMuNTk4LTMuNTkxLTguNjUxLTUuNjgxLTEzLjczNC01LjY4MSAgIGMtNS4wODMsMC0xMC4xMzYsMi4wOS0xMy43MzQsNS42ODFMMjAyLjcyOCwxODQuMzk3TDg4LjE2Niw2OS44MzNDODQuNDk5LDY2LjE2OSw3OS4zMTgsNjQuMDcsNzQuMTM0LDY0LjE0N0w3NC4xMzQsNjQuMTQ3eiIgZmlsbD0iIzk2OTY5NiIvPg0KPC9nPg0KPC9zdmc+DQo=);
-    background-position: right 10px top 50%;
-    background-repeat: no-repeat;
     -webkit-appearance: none;
- }
+    -moz-appearance: none;
+    appearance: none;
+}

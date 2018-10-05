@@ -4,7 +4,7 @@ import axios from 'axios'
 
 const news = require('../../assets/news_1.png')
 
-class News extends Component {
+export default class News extends Component {
     constructor() {
         super();
         this.state = {
@@ -19,13 +19,12 @@ class News extends Component {
 
     componentDidMount() {
         axios.get(`https://newsapi.org/v2/top-headlines?country=us&apiKey=${process.env.REACT_APP_NEWS_API_KEY}&pageSize=40`).then(results => {
-        console.log(results)    
-        this.setState({
+            console.log(results)
+            this.setState({
                 newsData: results.data.articles
-            },
-                () => {
-                    this.nextPage()
-                })
+            }, () => {
+                this.nextPage()
+            })
         })
     }
     updateNewsCategory = (e) => {
@@ -60,7 +59,7 @@ class News extends Component {
     }
 
     nextPage = () => {
-        if(this.state.currentPage === 4) {
+        if (this.state.currentPage === 4) {
             this.setState({
                 noMoreResults: true
             })
@@ -86,17 +85,23 @@ class News extends Component {
             <div className="content-container">
                 <div className="news-content-header">
                     <h1>Top Headlines Today</h1>
-                    <p>Category: </p><select onChange={this.updateNewsCategory} placeholder="category" className="news-hover">
-                        <option value="" disabled selected hidden>select</option>
-                        <option value="business">business</option>
-                        <option value="entertainment">entertainment</option>
-                        <option value="general">general</option>
-                        <option value="health">health</option>
-                        <option value="science">science</option>
-                        <option value="sport">sports</option>
-                        <option value="technology">technology</option>
-                    </select>
-                    <button onClick={this.getNewsByCategory} className="news-hover">Go</button>
+                    <div style={{ display: 'flex', alignItems: 'center' }}>
+                        <p>Category: </p>
+                        <p style={{ color: 'transparent' }}>t</p>
+                        <select onChange={this.updateNewsCategory} placeholder="category" className="news-hover form-control">
+                            <option value="" disabled selected hidden>select</option>
+                            <option value="business">business</option>
+                            <option value="entertainment">entertainment</option>
+                            <option value="general">general</option>
+                            <option value="health">health</option>
+                            <option value="science">science</option>
+                            <option value="sport">sports</option>
+                            <option value="technology">technology</option>
+                        </select>
+                        <p style={{ color: 'transparent' }}>mm</p>
+                        <button onClick={this.getNewsByCategory} className="news-hover go-button">GO</button>
+                        <p style={{ color: 'transparent' }}>mmmm</p>
+                    </div>
                     {this.state.noMoreResults && <p className="news-no-more">That's it! Go focus.</p>}
                     <i className="far fa-arrow-alt-circle-right next-button" onMouseDown={this.nextPage}></i>
                 </div>
@@ -114,13 +119,6 @@ class News extends Component {
                     })}
                 </div>
             </div>
-
         )
     }
 }
-
-
-
-
-
-export default News

@@ -39,9 +39,9 @@ class HabitQuickMenu extends Component {
             <div className="habits-quick-menu-item" key={i}>
               <p>{e.habit}</p>
               {e.completed ?
-                <i className="far fa-check-circle habit-green-button"></i>
+                <i className="far fa-check-circle habit-green-button habits-buttons-small"></i>
                 :
-                <i className="far fa-check-circle habit-quick-check" onMouseDown={(habitId) => this.props.addHabitEvent(e.id)}></i>}
+                <i className="far fa-check-circle habit-quick-check habits-buttons-small" onMouseDown={(habitId) => this.props.addHabitEvent(e.id)}></i>}
             </div>
           )
         })}

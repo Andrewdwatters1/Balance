@@ -23,33 +23,37 @@ const app = express();
 const serverPort = process.env.SERVER_PORT;
 
 app.use(bodyParser.json());
-
 massive(process.env.CONNECTION_STRING).then(db => {
-  app.set('db', db)
-  console.log('Database is linked! ');
+    app.set('db', db)
+    console.log('Database is linked! ');
 })
-// massive(process.env.TEST_CONNECTION_STRING).then(db => {
-//   app.set('db', db)
-//   console.log('Test Database is linked! ');
-// })
 app.use(session({
-  secret: process.env.SESSION_SECRET,
-  saveUninitialized: false,
-  resave: false
+    secret: process.env.SESSION_SECRET,
+    saveUninitialized: false,
+    resave: false
 }))
+
+//////////////////////////// TESTING ///////////////////////////////////
+// massive(process.env.TEST_CONNECTION_STRING).then(db => {
+//     app.set('db', db)
+//     console.log('Test Database is linked! ');
+//   })
+
 // app.use((req, res, next) => {
 //   if (req.query.test || req.body.test || req.params.test === process.env.TEST_CODE) {
+//     req.session = {};
 //     req.session.user = { id: 1 }
 //   }
 //   next()
 // })
 
+// // app.use((req, res, next) => { 
+// //     if(req.query.test === process.env.TEST_CODE){req.session.user = { id: 1 }
+// //     }
+// //     next()
+// //   })
+//////////////////////////// TESTING ///////////////////////////////////
 
-app.use((req, res, next) => { 
-  if(req.query.test === process.env.TEST_CODE){req.session.user = { id: 1 }
-  }
-  next()
-})
 
 app.use(express.static(`${__dirname}/../build`));
 
@@ -58,6 +62,7 @@ app.post('/auth/register', authController.register);
 app.post('/auth/login', authController.login);
 app.get('/auth/currentUser', authController.getCurrentUser);
 app.delete('/auth/logout', authController.logout);
+app.delete('/auth/logoutUser', authController.logoutUser);
 
 // HABITS ENDPTS
 app.get('/api/habits', habitsController.getAllHabits);
@@ -115,15 +120,15 @@ app.put('/api/backgrounds/', backgroundController.updateBackground)
 // });
 
 cron.schedule('1 0 0 * * *', () => { // runs at 00:01 in user's timezone daily
-  habitsController.updateHabitEvents(app);
-  habitsController.deleteTodaysHabits(app);
-  notesController.autoAddScratchPad(app);
-  console.log('cron script hit at ', new Date());
+    // cron.schedule('* * * * *', () => {
+    habitsController.updateHabitEvents(app);
+    habitsController.deleteTodaysHabits(app);
+    notesController.autoAddScratchPad(app);
+    console.log('cron script hit at ', new Date());
 }, {
-    scheduled: true,
-  })
-
+        scheduled: true,
+    })
 
 app.listen(serverPort, () => {
-  console.log('Server is running on port: ', serverPort);
+    console.log('Server is running on port: ', serverPort);
 })

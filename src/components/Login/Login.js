@@ -13,7 +13,7 @@ class Login extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            isLoginVisible: true, // else register button
+            isLoginVisible: true,
             firstName: "",
             lastName: "",
             username: "",
@@ -106,49 +106,57 @@ class Login extends Component {
         return (
             <div className="loginBackgroundGradient">
                 <div className="content-container login-content-container">
-                    <div className="logo-container">
-                        <img src={balance} className="balance-logo" />
-                        <h1>Welcome to Balance</h1>
-                    </div>
+
                     {
                         this.state.isLoginVisible
                             ?
-                            <div className="login-form-container">
-                                <div className="login-field-wrapper">
-                                    <form onSubmit={this.handleLoginSubmit} styles={{ display: 'block' }} id="form1">
-                                        <p>USERNAME</p>
-                                        <input className="username-input" type="submit text" autoFocus onChange={this.handleUsernameInput} value={this.state.username} className="login-input"></input>
-                                        <p>PASSWORD</p>
-                                        <input className="password-input" type="password" onChange={this.handlePasswordInput} value={this.state.password} className="login-input"></input>
-                                    </form>
+                            <div>
+                                <div className="logo-container">
+                                    <img src={balance} className="balance-logo" />
+                                    <h1>Welcome to Balance</h1>
                                 </div>
-                                <div className="login-buttons-container">
-                                    <button type="submit" form="form1" disabled={!loginSubmitEnabled} className="login-button" id="login-submit">SUBMIT</button>
-                                    <button onClick={this.toggleRegister} className="login-button register">REGISTER</button>
+                                <div className="login-form-container">
+                                    <div className="login-field-wrapper">
+                                        <form onSubmit={this.handleLoginSubmit} styles={{ display: 'block' }} id="form1">
+                                            <p>USERNAME</p>
+                                            <input className="username-input" type="submit text" autoFocus="true" onChange={this.handleUsernameInput} value={this.state.username} className="login-input"></input>
+                                            <p>PASSWORD</p>
+                                            <input className="password-input" type="password" onChange={this.handlePasswordInput} value={this.state.password} className="login-input"></input>
+                                        </form>
+                                    </div>
+                                    <div className="login-buttons-container">
+                                        <button type="submit" form="form1" disabled={!loginSubmitEnabled} className="login-button" id="login-submit">SUBMIT</button>
+                                        <button onClick={this.toggleRegister} className="login-button register">REGISTER</button>
+                                    </div>
                                 </div>
                             </div>
                             :
-                            <div className="login-form-container">
-                                <h3>Welcome!    Please Register Below</h3>
-                                <div className="login-field-wrapper login-field-wrapper-register">
-                                    <form onSubmit={this.handleRegisterSubmit} styles={{ display: 'block' }} id="form2">
-                                        <p>FIRST NAME</p>
-                                        <input type="submit text" onChange={this.handleFirstNameInput} value={this.state.firstName} className="login-input" autoFocus></input>
-                                        <p>LAST NAME</p>
-                                        <input type="submit text" onChange={this.handleLastNameInput} value={this.state.lastName} className="login-input"></input>
-                                        <p>EMAIL</p>
-                                        <input type="submit text" onChange={this.handleEmailInput} value={this.state.email} className="login-input"></input>
-                                        <p>USERNAME</p>
-                                        <input type="submit text" onChange={this.handleUsernameInput} value={this.state.username} className="login-input"></input>
-                                        <p>PASSWORD</p>
-                                        <input type="password" onChange={this.handlePasswordInput} value={this.state.password} className="login-input"></input>
-                                        <p>ZIP CODE</p>
-                                        <input type="submit text" onChange={this.handleZipInput} value={this.state.zip} pattern={`\d{5}([\-]\d{4})?)`} placeholder="xxxxx-xxxx" className="login-input"></input>
-                                    </form>
+                            <div>
+                                <div className="logo-container">
+                                    <h1>Please Register Below</h1>
                                 </div>
-                                <div className="login-buttons-container">
-                                    <button type="submit" form="form2" disabled={!registerSubmitEnabled} className="login-button register" id="register-submit">SUBMIT</button>
-                                    <button onClick={this.toggleRegister} className="login-button">LOGIN</button>
+                                <img src={balance} className="balance-logo register-logo" />
+                                <div className="login-form-container">
+                                    <div className="login-field-wrapper login-field-wrapper-register">
+                                        <form onSubmit={this.handleRegisterSubmit} styles={{ display: 'block' }} id="form2">
+                                            <p>FIRST NAME</p>
+                                            <input type="submit text" onChange={this.handleFirstNameInput} value={this.state.firstName} className="login-input" autoFocus="true"></input>
+                                            <p>LAST NAME</p>
+                                            <input type="submit text" onChange={this.handleLastNameInput} value={this.state.lastName} className="login-input"></input>
+                                            <p>EMAIL</p>
+                                            <input type="submit text" onChange={this.handleEmailInput} value={this.state.email} className="login-input"></input>
+                                            <p>USERNAME</p>
+                                            <input type="submit text" onChange={this.handleUsernameInput} value={this.state.username} className="login-input"></input>
+                                            <p>PASSWORD</p>
+                                            <input type="password" onChange={this.handlePasswordInput} value={this.state.password} className="login-input"></input>
+                                            <p>ZIP CODE</p>
+                                            <input type="submit text" onChange={this.handleZipInput} value={this.state.zip} placeholder="xxxxx-xxxx" className="login-input"></input>
+                                        </form>
+                                    </div>
+                                    <div className="login-buttons-container">
+                                        <button type="submit" form="form2" disabled={!registerSubmitEnabled} className="login-button register" id="register-submit">SUBMIT</button>
+                                        <button onClick={this.toggleRegister} className="login-button">LOGIN</button>
+                                    </div>
                                 </div>
                             </div>
                     }
