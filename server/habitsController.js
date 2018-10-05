@@ -1,7 +1,6 @@
-const googleTrends = require('google-trends-api');
-
 module.exports = {
-  getAllHabits: (req, res) => { // completed
+  getAllHabits: (req, res) => {
+    console.log('hit')
     let db = req.app.get('db');
     let { id } = req.session.user;
     db.habits.get_habits_by_user(id).then(result => {
@@ -11,11 +10,10 @@ module.exports = {
   markComplete: (req, res) => {
     let db = req.app.get('db');
     db.mark_complete(id).then(result => {
-      console.log(result);
       res.status(200).send(result);
     }).catch(error => console.log('Error from habitsController.markComplete', error));
   },
-  addHabit: (req, res) => { // completed
+  addHabit: (req, res) => {
     let db = req.app.get('db');
     let { userId, title, description, dateFormatted, date, type } = req.body;
     db.habits.add_habit([userId, title, description, dateFormatted, date, type]).then(() => {

@@ -33,11 +33,16 @@ module.exports = {
     });
   },
   logout: (req, res) => {
-    req.session.destroy();
-    res.status(200);
+    req.session.destroy()
+    res.sendStatus(200);
+  },
+  logoutUser: (req, res) => {
+    res.session = {};
+    res.sendStatus(200);
   },
   getCurrentUser: (req, res) => {
     if (req.session.user) {
+      console.log(req.session.user)
       let { id, firstname, lastname, username, email, avitar, zipcode } = req.session.user;
       id ? id : null;
       firstname ? firstname : null;

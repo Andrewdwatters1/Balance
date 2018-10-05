@@ -1,6 +1,6 @@
 .content-container{
     position: absolute;
-    top: 0;
+    top: 8vh;
     left: 0;
     bottom: 0;
     right: 0;
@@ -37,7 +37,7 @@
     right: 0;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-around;
 }
 
 .news-content > p {
@@ -48,10 +48,22 @@
     float: right;
     margin-left: 30px;
 }
+.news-hover {
+    height: 20px;
+    width: 100px;
+    border-radius: 5px;
+    border: 2px solid white;
+}
 
 .news-hover:hover {
     background-color: rgba(255, 255, 255, 0.25);
     cursor: pointer;
+}
+
+.go-button {
+    height: 30px;
+    width: 70px;
+    font-size: 1.1em;
 }
 
 .article-box {
@@ -86,11 +98,17 @@
 
 .next-button{
     position: fixed;
-    top: 11vh;
+    top: 15vh;
     right: 10.8vw;
     font-size: 3em;
 }
 
 .next-button:hover {
     opacity: .8;
+}
+
+.form-control {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
 }

@@ -48,7 +48,7 @@ ShallowWrapper {
                     </textarea>
                     Category: 
                     <select
-                              className="add-habit-form-select"
+                              className="add-habit-form-select form-control"
                               onChange={[Function]}
                               type="submit"
                               value=""
@@ -134,7 +134,7 @@ ShallowWrapper {
               </textarea>
               Category: 
               <select
-                            className="add-habit-form-select"
+                            className="add-habit-form-select form-control"
                             onChange={[Function]}
                             type="submit"
                             value=""
@@ -203,7 +203,7 @@ ShallowWrapper {
 </textarea>,
                 "Category: ",
                 <select
-                  className="add-habit-form-select"
+                  className="add-habit-form-select form-control"
                   onChange={[Function]}
                   type="submit"
                   value=""
@@ -297,7 +297,7 @@ ShallowWrapper {
                       Personal
 </option>,
                   ],
-                  "className": "add-habit-form-select",
+                  "className": "add-habit-form-select form-control",
                   "onChange": [Function],
                   "type": "submit",
                   "value": "",
@@ -424,7 +424,7 @@ ShallowWrapper {
                         </textarea>
                         Category: 
                         <select
-                                    className="add-habit-form-select"
+                                    className="add-habit-form-select form-control"
                                     onChange={[Function]}
                                     type="submit"
                                     value=""
@@ -510,7 +510,7 @@ ShallowWrapper {
                 </textarea>
                 Category: 
                 <select
-                                className="add-habit-form-select"
+                                className="add-habit-form-select form-control"
                                 onChange={[Function]}
                                 type="submit"
                                 value=""
@@ -579,7 +579,7 @@ ShallowWrapper {
 </textarea>,
                   "Category: ",
                   <select
-                    className="add-habit-form-select"
+                    className="add-habit-form-select form-control"
                     onChange={[Function]}
                     type="submit"
                     value=""
@@ -673,7 +673,7 @@ ShallowWrapper {
                         Personal
 </option>,
                     ],
-                    "className": "add-habit-form-select",
+                    "className": "add-habit-form-select form-control",
                     "onChange": [Function],
                     "type": "submit",
                     "value": "",
