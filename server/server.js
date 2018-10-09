@@ -115,9 +115,9 @@ app.put('/api/scratchpad/:id', notesController.updateScratchPad)
 //MORE ENDPTS
 app.put('/api/backgrounds/', backgroundController.updateBackground)
 
-// app.get('*', (req, res) => {
-//   res.sendFile(path.join(__dirname, '../build/index.html'));
-// });
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../build/index.html'));
+});
 
 cron.schedule('1 0 0 * * *', () => { // runs at 00:01 in user's timezone daily
     // cron.schedule('* * * * *', () => {

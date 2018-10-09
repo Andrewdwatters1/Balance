@@ -95,7 +95,7 @@ class Weather extends Component {
 
     componentDidMount() {
         this.props.getCurrentUser()
-        axios.get(`http://api.zippopotam.us/us/${this.state.userZipCode}`).then(results => {
+        axios.get(`https://api.zippopotam.us/us/${this.state.userZipCode}`).then(results => {
             this.setState({
                 userLat: results.data.places[0].latitude,
                 userLng: results.data.places[0].longitude,
