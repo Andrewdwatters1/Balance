@@ -7,14 +7,7 @@ const bcrypt = require('bcryptjs');
 const salt = bcrypt.genSaltSync(10);
 const hash = bcrypt.hashSync(process.env.BCRYPT_HASH, salt);
 const cron = require('node-cron');
-<<<<<<< HEAD
-const path = require('path')
-
-
-
-=======
 const path = require('path');
->>>>>>> master
 
 const authController = require('./authController');
 const habitsController = require('./habitsController');
@@ -91,11 +84,7 @@ app.put('/api/scratchpad/:id', notesController.updateScratchPad)
 app.put('/api/backgrounds/', backgroundController.updateBackground)
 
 app.get('*', (req, res) => {
-<<<<<<< HEAD
   res.sendFile(path.join(__dirname, '../build/index.html'));
-=======
-    res.sendFile(path.join(__dirname, '../build/index.html'));
->>>>>>> master
 });
 
 cron.schedule('1 0 0 * * *', () => {
