@@ -3,11 +3,11 @@ var bcrypt = require('bcryptjs');
 module.exports = {
   register: (req, res) => {
     let db = req.app.get('db');
-    let { firstName, lastName, username, email, password, avitar, zipcode } = req.body;
+    let { firstName, lastName, username, email, password, avitar, zip} = req.body;
     avitar = avitar ? avitar : null;
     bcrypt.genSalt(10, (error, salt) => {
       bcrypt.hash(password, salt, (error, hash) => {
-        db.auth.register_new_user([firstName, lastName, username, email, hash, avitar, zipcode]).then(result => {
+        db.auth.register_new_user([firstName, lastName, username, email, hash, avitar, zip]).then(result => {
           let { id, firstname, lastname, username, email, zipcode, avitar } = result[0];
           let currentUser = { id, firstname, lastname, username, email, zipcode, avitar }
           res.status(200).send(currentUser);
