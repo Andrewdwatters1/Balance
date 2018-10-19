@@ -177,6 +177,16 @@ class NotePad extends Component {
         let monthsOfTheYear = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
         let monthNumber = this.state.date.getMonth();
         let month = monthsOfTheYear[monthNumber];
+
+        let daterrr1 = new Date (this.state.RenderedNote.date);
+        let dayNumber1 = daterrr1.getDay()
+        let daysOfTheWeek1 = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
+        let monthsOfTheYear1 = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec']
+        let monthNumber1 = daterrr1.getMonth()
+        let day1 = daysOfTheWeek1[dayNumber1];
+        let month1 = monthsOfTheYear1[monthNumber1]; 
+        let date1 = daterrr1.getDate()
+        let formattedDate = `${day1}, ${month1} ${date1}`
         return (
             <div className="content-container" id="content-outer">
                 <div className="notes-container">
@@ -192,7 +202,7 @@ class NotePad extends Component {
                     {this.state.isSingleNoteVisible &&
                         <div>
                             <header className="notestitlearea">
-                                <div>{this.state.RenderedNote.date}</div>
+                                <div>{formattedDate}</div>
                                 <input className="notepadtitles" value={this.state.RenderedNote.title} onChange={this.handleTitle} />
                             </header>
                             <textarea className="notestextarea" value={this.state.RenderedNote.content} onChange={this.handleContent} />

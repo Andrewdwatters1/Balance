@@ -1,3 +1,3 @@
 SELECT * FROM scratchpad
 WHERE userId = $1
-order by date asc;
+order by date desc;
