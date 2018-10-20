@@ -29,7 +29,7 @@ Balance is our take on the popular Momentum Chrome Extension, and is a productiv
   **Ryan Whitecar**
   - [Github](https://github.com/thewhitecar) | [LinkedIn](https://www.linkedin.com/in/ryanwhitecar) | [Portfolio](https://thewhitecar.info/)<br><br>
   **Taylor Montgomery**
-  - [Github](https://github.com/tmonty312) | [LinkedIn](https://www.linkedin.com/in/taylor-montgomery/)<br><br>
+  - [Github](https://github.com/tmonty312) | [LinkedIn](https://www.linkedin.com/in/taylor-montgomery/) | [Portfolio](https://taylormontgomery.org/)<br><br>
     **Andrew Watters**
   - [Github](https://github.com/Andrewdwatters1/) | [LinkedIn](https://www.linkedin.com/in/adwatters/) | [Portfolio](https://www.andrewdwattersdev.com/)<br>
 
