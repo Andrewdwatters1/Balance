@@ -85,7 +85,7 @@ class ScratchPad extends Component{
                             variant="filled"
                         />
                  {/* <h4 className= "note-buttons" onClick={()=> this.saveUpdatedScrachPad(scratch.id)}>Save</h4> */}
-                 <h4 className="note-buttons-delete" onClick={() => this.props.deleteScratchPad(scratch.id)}>Delete</h4>   
+                 {/* <h4 className="note-buttons-delete" onClick={() => this.props.deleteScratchPad(scratch.id)}>Delete</h4>    */}
      
              </div>
         //  </div> 
