@@ -67,7 +67,7 @@ class ScratchPad extends Component{
         let month = monthsOfTheYear[monthNumber];
         let date = daterrr.getDate()
         let formattedDate = `${day}, ${month} ${date}`
-        console.log('so i know what is', this.props)
+        // console.log('so i know what is', this.props)
         return(
         //  <div id="">  
                 

@@ -84,7 +84,7 @@ app.put('/api/scratchpad/:id', notesController.updateScratchPad)
 app.put('/api/backgrounds/', backgroundController.updateBackground)
 
 app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, '../build/index.html'));
+  res.sendFile(path.join(__dirname, '../build/index.html'));
 });
 
 cron.schedule('1 0 0 * * *', () => {
